@@ -1,8 +1,6 @@
-import React from 'react';
-import {Box, Stack, Heading, Flex, Image, useDisclosure, Hide, Link} from '@chakra-ui/react';
 import {HamburgerIcon} from '@chakra-ui/icons';
-import NavLink from '../components/NavLink';
-import JoinDiscordButton from '../components/JoinDiscordButton';
+import {Box, Heading, Flex, Image, useDisclosure, Link} from '@chakra-ui/react';
+import React from 'react';
 
 interface Props {}
 

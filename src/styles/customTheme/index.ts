@@ -1,5 +1,5 @@
-import { extendTheme } from '@chakra-ui/react';
-import { Styles } from '@chakra-ui/theme-tools';
+import {extendTheme} from '@chakra-ui/react';
+import {Styles} from '@chakra-ui/theme-tools';
 
 import colors from './colors';
 import fonts from './fonts';
@@ -13,17 +13,17 @@ const globalStyles: Styles = {
       bg: '#0C0C0C',
       button: {
         // button breaking with globals variants(see: https://webkit.org/blog/28/buttons/)
-        fontVariant: 'none !important',
-      },
-    },
-  }),
+        fontVariant: 'none !important'
+      }
+    }
+  })
 };
 const customTheme = extendTheme({
   initialColorMode: 'dark',
   useSystemColorMode: false,
   fonts,
   colors,
-  styles: globalStyles,
+  styles: globalStyles
 });
 
 export default customTheme;
