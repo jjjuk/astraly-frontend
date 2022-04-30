@@ -1,0 +1,157 @@
+// @import '../../styles/globals.scss';
+
+.container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+
+  &.visible {
+    display: flex;
+  }
+}
+
+.modal {
+  width: calc(100% - 80px);
+  max-width: 548px;
+  max-height: 90%;
+  overflow-y: auto;
+  border-radius: 2px;
+  box-sizing: border-box;
+  box-sizing: border-box;
+  border: 2px solid #000;
+  position: relative;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-color: #fff;
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 24px;
+  padding-right: 24px;
+  color: #000;
+  font-family: Inter;
+}
+
+.textContainer {
+  color: #000;
+  grid-gap: 16px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 35px;
+  text-align: center;
+}
+
+.desc {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 28px;
+  text-align: center;
+}
+
+.body {
+  padding: 40px 24px;
+  position: relative;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-text);
+}
+
+.closeButton {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin-left: auto;
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.footer {
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.submitButton {
+  min-width: 168px;
+  height: 48px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  user-select: none;
+
+  &:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.submitButton {
+  background: rgb(109, 186, 252);
+  background: linear-gradient(93deg, rgba(109, 186, 252, 1) 0%, rgba(255, 107, 199, 1) 100%);
+  color: #fff;
+}
+
+.disabled {
+  cursor: not-allowed;
+  box-shadow: none !important;
+  opacity: 0.7;
+}
+
+@media only screen and (max-width: 600px) {
+  .modal {
+    max-height: 90vh;
+    overflow: scroll;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .footer {
+    flex-direction: column;
+  }
+
+  .listButton {
+    width: calc(100% - 48px);
+  }
+
+  .listButton {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}

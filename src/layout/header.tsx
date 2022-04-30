@@ -1,12 +1,19 @@
 import {HamburgerIcon} from '@chakra-ui/icons';
-import {Box, Heading, Flex, Image, useDisclosure, Link} from '@chakra-ui/react';
+import {Box, Heading, Flex, Image, useDisclosure, Link, Stack, Hide} from '@chakra-ui/react';
+import {useStarknetReact} from '@web3-starknet-react/core';
+import cx from 'classnames';
 import React from 'react';
+
+import styles from '../styles/Header.module.scss';
+import ConnectWallet from 'components/ConnectWallet';
+import {truncateAddress} from 'utils';
 
 interface Props {}
 
 const Header = (props: Props) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
+  const {account, deactivate} = useStarknetReact();
 
   return (
     <Flex
@@ -30,6 +37,43 @@ const Header = (props: Props) => {
 
       <Box display={{base: 'block', md: 'none'}} onClick={handleToggle}>
         <HamburgerIcon />
+      </Box>
+
+      <Stack
+        direction={{base: 'column', md: 'row'}}
+        display={{base: isOpen ? 'block' : 'none'}}
+        width={{base: 'full', md: 'auto'}}
+        alignItems="center"
+        flexGrow={1}
+        mt={{base: 4, md: 0}}
+      >
+        <ConnectWallet />
+      </Stack>
+
+      <Box display={{base: isOpen ? 'block' : 'none', md: 'block'}} mt={{base: 4, md: 0}}>
+        <Stack
+          direction={{base: 'column', md: 'row'}}
+          display={{base: isOpen ? 'block' : 'none', md: 'flex'}}
+          width={{base: 'full', md: 'auto'}}
+          alignItems="center"
+          flexGrow={1}
+          mt={{base: 0}}
+          spacing={{base: '0', md: '40px'}}
+        >
+          <Hide below="md">
+            {account ? (
+              <div className={cx(styles.account, styles.menuUser)} onClick={deactivate}>
+                <div className={styles.profile}>
+                  <div className={styles.address} data-title={truncateAddress(account.address)}>
+                    {truncateAddress(account.address)}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <ConnectWallet px="18px" py="12px" fontSize="14px" w="149px" h="42px" />
+            )}
+          </Hide>
+        </Stack>
       </Box>
     </Flex>
   );

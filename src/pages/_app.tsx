@@ -1,18 +1,21 @@
-import '../styles/globals.css';
-import type {AppProps} from 'next/app';
+import '../styles/globals.scss';
 import {ChakraProvider} from '@chakra-ui/react';
+import splitbee from '@splitbee/web';
+import {StarknetReactProvider, createStarknetReactRoot} from '@web3-starknet-react/core';
 import {NextSeo} from 'next-seo';
+import type {AppProps} from 'next/app';
+import dynamic from 'next/dynamic';
+import {useEffect} from 'react';
+import {Provider as ReduxProvider} from 'react-redux';
+import {Provider} from 'starknet';
+
 import defaultSEOConfig from '../../next-seo.config';
 import customTheme from '../styles/customTheme';
 
-import {StarknetReactProvider, createStarknetReactRoot} from '@web3-starknet-react/core';
-
 // import starknet.js
-import {Provider} from 'starknet';
+
 import Web3ReactManager from 'components/Web3ReactManager';
-import dynamic from 'next/dynamic';
-import splitbee from '@splitbee/web';
-import {useEffect} from 'react';
+import {useStore} from 'stores/reduxStore';
 
 function getLibrary(provider: any, connector: any) {
   return new Provider(provider);
@@ -30,17 +33,21 @@ function MyApp({Component, pageProps}: AppProps) {
     });
   }, []);
 
+  const store = useStore(pageProps.initialReduxState);
+
   return (
-    <ChakraProvider theme={customTheme}>
-      <StarknetReactProvider getLibrary={getLibrary}>
-        <Web3ReactProviderDefault getLibrary={getLibrary}>
-          <Web3ReactManager>
-            <NextSeo {...defaultSEOConfig} />
-            <Component {...pageProps} />
-          </Web3ReactManager>
-        </Web3ReactProviderDefault>
-      </StarknetReactProvider>
-    </ChakraProvider>
+    <ReduxProvider store={store}>
+      <ChakraProvider theme={customTheme}>
+        <StarknetReactProvider getLibrary={getLibrary}>
+          <Web3ReactProviderDefault getLibrary={getLibrary}>
+            <Web3ReactManager>
+              <NextSeo {...defaultSEOConfig} />
+              <Component {...pageProps} />
+            </Web3ReactManager>
+          </Web3ReactProviderDefault>
+        </StarknetReactProvider>
+      </ChakraProvider>
+    </ReduxProvider>
   );
 }
 
