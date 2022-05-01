@@ -10,17 +10,43 @@ import {
   Text
 } from '@chakra-ui/react';
 import {useStarknetReact} from '@web3-starknet-react/core';
+import {ethers} from 'ethers';
 import type {NextPage} from 'next';
 import {forwardRef, useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
+import {uint256} from 'starknet';
 
 import Layout from '../layout';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import {CalendarIcon} from '@chakra-ui/icons';
 
+import {useTokenContract} from 'contracts';
+
 const StakePage: NextPage = () => {
+  const {account} = useStarknetReact();
   const [startDate, setStartDate] = useState(new Date());
+  const [zkpBalance, setZkpBalance] = useState('0');
+  const {getZKPBalance} = useTokenContract();
+
+  const fetchBalances = async () => {
+    try {
+      const _balance = await getZKPBalance(
+        '0x079bfde418197be570d4499589d2c957e83646d5acf0a79629d9d65ff465f709'
+      );
+      const _formattedBalance = ethers.utils.formatUnits(
+        uint256.uint256ToBN(_balance.balance).toString(),
+        'ether'
+      );
+      setZkpBalance(_formattedBalance);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    if (account?.address) fetchBalances();
+  }, [account]);
 
   const CustomDatePicker = forwardRef(({value, onClick}, ref) => (
     <Button
@@ -67,7 +93,7 @@ const StakePage: NextPage = () => {
                 />
               </NumberInput>
               <Text fontSize="xs" textAlign="right">
-                Available : 2.1342
+                Available : {zkpBalance}
               </Text>
             </Flex>
           </Flex>
