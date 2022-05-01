@@ -9,8 +9,8 @@ const extendedColors: DeepPartial<Record<string, Theme['colors']['blackAlpha']>>
     400: '',
     500: '',
     600: '',
-    700: '#6902BA',
-    800: '',
+    700: '#370063',
+    800: '#9D69DE',
     900: '#8f00ff'
   },
   warning: {
@@ -22,6 +22,10 @@ const extendedColors: DeepPartial<Record<string, Theme['colors']['blackAlpha']>>
   error: {
     100: '#ff826e',
     900: '#FF4343'
+  },
+  primary: {
+    100: '#8F00FF',
+    700: '#370063'
   }
 };
 
