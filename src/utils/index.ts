@@ -1,4 +1,5 @@
-import {encode} from 'starknet';
+import {encode, number, uint256} from 'starknet';
+import {utils} from 'ethers';
 
 export const isValidAddress = (address: string): boolean => /^0x[0-9a-f]{1,64}$/.test(address);
 
@@ -13,3 +14,16 @@ export const truncateAddress = (fullAddress: string) => {
   const end = address.slice(-4);
   return `${hex} ${start} ... ${end}`;
 };
+
+export function getUint256CalldataFromBN(bn: number.BigNumberish) {
+  return {type: 'struct' as const, ...uint256.bnToUint256(bn)};
+}
+
+export function parseInputAmountToUint256(input: string, decimals: number = 18) {
+  return getUint256CalldataFromBN(utils.parseUnits(input, decimals).toString());
+}
+
+export function parseInputAmountToUint256ExecuteCall(input: string, decimals: number = 18) {
+  const _parsedAmount = uint256.bnToUint256(utils.parseUnits(input, decimals).toString());
+  return [_parsedAmount.low, _parsedAmount.high];
+}

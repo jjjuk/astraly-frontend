@@ -7,6 +7,7 @@ import {
   Input,
   NumberInput,
   NumberInputField,
+  Spinner,
   Text
 } from '@chakra-ui/react';
 import {useStarknetReact} from '@web3-starknet-react/core';
@@ -14,7 +15,7 @@ import {ethers} from 'ethers';
 import type {NextPage} from 'next';
 import {forwardRef, useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
-import {uint256} from 'starknet';
+import {number, uint256} from 'starknet';
 
 import Layout from '../layout';
 
@@ -22,18 +23,22 @@ import 'react-datepicker/dist/react-datepicker.css';
 import {CalendarIcon} from '@chakra-ui/icons';
 
 import {useTokenContract} from 'contracts';
+import {useStakingContract} from 'contracts/staking';
 
 const StakePage: NextPage = () => {
   const {account} = useStarknetReact();
   const [startDate, setStartDate] = useState(new Date());
   const [zkpBalance, setZkpBalance] = useState('0');
+  const [previewXZKP, setPreviewXZKP] = useState('0');
+  const [updatingPreview, setUpdatingPreview] = useState(false);
+  const [locking, setLocking] = useState(false);
+  const [zkpAmount, setZKPAmount] = useState('10.0');
   const {getZKPBalance} = useTokenContract();
+  const {previewDeposit, depositForTime} = useStakingContract();
 
   const fetchBalances = async () => {
     try {
-      const _balance = await getZKPBalance(
-        '0x079bfde418197be570d4499589d2c957e83646d5acf0a79629d9d65ff465f709'
-      );
+      const _balance = await getZKPBalance(account?.address);
       const _formattedBalance = ethers.utils.formatUnits(
         uint256.uint256ToBN(_balance.balance).toString(),
         'ether'
@@ -44,9 +49,45 @@ const StakePage: NextPage = () => {
     }
   };
 
+  const updatePreview = async () => {
+    try {
+      setUpdatingPreview(true);
+      const _preview = await previewDeposit(zkpAmount);
+      const _formattedShares = ethers.utils.formatUnits(
+        uint256.uint256ToBN(_preview.shares).toString(),
+        'ether'
+      );
+      setPreviewXZKP(_formattedShares);
+      setUpdatingPreview(false);
+    } catch (e) {
+      console.error(e);
+      setUpdatingPreview(false);
+    }
+  };
+
+  const handleLock = async () => {
+    if (!account?.address) return;
+
+    try {
+      setLocking(true);
+      const _daysPassed = (startDate.getTime() - new Date().getTime()) / (3600 * 24 * 1000);
+      console.log(_daysPassed);
+      const tx = await depositForTime(zkpAmount, account, _daysPassed);
+      console.log(tx);
+      setLocking(false);
+    } catch (e) {
+      console.error(e);
+      setLocking(false);
+    }
+  };
+
   useEffect(() => {
     if (account?.address) fetchBalances();
   }, [account]);
+
+  useEffect(() => {
+    updatePreview();
+  }, [zkpAmount]);
 
   const CustomDatePicker = forwardRef(({value, onClick}, ref) => (
     <Button
@@ -84,7 +125,13 @@ const StakePage: NextPage = () => {
               ZKP
             </Flex>
             <Flex flex="auto" flexDir="column" gap="5px">
-              <NumberInput defaultValue={10} max={30} clampValueOnBlur={false} width="100%">
+              <NumberInput
+                max={zkpBalance}
+                clampValueOnBlur={false}
+                width="100%"
+                onChange={(valueString: string) => setZKPAmount(valueString)}
+                value={zkpAmount}
+              >
                 <NumberInputField
                   bg="purple.700"
                   height="50px"
@@ -92,7 +139,7 @@ const StakePage: NextPage = () => {
                   borderRadius="0"
                 />
               </NumberInput>
-              <Text fontSize="xs" textAlign="right">
+              <Text fontSize="xs" textAlign="right" onClick={() => setZKPAmount(zkpBalance)}>
                 Available : {zkpBalance}
               </Text>
             </Flex>
@@ -150,6 +197,11 @@ const StakePage: NextPage = () => {
                   fontSize="xs"
                   borderRadius="none"
                   height="30px"
+                  onClick={() => {
+                    const d = new Date();
+                    d.setMonth(d.getMonth() + 3);
+                    setStartDate(d);
+                  }}
                 >
                   3 Months
                 </Button>
@@ -160,6 +212,11 @@ const StakePage: NextPage = () => {
                   fontSize="xs"
                   borderRadius="none"
                   height="30px"
+                  onClick={() => {
+                    const d = new Date();
+                    d.setMonth(d.getMonth() + 6);
+                    setStartDate(d);
+                  }}
                 >
                   6 Months
                 </Button>
@@ -170,6 +227,11 @@ const StakePage: NextPage = () => {
                   fontSize="xs"
                   borderRadius="none"
                   height="30px"
+                  onClick={() => {
+                    const d = new Date();
+                    d.setMonth(d.getMonth() + 12);
+                    setStartDate(d);
+                  }}
                 >
                   1 Year
                 </Button>
@@ -180,6 +242,11 @@ const StakePage: NextPage = () => {
                   fontSize="xs"
                   borderRadius="none"
                   height="30px"
+                  onClick={() => {
+                    const d = new Date();
+                    d.setMonth(d.getMonth() + 24);
+                    setStartDate(d);
+                  }}
                 >
                   2 Years
                 </Button>
@@ -195,8 +262,9 @@ const StakePage: NextPage = () => {
             borderColor="purple.700"
             fontWeight="bold"
             mt={6}
+            onClick={handleLock}
           >
-            Lock
+            {locking ? <Spinner /> : 'Lock'}
           </Button>
         </Flex>
         <Flex bg="#8f00ff" width="60%" p={7} flexDir="column" gap="10px" margin="50px 0">
@@ -209,7 +277,9 @@ const StakePage: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              <Heading size="md">125</Heading>
+              <Heading size="md">
+                {updatingPreview ? '...' : Math.round(Math.pow(Number(previewXZKP), 0.6))}
+              </Heading>
               <Text fontSize="sm" textAlign="center">
                 Estimated number of lottery tickets earned per IDO
               </Text>
