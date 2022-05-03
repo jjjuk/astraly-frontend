@@ -48,6 +48,7 @@ const StakePage: NextPage = () => {
     () => new Date(stakeInfo?.unlock_time?.toNumber() * 1000).getTime() - new Date().getTime(),
     [stakeInfo]
   );
+  const lockTime = useMemo(() => startDate.getTime() - new Date().getTime(), [startDate]);
 
   const fetchBalances = async () => {
     try {
@@ -323,6 +324,9 @@ const StakePage: NextPage = () => {
                   fontWeight="bold"
                   onClick={handleLock}
                   width="full"
+                  disabled={
+                    lockTime < unlockRemainingTime || Number(zkpAmount) > Number(zkpBalance)
+                  }
                 >
                   {locking ? <Spinner /> : 'Lock'}
                 </Button>
