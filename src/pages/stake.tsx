@@ -8,14 +8,15 @@ import {
   NumberInput,
   NumberInputField,
   Spinner,
-  Text
+  Text,
+  VStack
 } from '@chakra-ui/react';
 import {useStarknetReact} from '@web3-starknet-react/core';
 import {ethers} from 'ethers';
 import type {NextPage} from 'next';
-import {forwardRef, useEffect, useState} from 'react';
+import {forwardRef, useEffect, useMemo, useState} from 'react';
 import DatePicker from 'react-datepicker';
-import {number, uint256} from 'starknet';
+import {number, Result, uint256} from 'starknet';
 
 import Layout from '../layout';
 
@@ -24,17 +25,26 @@ import {CalendarIcon} from '@chakra-ui/icons';
 
 import {useTokenContract} from 'contracts';
 import {useStakingContract} from 'contracts/staking';
+import ConnectWallet from 'components/ConnectWallet';
 
 const StakePage: NextPage = () => {
   const {account} = useStarknetReact();
   const [startDate, setStartDate] = useState(new Date());
   const [zkpBalance, setZkpBalance] = useState('0');
+  const [stakeInfo, setStakeInfo] = useState<Result>({});
+  const [xzkpBalance, setXZkpBalance] = useState('0');
   const [previewXZKP, setPreviewXZKP] = useState('0');
   const [updatingPreview, setUpdatingPreview] = useState(false);
   const [locking, setLocking] = useState(false);
+  const [withdrawing, setWithdrawing] = useState(false);
   const [zkpAmount, setZKPAmount] = useState('10.0');
-  const {getZKPBalance} = useTokenContract();
-  const {previewDeposit, depositForTime} = useStakingContract();
+  const {getZKPBalance, getXZKPBalance} = useTokenContract();
+  const {previewDeposit, depositForTime, redeem, getUserStakeInfo} = useStakingContract();
+
+  const unlockRemainingTime = useMemo(
+    () => new Date(stakeInfo?.unlock_time?.toNumber() * 1000).getTime() - new Date().getTime(),
+    [stakeInfo]
+  );
 
   const fetchBalances = async () => {
     try {
@@ -44,6 +54,22 @@ const StakePage: NextPage = () => {
         'ether'
       );
       setZkpBalance(_formattedBalance);
+
+      const _xbalance = await getXZKPBalance(account?.address);
+      const _xformattedBalance = ethers.utils.formatUnits(
+        uint256.uint256ToBN(_xbalance.balance).toString(),
+        'ether'
+      );
+      setXZkpBalance(_xformattedBalance);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  const fetchStakeInfo = async () => {
+    try {
+      const _stakeInfo = await getUserStakeInfo(account?.address);
+      console.log(_stakeInfo);
+      setStakeInfo(_stakeInfo);
     } catch (e) {
       console.error(e);
     }
@@ -71,9 +97,7 @@ const StakePage: NextPage = () => {
     try {
       setLocking(true);
       const _daysPassed = (startDate.getTime() - new Date().getTime()) / (3600 * 24 * 1000);
-      console.log(_daysPassed);
       const tx = await depositForTime(zkpAmount, account, _daysPassed);
-      console.log(tx);
       setLocking(false);
     } catch (e) {
       console.error(e);
@@ -81,8 +105,25 @@ const StakePage: NextPage = () => {
     }
   };
 
+  const handleWithdraw = async () => {
+    if (!account?.address) return;
+
+    try {
+      setWithdrawing(true);
+      const tx = await redeem(xzkpBalance, account);
+      console.log(tx);
+      setWithdrawing(false);
+    } catch (e) {
+      console.error(e);
+      setWithdrawing(false);
+    }
+  };
+
   useEffect(() => {
-    if (account?.address) fetchBalances();
+    if (account?.address) {
+      fetchBalances();
+      fetchStakeInfo();
+    }
   }, [account]);
 
   useEffect(() => {
@@ -102,13 +143,8 @@ const StakePage: NextPage = () => {
     </Button>
   ));
 
-  return (
-    <Layout>
-      <Heading>LOCK ZKP OR ZKP-LP</Heading>
-      <Text>
-        Owning ZKP tokens or ZKP-LP is requirement in order to participate in IDOs on ZkPad. You can
-        lock your tokens and receive lottery tickets to invest in the listed projects.
-      </Text>
+  const LockScreen = () => (
+    <>
       <Flex gap="20px">
         <Flex bg="#8f00ff" width="40%" p={7} flexDir="column" gap="10px" margin="50px 0">
           <Heading size="md">LOCK YOUR ZKP</Heading>
@@ -253,19 +289,22 @@ const StakePage: NextPage = () => {
               </Flex>
             </Flex>
           </Flex>
-
-          <Button
-            borderRadius="none"
-            bg="none"
-            color="white"
-            border="2px solid"
-            borderColor="purple.700"
-            fontWeight="bold"
-            mt={6}
-            onClick={handleLock}
-          >
-            {locking ? <Spinner /> : 'Lock'}
-          </Button>
+          {account ? (
+            <Button
+              borderRadius="none"
+              bg="none"
+              color="white"
+              border="2px solid"
+              borderColor="purple.700"
+              fontWeight="bold"
+              mt={6}
+              onClick={handleLock}
+            >
+              {locking ? <Spinner /> : 'Lock'}
+            </Button>
+          ) : (
+            <ConnectWallet />
+          )}
         </Flex>
         <Flex bg="#8f00ff" width="60%" p={7} flexDir="column" gap="10px" margin="50px 0">
           <Heading size="md">REWARDS</Heading>
@@ -311,6 +350,105 @@ const StakePage: NextPage = () => {
           </HStack>
         </Flex>
       </Flex>
+    </>
+  );
+
+  const StakeScreen = () => (
+    <>
+      <Flex gap="20px">
+        <Flex bg="#8f00ff" width="40%" p={7} flexDir="column" gap="10px" margin="50px 0">
+          <Heading size="md">YOUR STAKE</Heading>
+          <Heading size="lg">{xzkpBalance} xZKP</Heading>
+          {unlockRemainingTime > 0 && (
+            <Text fontStyle="italic">
+              Locked until{' '}
+              {new Date(stakeInfo?.unlock_time?.toNumber() * 1000).toLocaleDateString()} (
+              {Math.round(
+                (new Date(stakeInfo?.unlock_time?.toNumber() * 1000).getTime() -
+                  new Date().getTime()) /
+                  (1000 * 3600 * 24)
+              )}{' '}
+              days)
+            </Text>
+          )}
+          <VStack spacing="10px">
+            <Flex justifyContent="space-between" alignItems="center" width="100%">
+              <Heading size="sm">Staked ZKP</Heading>
+              <Text>0</Text>
+            </Flex>
+            <Flex justifyContent="space-between" alignItems="center" width="100%">
+              <Heading size="sm">Staked ZKP-LP</Heading>
+              <Text>0</Text>
+            </Flex>
+          </VStack>
+
+          <Button
+            borderRadius="none"
+            bg="none"
+            color="white"
+            border="2px solid"
+            borderColor="purple.700"
+            fontWeight="bold"
+            mt={6}
+            onClick={handleWithdraw}
+            disabled={unlockRemainingTime > 0}
+          >
+            {withdrawing ? <Spinner /> : 'Withdraw'}
+          </Button>
+        </Flex>
+        <Flex bg="#8f00ff" width="60%" p={7} flexDir="column" gap="10px" margin="50px 0">
+          <Heading size="md">REWARDS</Heading>
+          <HStack spacing="30px" margin="50px 0">
+            <Flex
+              p="50px"
+              bg="purple.700"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Heading size="md">{Math.round(Math.pow(Number(xzkpBalance), 0.6))}</Heading>
+              <Text fontSize="sm" textAlign="center">
+                Estimated number of lottery tickets earned per IDO
+              </Text>
+            </Flex>
+            <Flex
+              p="50px"
+              bg="purple.700"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Heading size="md">84%</Heading>
+              <Text fontSize="sm" textAlign="center">
+                Estimated APY
+              </Text>
+            </Flex>
+            <Flex
+              p="50px"
+              bg="purple.700"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Heading size="md">84%</Heading>
+              <Text fontSize="sm" textAlign="center">
+                Estimated APY
+              </Text>
+            </Flex>
+          </HStack>
+        </Flex>
+      </Flex>
+    </>
+  );
+
+  return (
+    <Layout>
+      <Heading>LOCK ZKP OR ZKP-LP</Heading>
+      <Text>
+        Owning ZKP tokens or ZKP-LP is requirement in order to participate in IDOs on ZkPad. You can
+        lock your tokens and receive lottery tickets to invest in the listed projects.
+      </Text>
+      {Number(xzkpBalance) > 0 ? <StakeScreen /> : <LockScreen />}
     </Layout>
   );
 };

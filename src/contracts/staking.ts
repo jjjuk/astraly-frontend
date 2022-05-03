@@ -37,10 +37,34 @@ export const useStakingContract = () => {
     return await account.execute([_approveTx, _depositTx]);
   };
 
+  const redeem = async (shares: string, account: AccountInterface) => {
+    const contract = await getXZKPContract();
+
+    const _approveTx: Call = {
+      contractAddress: contract.address,
+      entrypoint: 'approve',
+      calldata: [contract.address, ...parseInputAmountToUint256ExecuteCall(shares)]
+    };
+
+    const _redeemTx: Call = {
+      contractAddress: contract.address,
+      entrypoint: 'redeem',
+      calldata: [...parseInputAmountToUint256ExecuteCall(shares), account.address, account.address]
+    };
+
+    return await account.execute([_approveTx, _redeemTx]);
+  };
+
   const previewDeposit = async (amount: string) => {
     const contract = await getXZKPContract();
 
     return await contract.call('previewDeposit', [parseInputAmountToUint256(amount)]);
+  };
+
+  const getUserStakeInfo = async address => {
+    const contract = await getXZKPContract();
+
+    return await contract.call('getUserStakeInfo', [address]);
   };
 
   const previewDepositLP = async (lpToken: string, amount: string, lockTime: number) => {
@@ -53,5 +77,12 @@ export const useStakingContract = () => {
     ]);
   };
 
-  return {getXZKPContract, depositForTime, previewDeposit, previewDepositLP};
+  return {
+    getXZKPContract,
+    depositForTime,
+    previewDeposit,
+    previewDepositLP,
+    redeem,
+    getUserStakeInfo
+  };
 };
