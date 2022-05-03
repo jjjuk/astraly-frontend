@@ -1,4 +1,4 @@
-export const NetworkContextName = 'NETWORK';
+export const NetworkContextName = 'NETWORK_';
 
 export const CareerLink = 'https://f8nowiq5rch.typeform.com/to/B8leyECh';
 export const WhitepaperLink = 'https://wp.zkpad.io/';

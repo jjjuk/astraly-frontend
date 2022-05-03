@@ -55,10 +55,13 @@ export const useStakingContract = () => {
     return await account.execute([_approveTx, _redeemTx]);
   };
 
-  const previewDeposit = async (amount: string) => {
+  const previewDeposit = async (amount: string, lockTime: number.BigNumberish) => {
     const contract = await getXZKPContract();
 
-    return await contract.call('previewDeposit', [parseInputAmountToUint256(amount)]);
+    return await contract.call('previewDepositForTime', [
+      parseInputAmountToUint256(amount),
+      toFelt(lockTime)
+    ]);
   };
 
   const getUserStakeInfo = async (address: string | undefined) => {

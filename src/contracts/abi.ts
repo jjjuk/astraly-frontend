@@ -593,23 +593,6 @@ export const XZKP_TOKEN_ABI = [
   {
     inputs: [
       {
-        name: 'assets',
-        type: 'Uint256'
-      }
-    ],
-    name: 'previewDeposit',
-    outputs: [
-      {
-        name: 'shares',
-        type: 'Uint256'
-      }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
         name: 'receiver',
         type: 'felt'
       }
@@ -618,23 +601,6 @@ export const XZKP_TOKEN_ABI = [
     outputs: [
       {
         name: 'maxShares',
-        type: 'Uint256'
-      }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        name: 'shares',
-        type: 'Uint256'
-      }
-    ],
-    name: 'previewMint',
-    outputs: [
-      {
-        name: 'assets',
         type: 'Uint256'
       }
     ],
@@ -814,6 +780,44 @@ export const XZKP_TOKEN_ABI = [
   {
     inputs: [
       {
+        name: 'assets',
+        type: 'Uint256'
+      }
+    ],
+    name: 'previewDeposit',
+    outputs: [
+      {
+        name: 'shares',
+        type: 'Uint256'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        name: 'assets',
+        type: 'Uint256'
+      },
+      {
+        name: 'lock_time',
+        type: 'felt'
+      }
+    ],
+    name: 'previewDepositForTime',
+    outputs: [
+      {
+        name: 'shares',
+        type: 'Uint256'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
         name: 'lp_token',
         type: 'felt'
       },
@@ -830,6 +834,44 @@ export const XZKP_TOKEN_ABI = [
     outputs: [
       {
         name: 'shares',
+        type: 'Uint256'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        name: 'shares',
+        type: 'Uint256'
+      }
+    ],
+    name: 'previewMint',
+    outputs: [
+      {
+        name: 'assets',
+        type: 'Uint256'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        name: 'shares',
+        type: 'Uint256'
+      },
+      {
+        name: 'lock_time',
+        type: 'felt'
+      }
+    ],
+    name: 'previewMintForTime',
+    outputs: [
+      {
+        name: 'assets',
         type: 'Uint256'
       }
     ],
@@ -879,18 +921,6 @@ export const XZKP_TOKEN_ABI = [
     outputs: [
       {
         name: 'tokens_mask',
-        type: 'felt'
-      }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'getDefaultLockTime',
-    outputs: [
-      {
-        name: 'lock_time',
         type: 'felt'
       }
     ],
@@ -958,6 +988,18 @@ export const XZKP_TOKEN_ABI = [
       {
         name: 'amount',
         type: 'Uint256'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getDefaultLockTime',
+    outputs: [
+      {
+        name: 'lock_time',
+        type: 'felt'
       }
     ],
     stateMutability: 'view',
@@ -1070,7 +1112,7 @@ export const XZKP_TOKEN_ABI = [
         type: 'felt'
       },
       {
-        name: 'lock_time',
+        name: 'lock_time_days',
         type: 'felt'
       }
     ],
@@ -1098,7 +1140,7 @@ export const XZKP_TOKEN_ABI = [
         type: 'felt'
       },
       {
-        name: 'lock_time',
+        name: 'lock_time_days',
         type: 'felt'
       }
     ],
@@ -1313,7 +1355,7 @@ export const XZKP_TOKEN_ABI = [
   {
     inputs: [
       {
-        name: 'new_lock_time',
+        name: 'new_lock_time_days',
         type: 'felt'
       }
     ],

@@ -84,7 +84,8 @@ const StakePage: NextPage = () => {
   const updatePreview = async () => {
     try {
       setUpdatingPreview(true);
-      const _preview = await previewDeposit(zkpAmount);
+      const _daysPassed = lockTime / (3600 * 24 * 1000);
+      const _preview = await previewDeposit(zkpAmount, _daysPassed);
       const _formattedShares = ethers.utils.formatUnits(
         uint256.uint256ToBN(_preview.shares).toString(),
         'ether'
@@ -102,7 +103,7 @@ const StakePage: NextPage = () => {
 
     try {
       setLocking(true);
-      const _daysPassed = (startDate.getTime() - new Date().getTime()) / (3600 * 24 * 1000);
+      const _daysPassed = lockTime / (3600 * 24 * 1000);
       const tx = await depositForTime(zkpAmount, account, _daysPassed);
       setLocking(false);
     } catch (e) {
@@ -134,7 +135,7 @@ const StakePage: NextPage = () => {
 
   useEffect(() => {
     updatePreview();
-  }, [zkpAmount]);
+  }, [zkpAmount, startDate]);
 
   const CustomDatePicker = forwardRef<
     HTMLButtonElement,
