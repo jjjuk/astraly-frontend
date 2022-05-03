@@ -3,7 +3,7 @@ import {ChakraProvider} from '@chakra-ui/react';
 import splitbee from '@splitbee/web';
 import {StarknetReactProvider, createStarknetReactRoot} from '@web3-starknet-react/core';
 import {NextSeo} from 'next-seo';
-import type {AppProps} from 'next/app';
+// import type {AppProps} from 'next/app';
 import dynamic from 'next/dynamic';
 import {useEffect} from 'react';
 import {Provider as ReduxProvider} from 'react-redux';
@@ -17,15 +17,15 @@ import customTheme from '../styles/customTheme';
 import Web3ReactManager from 'components/Web3ReactManager';
 import {useStore} from 'stores/reduxStore';
 
-function getLibrary(provider: any, connector: any) {
+function getLibrary(provider, connector) {
   return new Provider(provider);
 }
 
 const Web3ReactProviderDefault = dynamic(() => import('../components/defaultprovider'), {
-  ssr: false
+  ssr: true
 });
 
-function MyApp({Component, pageProps}: AppProps) {
+function MyApp({Component, pageProps}) {
   useEffect(() => {
     splitbee.init({
       scriptUrl: '/bee.js',

@@ -3,10 +3,12 @@ import React from 'react';
 import ConnectWalletModal from './ConnectWalletModal';
 import {useDispatch, useSelector} from 'react-redux';
 import ModalActions from 'actions/modal.actions';
+import {RootState} from 'stores/reduxStore';
+import {useAppDispatch} from 'hooks/hooks';
 
 const ConnectWallet = (props: any) => {
-  const {connectWalletModalVisible} = useSelector(state => state.Modal);
-  const dispatch = useDispatch();
+  const {connectWalletModalVisible} = useSelector((state: RootState) => state.Modal);
+  const dispatch = useAppDispatch();
 
   return (
     <>

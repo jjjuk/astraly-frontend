@@ -61,7 +61,7 @@ export const useStakingContract = () => {
     return await contract.call('previewDeposit', [parseInputAmountToUint256(amount)]);
   };
 
-  const getUserStakeInfo = async address => {
+  const getUserStakeInfo = async (address: string | undefined) => {
     const contract = await getXZKPContract();
 
     return await contract.call('getUserStakeInfo', [address]);

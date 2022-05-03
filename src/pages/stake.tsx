@@ -30,9 +30,9 @@ import ConnectWallet from 'components/ConnectWallet';
 
 const StakePage: NextPage = () => {
   const {account} = useStarknetReact();
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date>(new Date());
   const [zkpBalance, setZkpBalance] = useState('0');
-  const [stakeInfo, setStakeInfo] = useState<Result>({});
+  const [stakeInfo, setStakeInfo] = useState<Result>({} as Result);
   const [xzkpBalance, setXZkpBalance] = useState('0');
   const [previewXZKP, setPreviewXZKP] = useState('0');
   const [updatingPreview, setUpdatingPreview] = useState(false);
@@ -136,7 +136,10 @@ const StakePage: NextPage = () => {
     updatePreview();
   }, [zkpAmount]);
 
-  const CustomDatePicker = forwardRef(({value, onClick}, ref) => (
+  const CustomDatePicker = forwardRef<
+    HTMLButtonElement,
+    React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+  >(({value, onClick}, ref) => (
     <Button
       leftIcon={<CalendarIcon />}
       bg="purple.700"
@@ -183,7 +186,7 @@ const StakePage: NextPage = () => {
               </Flex>
               <Flex flex="auto" flexDir="column" gap="5px">
                 <NumberInput
-                  max={zkpBalance}
+                  max={Number(zkpBalance)}
                   clampValueOnBlur={false}
                   width="100%"
                   onChange={(valueString: string) => setZKPAmount(valueString)}
@@ -243,7 +246,7 @@ const StakePage: NextPage = () => {
               <Flex flex="auto" flexDir="column" gap="5px">
                 <DatePicker
                   selected={startDate}
-                  onChange={date => setStartDate(date)}
+                  onChange={date => setStartDate(date || new Date())}
                   customInput={<CustomDatePicker />}
                 />
                 <Flex justifyContent="space-between" alignItems="center" mt={1}>

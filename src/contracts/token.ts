@@ -13,13 +13,13 @@ export const useTokenContract = () => {
   const getZKPContract = async () => getContract(Contracts[CHAIN].token, ZKP_TOKEN_ABI);
   const getXZKPContract = async () => getContract(Contracts[CHAIN].staking, XZKP_TOKEN_ABI);
 
-  const getZKPBalance = async address => {
+  const getZKPBalance = async (address: string | undefined) => {
     const contract = await getZKPContract();
 
     return await contract.call('balanceOf', [address]);
   };
 
-  const getXZKPBalance = async address => {
+  const getXZKPBalance = async (address: string | undefined) => {
     const contract = await getXZKPContract();
 
     return await contract.call('balanceOf', [address]);
