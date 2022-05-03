@@ -4,6 +4,7 @@ import {
   Flex,
   Heading,
   HStack,
+  IconButton,
   Input,
   NumberInput,
   NumberInputField,
@@ -14,14 +15,14 @@ import {
 import {useStarknetReact} from '@web3-starknet-react/core';
 import {ethers} from 'ethers';
 import type {NextPage} from 'next';
-import {forwardRef, useEffect, useMemo, useState} from 'react';
+import {forwardRef, useEffect, useMemo, useReducer, useState} from 'react';
 import DatePicker from 'react-datepicker';
 import {number, Result, uint256} from 'starknet';
 
 import Layout from '../layout';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import {CalendarIcon} from '@chakra-ui/icons';
+import {CalendarIcon, InfoIcon, LockIcon} from '@chakra-ui/icons';
 
 import {useTokenContract} from 'contracts';
 import {useStakingContract} from 'contracts/staking';
@@ -40,6 +41,8 @@ const StakePage: NextPage = () => {
   const [zkpAmount, setZKPAmount] = useState('10.0');
   const {getZKPBalance, getXZKPBalance} = useTokenContract();
   const {previewDeposit, depositForTime, redeem, getUserStakeInfo} = useStakingContract();
+
+  const [isLockScreen, toggleScreen] = useReducer(s => !s, true);
 
   const unlockRemainingTime = useMemo(
     () => new Date(stakeInfo?.unlock_time?.toNumber() * 1000).getTime() - new Date().getTime(),
@@ -61,6 +64,8 @@ const StakePage: NextPage = () => {
         'ether'
       );
       setXZkpBalance(_xformattedBalance);
+
+      if (Number(_xformattedBalance) > 0) toggleScreen();
     } catch (e) {
       console.error(e);
     }
@@ -143,304 +148,6 @@ const StakePage: NextPage = () => {
     </Button>
   ));
 
-  const LockScreen = () => (
-    <>
-      <Flex gap="20px">
-        <Flex bg="#8f00ff" width="40%" p={7} flexDir="column" gap="10px" margin="50px 0">
-          <Heading size="md">LOCK YOUR ZKP</Heading>
-          <Flex gap="10px">
-            <Flex
-              bg="purple.700"
-              color="white"
-              width="100px"
-              justifyContent="center"
-              alignItems="center"
-              px={3}
-              height="50px"
-            >
-              ZKP
-            </Flex>
-            <Flex flex="auto" flexDir="column" gap="5px">
-              <NumberInput
-                max={zkpBalance}
-                clampValueOnBlur={false}
-                width="100%"
-                onChange={(valueString: string) => setZKPAmount(valueString)}
-                value={zkpAmount}
-              >
-                <NumberInputField
-                  bg="purple.700"
-                  height="50px"
-                  textAlign="right"
-                  borderRadius="0"
-                />
-              </NumberInput>
-              <Text fontSize="xs" textAlign="right" onClick={() => setZKPAmount(zkpBalance)}>
-                Available : {zkpBalance}
-              </Text>
-            </Flex>
-          </Flex>
-          <Flex gap="10px">
-            <Flex
-              bg="purple.700"
-              color="white"
-              width="100px"
-              justifyContent="center"
-              alignItems="center"
-              px={3}
-              height="50px"
-            >
-              ZKP-LP
-            </Flex>
-            <Flex flex="auto" flexDir="column" gap="5px">
-              <NumberInput defaultValue={10} max={30} clampValueOnBlur={false} width="100%">
-                <NumberInputField
-                  bg="purple.700"
-                  height="50px"
-                  textAlign="right"
-                  borderRadius="0"
-                />
-              </NumberInput>
-              <Text fontSize="xs" textAlign="right">
-                Available : 2.1342
-              </Text>
-            </Flex>
-          </Flex>
-
-          <Flex gap="10px">
-            <Flex
-              bg="none"
-              color="white"
-              width="100px"
-              justifyContent="center"
-              alignItems="center"
-              px={3}
-              height="50px"
-            >
-              Lock Until
-            </Flex>
-            <Flex flex="auto" flexDir="column" gap="5px">
-              <DatePicker
-                selected={startDate}
-                onChange={date => setStartDate(date)}
-                customInput={<CustomDatePicker />}
-              />
-              <Flex justifyContent="space-between" alignItems="center" mt={1}>
-                <Button
-                  bg="purple.700"
-                  color="white"
-                  width="22%"
-                  fontSize="xs"
-                  borderRadius="none"
-                  height="30px"
-                  onClick={() => {
-                    const d = new Date();
-                    d.setMonth(d.getMonth() + 3);
-                    setStartDate(d);
-                  }}
-                >
-                  3 Months
-                </Button>
-                <Button
-                  bg="purple.700"
-                  color="white"
-                  width="22%"
-                  fontSize="xs"
-                  borderRadius="none"
-                  height="30px"
-                  onClick={() => {
-                    const d = new Date();
-                    d.setMonth(d.getMonth() + 6);
-                    setStartDate(d);
-                  }}
-                >
-                  6 Months
-                </Button>
-                <Button
-                  bg="purple.700"
-                  color="white"
-                  width="22%"
-                  fontSize="xs"
-                  borderRadius="none"
-                  height="30px"
-                  onClick={() => {
-                    const d = new Date();
-                    d.setMonth(d.getMonth() + 12);
-                    setStartDate(d);
-                  }}
-                >
-                  1 Year
-                </Button>
-                <Button
-                  bg="purple.700"
-                  color="white"
-                  width="22%"
-                  fontSize="xs"
-                  borderRadius="none"
-                  height="30px"
-                  onClick={() => {
-                    const d = new Date();
-                    d.setMonth(d.getMonth() + 24);
-                    setStartDate(d);
-                  }}
-                >
-                  2 Years
-                </Button>
-              </Flex>
-            </Flex>
-          </Flex>
-          {account ? (
-            <Button
-              borderRadius="none"
-              bg="none"
-              color="white"
-              border="2px solid"
-              borderColor="purple.700"
-              fontWeight="bold"
-              mt={6}
-              onClick={handleLock}
-            >
-              {locking ? <Spinner /> : 'Lock'}
-            </Button>
-          ) : (
-            <ConnectWallet />
-          )}
-        </Flex>
-        <Flex bg="#8f00ff" width="60%" p={7} flexDir="column" gap="10px" margin="50px 0">
-          <Heading size="md">REWARDS</Heading>
-          <HStack spacing="30px" margin="50px 0">
-            <Flex
-              p="50px"
-              bg="purple.700"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Heading size="md">
-                {updatingPreview ? '...' : Math.round(Math.pow(Number(previewXZKP), 0.6))}
-              </Heading>
-              <Text fontSize="sm" textAlign="center">
-                Estimated number of lottery tickets earned per IDO
-              </Text>
-            </Flex>
-            <Flex
-              p="50px"
-              bg="purple.700"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Heading size="md">84%</Heading>
-              <Text fontSize="sm" textAlign="center">
-                Estimated APY
-              </Text>
-            </Flex>
-            <Flex
-              p="50px"
-              bg="purple.700"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Heading size="md">84%</Heading>
-              <Text fontSize="sm" textAlign="center">
-                Estimated APY
-              </Text>
-            </Flex>
-          </HStack>
-        </Flex>
-      </Flex>
-    </>
-  );
-
-  const StakeScreen = () => (
-    <>
-      <Flex gap="20px">
-        <Flex bg="#8f00ff" width="40%" p={7} flexDir="column" gap="10px" margin="50px 0">
-          <Heading size="md">YOUR STAKE</Heading>
-          <Heading size="lg">{xzkpBalance} xZKP</Heading>
-          {unlockRemainingTime > 0 && (
-            <Text fontStyle="italic">
-              Locked until{' '}
-              {new Date(stakeInfo?.unlock_time?.toNumber() * 1000).toLocaleDateString()} (
-              {Math.round(
-                (new Date(stakeInfo?.unlock_time?.toNumber() * 1000).getTime() -
-                  new Date().getTime()) /
-                  (1000 * 3600 * 24)
-              )}{' '}
-              days)
-            </Text>
-          )}
-          <VStack spacing="10px">
-            <Flex justifyContent="space-between" alignItems="center" width="100%">
-              <Heading size="sm">Staked ZKP</Heading>
-              <Text>0</Text>
-            </Flex>
-            <Flex justifyContent="space-between" alignItems="center" width="100%">
-              <Heading size="sm">Staked ZKP-LP</Heading>
-              <Text>0</Text>
-            </Flex>
-          </VStack>
-
-          <Button
-            borderRadius="none"
-            bg="none"
-            color="white"
-            border="2px solid"
-            borderColor="purple.700"
-            fontWeight="bold"
-            mt={6}
-            onClick={handleWithdraw}
-            disabled={unlockRemainingTime > 0}
-          >
-            {withdrawing ? <Spinner /> : 'Withdraw'}
-          </Button>
-        </Flex>
-        <Flex bg="#8f00ff" width="60%" p={7} flexDir="column" gap="10px" margin="50px 0">
-          <Heading size="md">REWARDS</Heading>
-          <HStack spacing="30px" margin="50px 0">
-            <Flex
-              p="50px"
-              bg="purple.700"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Heading size="md">{Math.round(Math.pow(Number(xzkpBalance), 0.6))}</Heading>
-              <Text fontSize="sm" textAlign="center">
-                Estimated number of lottery tickets earned per IDO
-              </Text>
-            </Flex>
-            <Flex
-              p="50px"
-              bg="purple.700"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Heading size="md">84%</Heading>
-              <Text fontSize="sm" textAlign="center">
-                Estimated APY
-              </Text>
-            </Flex>
-            <Flex
-              p="50px"
-              bg="purple.700"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Heading size="md">84%</Heading>
-              <Text fontSize="sm" textAlign="center">
-                Estimated APY
-              </Text>
-            </Flex>
-          </HStack>
-        </Flex>
-      </Flex>
-    </>
-  );
-
   return (
     <Layout>
       <Heading>LOCK ZKP OR ZKP-LP</Heading>
@@ -448,7 +155,320 @@ const StakePage: NextPage = () => {
         Owning ZKP tokens or ZKP-LP is requirement in order to participate in IDOs on ZkPad. You can
         lock your tokens and receive lottery tickets to invest in the listed projects.
       </Text>
-      {Number(xzkpBalance) > 0 ? <StakeScreen /> : <LockScreen />}
+      {isLockScreen ? (
+        <Flex gap="20px">
+          <Flex bg="#8f00ff" width="40%" p={7} flexDir="column" gap="10px" margin="50px 0">
+            <Flex justifyContent="space-between" width="100%">
+              <Heading size="md">LOCK YOUR ZKP</Heading>
+              <IconButton
+                variant="outline"
+                colorScheme="purple"
+                aria-label="Switch to Stake Screen"
+                icon={<InfoIcon />}
+                onClick={toggleScreen}
+              />
+            </Flex>
+            <Flex gap="10px">
+              <Flex
+                bg="purple.700"
+                color="white"
+                width="100px"
+                justifyContent="center"
+                alignItems="center"
+                px={3}
+                height="50px"
+              >
+                ZKP
+              </Flex>
+              <Flex flex="auto" flexDir="column" gap="5px">
+                <NumberInput
+                  max={zkpBalance}
+                  clampValueOnBlur={false}
+                  width="100%"
+                  onChange={(valueString: string) => setZKPAmount(valueString)}
+                  value={zkpAmount}
+                >
+                  <NumberInputField
+                    bg="purple.700"
+                    height="50px"
+                    textAlign="right"
+                    borderRadius="0"
+                  />
+                </NumberInput>
+                <Text fontSize="xs" textAlign="right" onClick={() => setZKPAmount(zkpBalance)}>
+                  Available : {zkpBalance}
+                </Text>
+              </Flex>
+            </Flex>
+            <Flex gap="10px">
+              <Flex
+                bg="purple.700"
+                color="white"
+                width="100px"
+                justifyContent="center"
+                alignItems="center"
+                px={3}
+                height="50px"
+              >
+                ZKP-LP
+              </Flex>
+              <Flex flex="auto" flexDir="column" gap="5px">
+                <NumberInput defaultValue={10} max={30} clampValueOnBlur={false} width="100%">
+                  <NumberInputField
+                    bg="purple.700"
+                    height="50px"
+                    textAlign="right"
+                    borderRadius="0"
+                  />
+                </NumberInput>
+                <Text fontSize="xs" textAlign="right">
+                  Available : 2.1342
+                </Text>
+              </Flex>
+            </Flex>
+
+            <Flex gap="10px">
+              <Flex
+                bg="none"
+                color="white"
+                width="100px"
+                justifyContent="center"
+                alignItems="center"
+                px={3}
+                height="50px"
+              >
+                Lock Until
+              </Flex>
+              <Flex flex="auto" flexDir="column" gap="5px">
+                <DatePicker
+                  selected={startDate}
+                  onChange={date => setStartDate(date)}
+                  customInput={<CustomDatePicker />}
+                />
+                <Flex justifyContent="space-between" alignItems="center" mt={1}>
+                  <Button
+                    bg="purple.700"
+                    color="white"
+                    width="22%"
+                    fontSize="xs"
+                    borderRadius="none"
+                    height="30px"
+                    onClick={() => {
+                      const d = new Date();
+                      d.setMonth(d.getMonth() + 3);
+                      setStartDate(d);
+                    }}
+                  >
+                    3 Months
+                  </Button>
+                  <Button
+                    bg="purple.700"
+                    color="white"
+                    width="22%"
+                    fontSize="xs"
+                    borderRadius="none"
+                    height="30px"
+                    onClick={() => {
+                      const d = new Date();
+                      d.setMonth(d.getMonth() + 6);
+                      setStartDate(d);
+                    }}
+                  >
+                    6 Months
+                  </Button>
+                  <Button
+                    bg="purple.700"
+                    color="white"
+                    width="22%"
+                    fontSize="xs"
+                    borderRadius="none"
+                    height="30px"
+                    onClick={() => {
+                      const d = new Date();
+                      d.setMonth(d.getMonth() + 12);
+                      setStartDate(d);
+                    }}
+                  >
+                    1 Year
+                  </Button>
+                  <Button
+                    bg="purple.700"
+                    color="white"
+                    width="22%"
+                    fontSize="xs"
+                    borderRadius="none"
+                    height="30px"
+                    onClick={() => {
+                      const d = new Date();
+                      d.setMonth(d.getMonth() + 24);
+                      setStartDate(d);
+                    }}
+                  >
+                    2 Years
+                  </Button>
+                </Flex>
+              </Flex>
+            </Flex>
+            {account ? (
+              <Box mt={6} width="full">
+                {Number(xzkpBalance) > 0 && (
+                  <Text fontStyle="italic">+ Current Stake ({xzkpBalance} xZKP)</Text>
+                )}
+                <Button
+                  borderRadius="none"
+                  bg="none"
+                  color="white"
+                  border="2px solid"
+                  borderColor="purple.700"
+                  fontWeight="bold"
+                  onClick={handleLock}
+                  width="full"
+                >
+                  {locking ? <Spinner /> : 'Lock'}
+                </Button>
+              </Box>
+            ) : (
+              <ConnectWallet width="full" />
+            )}
+          </Flex>
+          <Flex bg="#8f00ff" width="60%" p={7} flexDir="column" gap="10px" margin="50px 0">
+            <Heading size="md">REWARDS</Heading>
+            <HStack spacing="30px" margin="50px 0">
+              <Flex
+                p="50px"
+                bg="purple.700"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Heading size="md">
+                  {updatingPreview
+                    ? '...'
+                    : Math.round(Math.pow(Number(previewXZKP) + Number(xzkpBalance), 0.6))}
+                </Heading>
+                <Text fontSize="sm" textAlign="center">
+                  Estimated number of lottery tickets earned per IDO
+                </Text>
+              </Flex>
+              <Flex
+                p="50px"
+                bg="purple.700"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Heading size="md">84%</Heading>
+                <Text fontSize="sm" textAlign="center">
+                  Estimated APY
+                </Text>
+              </Flex>
+              <Flex
+                p="50px"
+                bg="purple.700"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Heading size="md">84%</Heading>
+                <Text fontSize="sm" textAlign="center">
+                  Estimated APY
+                </Text>
+              </Flex>
+            </HStack>
+          </Flex>
+        </Flex>
+      ) : (
+        <Flex gap="20px">
+          <Flex bg="#8f00ff" width="40%" p={7} flexDir="column" gap="10px" margin="50px 0">
+            <Flex justifyContent="space-between" width="100%">
+              <Heading size="md">YOUR STAKE</Heading>
+              <IconButton
+                variant="outline"
+                colorScheme="purple"
+                aria-label="Switch to Lock Screen"
+                icon={<LockIcon />}
+                onClick={toggleScreen}
+              />
+            </Flex>
+            <Heading size="lg">{xzkpBalance} xZKP</Heading>
+            {unlockRemainingTime > 0 && (
+              <Text fontStyle="italic">
+                Locked until{' '}
+                {new Date(stakeInfo?.unlock_time?.toNumber() * 1000).toLocaleDateString()} (
+                {Math.round(unlockRemainingTime / (1000 * 3600 * 24))} days)
+              </Text>
+            )}
+            <VStack spacing="10px">
+              <Flex justifyContent="space-between" alignItems="center" width="100%">
+                <Heading size="sm">Staked ZKP</Heading>
+                <Text>0</Text>
+              </Flex>
+              <Flex justifyContent="space-between" alignItems="center" width="100%">
+                <Heading size="sm">Staked ZKP-LP</Heading>
+                <Text>0</Text>
+              </Flex>
+            </VStack>
+            {account ? (
+              <Button
+                borderRadius="none"
+                bg="none"
+                color="white"
+                border="2px solid"
+                borderColor="purple.700"
+                fontWeight="bold"
+                mt={6}
+                onClick={handleWithdraw}
+                disabled={unlockRemainingTime > 0}
+              >
+                {withdrawing ? <Spinner /> : 'Withdraw'}
+              </Button>
+            ) : (
+              <ConnectWallet width="full" />
+            )}
+          </Flex>
+          <Flex bg="#8f00ff" width="60%" p={7} flexDir="column" gap="10px" margin="50px 0">
+            <Heading size="md">REWARDS</Heading>
+            <HStack spacing="30px" margin="50px 0">
+              <Flex
+                p="50px"
+                bg="purple.700"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Heading size="md">{Math.round(Math.pow(Number(xzkpBalance), 0.6))}</Heading>
+                <Text fontSize="sm" textAlign="center">
+                  Estimated number of lottery tickets earned per IDO
+                </Text>
+              </Flex>
+              <Flex
+                p="50px"
+                bg="purple.700"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Heading size="md">84%</Heading>
+                <Text fontSize="sm" textAlign="center">
+                  Estimated APY
+                </Text>
+              </Flex>
+              <Flex
+                p="50px"
+                bg="purple.700"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Heading size="md">84%</Heading>
+                <Text fontSize="sm" textAlign="center">
+                  Estimated APY
+                </Text>
+              </Flex>
+            </HStack>
+          </Flex>
+        </Flex>
+      )}
     </Layout>
   );
 };
