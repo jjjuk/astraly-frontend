@@ -20,7 +20,8 @@ const ProjectCard = ({project}: Props) => {
   const [roundTimer, setRoundTimer] = useState('...');
 
   const updateRoundTimer = () => {
-    const _remainingTime = project.currentRound.endDate.getTime() - new Date().getTime();
+    const _roundId = project?.currentRoundId;
+    const _remainingTime = project?.rounds[_roundId].endDate.getTime() - new Date().getTime();
     var days = Math.floor(_remainingTime / (1000 * 60 * 60 * 24));
     var hours = Math.floor((_remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((_remainingTime % (1000 * 60 * 60)) / (1000 * 60));
@@ -69,7 +70,7 @@ const ProjectCard = ({project}: Props) => {
           <Flex justifyContent="space-between">
             <Text color="gray.100">Total raise</Text>
             <Text color="purple.600">
-              ${project?.totalRaise.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              ${project?.totalRaise?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
             </Text>
           </Flex>
           <Flex justifyContent="space-between">
