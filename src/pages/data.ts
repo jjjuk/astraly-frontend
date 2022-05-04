@@ -5,7 +5,7 @@ export const rounds: Round[] = [
     title: 'Ticket Claim',
     description: 'You can claim your ticket.',
     startDate: new Date('05/04/2022'),
-    endDate: new Date('20/05/2022')
+    endDate: new Date('05/20/2022')
   },
   {
     title: 'Allocation',
