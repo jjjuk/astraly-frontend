@@ -167,7 +167,7 @@ const StakePage: NextPage = () => {
               <Heading size="md">LOCK YOUR ZKP</Heading>
               <IconButton
                 variant="outline"
-                colorScheme="purple"
+                colorScheme="white"
                 aria-label="Switch to Stake Screen"
                 icon={<InfoIcon />}
                 onClick={toggleScreen}
@@ -392,7 +392,7 @@ const StakePage: NextPage = () => {
               <Heading size="md">YOUR STAKE</Heading>
               <IconButton
                 variant="outline"
-                colorScheme="purple"
+                colorScheme="white"
                 aria-label="Switch to Lock Screen"
                 icon={<LockIcon />}
                 onClick={toggleScreen}

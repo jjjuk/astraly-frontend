@@ -1,5 +1,15 @@
-import {HamburgerIcon} from '@chakra-ui/icons';
-import {Box, Heading, Flex, Image, useDisclosure, Link, Stack, Hide} from '@chakra-ui/react';
+import {HamburgerIcon, LockIcon} from '@chakra-ui/icons';
+import {
+  Box,
+  Heading,
+  Flex,
+  Image,
+  useDisclosure,
+  Link as ChakraLink,
+  Stack,
+  Hide,
+  Text
+} from '@chakra-ui/react';
 import {useStarknetReact} from '@web3-starknet-react/core';
 import cx from 'classnames';
 import React from 'react';
@@ -7,6 +17,7 @@ import React from 'react';
 import styles from '../styles/Header.module.scss';
 import ConnectWallet from 'components/ConnectWallet';
 import {truncateAddress} from 'utils';
+import Link from 'next/link';
 
 interface Props {}
 
@@ -26,7 +37,7 @@ const Header = (props: Props) => {
       color="white"
       {...props}
     >
-      <Link href="/" _hover={{textDecoration: 'none'}}>
+      <Link href="/">
         <Flex align="center" mr={5}>
           <Image src="/images/logo.png" alt="zkPad" mr="4" h="57px" />
           <Heading fontSize="24px" mt="5px">
@@ -47,6 +58,10 @@ const Header = (props: Props) => {
         flexGrow={1}
         mt={{base: 4, md: 0}}
       >
+        <Flex fontWeight="bold" gap="5px">
+          <LockIcon mt="2px" />
+          <Link href="/stake">Lock</Link>
+        </Flex>
         <ConnectWallet />
       </Stack>
 
@@ -61,6 +76,12 @@ const Header = (props: Props) => {
           spacing={{base: '0', md: '40px'}}
         >
           <Hide below="md">
+            <Flex fontWeight="bold" gap="5px">
+              <LockIcon mt="2px" />
+              <Link href="/stake">Lock</Link>
+            </Flex>
+          </Hide>
+          <Hide below="md">
             {account ? (
               <div className={cx(styles.account, styles.menuUser)} onClick={deactivate}>
                 <div className={styles.profile}>
@@ -70,7 +91,7 @@ const Header = (props: Props) => {
                 </div>
               </div>
             ) : (
-              <ConnectWallet px="18px" py="12px" fontSize="14px" w="149px" h="42px" />
+              <ConnectWallet px="18px" py="12px" fontSize="14px" h="42px" />
             )}
           </Hide>
         </Stack>

@@ -10,7 +10,7 @@ const globalStyles: Styles = {
       color: 'whiteAlpha.900',
       fontFeatureSettings: "'ss01' on,'ss02' on,'cv01' on,'cv03' on",
       fontVariant: 'none !important',
-      bg: '#0C0C0C',
+      bg: '#161616',
       button: {
         // button breaking with globals variants(see: https://webkit.org/blog/28/buttons/)
         fontVariant: 'none !important'

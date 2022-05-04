@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import ModalActions from 'actions/modal.actions';
 import {RootState} from 'stores/reduxStore';
 import {useAppDispatch} from 'hooks/hooks';
+import {ChevronRightIcon} from '@chakra-ui/icons';
 
 const ConnectWallet = (props: any) => {
   const {connectWalletModalVisible} = useSelector((state: RootState) => state.Modal);
@@ -17,14 +18,13 @@ const ConnectWallet = (props: any) => {
         onClose={() => dispatch(ModalActions.hideConnectWalletModal())}
       />
       <Button
-        borderColor="none"
-        bg="purple.900"
-        borderRadius="4px"
-        color="#fff"
-        _hover={{bg: 'purple.700'}}
-        _active={{}}
-        m="auto"
+        rightIcon={<ChevronRightIcon />}
+        bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
+        borderRadius="16px"
+        fontFamily="Druk Wide Web"
+        py="25px"
         onClick={() => dispatch(ModalActions.showConnectWalletModal())}
+        width="auto !important"
         {...props}
       >
         Connect Wallet
