@@ -37,6 +37,79 @@ export const useStakingContract = () => {
     return await account.execute([_approveTx, _depositTx]);
   };
 
+  const depositLP = async (
+    lpToken: string,
+    amount: string,
+    account: AccountInterface,
+    lockTime: number.BigNumberish
+  ) => {
+    const contract = await getXZKPContract();
+
+    const _approveTx: Call = {
+      contractAddress: lpToken,
+      entrypoint: 'approve',
+      calldata: [contract.address, ...parseInputAmountToUint256ExecuteCall(amount)]
+    };
+
+    const _depositTx: Call = {
+      contractAddress: contract.address,
+      entrypoint: 'depositLP',
+      calldata: [
+        lpToken,
+        ...parseInputAmountToUint256ExecuteCall(amount),
+        account.address,
+        toFelt(lockTime)
+      ]
+    };
+
+    return await account.execute([_approveTx, _depositTx]);
+  };
+
+  const depositAll = async (
+    lpToken: string,
+    amountLP: string,
+    amountZKP: string,
+    account: AccountInterface,
+    lockTime: number.BigNumberish
+  ) => {
+    const contract = await getXZKPContract();
+
+    const _approveTx: Call = {
+      contractAddress: Contracts[CHAIN].token,
+      entrypoint: 'approve',
+      calldata: [contract.address, ...parseInputAmountToUint256ExecuteCall(amountZKP)]
+    };
+
+    const _depositTx: Call = {
+      contractAddress: contract.address,
+      entrypoint: 'depositForTime',
+      calldata: [
+        ...parseInputAmountToUint256ExecuteCall(amountZKP),
+        account.address,
+        toFelt(lockTime)
+      ]
+    };
+
+    const _approveLPTx: Call = {
+      contractAddress: lpToken,
+      entrypoint: 'approve',
+      calldata: [contract.address, ...parseInputAmountToUint256ExecuteCall(amountLP)]
+    };
+
+    const _depositLPTx: Call = {
+      contractAddress: contract.address,
+      entrypoint: 'depositLP',
+      calldata: [
+        lpToken,
+        ...parseInputAmountToUint256ExecuteCall(amountLP),
+        account.address,
+        toFelt(lockTime)
+      ]
+    };
+
+    return await account.execute([_approveTx, _approveLPTx, _depositTx, _depositLPTx]);
+  };
+
   const redeem = async (shares: string, account: AccountInterface) => {
     const contract = await getXZKPContract();
 
@@ -73,6 +146,8 @@ export const useStakingContract = () => {
   const previewDepositLP = async (lpToken: string, amount: string, lockTime: number) => {
     const contract = await getXZKPContract();
 
+    // const isWhitelisted = await contract.call('isTokenWhitelisted', [lpToken]);
+
     return await contract.call('previewDepositLP', [
       lpToken,
       parseInputAmountToUint256(amount),
@@ -85,6 +160,8 @@ export const useStakingContract = () => {
     depositForTime,
     previewDeposit,
     previewDepositLP,
+    depositLP,
+    depositAll,
     redeem,
     getUserStakeInfo
   };
