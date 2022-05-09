@@ -3,29 +3,10 @@ import {Button, Flex, Heading, Tag, Text, VStack} from '@chakra-ui/react';
 import ProjectCard from 'components/ProjectCard';
 import StatsBar from 'components/StatsBar';
 import {Project} from 'interfaces';
+import {projects} from 'utils/data';
 import React from 'react';
 
 interface Props {}
-
-const projects: Project[] = [
-  {
-    id: 0,
-    name: 'ZkSwaap',
-    ticker: 'ZKS',
-    logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-    cover:
-      'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    totalRaise: 1500000,
-    maxAllocation: 500,
-    currentRound: {
-      id: 0,
-      title: 'Ticket Claim',
-      startDate: new Date(),
-      endDate: new Date('10/05/2022')
-    },
-    type: 'IDO'
-  }
-];
 
 const Home = (props: Props) => {
   return (

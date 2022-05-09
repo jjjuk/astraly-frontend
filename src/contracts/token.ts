@@ -25,5 +25,11 @@ export const useTokenContract = () => {
     return await contract.call('balanceOf', [address]);
   };
 
-  return {getZKPContract, getZKPBalance, getXZKPBalance};
+  const getLPBalance = async (address: string | undefined, lpToken: string) => {
+    const contract = await getContract(lpToken, ZKP_TOKEN_ABI);
+
+    return await contract.call('balanceOf', [address]);
+  };
+
+  return {getZKPContract, getZKPBalance, getXZKPBalance, getLPBalance};
 };

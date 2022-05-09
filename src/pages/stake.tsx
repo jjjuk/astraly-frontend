@@ -27,11 +27,13 @@ import {CalendarIcon, InfoIcon, LockIcon} from '@chakra-ui/icons';
 import {useTokenContract} from 'contracts';
 import {useStakingContract} from 'contracts/staking';
 import ConnectWallet from 'components/ConnectWallet';
+import {Contracts} from 'constants/networks';
 
 const StakePage: NextPage = () => {
   const {account} = useStarknetReact();
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [zkpBalance, setZkpBalance] = useState('0');
+  const [lpBalance, setLPBalance] = useState('0');
   const [stakeInfo, setStakeInfo] = useState<Result>({} as Result);
   const [xzkpBalance, setXZkpBalance] = useState('0');
   const [previewXZKP, setPreviewXZKP] = useState('0');
@@ -39,8 +41,10 @@ const StakePage: NextPage = () => {
   const [locking, setLocking] = useState(false);
   const [withdrawing, setWithdrawing] = useState(false);
   const [zkpAmount, setZKPAmount] = useState('10.0');
-  const {getZKPBalance, getXZKPBalance} = useTokenContract();
-  const {previewDeposit, depositForTime, redeem, getUserStakeInfo} = useStakingContract();
+  const [zkpLPAmount, setZKPLPAmount] = useState('10.0');
+  const {getZKPBalance, getXZKPBalance, getLPBalance} = useTokenContract();
+  const {previewDeposit, depositAll, redeem, getUserStakeInfo, previewDepositLP} =
+    useStakingContract();
 
   const [isLockScreen, toggleScreen] = useReducer(s => !s, true);
 
@@ -58,6 +62,13 @@ const StakePage: NextPage = () => {
         'ether'
       );
       setZkpBalance(_formattedBalance);
+
+      const _lpBalance = await getLPBalance(account?.address, Contracts['SN_GOERLI'].lp_token);
+      const _formattedLPBalance = ethers.utils.formatUnits(
+        uint256.uint256ToBN(_lpBalance.balance).toString(),
+        'ether'
+      );
+      setLPBalance(_formattedLPBalance);
 
       const _xbalance = await getXZKPBalance(account?.address);
       const _xformattedBalance = ethers.utils.formatUnits(
@@ -90,7 +101,22 @@ const StakePage: NextPage = () => {
         uint256.uint256ToBN(_preview.shares).toString(),
         'ether'
       );
-      setPreviewXZKP(_formattedShares);
+      if (Number(zkpLPAmount) > 0) {
+        const _previewLP = await previewDepositLP(
+          Contracts['SN_GOERLI'].lp_token,
+          zkpLPAmount,
+          _daysPassed
+        );
+        const _formattedSharesLP = ethers.utils.formatUnits(
+          uint256.uint256ToBN(_previewLP.shares).toString(),
+          'ether'
+        );
+        const _sharesSum = Number(_formattedShares) + Number(_formattedSharesLP);
+        setPreviewXZKP(_sharesSum.toString());
+      } else {
+        setPreviewXZKP(_formattedShares);
+      }
+
       setUpdatingPreview(false);
     } catch (e) {
       console.error(e);
@@ -104,7 +130,13 @@ const StakePage: NextPage = () => {
     try {
       setLocking(true);
       const _daysPassed = lockTime / (3600 * 24 * 1000);
-      const tx = await depositForTime(zkpAmount, account, _daysPassed);
+      const tx = await depositAll(
+        Contracts['SN_GOERLI'].lp_token,
+        zkpLPAmount,
+        zkpAmount,
+        account,
+        _daysPassed
+      );
       setLocking(false);
     } catch (e) {
       console.error(e);
@@ -135,7 +167,7 @@ const StakePage: NextPage = () => {
 
   useEffect(() => {
     updatePreview();
-  }, [zkpAmount, startDate]);
+  }, [zkpAmount, zkpLPAmount, startDate]);
 
   const CustomDatePicker = forwardRef<
     HTMLButtonElement,
@@ -218,7 +250,13 @@ const StakePage: NextPage = () => {
                 ZKP-LP
               </Flex>
               <Flex flex="auto" flexDir="column" gap="5px">
-                <NumberInput defaultValue={10} max={30} clampValueOnBlur={false} width="100%">
+                <NumberInput
+                  max={Number(lpBalance)}
+                  clampValueOnBlur={false}
+                  width="100%"
+                  onChange={(valueString: string) => setZKPLPAmount(valueString)}
+                  value={zkpLPAmount}
+                >
                   <NumberInputField
                     bg="purple.700"
                     height="50px"
@@ -226,8 +264,8 @@ const StakePage: NextPage = () => {
                     borderRadius="0"
                   />
                 </NumberInput>
-                <Text fontSize="xs" textAlign="right">
-                  Available : 2.1342
+                <Text fontSize="xs" textAlign="right" onClick={() => setZKPLPAmount(lpBalance)}>
+                  Available : {lpBalance}
                 </Text>
               </Flex>
             </Flex>
@@ -329,7 +367,9 @@ const StakePage: NextPage = () => {
                   onClick={handleLock}
                   width="full"
                   disabled={
-                    lockTime < unlockRemainingTime || Number(zkpAmount) > Number(zkpBalance)
+                    lockTime < unlockRemainingTime ||
+                    Number(zkpAmount) > Number(zkpBalance) ||
+                    Number(zkpLPAmount) > Number(lpBalance)
                   }
                 >
                   {locking ? <Spinner /> : 'Lock'}
