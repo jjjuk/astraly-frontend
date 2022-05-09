@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 import Layout from 'layout';
 import {Project, Round} from 'interfaces';
-import {projects} from 'pages/data';
+import {projects} from 'utils/data';
 import {
   Badge,
   Box,

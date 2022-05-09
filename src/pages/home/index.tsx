@@ -3,7 +3,7 @@ import {Button, Flex, Heading, Tag, Text, VStack} from '@chakra-ui/react';
 import ProjectCard from 'components/ProjectCard';
 import StatsBar from 'components/StatsBar';
 import {Project} from 'interfaces';
-import {projects} from 'pages/data';
+import {projects} from 'utils/data';
 import React from 'react';
 
 interface Props {}
