@@ -11,7 +11,7 @@ const NavLink = (props: Props) => {
   const {name, href, badge} = props;
   return (
     <Text style={{position: 'relative'}}>
-      <Link href={href} isExternal>
+      <Link href={href} isExternal color="purple.900">
         {name}
       </Link>
       {badge ? (
