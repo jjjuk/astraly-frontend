@@ -10,8 +10,12 @@ interface Stat {
 const Stat = ({title, value}: Stat) => {
   return (
     <Flex gap="10px" margin="0 20px">
-      <Text color="gray.200">{title}</Text>
-      <Text color="secondary.100">{value}</Text>
+      <Text color="black" fontWeight="black">
+        {title}
+      </Text>
+      <Text color="purple.900" fontWeight="black">
+        {value}
+      </Text>
     </Flex>
   );
 };
@@ -24,7 +28,10 @@ const Stat = ({title, value}: Stat) => {
 const StatsBar = () => {
   return (
     <Marquee
-      style={{borderTop: '1px solid #9D69DE', borderBottom: '1px solid #9D69DE', marginTop: '50px'}}
+      style={{
+        marginTop: '50px',
+        background: 'white'
+      }}
       gradient={false}
     >
       <Stat title="Average APY" value="83%" />

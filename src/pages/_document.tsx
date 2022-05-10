@@ -4,6 +4,7 @@ import createEmotionServer from '@emotion/server/create-instance';
 import type {DocumentContext} from 'next/document';
 import Document, {Html, Head, Main, NextScript} from 'next/document';
 import * as React from 'react';
+import customTheme from 'styles/customTheme';
 
 import createEmotionCache from '../styles/createEmotionCache';
 
@@ -77,7 +78,7 @@ class MyDocument extends Document {
           <meta name="twitter:card" content="summary_large_image" />
         </Head>
         <body>
-          <ColorModeScript initialColorMode="dark" />
+          <ColorModeScript initialColorMode="light" />
           <Main />
           <NextScript />
         </body>

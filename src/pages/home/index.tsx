@@ -1,10 +1,11 @@
 import {ChevronRightIcon} from '@chakra-ui/icons';
-import {Button, Flex, Heading, Tag, Text, VStack} from '@chakra-ui/react';
+import {Button, Flex, Heading, Icon, Tag, Text, VStack} from '@chakra-ui/react';
 import ProjectCard from 'components/ProjectCard';
 import StatsBar from 'components/StatsBar';
 import {Project} from 'interfaces';
 import {projects} from 'utils/data';
 import React from 'react';
+import {MdOutlineShoppingCart} from 'react-icons/md';
 
 interface Props {}
 
@@ -12,7 +13,7 @@ const Home = (props: Props) => {
   return (
     <>
       <Flex maxWidth="60%" flexDir="column" gap={8}>
-        <Heading size="xl" color="purple.600">
+        <Heading size="xl" color="purple.700" textShadow="-2px 2px 0px #8f00ff">
           INVEST IN CURATED STARKNET PROJECTS
         </Heading>
         <Text color="secondary.100" fontSize="lg">
@@ -20,12 +21,16 @@ const Home = (props: Props) => {
           in the listed projects.
         </Text>
         <Button
+          leftIcon={<Icon as={MdOutlineShoppingCart} />}
           rightIcon={<ChevronRightIcon />}
           bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
           borderRadius="16px"
+          boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
           width="300px"
           fontFamily="Druk Wide Web"
           py="25px"
+          color="white"
+          _hover={{bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)'}}
         >
           BUY ZKP
         </Button>
@@ -33,7 +38,16 @@ const Home = (props: Props) => {
       <StatsBar />
       <Flex mt="50px" gap="30px">
         <Heading size="md">ONGOING PROJECTS</Heading>
-        <Tag variant="outline" colorScheme="purple">
+        <Tag
+          bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
+          borderRadius="8px"
+          boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
+          color="white"
+          py="5px"
+          width="110px"
+          justifyContent="center"
+          fontFamily="Druk Wide Web"
+        >
           SEE ALL
         </Tag>
       </Flex>

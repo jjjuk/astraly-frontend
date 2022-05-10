@@ -53,35 +53,35 @@ const ProjectCard = ({project}: Props) => {
             size={'xl'}
             src={project?.logo}
             css={{
-              border: '2px solid white'
+              border: '2px solid #9D69DE'
             }}
           />
         </Flex>
 
         <Box p={6}>
           <Stack spacing={0} align={'left'} mb={5}>
-            <Heading fontSize={'2xl'} fontWeight="black" fontFamily={'body'}>
+            <Heading fontSize={'2xl'} fontWeight="bold" fontFamily={'body'} color="#370063">
               {project?.name}
             </Heading>
-            <Text color={'gray.500'} fontFamily="Druk Wide Web">
+            <Text color={'purple.900'} fontFamily="Druk Wide Web">
               ${project?.ticker}
             </Text>
           </Stack>
 
           <Stack direction="column" spacing={6}>
             <Flex justifyContent="space-between">
-              <Text color="gray.100">Total raise</Text>
-              <Text color="purple.600">
+              <Text color="gray.200">Total raise</Text>
+              <Text color="black">
                 ${project?.totalRaise?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               </Text>
             </Flex>
             <Flex justifyContent="space-between">
-              <Text color="gray.100">Max. allocation</Text>
-              <Text color="purple.600">${project?.maxAllocation}</Text>
+              <Text color="gray.200">Max. allocation</Text>
+              <Text color="black">${project?.maxAllocation}</Text>
             </Flex>
             <Flex justifyContent="space-between">
-              <Text color="gray.100">Round closes in</Text>
-              <Text color="purple.600">{roundTimer}</Text>
+              <Text color="gray.200">Round closes in</Text>
+              <Text color="black">{roundTimer}</Text>
             </Flex>
           </Stack>
         </Box>

@@ -8,7 +8,9 @@ import {
   Link as ChakraLink,
   Stack,
   Hide,
-  Text
+  Text,
+  useColorModeValue,
+  Icon
 } from '@chakra-ui/react';
 import {useStarknetReact} from '@web3-starknet-react/core';
 import cx from 'classnames';
@@ -18,6 +20,8 @@ import styles from '../styles/Header.module.scss';
 import ConnectWallet from 'components/ConnectWallet';
 import {truncateAddress} from 'utils';
 import Link from 'next/link';
+import {MdHome, MdOutlineShoppingCart, MdOutlineHome, MdLockOutline} from 'react-icons/md';
+import {BiRocket} from 'react-icons/bi';
 
 interface Props {}
 
@@ -25,6 +29,7 @@ const Header = (props: Props) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
   const {account, deactivate} = useStarknetReact();
+  const textColor = useColorModeValue('black', 'white');
 
   return (
     <Flex
@@ -40,7 +45,7 @@ const Header = (props: Props) => {
       <Link href="/">
         <Flex align="center" mr={5}>
           <Image src="/images/logo.png" alt="zkPad" mr="4" h="57px" />
-          <Heading fontSize="24px" mt="5px">
+          <Heading fontSize="24px" mt="5px" color={textColor}>
             ZKPAD
           </Heading>
         </Flex>
@@ -58,9 +63,21 @@ const Header = (props: Props) => {
         flexGrow={1}
         mt={{base: 4, md: 0}}
       >
-        <Flex fontWeight="bold" gap="5px">
-          <LockIcon mt="2px" />
+        <Flex gap="5px" color="purple.900">
+          <Icon as={MdOutlineHome} mt="2px" />
+          <Link href="/">Home</Link>
+        </Flex>
+        <Flex gap="5px" color="purple.900">
+          <Icon as={BiRocket} mt="2px" />
+          <Link href="/launchpad">Launchpad</Link>
+        </Flex>
+        <Flex gap="5px" color="purple.900">
+          <Icon as={MdLockOutline} mt="2px" />
           <Link href="/stake">Lock</Link>
+        </Flex>
+        <Flex gap="5px" color="purple.900">
+          <Icon as={MdOutlineShoppingCart} mt="2px" />
+          <Link href="/buy">Buy ZKP</Link>
         </Flex>
         <ConnectWallet />
       </Stack>
@@ -76,9 +93,21 @@ const Header = (props: Props) => {
           spacing={{base: '0', md: '40px'}}
         >
           <Hide below="md">
-            <Flex fontWeight="bold" gap="5px">
-              <LockIcon mt="2px" />
+            <Flex gap="5px" color="purple.900">
+              <Icon as={MdHome} mt="2px" />
+              <Link href="/">Home</Link>
+            </Flex>
+            <Flex gap="5px" color="purple.900">
+              <Icon as={BiRocket} mt="2px" />
+              <Link href="/launchpad">Launchpad</Link>
+            </Flex>
+            <Flex gap="5px" color="purple.900">
+              <Icon as={MdLockOutline} mt="2px" />
               <Link href="/stake">Lock</Link>
+            </Flex>
+            <Flex gap="5px" color="purple.900">
+              <Icon as={MdOutlineShoppingCart} mt="2px" />
+              <Link href="/buy">Buy ZKP</Link>
             </Flex>
           </Hide>
           <Hide below="md">
