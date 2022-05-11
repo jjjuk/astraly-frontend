@@ -49,14 +49,14 @@ const BuyPage = () => {
 
   useEffect(() => {
     const _interval = setInterval(() => {
-      const _remainingTime = new Date().getTime() - new Date(unlockTime * 1000).getTime();
+      const _remainingTime = new Date(unlockTime * 1000).getTime() - new Date().getTime();
       const minutes = Math.floor((_remainingTime % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((_remainingTime % (1000 * 60)) / 1000);
       setRoundTimer(`${minutes}m${seconds}s`);
     }, 1000);
 
     return () => clearInterval(_interval);
-  }, []);
+  }, [unlockTime]);
 
   return (
     <Layout>
