@@ -46,6 +46,7 @@ const ProjectCard = ({project}: Props) => {
         boxShadow={'2xl'}
         rounded={'md'}
         overflow={'hidden'}
+        cursor="pointer"
       >
         <Image height={'120px'} width={'full'} src={project?.cover} objectFit={'cover'} />
         <Flex justify={'center'} mt={-12}>

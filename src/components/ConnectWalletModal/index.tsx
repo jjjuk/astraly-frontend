@@ -13,12 +13,10 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 const Option = ({onClick = null, header, icon, active = false}: any) => {
   return (
-    <Flex border="2px solid #000" width="100%" marginBottom="20px">
-      <div onClick={onClick} className={cx(styles.option, active && styles.active)}>
-        <div className={styles.header}>{header}</div>
-        <img src={icon} className={styles.icon} alt="option-icon" />
-      </div>
-    </Flex>
+    <div onClick={onClick} className={cx(styles.option, active && styles.active)}>
+      <div className={styles.header}>{header}</div>
+      <img src={icon} className={styles.icon} alt="option-icon" />
+    </div>
   );
 };
 

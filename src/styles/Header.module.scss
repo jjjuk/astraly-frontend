@@ -22,13 +22,17 @@
   display: flex;
   align-items: center;
   background-color: #8f00ff;
-  height: 46px;
+  height: 42px;
   width: 200px;
   padding: 13px;
   justify-content: center;
   align-items: center;
   margin-left: 24px;
   cursor: pointer;
+  border-radius: 16px;
+  background: linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%);
+  box-shadow: 0px 20px 35px rgb(55 0 99 / 20%);
+  font-family: Druk Wide Web;
 }
 
 .profile {
@@ -39,7 +43,7 @@
 
 .address {
   font-weight: 700;
-  font-size: 16px;
+  font-size: 10px;
   line-height: 16px;
   position: relative;
 }

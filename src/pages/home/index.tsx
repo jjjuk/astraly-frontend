@@ -12,7 +12,7 @@ interface Props {}
 const Home = (props: Props) => {
   return (
     <>
-      <Flex maxWidth="60%" flexDir="column" gap={8}>
+      <Flex maxWidth="60%" flexDir="column" gap={8} mt="30px">
         <Heading size="xl" color="purple.700" textShadow="-2px 2px 0px #8f00ff">
           INVEST IN CURATED STARKNET PROJECTS
         </Heading>
@@ -36,7 +36,7 @@ const Home = (props: Props) => {
         </Button>
       </Flex>
       <StatsBar />
-      <Flex mt="50px" gap="30px">
+      <Flex mt="170px" gap="30px">
         <Heading size="md">ONGOING PROJECTS</Heading>
         <Tag
           bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
@@ -47,6 +47,7 @@ const Home = (props: Props) => {
           width="110px"
           justifyContent="center"
           fontFamily="Druk Wide Web"
+          cursor={'pointer'}
         >
           SEE ALL
         </Tag>

@@ -1,4 +1,4 @@
-import {Flex, Text} from '@chakra-ui/react';
+import {Flex, position, Text} from '@chakra-ui/react';
 import React from 'react';
 import Marquee from 'react-fast-marquee';
 
@@ -29,8 +29,11 @@ const StatsBar = () => {
   return (
     <Marquee
       style={{
-        marginTop: '50px',
-        background: 'white'
+        marginTop: '70px',
+        background: 'white',
+        width: '100vw',
+        position: 'absolute',
+        left: '0'
       }}
       gradient={false}
     >
