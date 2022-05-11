@@ -187,11 +187,9 @@ const StakePage: NextPage = () => {
 
   return (
     <Layout>
-      <Heading>LOCK ZKP OR ZKP-LP</Heading>
-      <Text>
-        Owning ZKP tokens or ZKP-LP is requirement in order to participate in IDOs on ZkPad. You can
-        lock your tokens and receive lottery tickets to invest in the listed projects.
-      </Text>
+      <Heading size="2xl" color="purple.700" textShadow="-2px 2px 0px #8f00ff">
+        LOCK ZKP
+      </Heading>
       {isLockScreen ? (
         <Flex gap="20px">
           <Flex bg="#8f00ff" width="40%" p={7} flexDir="column" gap="10px" margin="50px 0">

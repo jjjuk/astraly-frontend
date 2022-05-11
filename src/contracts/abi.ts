@@ -1833,4 +1833,138 @@ export const LOTTERY_TOKEN_ABI = [
   }
 ];
 
-export default {ZKP_TOKEN_ABI, XZKP_TOKEN_ABI, LOTTERY_TOKEN_ABI};
+export const FAUCET_ABI = [
+  {
+    members: [
+      {
+        name: 'low',
+        offset: 0,
+        type: 'felt'
+      },
+      {
+        name: 'high',
+        offset: 1,
+        type: 'felt'
+      }
+    ],
+    name: 'Uint256',
+    size: 2,
+    type: 'struct'
+  },
+  {
+    inputs: [],
+    name: 'get_amount',
+    outputs: [
+      {
+        name: 'res',
+        type: 'Uint256'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'get_wait',
+    outputs: [
+      {
+        name: 'res',
+        type: 'felt'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        name: 'account',
+        type: 'felt'
+      }
+    ],
+    name: 'get_unlock_time',
+    outputs: [
+      {
+        name: 'res',
+        type: 'felt'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        name: 'owner',
+        type: 'felt'
+      },
+      {
+        name: '_token_address',
+        type: 'felt'
+      },
+      {
+        name: '_withdrawal_amount',
+        type: 'Uint256'
+      },
+      {
+        name: '_wait_time',
+        type: 'felt'
+      }
+    ],
+    name: 'constructor',
+    outputs: [],
+    type: 'constructor'
+  },
+  {
+    inputs: [
+      {
+        name: 'amount',
+        type: 'Uint256'
+      }
+    ],
+    name: 'set_amount',
+    outputs: [],
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        name: 'wait',
+        type: 'felt'
+      }
+    ],
+    name: 'set_wait',
+    outputs: [],
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'faucet_transfer',
+    outputs: [
+      {
+        name: 'success',
+        type: 'felt'
+      }
+    ],
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        name: 'address',
+        type: 'felt'
+      }
+    ],
+    name: 'allowedToWithdraw',
+    outputs: [
+      {
+        name: 'success',
+        type: 'felt'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  }
+];
+
+export default {ZKP_TOKEN_ABI, XZKP_TOKEN_ABI, LOTTERY_TOKEN_ABI, FAUCET_ABI};

@@ -22,6 +22,7 @@ const ConnectWallet = (props: any) => {
         leftIcon={<Icon as={BiWallet} />}
         rightIcon={<ChevronRightIcon />}
         bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
+        boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
         borderRadius="16px"
         fontFamily="Druk Wide Web"
         py="25px"

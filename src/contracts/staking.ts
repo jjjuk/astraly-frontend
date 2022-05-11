@@ -90,24 +90,24 @@ export const useStakingContract = () => {
       ]
     };
 
-    const _approveLPTx: Call = {
-      contractAddress: lpToken,
-      entrypoint: 'approve',
-      calldata: [contract.address, ...parseInputAmountToUint256ExecuteCall(amountLP)]
-    };
+    // const _approveLPTx: Call = {
+    //   contractAddress: lpToken,
+    //   entrypoint: 'approve',
+    //   calldata: [contract.address, ...parseInputAmountToUint256ExecuteCall(amountLP)]
+    // };
 
-    const _depositLPTx: Call = {
-      contractAddress: contract.address,
-      entrypoint: 'depositLP',
-      calldata: [
-        lpToken,
-        ...parseInputAmountToUint256ExecuteCall(amountLP),
-        account.address,
-        toFelt(lockTime)
-      ]
-    };
+    // const _depositLPTx: Call = {
+    //   contractAddress: contract.address,
+    //   entrypoint: 'depositLP',
+    //   calldata: [
+    //     lpToken,
+    //     ...parseInputAmountToUint256ExecuteCall(amountLP),
+    //     account.address,
+    //     toFelt(lockTime)
+    //   ]
+    // };
 
-    return await account.execute([_approveTx, _approveLPTx, _depositTx, _depositLPTx]);
+    return await account.execute([_approveTx, _depositTx]);
   };
 
   const redeem = async (shares: string, account: AccountInterface) => {

@@ -8,12 +8,14 @@ export const Contracts = {
     token: '',
     staking: '',
     lottery_token: '',
+    faucet: '',
     lp_token: ''
   },
   SN_GOERLI: {
-    token: '0x07a6dde277913b4e30163974bf3d8ed263abb7c7700a18524f5edf38a13d39ec',
-    staking: '0x057a1cd8df302a198dc4a673aef525b9374cfeb9f161192efb54f684b27563ea',
-    lottery_token: '0x005d381d20541d86b57a33433d40f066191930b986507bf7c20e918f9a11de1a',
-    lp_token: '0x68f02f0573d85b5d54942eea4c1bf97c38ca0e3e34fe3c974d1a3feef6c33be'
+    token: '0x0758e62efe9fbdc4e425de4d97f2ca548a06cd05cd9b006feb52f3b4726afab5',
+    staking: '0x06d845edc32c8a613861d32a6500be2069cfae861147833eda962a7c89cdd724',
+    lottery_token: '0x03949245786383e22390be62f143a14371057dbe05ab903b48d1c011ab5ba6de',
+    faucet: '0x03b8b3789cc72bceb020ad4cdf97b1da90b85a3d602cda5a165e33aedb282bb6',
+    lp_token: ''
   }
 };
