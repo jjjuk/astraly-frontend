@@ -84,7 +84,7 @@ const BuyPage = () => {
         >
           Mint ZKP
         </Button>
-        {unlockTime > 0 && <Text>You will be able to whitdraw in {roundTimer}</Text>}
+        {!allowed && <Text>You will be able to whitdraw in {roundTimer}</Text>}
       </Flex>
     </Layout>
   );
