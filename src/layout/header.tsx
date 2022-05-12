@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import {useStarknetReact} from '@web3-starknet-react/core';
 import cx from 'classnames';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import styles from '../styles/Header.module.scss';
 import ConnectWallet from 'components/ConnectWallet';
@@ -22,14 +22,56 @@ import {truncateAddress} from 'utils';
 import Link from 'next/link';
 import {MdHome, MdOutlineShoppingCart, MdOutlineHome, MdLockOutline} from 'react-icons/md';
 import {BiRocket} from 'react-icons/bi';
+import {useApi} from 'api';
+import {useAppDispatch} from 'hooks/hooks';
+import WalletConnectActions from 'actions/walletconnect.actions';
+import AuthActions from 'actions/auth.actions';
 
 interface Props {}
 
 const Header = (props: Props) => {
   const {isOpen, onOpen, onClose} = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
-  const {account, deactivate} = useStarknetReact();
+  const {account, deactivate, chainId} = useStarknetReact();
   const textColor = useColorModeValue('black', 'white');
+  const [loading, setLoading] = useState(false);
+  const {getAuthToken, getAccountDetails} = useApi();
+  const dispatch = useAppDispatch();
+
+  const login = async () => {
+    try {
+      setLoading(true);
+      const token = await getAuthToken(account?.address);
+      // const isModerator = await getIsModerator(account);
+
+      dispatch(WalletConnectActions.connectWallet(token, false));
+      dispatch(AuthActions.fetchStart());
+      try {
+        const {data} = await getAccountDetails(token);
+        console.log(data);
+        dispatch(AuthActions.fetchSuccess(data));
+      } catch {
+        dispatch(AuthActions.fetchFailed());
+      }
+      setLoading(false);
+    } catch {
+      setLoading(false);
+    }
+  };
+
+  const handleSignOut = () => {
+    deactivate();
+    dispatch(WalletConnectActions.disconnectWallet());
+    dispatch(AuthActions.signOut());
+  };
+
+  useEffect(() => {
+    if (account) {
+      login();
+    } else {
+      handleSignOut();
+    }
+  }, [account, chainId]);
 
   return (
     <Flex

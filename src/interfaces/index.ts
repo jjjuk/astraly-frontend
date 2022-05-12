@@ -1,3 +1,5 @@
+import {number} from 'starknet';
+
 export interface Round {
   title: string;
   description: string;
@@ -19,4 +21,10 @@ export interface Project {
   type?: ProjectType;
   categories?: string[];
   rounds: Round[];
+}
+
+export interface Quest {
+  idoId: number;
+  name?: string;
+  description?: string;
 }

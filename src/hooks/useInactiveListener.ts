@@ -8,15 +8,15 @@ import {argentXConnector} from '../connectors';
  * and out after checking what network theyre on
  */
 function useInactiveListener(suppress = false) {
-  const {active, error, activate} = useStarknetReact(); // specifically using useWeb3React because of what this hook does
+  const {active, error, activate, connector} = useStarknetReact(); // specifically using useWeb3React because of what this hook does
 
   useEffect(() => {
     const {ethereum}: any = window;
 
-    if (ethereum && ethereum.on && !active && !error && !suppress) {
+    if (ethereum && ethereum.on && !active && !error && !suppress && connector) {
       const handleChainChanged = () => {
         // eat errors
-        activate(argentXConnector, undefined, true).catch(error => {
+        activate(connector, undefined, true).catch(error => {
           console.error('Failed to activate after chain changed', error);
         });
       };
@@ -24,7 +24,7 @@ function useInactiveListener(suppress = false) {
       const handleAccountsChanged = (accounts: any) => {
         if (accounts.length > 0) {
           // eat errors
-          activate(argentXConnector, undefined, true).catch(error => {
+          activate(connector, undefined, true).catch(error => {
             console.error('Failed to activate after accounts changed', error);
           });
         }
