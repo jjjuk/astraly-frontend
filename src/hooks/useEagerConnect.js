@@ -3,14 +3,14 @@ import {useEffect, useState} from 'react';
 import {argentXConnector} from '../connectors';
 
 export default function useEagerConnect() {
-  const {activate, active, connector} = useStarknetReact();
+  const {activate, active} = useStarknetReact();
 
   const [tried, setTried] = useState(false);
 
   useEffect(() => {
-    argentXConnector.isAuthorized().then((isAuthorized: any) => {
-      if (isAuthorized && connector) {
-        activate(connector, undefined, true).catch(() => {
+    argentXConnector.isAuthorized().then(isAuthorized => {
+      if (isAuthorized) {
+        activate(argentXConnector, undefined, true).catch(() => {
           setTried(true);
         });
       } else {

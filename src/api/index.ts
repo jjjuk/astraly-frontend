@@ -8,7 +8,7 @@ const corsHeader = {
 };
 
 export const useApi = () => {
-  const apiUrl = isMainnet ? 'https://zkpad-api.herokuapp.com' : 'https://zkpad-api.herokuapp.com';
+  const apiUrl = isMainnet ? 'https://zkpad-api.herokuapp.com' : 'http://localhost:5001';
 
   const getAuthToken = async (address: string | null | undefined) => {
     let result = await axios({
