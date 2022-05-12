@@ -5,9 +5,13 @@ import {ethers} from 'ethers';
 import Layout from 'layout';
 import React, {useEffect, useMemo, useState} from 'react';
 import {uint256} from 'starknet';
+import {Contracts} from 'constants/networks';
+
+const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
+const CHAIN = isMainnet ? 'SN_MAIN' : 'SN_GOERLI';
 
 const BuyPage = () => {
-  const {account} = useStarknetReact();
+  const {account, connector} = useStarknetReact();
   const [mintAmount, setMintAmount] = useState('0');
   const [roundTimer, setRoundTimer] = useState('...');
   const [unlockTime, setUnlockTime] = useState(0);
@@ -26,7 +30,16 @@ const BuyPage = () => {
 
   const handleToWallet = async () => {
     try {
-      await faucetTransfer();
+      const _address = Contracts[CHAIN].token;
+      await (window as any).starknet?.request({
+        type: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20',
+          options: {
+            address: _address
+          }
+        }
+      });
     } catch (error) {
       console.error(error);
     }
