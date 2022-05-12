@@ -14,8 +14,8 @@ export const useApi = () => {
     let result = await axios({
       method: 'post',
       url: `${apiUrl}/auth/getToken`,
-      data: JSON.stringify({address: address}),
-      headers: {'Content-Type': 'application/json', ...corsHeader}
+      data: {address: address}
+      // headers: {'Content-Type': 'application/json', ...corsHeader}
     });
     if (result.data.status === 'success') {
       let token = result.data.token;
@@ -29,8 +29,8 @@ export const useApi = () => {
       method: 'get',
       url: `${apiUrl}/account/getaccountinfo`,
       headers: {
-        Authorization: `Bearer ${authToken}`,
-        ...corsHeader
+        Authorization: `Bearer ${authToken}`
+        // ...corsHeader
       }
     });
 
