@@ -1,13 +1,20 @@
 import {ChevronRightIcon} from '@chakra-ui/icons';
-import {Button, Flex, Heading, Icon, Tag, Text, VStack} from '@chakra-ui/react';
+import {Button, Flex, Heading, Icon, Tag, Text, VStack, position} from '@chakra-ui/react';
 import ProjectCard from 'components/ProjectCard';
 import StatsBar from 'components/StatsBar';
 import {Project} from 'interfaces';
 import {projects} from 'utils/data';
 import React from 'react';
 import {MdOutlineShoppingCart} from 'react-icons/md';
+import {Swiper, SwiperSlide} from 'swiper/react';
+import SwiperCore, {FreeMode, Navigation} from 'swiper';
+
+import 'swiper/css';
+import 'swiper/css/free-mode';
 
 interface Props {}
+
+SwiperCore.use([Navigation]);
 
 const Home = (props: Props) => {
   return (
@@ -36,7 +43,7 @@ const Home = (props: Props) => {
         </Button>
       </Flex>
       <StatsBar />
-      <Flex mt="170px" gap="30px">
+      <Flex mt="170px" gap="30px" mb="30px">
         <Heading size="md">ONGOING PROJECTS</Heading>
         <Tag
           bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
@@ -52,11 +59,26 @@ const Home = (props: Props) => {
           SEE ALL
         </Tag>
       </Flex>
-      <Flex mt="20px" gap="20px">
+      <Swiper
+        slidesPerView={4.5}
+        navigation
+        spaceBetween={0}
+        freeMode={true}
+        pagination={{
+          clickable: true
+        }}
+        modules={[FreeMode]}
+        className="mySwiper"
+        style={{paddingBottom: '70px', width: '100vw', position: 'absolute', left: '0'}}
+      >
         {projects?.map((project: Project) => (
-          <ProjectCard project={project} key={project.id} />
+          <SwiperSlide style={{paddingLeft: '40px'}}>
+            <ProjectCard project={project} key={project.id} />
+          </SwiperSlide>
         ))}
-      </Flex>
+        <SwiperSlide style={{width: '20px'}} />
+      </Swiper>
+      <Flex mt="500px" />
     </>
   );
 };

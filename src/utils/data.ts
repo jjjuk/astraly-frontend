@@ -43,5 +43,69 @@ export const projects: Project[] = [
     type: 'IDO',
     categories: ['DeFi', 'DEX'],
     rounds
+  },
+  {
+    id: 0,
+    name: 'ZkSwaap',
+    description:
+      'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
+    ticker: 'ZKS',
+    logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
+    cover:
+      'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+    totalRaise: 1500000,
+    maxAllocation: 500,
+    currentRoundId: 0,
+    type: 'IDO',
+    categories: ['DeFi', 'DEX'],
+    rounds
+  },
+  {
+    id: 0,
+    name: 'ZkSwaap',
+    description:
+      'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
+    ticker: 'ZKS',
+    logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
+    cover:
+      'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+    totalRaise: 1500000,
+    maxAllocation: 500,
+    currentRoundId: 0,
+    type: 'IDO',
+    categories: ['DeFi', 'DEX'],
+    rounds
+  },
+  {
+    id: 0,
+    name: 'ZkSwaap',
+    description:
+      'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
+    ticker: 'ZKS',
+    logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
+    cover:
+      'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+    totalRaise: 1500000,
+    maxAllocation: 500,
+    currentRoundId: 0,
+    type: 'IDO',
+    categories: ['DeFi', 'DEX'],
+    rounds
+  },
+  {
+    id: 0,
+    name: 'ZkSwaap',
+    description:
+      'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
+    ticker: 'ZKS',
+    logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
+    cover:
+      'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+    totalRaise: 1500000,
+    maxAllocation: 500,
+    currentRoundId: 0,
+    type: 'IDO',
+    categories: ['DeFi', 'DEX'],
+    rounds
   }
 ];

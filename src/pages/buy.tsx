@@ -24,6 +24,14 @@ const BuyPage = () => {
     }
   };
 
+  const handleToWallet = async () => {
+    try {
+      await faucetTransfer();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const fetchInfo = async () => {
     try {
       const _amount = await getAmount();
@@ -60,31 +68,46 @@ const BuyPage = () => {
 
   return (
     <Layout>
-      <Flex
-        borderRadius="24px"
-        bg="white"
-        p={10}
-        width="30%"
-        justifyContent="center"
-        flexDir="column"
-        margin="auto"
-        gap="10px"
-      >
-        <Heading size="sm">Mint Amount: {mintAmount} ZKP</Heading>
-        <Button
-          bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
-          boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
-          borderRadius="16px"
-          fontFamily="Druk Wide Web"
-          py="25px"
-          width="auto !important"
-          color="white"
-          disabled={!allowed}
-          onClick={handleTransfer}
+      <Flex minH={'74vh'}>
+        <Flex
+          borderRadius="24px"
+          bg="white"
+          p={10}
+          width={{base: '90%', sm: '70%', md: '50%', lg: '40%', xl: '30%'}}
+          justifyContent="center"
+          flexDir="column"
+          margin="auto"
+          gap="10px"
         >
-          Mint ZKP
-        </Button>
-        {!allowed && <Text>You will be able to whitdraw in {roundTimer}</Text>}
+          <Heading size="sm">Mint Amount: {mintAmount} ZKP</Heading>
+          <Button
+            bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
+            boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
+            borderRadius="16px"
+            fontFamily="Druk Wide Web"
+            py="25px"
+            width="auto !important"
+            color="white"
+            disabled={!allowed}
+            onClick={handleTransfer}
+          >
+            Mint ZKP
+          </Button>
+          {!allowed && <Text>You will be able to whitdraw in {roundTimer}</Text>}
+          <Button
+            bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
+            boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
+            borderRadius="16px"
+            fontFamily="Druk Wide Web"
+            fontSize={'5px'}
+            py="15px"
+            width="80px !important"
+            color="white"
+            onClick={handleToWallet}
+          >
+            Add ZKP to Wallet
+          </Button>
+        </Flex>
       </Flex>
     </Layout>
   );
