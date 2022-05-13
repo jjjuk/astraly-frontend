@@ -17,9 +17,10 @@ import {
   UnorderedList,
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator
+  BreadcrumbLink
 } from '@chakra-ui/react';
+import ReactPlayer from 'react-player';
+import styles from '../../styles/pid.module.scss';
 
 const ProjectPage = () => {
   const router = useRouter();
@@ -58,7 +59,7 @@ const ProjectPage = () => {
           {project?.name}
         </Heading>
       </Flex>
-      <Flex className="Container Project" flexDir={'row'}>
+      <Flex className="Container Project" flexDir={'row'} gridGap="20px">
         <Flex className="Left Container" width={'70%'} flexDir="column">
           <Flex
             className="Steps Container"
@@ -83,7 +84,7 @@ const ProjectPage = () => {
                 display={'flex'}
                 flexDir="row"
               >
-                <Image src="/assets/imgs/star.png" mr={'3px'} height="10px" mt="auto" mb="auto" />{' '}
+                <Image src="/assets/imgs/star.png" mr={'3px'} height="10px" mt="auto" mb="auto" />
                 Step 1
               </Text>
               <Text
@@ -103,6 +104,7 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 display={'flex'}
                 flexDir="row"
+                mt="8px"
               >
                 You can claim your tickets.
               </Text>
@@ -113,6 +115,9 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 display={'flex'}
                 flexDir="row"
+                pt="8px"
+                mt="auto"
+                mb="8px"
               >
                 2022-06-06
               </Text>
@@ -125,7 +130,6 @@ const ProjectPage = () => {
                 color="white"
                 transition="all 0.5s ease"
                 _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                mt="auto"
                 height={'24px'}
               >
                 Claim
@@ -147,8 +151,8 @@ const ProjectPage = () => {
                 display={'flex'}
                 flexDir="row"
               >
-                <Image src="/assets/imgs/star.png" mr={'3px'} height="10px" mt="auto" mb="auto" />{' '}
-                Step 1
+                <Image src="/assets/imgs/star.png" mr={'3px'} height="10px" mt="auto" mb="auto" />
+                Step 2
               </Text>
               <Text
                 fontFamily="Druk Wide Web"
@@ -158,7 +162,7 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 mt="5px"
               >
-                Ticket Claim
+                Allocation
               </Text>
               <Text
                 fontWeight="400"
@@ -167,8 +171,9 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 display={'flex'}
                 flexDir="row"
+                mt="8px"
               >
-                You can claim your tickets.
+                You can burn your tickets for allocation.
               </Text>
               <Text
                 fontWeight="400"
@@ -177,6 +182,9 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 display={'flex'}
                 flexDir="row"
+                pt="8px"
+                mt="auto"
+                mb="8px"
               >
                 2022-06-06
               </Text>
@@ -189,7 +197,6 @@ const ProjectPage = () => {
                 color="white"
                 transition="all 0.5s ease"
                 _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                mt="auto"
                 height={'24px'}
               >
                 Claim
@@ -211,8 +218,8 @@ const ProjectPage = () => {
                 display={'flex'}
                 flexDir="row"
               >
-                <Image src="/assets/imgs/star.png" mr={'3px'} height="10px" mt="auto" mb="auto" />{' '}
-                Step 1
+                <Image src="/assets/imgs/star.png" mr={'3px'} height="10px" mt="auto" mb="auto" />
+                Step 3
               </Text>
               <Text
                 fontFamily="Druk Wide Web"
@@ -222,7 +229,7 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 mt="5px"
               >
-                Ticket Claim
+                Purchase
               </Text>
               <Text
                 fontWeight="400"
@@ -231,8 +238,9 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 display={'flex'}
                 flexDir="row"
+                mt="8px"
               >
-                You can claim your tickets.
+                You can invest in the IDO.
               </Text>
               <Text
                 fontWeight="400"
@@ -241,6 +249,9 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 display={'flex'}
                 flexDir="row"
+                pt="8px"
+                mt="auto"
+                mb="8px"
               >
                 2022-06-06
               </Text>
@@ -253,7 +264,6 @@ const ProjectPage = () => {
                 color="white"
                 transition="all 0.5s ease"
                 _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                mt="auto"
                 height={'24px'}
               >
                 Claim
@@ -275,8 +285,8 @@ const ProjectPage = () => {
                 display={'flex'}
                 flexDir="row"
               >
-                <Image src="/assets/imgs/star.png" mr={'3px'} height="10px" mt="auto" mb="auto" />{' '}
-                Step 1
+                <Image src="/assets/imgs/star.png" mr={'3px'} height="10px" mt="auto" mb="auto" />
+                Step 4
               </Text>
               <Text
                 fontFamily="Druk Wide Web"
@@ -286,7 +296,7 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 mt="5px"
               >
-                Ticket Claim
+                Distribution
               </Text>
               <Text
                 fontWeight="400"
@@ -295,8 +305,9 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 display={'flex'}
                 flexDir="row"
+                mt="8px"
               >
-                You can claim your tickets.
+                The tokens are gradually sent to your wallet
               </Text>
               <Text
                 fontWeight="400"
@@ -305,6 +316,9 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 display={'flex'}
                 flexDir="row"
+                pt="8px"
+                mt="auto"
+                mb="8px"
               >
                 2022-06-06
               </Text>
@@ -317,15 +331,285 @@ const ProjectPage = () => {
                 color="white"
                 transition="all 0.5s ease"
                 _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                mt="auto"
                 height={'24px'}
               >
                 Claim
               </Button>
             </Flex>
           </Flex>
+          <Flex
+            bg="#fff"
+            borderRadius={'26px'}
+            overflow="hidden"
+            mt="16px"
+            border="2px white solid"
+            flexDir={'column'}
+            pb="14px"
+          >
+            <Flex width={'100%'} borderRadius={'26px'} overflow="hidden">
+              <ReactPlayer width={'100%'} url="https://www.youtube.com/watch?v=ysz5S6PUM-U" />
+            </Flex>
+            <div style={{transform: 'translateY(-35px)', marginRight: 'auto', marginLeft: '20px'}}>
+              <div style={{marginTop: 'auto', marginBottom: 'auto'}}>
+                <div className={styles.hex2}>
+                  <div className={styles.hexBackground2}>
+                    <img src={project?.logo} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Text
+              fontFamily="Druk Wide Web"
+              fontStyle="normal"
+              fontWeight="700"
+              fontSize="24px"
+              lineHeight="31px"
+              color="#8F00FF"
+              ml={'20px'}
+            >
+              {project?.name}
+            </Text>
+            <Text
+              fontSize="16px"
+              lineHeight="19px"
+              textTransform="uppercase"
+              color="#9D69DE"
+              ml={'20px'}
+            >
+              ${project?.ticker}
+            </Text>
+            <Flex gap="10px" ml={'20px'} mt="25px">
+              {project?.categories?.map((category: string) => (
+                <Badge
+                  border="1px solid #8F00FF"
+                  borderRadius="8px"
+                  px={8}
+                  py={'5px'}
+                  fontWeight="bold"
+                  bg={'#fff'}
+                  color="#8F00FF"
+                >
+                  {category}
+                </Badge>
+              ))}
+            </Flex>
+          </Flex>
         </Flex>
-        <Flex className="Right Container" width={'30%'} flexDir="column"></Flex>
+        <Image src="/assets/imgs/divider.png" height={'630px'} zIndex="100" mt="auto" mb="auto" />
+        <Flex className="Right Container" width={'30%'} flexDir="column" gridGap={'16px'}>
+          <Flex
+            width={'100%'}
+            filter="drop-shadow(0px 32px 48px rgba(55, 0, 99, 0.08))"
+            bg={'#fff'}
+            borderRadius="26px"
+            border={'solid 2px #fff'}
+            flexDir="column"
+          >
+            <Flex width={'100%'} borderRadius="26px" bg="#FAF3FF" padding="20px">
+              <div style={{marginTop: 'auto', marginBottom: 'auto'}}>
+                <div className={styles.hex}>
+                  <div className={styles.hexBackground}>
+                    <img src={project?.logo} />
+                  </div>
+                </div>
+              </div>
+              <Flex flexDir={'column'} ml="15px">
+                <Text fontWeight="750" fontSize="16px" lineHeight="22px" color="#9D69DE">
+                  Apply and invest in
+                </Text>
+                <Text
+                  fontFamily="Druk Wide Web"
+                  fontStyle="normal"
+                  fontWeight="700"
+                  fontSize="40px"
+                  lineHeight="110%"
+                  color="#370063"
+                >
+                  {project?.name}
+                </Text>
+              </Flex>
+            </Flex>
+            <Flex flexDir={'row'} padding="20px" width={'100%'} gridGap="10px">
+              <Button
+                leftIcon={<Image src="/assets/imgs/rocket.png" height={'15px'} />}
+                bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
+                borderRadius="16px"
+                boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
+                fontFamily="Druk Wide Web"
+                fontSize={'12px !important'}
+                color="white"
+                transition="all 0.5s ease"
+                _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
+                height={'54px'}
+              >
+                Apply Now
+              </Button>
+              <Button
+                leftIcon={<Image src="/assets/imgs/booster.png" height={'15px'} />}
+                bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
+                borderRadius="16px"
+                fontSize={'12px !important'}
+                boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
+                fontFamily="Druk Wide Web"
+                color="white"
+                transition="all 0.5s ease"
+                _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
+                height={'54px'}
+              >
+                Booster Quests
+              </Button>
+            </Flex>
+          </Flex>
+          <Flex
+            bg={'#fff'}
+            height="100%"
+            borderRadius="24px"
+            flexDir={'column'}
+            border="2px solid #fff"
+          >
+            <Flex flexDir={'column'} padding="20px">
+              <Text
+                fontFamily="Druk Wide Web"
+                fontWeight="700"
+                fontSize="16px"
+                lineHeight="21px"
+                color="#9D69DE"
+                mb={'8px'}
+              >
+                Links
+              </Text>
+              <Flex gridGap={'10px'}></Flex>
+            </Flex>
+            <Flex flexDir={'column'} padding="20px" bg={'#FAF3FF'} borderRadius="24px">
+              <Text
+                fontFamily="Druk Wide Web"
+                fontWeight="700"
+                fontSize="16px"
+                lineHeight="21px"
+                color="#9D69DE"
+                mb={'8px'}
+              >
+                Pitch
+              </Text>
+              <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
+                {project?.description}
+              </Text>
+            </Flex>
+            <Flex flexDir={'column'} padding="20px" borderRadius="24px">
+              <Text
+                fontFamily="Druk Wide Web"
+                fontWeight="700"
+                fontSize="16px"
+                lineHeight="21px"
+                color="#9D69DE"
+                mb={'8px'}
+              >
+                Admission
+              </Text>
+              <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
+                Have locked ZKP tokens 5 transactions on Uniswap in the last 6 month Have at least
+                2500$ of tokens on your wallet
+              </Text>
+            </Flex>
+            <Flex flexDir={'column'} padding="20px" bg={'#FAF3FF'} borderRadius="24px">
+              <Text
+                fontFamily="Druk Wide Web"
+                fontWeight="700"
+                fontSize="16px"
+                lineHeight="21px"
+                color="#9D69DE"
+                mb={'8px'}
+              >
+                IDO Information
+              </Text>
+              <Flex width={'100%'}>
+                <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
+                  Hardcap
+                </Text>
+                <Text
+                  fontFamily="Druk Wide Web"
+                  fontStyle="normal"
+                  fontWeight="700"
+                  fontSize="16px"
+                  lineHeight="21px"
+                  textAlign="right"
+                  color="#8F00FF"
+                  ml={'auto'}
+                >
+                  {project?.totalRaise}
+                </Text>
+              </Flex>
+              <Flex width={'100%'} mt="8px">
+                <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
+                  Token Price
+                </Text>
+                <Text
+                  fontFamily="Druk Wide Web"
+                  fontStyle="normal"
+                  fontWeight="700"
+                  fontSize="16px"
+                  lineHeight="21px"
+                  textAlign="right"
+                  color="#8F00FF"
+                  ml={'auto'}
+                >
+                  ${project?.maxAllocation}
+                </Text>
+              </Flex>
+              <Flex width={'100%'} mt="8px">
+                <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
+                  Max. Allocation
+                </Text>
+                <Text
+                  fontFamily="Druk Wide Web"
+                  fontStyle="normal"
+                  fontWeight="700"
+                  fontSize="16px"
+                  lineHeight="21px"
+                  textAlign="right"
+                  color="#8F00FF"
+                  ml={'auto'}
+                >
+                  {project?.maxAllocation}
+                </Text>
+              </Flex>
+              <Flex width={'100%'} mt="8px">
+                <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
+                  Type
+                </Text>
+                <Text
+                  fontFamily="Druk Wide Web"
+                  fontStyle="normal"
+                  fontWeight="700"
+                  fontSize="16px"
+                  lineHeight="21px"
+                  textAlign="right"
+                  color="#8F00FF"
+                  ml={'auto'}
+                >
+                  {project?.type}
+                </Text>
+              </Flex>
+              <Flex width={'100%'} mt="8px">
+                <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
+                  Blockchain
+                </Text>
+                <Text
+                  fontFamily="Druk Wide Web"
+                  fontStyle="normal"
+                  fontWeight="700"
+                  fontSize="16px"
+                  lineHeight="21px"
+                  textAlign="right"
+                  color="#8F00FF"
+                  ml={'auto'}
+                >
+                  {project?.maxAllocation}
+                </Text>
+              </Flex>
+            </Flex>
+          </Flex>
+        </Flex>
       </Flex>
       <Flex gap="20px" mt={2}>
         <Flex bg="#8f00ff" width="40%" p={7} flexDir="column" gap="10px">
