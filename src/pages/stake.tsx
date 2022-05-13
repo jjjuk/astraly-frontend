@@ -244,9 +244,7 @@ const StakePage: NextPage = () => {
                           height="30px"
                           _hover={{bg: 'purple.400'}}
                           onClick={() => {
-                            const d = new Date();
-                            d.setMonth(d.getMonth() + 3);
-                            setStartDate(d);
+                            setZKPAmount('100');
                           }}
                         >
                           100
@@ -260,9 +258,7 @@ const StakePage: NextPage = () => {
                           height="30px"
                           _hover={{bg: 'purple.400'}}
                           onClick={() => {
-                            const d = new Date();
-                            d.setMonth(d.getMonth() + 6);
-                            setStartDate(d);
+                            setZKPAmount('1000');
                           }}
                         >
                           1,000
@@ -276,9 +272,7 @@ const StakePage: NextPage = () => {
                           height="30px"
                           _hover={{bg: 'purple.400'}}
                           onClick={() => {
-                            const d = new Date();
-                            d.setMonth(d.getMonth() + 12);
-                            setStartDate(d);
+                            setZKPAmount('10000');
                           }}
                         >
                           10,000
@@ -300,10 +294,10 @@ const StakePage: NextPage = () => {
                         {zkpBalance}
                       </Text>
                       <NumberInput
-                        max={Number(lpBalance)}
+                        max={Number(zkpBalance)}
                         clampValueOnBlur={false}
                         width="100%"
-                        onChange={(valueString: string) => setZKPLPAmount(valueString)}
+                        onChange={(valueString: string) => setZKPAmount(valueString)}
                         value={zkpAmount}
                       >
                         <NumberInputField
@@ -449,7 +443,7 @@ const StakePage: NextPage = () => {
                       marginTop={'auto'}
                       marginBottom={'auto'}
                     >
-                      120
+                      {Math.round(Math.pow(Number(xzkpBalance) + Number(previewXZKP), 0.6))}
                     </Flex>
                   </Flex>
                   <Flex
@@ -569,10 +563,10 @@ const StakePage: NextPage = () => {
                         {zkpBalance}
                       </Text>
                       <NumberInput
-                        max={Number(lpBalance)}
+                        max={Number(zkpBalance)}
                         clampValueOnBlur={false}
                         width="100%"
-                        onChange={(valueString: string) => setZKPLPAmount(valueString)}
+                        onChange={(valueString: string) => setZKPAmount(valueString)}
                         value={zkpAmount}
                         position="relative"
                       >
@@ -609,7 +603,7 @@ const StakePage: NextPage = () => {
                       <Text
                         color="#9D69DE"
                         fontWeight={'700'}
-                        onClick={() => setZKPAmount(zkpBalance)}
+                        onClick={() => setZKPLPAmount(lpBalance)}
                         fontSize="12px"
                         pb="5px"
                       >
@@ -641,7 +635,7 @@ const StakePage: NextPage = () => {
                         clampValueOnBlur={false}
                         width="100%"
                         onChange={(valueString: string) => setZKPLPAmount(valueString)}
-                        value={zkpAmount}
+                        value={zkpLPAmount}
                         position="relative"
                       >
                         <NumberInputField
@@ -775,6 +769,12 @@ const StakePage: NextPage = () => {
                       py="25px"
                       color="white"
                       _hover={{bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)'}}
+                      onClick={handleLock}
+                      disabled={
+                        lockTime < unlockRemainingTime ||
+                        Number(zkpAmount) > Number(zkpBalance) ||
+                        Number(zkpLPAmount) > Number(lpBalance)
+                      }
                     >
                       Lock
                     </Button>
@@ -894,7 +894,7 @@ const StakePage: NextPage = () => {
           </Flex>
         </Flex>
       </Flex>
-      {isLockScreen ? (
+      {/* {isLockScreen ? (
         <Flex gap="20px">
           <Flex bg="#8f00ff" width="40%" p={7} flexDir="column" gap="10px" margin="50px 0">
             <Flex justifyContent="space-between" width="100%">
@@ -1218,7 +1218,7 @@ const StakePage: NextPage = () => {
             </HStack>
           </Flex>
         </Flex>
-      )}
+      )} */}
     </Layout>
   );
 };
