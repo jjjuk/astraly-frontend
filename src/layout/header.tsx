@@ -85,7 +85,7 @@ const Header = (props: Props) => {
       {...props}
     >
       <Link href="/">
-        <Flex align="center" mr={5}>
+        <Flex align="center" mr={5} cursor="pointer">
           <Image src="/images/logo.png" alt="zkPad" mr="4" h="57px" />
           <Heading fontSize="24px" mt="5px" color={textColor}>
             ZKPAD
