@@ -16,6 +16,7 @@ import {
   WhitepaperLink,
   TwitterLink,
   DiscordLink,
+  GitHubLink,
   TelegramLink,
   TermConditionLink,
   PrivacyPolicyLink
@@ -34,6 +35,7 @@ const Footer = (props: Props) => {
             <NavLink name="Whitepaper" href={WhitepaperLink} />
             <NavLink name="Twitter" href={TwitterLink} />
             <NavLink name="Discord" href={DiscordLink} />
+            <NavLink name="GitHub" href={GitHubLink} />
             {/* <NavLink name={`Terms & Condition`} href={TermConditionLink} />
             <NavLink name={`Privacy & Policy`} href={PrivacyPolicyLink} /> */}
           </Flex>
