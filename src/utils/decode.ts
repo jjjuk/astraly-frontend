@@ -18,7 +18,14 @@ export const verifyQuest = async (txHash: string, quest: Quest, account: Account
   if (!quest.event.transmitterContract) return;
 
   const receipt = await provider.getTransactionReceipt(txHash);
-  console.log(receipt);
+  const trace = await provider.getTransactionTrace(txHash);
+  // console.log(receipt);
+  // console.log(trace);
+
+  // Check if it comes from the right account
+  if (account.address !== trace.function_invocation.contract_address) {
+    return;
+  }
 
   let events: OrganizedEvent[] = [];
   for (const event of receipt.events.slice(0, 2)) {
