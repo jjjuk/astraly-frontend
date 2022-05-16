@@ -1,4 +1,5 @@
 import {number} from 'starknet';
+import {OrganizedEvent} from 'utils/types/organizedStarknet';
 
 export interface Round {
   title: string;
@@ -27,4 +28,5 @@ export interface Quest {
   idoId: number;
   name?: string;
   description?: string;
+  event: OrganizedEvent;
 }

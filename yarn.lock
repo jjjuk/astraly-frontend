@@ -3611,6 +3611,11 @@ ssr-window@^4.0.0, ssr-window@^4.0.2:
   resolved "https://registry.yarnpkg.com/ssr-window/-/ssr-window-4.0.2.tgz#dc6b3ee37be86ac0e3ddc60030f7b3bc9b8553be"
   integrity sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ==
 
+starknet-analyzer@^1.0.22:
+  version "1.0.22"
+  resolved "https://registry.yarnpkg.com/starknet-analyzer/-/starknet-analyzer-1.0.22.tgz#f4e16b87a61d53384f82742c050827836c374b8e"
+  integrity sha512-R8s9/jK2VUL61CPqUP2hkFFZLwLV4o/Mu3OwTP3ubmwe6k1PSl2CMCe/s/14PWDS/c123kNbBB2IHRsDhFDoeg==
+
 starknet@^3.10.2:
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/starknet/-/starknet-3.11.0.tgz#fff6411692eab8f1660ad0515705a0e633c8e763"

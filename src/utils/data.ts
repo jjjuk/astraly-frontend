@@ -1,4 +1,7 @@
-import {Project, Round} from 'interfaces';
+import {ethers} from 'ethers';
+import {formatUnits} from 'ethers/lib/utils';
+import {Project, Quest, Round} from 'interfaces';
+import {bnToUint256, Uint256} from 'starknet/dist/utils/uint256';
 
 export const rounds: Round[] = [
   {
@@ -107,5 +110,24 @@ export const projects: Project[] = [
     type: 'IDO',
     categories: ['DeFi', 'DEX'],
     rounds
+  }
+];
+
+export const quests: Quest[] = [
+  {
+    idoId: 0,
+    name: 'Lock ZKP on ZkPad!',
+    description: 'For this quest, you need to lock at least 100 ZKP tokens on ZkPad.',
+    event: {
+      name: 'Deposit',
+      transmitterContract: '0x06d845edc32c8a613861d32a6500be2069cfae861147833eda962a7c89cdd724',
+      calldata: [
+        {
+          name: 'assets',
+          type: 'Uint256',
+          value: {low: formatUnits('100', 'ether'), high: 0}
+        }
+      ]
+    }
   }
 ];

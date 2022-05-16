@@ -6,6 +6,8 @@ import Layout from 'layout';
 import React, {useEffect, useMemo, useState} from 'react';
 import {uint256} from 'starknet';
 import {Contracts} from 'constants/networks';
+import {verifyQuest} from 'utils/decode';
+import {quests} from 'utils/data';
 
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 const CHAIN = isMainnet ? 'SN_MAIN' : 'SN_GOERLI';
@@ -122,6 +124,27 @@ const BuyPage = () => {
           </Button>
         </Flex>
       </Flex>
+      {account && (
+        <Button
+          bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
+          boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
+          borderRadius="16px"
+          fontFamily="Druk Wide Web"
+          fontSize={'5px'}
+          py="15px"
+          width="80px !important"
+          color="white"
+          onClick={() =>
+            verifyQuest(
+              '0x2b4225d53bf9456318b1eea1161eadcfdcb2c6573208fbbd45f8626eb57f32a',
+              quests[0],
+              account
+            )
+          }
+        >
+          Verify Quest
+        </Button>
+      )}
     </Layout>
   );
 };

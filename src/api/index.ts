@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {AccountInterface} from 'starknet';
 
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
@@ -37,5 +38,18 @@ export const useApi = () => {
     return res.data;
   };
 
-  return {getAuthToken, getAccountDetails};
+  const validateQuest = async (account: AccountInterface) => {
+    const res = await axios({
+      method: 'get',
+      url: `${apiUrl}/account/getaccountinfo`,
+      headers: {
+        // Authorization: `Bearer ${authToken}`
+        // ...corsHeader
+      }
+    });
+
+    return res.data;
+  };
+
+  return {getAuthToken, getAccountDetails, validateQuest};
 };
