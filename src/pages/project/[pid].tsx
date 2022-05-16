@@ -17,7 +17,8 @@ import {
   UnorderedList,
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink
+  BreadcrumbLink,
+  Link
 } from '@chakra-ui/react';
 import ReactPlayer from 'react-player';
 import styles from '../../styles/pid.module.scss';
@@ -404,6 +405,7 @@ const ProjectPage = () => {
             borderRadius="26px"
             border={'solid 2px #fff'}
             flexDir="column"
+            className="TopRight info Box"
           >
             <Flex width={'100%'} borderRadius="26px" bg="#FAF3FF" padding="20px">
               <div style={{marginTop: 'auto', marginBottom: 'auto'}}>
@@ -429,7 +431,13 @@ const ProjectPage = () => {
                 </Text>
               </Flex>
             </Flex>
-            <Flex flexDir={'row'} padding="20px" width={'100%'} gridGap="10px">
+            <Flex
+              flexDir={'row'}
+              padding="20px"
+              width={'100%'}
+              gridGap="10px"
+              className="TopRight info Box"
+            >
               <Button
                 leftIcon={<Image src="/assets/imgs/rocket.png" height={'15px'} />}
                 bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
@@ -610,6 +618,47 @@ const ProjectPage = () => {
             </Flex>
           </Flex>
         </Flex>
+      </Flex>
+      <Flex
+        className="Information project container"
+        gridGap={'20px'}
+        borderRadius="24px"
+        width={'100%'}
+        bg="#fff"
+        mt={'40px'}
+        border="2px solid #fff"
+        padding={'20px'}
+      >
+        <Flex className="Left container mov" width={'25%'} height="100%">
+          <Flex
+            bg={'#FAF3FF'}
+            color="#9D69DE"
+            flexDir={'column'}
+            borderRadius="24px"
+            gridGap={'15px'}
+            padding="40px"
+          >
+            <Link fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
+              Due Diligence
+            </Link>
+            <Link fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
+              Summary
+            </Link>
+            <Link fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
+              Problem
+            </Link>
+            <Link fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
+              Solution
+            </Link>
+            <Link fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
+              Roadmap
+            </Link>
+            <Link fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
+              Team
+            </Link>
+          </Flex>
+        </Flex>
+        <Flex className="Right container Information" width={'75%'} height="100%"></Flex>
       </Flex>
       <Flex gap="20px" mt={2}>
         <Flex bg="#8f00ff" width="40%" p={7} flexDir="column" gap="10px">
