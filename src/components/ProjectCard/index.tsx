@@ -40,16 +40,17 @@ const ProjectCard = ({project}: Props) => {
   return (
     <Link href={`/project/${project.id}`}>
       <Box
-        maxW={'350px'}
-        w={'full'}
+        w={'310px'}
         bg={useColorModeValue('white', 'gray.400')}
         boxShadow={'2xl'}
-        rounded={'md'}
+        borderRadius="24px"
         overflow={'hidden'}
         cursor="pointer"
+        height={'480px'}
+        border="2px solid #fff"
       >
-        <Image height={'120px'} width={'full'} src={project?.cover} objectFit={'cover'} />
-        <Flex justify={'center'} mt={-12}>
+        <Image height={'260px'} width={'full'} src={project?.cover} objectFit={'cover'} />
+        <Flex justify={'left'} mt={-12} pl="18px">
           <Avatar
             size={'xl'}
             src={project?.logo}
@@ -59,30 +60,41 @@ const ProjectCard = ({project}: Props) => {
           />
         </Flex>
 
-        <Box p={6}>
-          <Stack spacing={0} align={'left'} mb={5}>
-            <Heading fontSize={'2xl'} fontWeight="bold" fontFamily={'body'} color="#370063">
+        <Box px={'20px'} pt="6px">
+          <Stack spacing={0} align={'left'} mb={'10px'}>
+            <Heading fontWeight="750" fontSize="24px" color="#370063">
               {project?.name}
             </Heading>
-            <Text color={'purple.900'} fontFamily="Druk Wide Web">
+            <Text
+              fontWeight="700"
+              fontSize="12px"
+              lineHeight="150%"
+              color="#8F00FF"
+              fontFamily="Druk Wide Web"
+            >
               ${project?.ticker}
             </Text>
           </Stack>
-
-          <Stack direction="column" spacing={6}>
+          <Stack direction="column" spacing={'9px'}>
             <Flex justifyContent="space-between">
-              <Text color="gray.200">Total raise</Text>
-              <Text color="black">
+              <Text color="#898989" fontSize={'16px'}>
+                Total raise
+              </Text>
+              <Text fontWeight="750" fontSize="16px" lineHeight="22px" color="#9D69DE">
                 ${project?.totalRaise?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               </Text>
             </Flex>
             <Flex justifyContent="space-between">
               <Text color="gray.200">Max. allocation</Text>
-              <Text color="black">${project?.maxAllocation}</Text>
+              <Text fontWeight="750" fontSize="16px" lineHeight="22px" color="#9D69DE">
+                ${project?.maxAllocation}
+              </Text>
             </Flex>
             <Flex justifyContent="space-between">
               <Text color="gray.200">Round closes in</Text>
-              <Text color="black">{roundTimer}</Text>
+              <Text fontWeight="750" fontSize="16px" lineHeight="22px" color="#9D69DE">
+                {roundTimer}
+              </Text>
             </Flex>
           </Stack>
         </Box>
