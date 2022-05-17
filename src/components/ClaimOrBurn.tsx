@@ -1,7 +1,39 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Flex, Image, Text} from '@chakra-ui/react';
+import {useStarknetReact} from '@web3-starknet-react/core';
+import {ethers} from 'ethers';
+import {uint256} from 'starknet';
+import {useTokenContract} from 'contracts';
 
-const ClaimOrBurn = ({title, number, burn}: any) => {
+const ClaimOrBurn = ({title, burn}: any) => {
+  const {account} = useStarknetReact();
+  const [xzkpBalance, setXZkpBalance] = useState('0');
+  const [loading, setLoading] = useState(false);
+
+  const {getXZKPBalance} = useTokenContract();
+
+  const fetchBalances = async () => {
+    try {
+      setLoading(true);
+      const _xbalance = await getXZKPBalance(account?.address);
+      const _xformattedBalance = ethers.utils.formatUnits(
+        uint256.uint256ToBN(_xbalance.balance).toString(),
+        'ether'
+      );
+      setXZkpBalance(_xformattedBalance);
+      setLoading(false);
+    } catch (e) {
+      console.error(e);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (account?.address) {
+      fetchBalances();
+    }
+  }, [account]);
+
   return (
     <Flex width={'100%'} bg="#fff" border={'2px #fff solid'} borderRadius="24px" flexDir={'column'}>
       <Flex
@@ -32,7 +64,7 @@ const ClaimOrBurn = ({title, number, burn}: any) => {
             lineHeight="21px"
             color="#8F00FF"
           >
-            {number}
+            {loading ? '...' : Math.round(Math.pow(Number(xzkpBalance), 0.6))}
           </Text>
         </Flex>
       </Flex>

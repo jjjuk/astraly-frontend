@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import styles from '../../styles/pid.module.scss';
 import ClaimOrBurn from 'components/ClaimOrBurn';
-import Requirements from 'components/requirements';
+import Requirements from 'components/Requirements';
 
 const QuestPage = () => {
   const router = useRouter();
@@ -59,7 +59,7 @@ const QuestPage = () => {
       </Flex>
       <Flex className="Container Project" flexDir={'row'} gridGap="10px">
         <Flex className="Left Container" width={'70%'} flexDir="column">
-          <ClaimOrBurn title="Total Claimable Tickets" number="100" />
+          <ClaimOrBurn title="Total Claimable Tickets" />
         </Flex>
         <Image src="/assets/imgs/divider.png" height={'630px'} zIndex="100" mt="auto" mb="auto" />
         <Flex className="Right Container" width={'30%'} flexDir="column" gridGap={'16px'}>
