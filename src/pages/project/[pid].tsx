@@ -17,9 +17,9 @@ import {
   UnorderedList,
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
-  Link
+  BreadcrumbLink
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import ReactPlayer from 'react-player';
 import styles from '../../styles/pid.module.scss';
 
@@ -452,20 +452,22 @@ const ProjectPage = () => {
               >
                 Apply Now
               </Button>
-              <Button
-                leftIcon={<Image src="/assets/imgs/booster.png" height={'15px'} />}
-                bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
-                borderRadius="16px"
-                fontSize={'12px !important'}
-                boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
-                fontFamily="Druk Wide Web"
-                color="white"
-                transition="all 0.5s ease"
-                _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                height={'54px'}
-              >
-                Booster Quests
-              </Button>
+              <Link href={`/quests/${pid}`}>
+                <Button
+                  leftIcon={<Image src="/assets/imgs/booster.png" height={'15px'} />}
+                  bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
+                  borderRadius="16px"
+                  fontSize={'12px !important'}
+                  boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
+                  fontFamily="Druk Wide Web"
+                  color="white"
+                  transition="all 0.5s ease"
+                  _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
+                  height={'54px'}
+                >
+                  Booster Quests
+                </Button>
+              </Link>
             </Flex>
           </Flex>
           <Flex
@@ -638,24 +640,24 @@ const ProjectPage = () => {
             gridGap={'15px'}
             padding="40px"
           >
-            <Link fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
+            <Text fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
               Due Diligence
-            </Link>
-            <Link fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
+            </Text>
+            <Text fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
               Summary
-            </Link>
-            <Link fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
+            </Text>
+            <Text fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
               Problem
-            </Link>
-            <Link fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
+            </Text>
+            <Text fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
               Solution
-            </Link>
-            <Link fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
+            </Text>
+            <Text fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
               Roadmap
-            </Link>
-            <Link fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
+            </Text>
+            <Text fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
               Team
-            </Link>
+            </Text>
           </Flex>
         </Flex>
         <Flex className="Right container Information" width={'75%'} height="100%"></Flex>
