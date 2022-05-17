@@ -9,7 +9,7 @@ const corsHeader = {
 };
 
 export const useApi = () => {
-  const apiUrl = isMainnet ? 'https://zkpad-api.herokuapp.com' : 'http://localhost:5001';
+  const apiUrl = isMainnet ? 'https://zkpad-api.herokuapp.com' : 'https://zkpad-api.herokuapp.com';
 
   const getAuthToken = async (address: string | null | undefined) => {
     let result = await axios({
@@ -38,14 +38,15 @@ export const useApi = () => {
     return res.data;
   };
 
-  const validateQuest = async (account: AccountInterface) => {
+  const validateQuest = async (authToken: string | null | undefined, questId: string) => {
     const res = await axios({
-      method: 'get',
-      url: `${apiUrl}/account/getaccountinfo`,
+      method: 'post',
+      url: `${apiUrl}/quest/onQuestCompleted`,
       headers: {
-        // Authorization: `Bearer ${authToken}`
+        Authorization: `Bearer ${authToken}`
         // ...corsHeader
-      }
+      },
+      data: {questId}
     });
 
     return res.data;

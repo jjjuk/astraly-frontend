@@ -8,6 +8,8 @@ import {uint256} from 'starknet';
 import {Contracts} from 'constants/networks';
 import {verifyQuest} from 'utils/decode';
 import {quests} from 'utils/data';
+import {useSelector} from 'react-redux';
+import {RootState} from 'stores/reduxStore';
 
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 const CHAIN = isMainnet ? 'SN_MAIN' : 'SN_GOERLI';
@@ -21,6 +23,8 @@ const BuyPage = () => {
 
   const {getWait, getAmount, getUnlockTime, allowedToWithdraw, faucetTransfer} =
     useFaucetContract();
+
+  const {authToken} = useSelector((state: RootState) => state.ConnectWallet);
 
   const handleTransfer = async () => {
     try {
@@ -138,7 +142,8 @@ const BuyPage = () => {
             verifyQuest(
               '0x2b4225d53bf9456318b1eea1161eadcfdcb2c6573208fbbd45f8626eb57f32a',
               quests[0],
-              account
+              account,
+              authToken
             )
           }
         >
