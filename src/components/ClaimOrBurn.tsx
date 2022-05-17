@@ -67,7 +67,7 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
             lineHeight="31px"
             color="#370063"
           >
-            Total Claimable Tickets
+            Lottery tickets to burn
           </Text>
         ) : (
           <Text
@@ -77,7 +77,7 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
             lineHeight="31px"
             color="#370063"
           >
-            Lottery tickets to burn
+            Total Claimable Tickets
           </Text>
         )}
         <Flex gridGap={'20px'}>

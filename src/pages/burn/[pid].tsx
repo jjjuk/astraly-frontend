@@ -59,7 +59,7 @@ const QuestPage = () => {
       </Flex>
       <Flex className="Container Project" flexDir={'row'} gridGap="20px">
         <Flex className="Left Container" width={'70%'} flexDir="column">
-          <ClaimOrBurn />
+          <ClaimOrBurn idoID={pid} burn />
         </Flex>
         <Image src="/assets/imgs/divider.png" height={'630px'} zIndex="100" mt="auto" mb="auto" />
         <Flex className="Right Container" width={'30%'} flexDir="column" gridGap={'16px'}>

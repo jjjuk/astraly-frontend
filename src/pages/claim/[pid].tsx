@@ -62,7 +62,7 @@ const QuestPage = () => {
       </Flex>
       <Flex className="Container Project" flexDir={'row'} gridGap="10px">
         <Flex className="Left Container" width={'70%'} flexDir="column" gridGap={'20px'}>
-          <ClaimOrBurn title="Total Claimable Tickets" idoID={pid} />
+          <ClaimOrBurn idoID={pid} />
           <EntryRequirements />
           <ApplyNInvest project={project} />
         </Flex>
