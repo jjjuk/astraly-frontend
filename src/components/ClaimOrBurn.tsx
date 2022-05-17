@@ -6,7 +6,7 @@ import {uint256} from 'starknet';
 import {useTokenContract} from 'contracts';
 import {useLotteryTokenContract} from 'contracts/lottery';
 
-const ClaimOrBurn = ({title, burn, idoID}: any) => {
+const ClaimOrBurn = ({burn, idoID}: any) => {
   const {account} = useStarknetReact();
   const [xzkpBalance, setXZkpBalance] = useState('0');
   const [loading, setLoading] = useState(false);
@@ -59,15 +59,27 @@ const ClaimOrBurn = ({title, burn, idoID}: any) => {
         gridGap={'8px'}
         flexDir="column"
       >
-        <Text
-          fontFamily="Druk Wide Web"
-          fontWeight="700"
-          fontSize="24px"
-          lineHeight="31px"
-          color="#370063"
-        >
-          {title}
-        </Text>
+        {burn ? (
+          <Text
+            fontFamily="Druk Wide Web"
+            fontWeight="700"
+            fontSize="24px"
+            lineHeight="31px"
+            color="#370063"
+          >
+            Lottery tickets to burn
+          </Text>
+        ) : (
+          <Text
+            fontFamily="Druk Wide Web"
+            fontWeight="700"
+            fontSize="24px"
+            lineHeight="31px"
+            color="#370063"
+          >
+            Total Claimable Tickets
+          </Text>
+        )}
         <Flex gridGap={'20px'}>
           <Text fontWeight="750" fontSize="16px" lineHeight="22px" color="#9D69DE">
             Available
@@ -83,12 +95,11 @@ const ClaimOrBurn = ({title, burn, idoID}: any) => {
           </Text>
         </Flex>
       </Flex>
-      {burn && (
+      {burn ? (
         <Flex flexDir={'row'} padding="25px">
           ayooooo
         </Flex>
-      )}
-      {!burn && (
+      ) : (
         <Flex flexDir={'row'} padding="25px" gridGap={'16px'}>
           <Button
             leftIcon={<Image src="/assets/imgs/upload.png" height="20px" />}

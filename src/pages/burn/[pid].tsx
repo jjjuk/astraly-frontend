@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 import styles from '../../styles/pid.module.scss';
 import ReactPlayer from 'react-player';
+import ClaimOrBurn from 'components/ClaimOrBurn';
 
 const QuestPage = () => {
   const router = useRouter();
@@ -34,11 +35,11 @@ const QuestPage = () => {
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbItem>
-          <BreadcrumbLink href="javascript:history.back()">{project?.name}</BreadcrumbLink>
+          <BreadcrumbLink href={`/project/${pid}`}>{project?.name}</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbItem>
           <BreadcrumbLink href="#" color={'#8F00FF'} fontWeight="900">
-            Booster Quests
+            Burn for allocation
           </BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
@@ -47,19 +48,18 @@ const QuestPage = () => {
           <Image src="/assets/imgs/arrow.png" height={'43px'} />
         </a>
         <Heading
-          fontSize="30px"
+          fontSize="40px"
           color="purple.700"
           textShadow="-2px 2px 0px #8f00ff"
           pb={'64px'}
           textTransform="uppercase"
-          mt="4px"
         >
-          Booster Quests
+          Burn
         </Heading>
       </Flex>
       <Flex className="Container Project" flexDir={'row'} gridGap="20px">
         <Flex className="Left Container" width={'70%'} flexDir="column">
-          <Flex></Flex>
+          <ClaimOrBurn idoID={pid} burn />
         </Flex>
         <Image src="/assets/imgs/divider.png" height={'630px'} zIndex="100" mt="auto" mb="auto" />
         <Flex className="Right Container" width={'30%'} flexDir="column" gridGap={'16px'}>
