@@ -4,13 +4,28 @@ import {useStarknetReact} from '@web3-starknet-react/core';
 import {ethers} from 'ethers';
 import {uint256} from 'starknet';
 import {useTokenContract} from 'contracts';
+import {useLotteryTokenContract} from 'contracts/lottery';
 
-const ClaimOrBurn = ({title, burn}: any) => {
+const ClaimOrBurn = ({title, burn, idoID}: any) => {
   const {account} = useStarknetReact();
   const [xzkpBalance, setXZkpBalance] = useState('0');
   const [loading, setLoading] = useState(false);
+  const [claiming, setClaiming] = useState(false);
 
   const {getXZKPBalance} = useTokenContract();
+  const {claimLotteryTickets} = useLotteryTokenContract();
+
+  const handleClaimTokens = async () => {
+    try {
+      setClaiming(true);
+      const tx = await claimLotteryTickets(idoID);
+
+      setClaiming(false);
+    } catch (e) {
+      console.error(e);
+      setClaiming(false);
+    }
+  };
 
   const fetchBalances = async () => {
     try {
@@ -85,6 +100,7 @@ const ClaimOrBurn = ({title, burn}: any) => {
             py="25px"
             color="white"
             _hover={{bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)'}}
+            onClick={handleClaimTokens}
           >
             Claim Tokens
           </Button>
