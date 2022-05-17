@@ -17,6 +17,10 @@ import {
 import styles from '../../styles/pid.module.scss';
 import ReactPlayer from 'react-player';
 import ClaimOrBurn from 'components/ClaimOrBurn';
+import EntryRequirements from 'components/EntryRequirements';
+import ApplyNInvest from 'components/ApplyNInvest';
+import Requirements from 'components/Requirements';
+import Christophe from 'components/Christophe';
 
 const QuestPage = () => {
   const router = useRouter();
@@ -57,231 +61,16 @@ const QuestPage = () => {
           Burn
         </Heading>
       </Flex>
-      <Flex className="Container Project" flexDir={'row'} gridGap="20px">
-        <Flex className="Left Container" width={'70%'} flexDir="column">
+      <Flex className="Container Project" flexDir={'row'} gridGap="10px">
+        <Flex className="Left Container" width={'70%'} flexDir="column" gridGap="20px">
           <ClaimOrBurn idoID={pid} burn />
+          <EntryRequirements />
+          <ApplyNInvest project={project} />
         </Flex>
         <Image src="/assets/imgs/divider.png" height={'630px'} zIndex="100" mt="auto" mb="auto" />
         <Flex className="Right Container" width={'30%'} flexDir="column" gridGap={'16px'}>
-          <Flex
-            width={'100%'}
-            filter="drop-shadow(0px 32px 48px rgba(55, 0, 99, 0.08))"
-            bg={'#fff'}
-            borderRadius="26px"
-            border={'solid 2px #fff'}
-            flexDir="column"
-            className="TopRight info Box"
-          >
-            <Flex width={'100%'} borderRadius="26px" bg="#FAF3FF" padding="20px">
-              <div style={{marginTop: 'auto', marginBottom: 'auto'}}>
-                <div className={styles.hex}>
-                  <div className={styles.hexBackground}>
-                    <img src={project?.logo} />
-                  </div>
-                </div>
-              </div>
-              <Flex flexDir={'column'} ml="15px">
-                <Text fontWeight="750" fontSize="16px" lineHeight="22px" color="#9D69DE">
-                  Apply and invest in
-                </Text>
-                <Text
-                  fontFamily="Druk Wide Web"
-                  fontStyle="normal"
-                  fontWeight="700"
-                  fontSize="40px"
-                  lineHeight="110%"
-                  color="#370063"
-                >
-                  {project?.name}
-                </Text>
-              </Flex>
-            </Flex>
-            <Flex
-              flexDir={'row'}
-              padding="20px"
-              width={'100%'}
-              gridGap="10px"
-              className="TopRight info Box"
-            >
-              <Button
-                leftIcon={<Image src="/assets/imgs/rocket.png" height={'15px'} />}
-                bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
-                borderRadius="16px"
-                boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
-                fontFamily="Druk Wide Web"
-                fontSize={'12px !important'}
-                color="white"
-                transition="all 0.5s ease"
-                _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                height={'54px'}
-              >
-                Apply Now
-              </Button>
-              <Button
-                leftIcon={<Image src="/assets/imgs/booster.png" height={'15px'} />}
-                bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
-                borderRadius="16px"
-                fontSize={'12px !important'}
-                boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
-                fontFamily="Druk Wide Web"
-                color="white"
-                transition="all 0.5s ease"
-                _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                height={'54px'}
-              >
-                Booster Quests
-              </Button>
-            </Flex>
-          </Flex>
-          <Flex
-            bg={'#fff'}
-            height="100%"
-            borderRadius="24px"
-            flexDir={'column'}
-            border="2px solid #fff"
-          >
-            <Flex flexDir={'column'} padding="20px">
-              <Text
-                fontFamily="Druk Wide Web"
-                fontWeight="700"
-                fontSize="16px"
-                lineHeight="21px"
-                color="#9D69DE"
-                mb={'8px'}
-              >
-                Links
-              </Text>
-              <Flex gridGap={'10px'}></Flex>
-            </Flex>
-            <Flex flexDir={'column'} padding="20px" bg={'#FAF3FF'} borderRadius="24px">
-              <Text
-                fontFamily="Druk Wide Web"
-                fontWeight="700"
-                fontSize="16px"
-                lineHeight="21px"
-                color="#9D69DE"
-                mb={'8px'}
-              >
-                Pitch
-              </Text>
-              <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
-                {project?.description}
-              </Text>
-            </Flex>
-            <Flex flexDir={'column'} padding="20px" borderRadius="24px">
-              <Text
-                fontFamily="Druk Wide Web"
-                fontWeight="700"
-                fontSize="16px"
-                lineHeight="21px"
-                color="#9D69DE"
-                mb={'8px'}
-              >
-                Admission
-              </Text>
-              <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
-                Have locked ZKP tokens 5 transactions on Uniswap in the last 6 month Have at least
-                2500$ of tokens on your wallet
-              </Text>
-            </Flex>
-            <Flex flexDir={'column'} padding="20px" bg={'#FAF3FF'} borderRadius="24px">
-              <Text
-                fontFamily="Druk Wide Web"
-                fontWeight="700"
-                fontSize="16px"
-                lineHeight="21px"
-                color="#9D69DE"
-                mb={'8px'}
-              >
-                IDO Information
-              </Text>
-              <Flex width={'100%'}>
-                <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
-                  Hardcap
-                </Text>
-                <Text
-                  fontFamily="Druk Wide Web"
-                  fontStyle="normal"
-                  fontWeight="700"
-                  fontSize="16px"
-                  lineHeight="21px"
-                  textAlign="right"
-                  color="#8F00FF"
-                  ml={'auto'}
-                >
-                  {project?.totalRaise}
-                </Text>
-              </Flex>
-              <Flex width={'100%'} mt="8px">
-                <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
-                  Token Price
-                </Text>
-                <Text
-                  fontFamily="Druk Wide Web"
-                  fontStyle="normal"
-                  fontWeight="700"
-                  fontSize="16px"
-                  lineHeight="21px"
-                  textAlign="right"
-                  color="#8F00FF"
-                  ml={'auto'}
-                >
-                  ${project?.maxAllocation}
-                </Text>
-              </Flex>
-              <Flex width={'100%'} mt="8px">
-                <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
-                  Max. Allocation
-                </Text>
-                <Text
-                  fontFamily="Druk Wide Web"
-                  fontStyle="normal"
-                  fontWeight="700"
-                  fontSize="16px"
-                  lineHeight="21px"
-                  textAlign="right"
-                  color="#8F00FF"
-                  ml={'auto'}
-                >
-                  {project?.maxAllocation}
-                </Text>
-              </Flex>
-              <Flex width={'100%'} mt="8px">
-                <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
-                  Type
-                </Text>
-                <Text
-                  fontFamily="Druk Wide Web"
-                  fontStyle="normal"
-                  fontWeight="700"
-                  fontSize="16px"
-                  lineHeight="21px"
-                  textAlign="right"
-                  color="#8F00FF"
-                  ml={'auto'}
-                >
-                  {project?.type}
-                </Text>
-              </Flex>
-              <Flex width={'100%'} mt="8px">
-                <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
-                  Blockchain
-                </Text>
-                <Text
-                  fontFamily="Druk Wide Web"
-                  fontStyle="normal"
-                  fontWeight="700"
-                  fontSize="16px"
-                  lineHeight="21px"
-                  textAlign="right"
-                  color="#8F00FF"
-                  ml={'auto'}
-                >
-                  {project?.maxAllocation}
-                </Text>
-              </Flex>
-            </Flex>
-          </Flex>
+          <Requirements />
+          <Christophe project={project} />
         </Flex>
       </Flex>
     </Layout>

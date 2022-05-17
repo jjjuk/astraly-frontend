@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Flex, Image, Text} from '@chakra-ui/react';
+import {Button, Flex, Image, NumberInput, NumberInputField, Text} from '@chakra-ui/react';
 import {useStarknetReact} from '@web3-starknet-react/core';
 import {ethers} from 'ethers';
 import {uint256} from 'starknet';
@@ -96,8 +96,53 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
         </Flex>
       </Flex>
       {burn ? (
-        <Flex flexDir={'row'} padding="25px">
-          ayooooo
+        <Flex flexDir={'row'} padding="25px" gridGap={'16px'}>
+          <NumberInput
+            // max={}
+            clampValueOnBlur={false}
+            width="100%"
+            // onChange={(valueString: string) => setZKPAmount(valueString)}
+            // value={zkpAmount}
+            position={'relative'}
+          >
+            <NumberInputField
+              bg="#fff"
+              textAlign="right"
+              borderRadius="8px"
+              _hover={{bg: '#C89CFF'}}
+              fontFamily="Druk Wide Web"
+              fontSize={'10px'}
+              height="56px"
+              border="1px solid #C89CFF !important"
+            />
+            <Text
+              position={'absolute'}
+              left="10px"
+              top={'20px'}
+              fontFamily="Druk Wide Web"
+              fontWeight="700"
+              fontSize="12px"
+              color="#9D69DE"
+              zIndex={'10'}
+            >
+              Tickets
+            </Text>
+          </NumberInput>
+          <Button
+            leftIcon={<Image src="/assets/imgs/fire.png" height="20px" />}
+            bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
+            height="56px"
+            borderRadius="16px"
+            boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
+            width="100%"
+            fontFamily="Druk Wide Web"
+            py="25px"
+            color="white"
+            _hover={{bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)'}}
+            onClick={handleClaimTokens}
+          >
+            Burn Tickets
+          </Button>
         </Flex>
       ) : (
         <Flex flexDir={'row'} padding="25px" gridGap={'16px'}>
