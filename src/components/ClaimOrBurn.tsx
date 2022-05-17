@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Flex, Image, NumberInput, NumberInputField, Text} from '@chakra-ui/react';
+import {Button, Flex, Image, NumberInput, NumberInputField, Spinner, Text} from '@chakra-ui/react';
 import {useStarknetReact} from '@web3-starknet-react/core';
 import {ethers} from 'ethers';
 import {uint256} from 'starknet';
@@ -9,21 +9,36 @@ import {useLotteryTokenContract} from 'contracts/lottery';
 const ClaimOrBurn = ({burn, idoID}: any) => {
   const {account} = useStarknetReact();
   const [xzkpBalance, setXZkpBalance] = useState('0');
+  const [ticketsBalance, setTicketsBalance] = useState('0');
+  const [amountToBurn, setAmountToBurn] = useState('0');
   const [loading, setLoading] = useState(false);
   const [claiming, setClaiming] = useState(false);
+  const [burning, setBurning] = useState(false);
 
   const {getXZKPBalance} = useTokenContract();
-  const {claimLotteryTickets} = useLotteryTokenContract();
+  const {claimLotteryTickets, burn: burnTickets, getTicketsBalance} = useLotteryTokenContract();
 
-  const handleClaimTokens = async () => {
+  const handleClaimTickets = async () => {
     try {
       setClaiming(true);
       const tx = await claimLotteryTickets(idoID);
-
+      console.log(tx);
       setClaiming(false);
     } catch (e) {
       console.error(e);
       setClaiming(false);
+    }
+  };
+
+  const handleBurnTickets = async () => {
+    try {
+      setBurning(true);
+      const tx = await burnTickets(account, idoID, amountToBurn);
+      console.log(tx);
+      setBurning(false);
+    } catch (e) {
+      console.error(e);
+      setBurning(false);
     }
   };
 
@@ -36,6 +51,10 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
         'ether'
       );
       setXZkpBalance(_xformattedBalance);
+
+      const _ticketsBalance = await getTicketsBalance(account?.address, idoID);
+      console.log(_ticketsBalance);
+      setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString());
       setLoading(false);
     } catch (e) {
       console.error(e);
@@ -91,18 +110,24 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
             lineHeight="21px"
             color="#8F00FF"
           >
-            {loading ? '...' : Math.round(Math.pow(Number(xzkpBalance), 0.6))}
+            {burn
+              ? loading
+                ? '...'
+                : Number(ticketsBalance)
+              : loading
+              ? '...'
+              : Math.round(Math.pow(Number(xzkpBalance), 0.6))}
           </Text>
         </Flex>
       </Flex>
       {burn ? (
         <Flex flexDir={'row'} padding="25px" gridGap={'16px'}>
           <NumberInput
-            // max={}
+            max={Number(ticketsBalance)}
             clampValueOnBlur={false}
             width="100%"
-            // onChange={(valueString: string) => setZKPAmount(valueString)}
-            // value={zkpAmount}
+            onChange={(valueString: string) => setAmountToBurn(valueString)}
+            value={amountToBurn}
             position={'relative'}
           >
             <NumberInputField
@@ -139,9 +164,9 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
             py="25px"
             color="white"
             _hover={{bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)'}}
-            onClick={handleClaimTokens}
+            onClick={handleBurnTickets}
           >
-            Burn Tickets
+            {burning ? <Spinner /> : 'Burn Tickets'}
           </Button>
         </Flex>
       ) : (
@@ -156,9 +181,9 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
             py="25px"
             color="white"
             _hover={{bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)'}}
-            onClick={handleClaimTokens}
+            onClick={handleClaimTickets}
           >
-            Claim Tokens
+            {claiming ? <Spinner /> : 'Claim Tokens'}
           </Button>
           <Button
             leftIcon={<Image src="/assets/imgs/locker.png" height="20px" />}

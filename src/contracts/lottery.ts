@@ -25,19 +25,30 @@ export const useLotteryTokenContract = () => {
     ]);
   };
 
-  const burn = async (account: AccountInterface, id: number.BigNumberish, amount: string) => {
+  const burn = async (
+    account: AccountInterface | null | undefined,
+    id: number.BigNumberish,
+    amount: string
+  ) => {
     const contract = await getLotteryTokenContract();
 
     return await contract.invoke('burn', [
-      account.address,
+      account?.address,
       parseInputAmountToUint256(id.toString()),
-      parseInputAmountToUint256(amount)
+      parseInputAmountToUint256(amount, 0)
     ]);
+  };
+
+  const getTicketsBalance = async (address: string | undefined, id: number.BigNumberish) => {
+    const contract = await getLotteryTokenContract();
+
+    return await contract.call('balanceOf', [address, parseInputAmountToUint256(id.toString())]);
   };
 
   return {
     getLotteryTokenContract,
     claimLotteryTickets,
-    burn
+    burn,
+    getTicketsBalance
   };
 };
