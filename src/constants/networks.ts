@@ -14,7 +14,7 @@ export const Contracts = {
   SN_GOERLI: {
     token: '0x0758e62efe9fbdc4e425de4d97f2ca548a06cd05cd9b006feb52f3b4726afab5',
     staking: '0x06d845edc32c8a613861d32a6500be2069cfae861147833eda962a7c89cdd724',
-    lottery_token: '0x03949245786383e22390be62f143a14371057dbe05ab903b48d1c011ab5ba6de',
+    lottery_token: '0x039c0a983c0ff92d319f410ae182ddf2788c9ed4a05c7b4d26ee314d4717fba0',
     faucet: '0x03b8b3789cc72bceb020ad4cdf97b1da90b85a3d602cda5a165e33aedb282bb6',
     lp_token: ''
   }

@@ -60,7 +60,7 @@ const Home = (props: Props) => {
         </Tag>
       </Flex>
       <Swiper
-        slidesPerView={4.5}
+        slidesPerView={4.3}
         navigation
         spaceBetween={0}
         freeMode={true}

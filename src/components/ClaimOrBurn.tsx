@@ -1,7 +1,73 @@
-import React from 'react';
-import {Button, Flex, Image, Text} from '@chakra-ui/react';
+import React, {useEffect, useState} from 'react';
+import {Button, Flex, Image, NumberInput, NumberInputField, Spinner, Text} from '@chakra-ui/react';
+import {useStarknetReact} from '@web3-starknet-react/core';
+import {ethers} from 'ethers';
+import {uint256} from 'starknet';
+import {useTokenContract} from 'contracts';
+import {useLotteryTokenContract} from 'contracts/lottery';
 
-const ClaimOrBurn = ({title, number, burn}: any) => {
+const ClaimOrBurn = ({burn, idoID}: any) => {
+  const {account} = useStarknetReact();
+  const [xzkpBalance, setXZkpBalance] = useState('0');
+  const [ticketsBalance, setTicketsBalance] = useState('0');
+  const [amountToBurn, setAmountToBurn] = useState('0');
+  const [loading, setLoading] = useState(false);
+  const [claiming, setClaiming] = useState(false);
+  const [burning, setBurning] = useState(false);
+
+  const {getXZKPBalance} = useTokenContract();
+  const {claimLotteryTickets, burn: burnTickets, getTicketsBalance} = useLotteryTokenContract();
+
+  const handleClaimTickets = async () => {
+    try {
+      setClaiming(true);
+      const tx = await claimLotteryTickets(idoID);
+      console.log(tx);
+      setClaiming(false);
+    } catch (e) {
+      console.error(e);
+      setClaiming(false);
+    }
+  };
+
+  const handleBurnTickets = async () => {
+    try {
+      setBurning(true);
+      const tx = await burnTickets(account, idoID, amountToBurn);
+      console.log(tx);
+      setBurning(false);
+    } catch (e) {
+      console.error(e);
+      setBurning(false);
+    }
+  };
+
+  const fetchBalances = async () => {
+    try {
+      setLoading(true);
+      const _xbalance = await getXZKPBalance(account?.address);
+      const _xformattedBalance = ethers.utils.formatUnits(
+        uint256.uint256ToBN(_xbalance.balance).toString(),
+        'ether'
+      );
+      setXZkpBalance(_xformattedBalance);
+
+      const _ticketsBalance = await getTicketsBalance(account?.address, idoID);
+      console.log(_ticketsBalance);
+      setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString());
+      setLoading(false);
+    } catch (e) {
+      console.error(e);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (account?.address) {
+      fetchBalances();
+    }
+  }, [account]);
+
   return (
     <Flex width={'100%'} bg="#fff" border={'2px #fff solid'} borderRadius="24px" flexDir={'column'}>
       <Flex
@@ -12,15 +78,27 @@ const ClaimOrBurn = ({title, number, burn}: any) => {
         gridGap={'8px'}
         flexDir="column"
       >
-        <Text
-          fontFamily="Druk Wide Web"
-          fontWeight="700"
-          fontSize="24px"
-          lineHeight="31px"
-          color="#370063"
-        >
-          {title}
-        </Text>
+        {burn ? (
+          <Text
+            fontFamily="Druk Wide Web"
+            fontWeight="700"
+            fontSize="24px"
+            lineHeight="31px"
+            color="#370063"
+          >
+            Lottery tickets to burn
+          </Text>
+        ) : (
+          <Text
+            fontFamily="Druk Wide Web"
+            fontWeight="700"
+            fontSize="24px"
+            lineHeight="31px"
+            color="#370063"
+          >
+            Total Claimable Tickets
+          </Text>
+        )}
         <Flex gridGap={'20px'}>
           <Text fontWeight="750" fontSize="16px" lineHeight="22px" color="#9D69DE">
             Available
@@ -32,16 +110,66 @@ const ClaimOrBurn = ({title, number, burn}: any) => {
             lineHeight="21px"
             color="#8F00FF"
           >
-            {number}
+            {burn
+              ? loading
+                ? '...'
+                : Number(ticketsBalance)
+              : loading
+              ? '...'
+              : Math.round(Math.pow(Number(xzkpBalance), 0.6))}
           </Text>
         </Flex>
       </Flex>
-      {burn && (
-        <Flex flexDir={'row'} padding="25px">
-          ayooooo
+      {burn ? (
+        <Flex flexDir={'row'} padding="25px" gridGap={'16px'}>
+          <NumberInput
+            max={Number(ticketsBalance)}
+            clampValueOnBlur={false}
+            width="100%"
+            onChange={(valueString: string) => setAmountToBurn(valueString)}
+            value={amountToBurn}
+            position={'relative'}
+          >
+            <NumberInputField
+              bg="#fff"
+              textAlign="right"
+              borderRadius="8px"
+              _hover={{bg: '#C89CFF'}}
+              fontFamily="Druk Wide Web"
+              fontSize={'10px'}
+              height="56px"
+              border="1px solid #C89CFF !important"
+            />
+            <Text
+              position={'absolute'}
+              left="10px"
+              top={'20px'}
+              fontFamily="Druk Wide Web"
+              fontWeight="700"
+              fontSize="12px"
+              color="#9D69DE"
+              zIndex={'10'}
+            >
+              Tickets
+            </Text>
+          </NumberInput>
+          <Button
+            leftIcon={<Image src="/assets/imgs/fire.png" height="20px" />}
+            bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
+            height="56px"
+            borderRadius="16px"
+            boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
+            width="100%"
+            fontFamily="Druk Wide Web"
+            py="25px"
+            color="white"
+            _hover={{bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)'}}
+            onClick={handleBurnTickets}
+          >
+            {burning ? <Spinner /> : 'Burn Tickets'}
+          </Button>
         </Flex>
-      )}
-      {!burn && (
+      ) : (
         <Flex flexDir={'row'} padding="25px" gridGap={'16px'}>
           <Button
             leftIcon={<Image src="/assets/imgs/upload.png" height="20px" />}
@@ -53,8 +181,9 @@ const ClaimOrBurn = ({title, number, burn}: any) => {
             py="25px"
             color="white"
             _hover={{bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)'}}
+            onClick={handleClaimTickets}
           >
-            Claim Tokens
+            {claiming ? <Spinner /> : 'Claim Tokens'}
           </Button>
           <Button
             leftIcon={<Image src="/assets/imgs/locker.png" height="20px" />}

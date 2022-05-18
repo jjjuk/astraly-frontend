@@ -3,7 +3,28 @@ import React from 'react';
 
 const Requirements = () => {
   return (
-    <Flex width={'100%'} bg="#fff" border={'2px #fff solid'} borderRadius="24px" flexDir={'column'}>
+    <Flex
+      width={'100%'}
+      bg="#fff"
+      border={'2px #fff solid'}
+      borderRadius="24px"
+      flexDir={'column'}
+      position="relative"
+    >
+      <Image
+        src="/assets/imgs/calendar.png"
+        position="absolute"
+        height={'15px'}
+        top={'30px'}
+        right="25px"
+      />
+      <Image
+        src="/assets/imgs/profile.png"
+        position="absolute"
+        height={'15px'}
+        top={'30px'}
+        right="55px"
+      />
       <Flex
         bg={'#FAF3FF'}
         borderRadius="24px"
