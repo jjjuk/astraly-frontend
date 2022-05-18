@@ -9,7 +9,7 @@ const corsHeader = {
 };
 
 export const useApi = () => {
-  const apiUrl = isMainnet ? 'https://zkpad-api.herokuapp.com' : 'https://zkpad-api.herokuapp.com';
+  const apiUrl = isMainnet ? 'https://zkpad-api.herokuapp.com' : 'http://localhost:5001';
 
   const getAuthToken = async (address: string | null | undefined) => {
     let result = await axios({
@@ -52,5 +52,19 @@ export const useApi = () => {
     return res.data;
   };
 
-  return {getAuthToken, getAccountDetails, validateQuest};
+  const fetchProof = async (authToken: string | null | undefined, idoID: string) => {
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/quest/getMerkleProof`,
+      headers: {
+        Authorization: `Bearer ${authToken}`
+        // ...corsHeader
+      },
+      data: {idoID}
+    });
+
+    return res.data;
+  };
+
+  return {getAuthToken, getAccountDetails, validateQuest, fetchProof};
 };

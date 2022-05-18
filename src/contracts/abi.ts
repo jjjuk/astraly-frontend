@@ -1806,11 +1806,53 @@ export const LOTTERY_TOKEN_ABI = [
   {
     inputs: [
       {
+        name: '_from',
+        type: 'felt'
+      },
+      {
+        name: 'id',
+        type: 'Uint256'
+      },
+      {
+        name: 'amount',
+        type: 'Uint256'
+      },
+      {
+        name: 'nb_quest',
+        type: 'felt'
+      },
+      {
+        name: 'merkle_proof_len',
+        type: 'felt'
+      },
+      {
+        name: 'merkle_proof',
+        type: 'felt*'
+      }
+    ],
+    name: 'burn_with_quest',
+    outputs: [],
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
         name: 'address',
         type: 'felt'
       }
     ],
     name: 'set_xzkp_contract_address',
+    outputs: [],
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        name: 'address',
+        type: 'felt'
+      }
+    ],
+    name: 'set_ido_factory_address',
     outputs: [],
     type: 'function'
   },

@@ -39,6 +39,24 @@ export const useLotteryTokenContract = () => {
     ]);
   };
 
+  const burnWithQuest = async (
+    account: AccountInterface | null | undefined,
+    id: number.BigNumberish,
+    amount: string,
+    nbQuest: number,
+    merkleProof: string[]
+  ) => {
+    const contract = await getLotteryTokenContract();
+
+    return await contract.invoke('burn_with_quest', [
+      account?.address,
+      parseInputAmountToUint256(id.toString()),
+      parseInputAmountToUint256(amount, 0),
+      nbQuest,
+      merkleProof
+    ]);
+  };
+
   const getTicketsBalance = async (address: string | undefined, id: number.BigNumberish) => {
     const contract = await getLotteryTokenContract();
 
@@ -49,6 +67,7 @@ export const useLotteryTokenContract = () => {
     getLotteryTokenContract,
     claimLotteryTickets,
     burn,
-    getTicketsBalance
+    getTicketsBalance,
+    burnWithQuest
   };
 };

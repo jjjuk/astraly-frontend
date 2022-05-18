@@ -5,6 +5,9 @@ import {ethers} from 'ethers';
 import {uint256} from 'starknet';
 import {useTokenContract} from 'contracts';
 import {useLotteryTokenContract} from 'contracts/lottery';
+import {useSelector} from 'react-redux';
+import {RootState} from 'stores/reduxStore';
+import {useApi} from 'api';
 
 const ClaimOrBurn = ({burn, idoID}: any) => {
   const {account} = useStarknetReact();
@@ -15,8 +18,20 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
   const [claiming, setClaiming] = useState(false);
   const [burning, setBurning] = useState(false);
 
+  const [nbQuest, setNbQuest] = useState(0);
+  const [merkleProof, setMerkleProof] = useState<string[]>([]);
+
+  const {authToken} = useSelector((state: RootState) => state.ConnectWallet);
+
   const {getXZKPBalance} = useTokenContract();
-  const {claimLotteryTickets, burn: burnTickets, getTicketsBalance} = useLotteryTokenContract();
+  const {
+    claimLotteryTickets,
+    burn: burnTickets,
+    getTicketsBalance,
+    burnWithQuest
+  } = useLotteryTokenContract();
+
+  const {fetchProof} = useApi();
 
   const handleClaimTickets = async () => {
     try {
@@ -33,8 +48,13 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
   const handleBurnTickets = async () => {
     try {
       setBurning(true);
-      const tx = await burnTickets(account, idoID, amountToBurn);
-      console.log(tx);
+      if (nbQuest === 0) {
+        const tx = await burnTickets(account, idoID, amountToBurn);
+        console.log(tx);
+      } else {
+        const tx = await burnWithQuest(account, idoID, amountToBurn, nbQuest, merkleProof);
+        console.log(tx);
+      }
       setBurning(false);
     } catch (e) {
       console.error(e);
@@ -62,11 +82,26 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
     }
   };
 
+  const fetchQuestsInfo = async () => {
+    try {
+      const proof = await fetchProof(authToken, idoID);
+      setMerkleProof(proof.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     if (account?.address) {
       fetchBalances();
     }
   }, [account]);
+
+  useEffect(() => {
+    if (authToken) {
+      fetchQuestsInfo();
+    }
+  }, [authToken]);
 
   return (
     <Flex width={'100%'} bg="#fff" border={'2px #fff solid'} borderRadius="24px" flexDir={'column'}>
