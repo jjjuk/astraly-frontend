@@ -78,7 +78,7 @@ const Home = (props: Props) => {
         ))}
         <SwiperSlide style={{width: '20px'}} />
       </Swiper>
-      <Flex mt="500px" />
+      <Flex mt="550px" />
     </>
   );
 };
