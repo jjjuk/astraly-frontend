@@ -18,10 +18,10 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
   const [claiming, setClaiming] = useState(false);
   const [burning, setBurning] = useState(false);
 
-  const [nbQuest, setNbQuest] = useState(0);
   const [merkleProof, setMerkleProof] = useState<string[]>([]);
 
   const {authToken} = useSelector((state: RootState) => state.ConnectWallet);
+  const {user} = useSelector((state: RootState) => state.Auth);
 
   const {getXZKPBalance} = useTokenContract();
   const {
@@ -48,11 +48,17 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
   const handleBurnTickets = async () => {
     try {
       setBurning(true);
-      if (nbQuest === 0) {
+      if (user.questsCompleted.length === 0) {
         const tx = await burnTickets(account, idoID, amountToBurn);
         console.log(tx);
       } else {
-        const tx = await burnWithQuest(account, idoID, amountToBurn, nbQuest, merkleProof);
+        const tx = await burnWithQuest(
+          account,
+          idoID,
+          amountToBurn,
+          user.questsCompleted.length,
+          merkleProof
+        );
         console.log(tx);
       }
       setBurning(false);
