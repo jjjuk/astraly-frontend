@@ -29,11 +29,7 @@ const Modal = ({
         <div className={styles.header}>
           <div className={styles.title}>{title}</div>
           <div className={styles.closeButton} onClick={onClose}>
-            <img
-              src="/assets/svgs/close.svg"
-              style={{filter: 'invert(var(--color-logo))'}}
-              alt="close-icon"
-            />
+            <img src="/assets/imgs/cross.png" />
           </div>
         </div>
         <div className={styles.textContainer}>

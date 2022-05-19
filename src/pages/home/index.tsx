@@ -4,12 +4,15 @@ import ProjectCard from 'components/ProjectCard';
 import StatsBar from 'components/StatsBar';
 import {Project} from 'interfaces';
 import {projects} from 'utils/data';
-import React from 'react';
+import React, {useRef} from 'react';
 import {MdOutlineShoppingCart} from 'react-icons/md';
 import {Swiper, SwiperSlide} from 'swiper/react';
-import SwiperCore, {FreeMode, Navigation} from 'swiper';
+import SwiperCore, {FreeMode, Navigation, Scrollbar, A11y} from 'swiper';
 
 import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 import 'swiper/css/free-mode';
 
 interface Props {}
@@ -61,22 +64,28 @@ const Home = (props: Props) => {
       </Flex>
       <Swiper
         slidesPerView={4.3}
-        navigation
         spaceBetween={0}
         freeMode={true}
-        pagination={{
-          clickable: true
+        allowSlideNext={true}
+        allowSlidePrev={true}
+        modules={[FreeMode, Scrollbar, A11y]}
+        navigation
+        updateOnWindowResize
+        loop
+        style={{
+          paddingBottom: '70px',
+          width: '100vw',
+          position: 'absolute',
+          left: '0',
+          ['--swiper-navigation-color' as any]: '#8F00FF',
+          ['--swiper-navigation-size' as any]: '20px'
         }}
-        modules={[FreeMode]}
-        className="mySwiper"
-        style={{paddingBottom: '70px', width: '100vw', position: 'absolute', left: '0'}}
       >
         {projects?.map((project: Project) => (
           <SwiperSlide style={{paddingLeft: '40px'}}>
             <ProjectCard project={project} key={project.id} />
           </SwiperSlide>
         ))}
-        <SwiperSlide style={{width: '20px'}} />
       </Swiper>
       <Flex mt="550px" />
     </>

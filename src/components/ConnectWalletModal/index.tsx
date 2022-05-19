@@ -14,8 +14,8 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 const Option = ({onClick = null, header, icon, active = false}: any) => {
   return (
     <div onClick={onClick} className={cx(styles.option, active && styles.active)}>
-      <div className={styles.header}>{header}</div>
       <img src={icon} className={styles.icon} alt="option-icon" />
+      <div className={styles.header}>{header}</div>
     </div>
   );
 };
@@ -93,12 +93,10 @@ const ConnectWalletModal = ({visible, onClose}: any) => {
   return (
     <Modal
       visible={visible}
-      secondTitle={
-        error instanceof UnsupportedChainIdError ? 'Wrong Network' : "Let's get started!"
-      }
+      secondTitle={error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Choose a wallet '}
       desc={
         error instanceof UnsupportedChainIdError
-          ? ''
+          ? 'Please connect to Starknet'
           : 'Connect with one of our available wallet providers.'
       }
       onClose={onClose}
