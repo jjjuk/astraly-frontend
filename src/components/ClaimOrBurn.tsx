@@ -151,7 +151,7 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
                 : Number(ticketsBalance)
               : loading
               ? '...'
-              : Math.round(Math.pow(Number(xzkpBalance), 0.6))}
+              : Math.floor(Math.pow(Number(xzkpBalance), 0.6))}
           </Text>
         </Flex>
       </Flex>
