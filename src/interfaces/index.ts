@@ -25,6 +25,7 @@ export interface Project {
 }
 
 export interface Quest {
+  _id: string;
   idoId: number;
   name?: string;
   description?: string;

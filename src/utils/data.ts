@@ -115,6 +115,7 @@ export const projects: Project[] = [
 
 export const quests: Quest[] = [
   {
+    _id: '3289429304',
     idoId: 0,
     name: 'Lock ZKP on ZkPad!',
     description: 'For this quest, you need to lock at least 100 ZKP tokens on ZkPad.',

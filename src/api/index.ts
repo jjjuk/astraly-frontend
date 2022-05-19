@@ -38,18 +38,33 @@ export const useApi = () => {
     return res.data;
   };
 
-  const validateQuest = async (account: AccountInterface) => {
+  const validateQuest = async (authToken: string | null | undefined, questId: string) => {
     const res = await axios({
-      method: 'get',
-      url: `${apiUrl}/account/getaccountinfo`,
+      method: 'post',
+      url: `${apiUrl}/quest/onQuestCompleted`,
       headers: {
-        // Authorization: `Bearer ${authToken}`
+        Authorization: `Bearer ${authToken}`
         // ...corsHeader
-      }
+      },
+      data: {questId}
     });
 
     return res.data;
   };
 
-  return {getAuthToken, getAccountDetails, validateQuest};
+  const fetchProof = async (authToken: string | null | undefined, idoID: string) => {
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/quest/getMerkleProof`,
+      headers: {
+        Authorization: `Bearer ${authToken}`
+        // ...corsHeader
+      },
+      data: {idoID}
+    });
+
+    return res.data;
+  };
+
+  return {getAuthToken, getAccountDetails, validateQuest, fetchProof};
 };
