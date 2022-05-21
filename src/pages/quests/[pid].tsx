@@ -15,7 +15,6 @@ import {
   Text
 } from '@chakra-ui/react';
 import styles from '../../styles/pid.module.scss';
-import ReactPlayer from 'react-player';
 
 const QuestPage = () => {
   const router = useRouter();

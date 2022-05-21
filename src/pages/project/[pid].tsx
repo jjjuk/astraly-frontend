@@ -20,8 +20,11 @@ import {
   BreadcrumbLink
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import ReactPlayer from 'react-player';
 import styles from '../../styles/pid.module.scss';
+
+import {default as _ReactPlayer} from 'react-player';
+import {ReactPlayerProps} from 'react-player/types/lib';
+const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>;
 
 const ProjectPage = () => {
   const router = useRouter();

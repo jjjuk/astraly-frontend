@@ -15,7 +15,6 @@ import {
   Text
 } from '@chakra-ui/react';
 import styles from '../../styles/pid.module.scss';
-import ReactPlayer from 'react-player';
 import ClaimOrBurn from 'components/ClaimOrBurn';
 import EntryRequirements from 'components/EntryRequirements';
 import ApplyNInvest from 'components/ApplyNInvest';
