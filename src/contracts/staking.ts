@@ -128,6 +128,12 @@ export const useStakingContract = () => {
     return await account.execute([_approveTx, _redeemTx]);
   };
 
+  const harvestRewards = async () => {
+    const contract = await getXZKPContract();
+
+    return await contract.invoke('harvestRewards', []);
+  };
+
   const previewDeposit = async (amount: string, lockTime: number.BigNumberish) => {
     const contract = await getXZKPContract();
 
@@ -163,6 +169,7 @@ export const useStakingContract = () => {
     depositLP,
     depositAll,
     redeem,
-    getUserStakeInfo
+    getUserStakeInfo,
+    harvestRewards
   };
 };
