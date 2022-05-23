@@ -43,10 +43,18 @@ const StakePage: NextPage = () => {
   const [harvesting, setHarvesting] = useState(false);
   const [withdrawing, setWithdrawing] = useState(false);
   const [zkpAmount, setZKPAmount] = useState('10.0');
+  const [currentAPY, setCurrentAPY] = useState(0);
   const [zkpLPAmount, setZKPLPAmount] = useState('0');
   const {getZKPBalance, getXZKPBalance, getLPBalance} = useTokenContract();
-  const {previewDeposit, depositAll, redeem, getUserStakeInfo, previewDepositLP, harvestRewards} =
-    useStakingContract();
+  const {
+    previewDeposit,
+    depositAll,
+    redeem,
+    getUserStakeInfo,
+    previewDepositLP,
+    harvestRewards,
+    getStakingAPY
+  } = useStakingContract();
 
   const [isLockScreen, toggleScreen] = useReducer(s => !s, true);
 
@@ -87,7 +95,7 @@ const StakePage: NextPage = () => {
   const fetchStakeInfo = async () => {
     try {
       const _stakeInfo = await getUserStakeInfo(account?.address);
-      console.log(_stakeInfo);
+      // console.log(_stakeInfo);
       setStakeInfo(_stakeInfo);
     } catch (e) {
       console.error(e);
@@ -173,10 +181,24 @@ const StakePage: NextPage = () => {
     }
   };
 
+  const fetchAPYs = async () => {
+    try {
+      const apr = await getStakingAPY();
+      const num_periods = 365; // Compound Daily
+      console.log(apr);
+      const apy = (1 + apr / num_periods) ** num_periods - 1;
+      console.log(apy);
+      setCurrentAPY(apr);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     if (account?.address) {
       fetchBalances();
       fetchStakeInfo();
+      fetchAPYs();
     }
   }, [account]);
 
@@ -790,7 +812,7 @@ const StakePage: NextPage = () => {
                       marginTop="auto"
                       marginLeft={'auto'}
                     >
-                      84%
+                      {currentAPY}%
                     </Flex>
                   </Flex>
                 </Flex>

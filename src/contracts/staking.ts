@@ -1,7 +1,11 @@
+import {BLOCKS_PER_YEAR} from 'constants';
+import {REWARDS_PER_BLOCK} from 'constants';
 import {Contracts} from 'constants/networks';
+import {ethers} from 'ethers';
 import useContract from 'hooks/useContract';
 import {AccountInterface, Call, number} from 'starknet';
 import {toFelt} from 'starknet/dist/utils/number';
+import {uint256ToBN} from 'starknet/utils/uint256';
 import {parseInputAmountToUint256, parseInputAmountToUint256ExecuteCall} from 'utils';
 
 import {XZKP_TOKEN_ABI} from './abi';
@@ -161,6 +165,27 @@ export const useStakingContract = () => {
     ]);
   };
 
+  const getTotalStaked = async () => {
+    const contract = await getXZKPContract();
+
+    const _totalStaked = await contract.call('totalAssets', []);
+    const _totalStakedFormatted = ethers.utils.formatUnits(
+      uint256ToBN(_totalStaked.totalManagedAssets).toString(),
+      'ether'
+    );
+
+    return _totalStakedFormatted;
+  };
+
+  const getStakingAPY = async () => {
+    const _totalStakedFormatted = await getTotalStaked();
+    const _totalRewardPerYear = REWARDS_PER_BLOCK * BLOCKS_PER_YEAR;
+
+    const _apr = (_totalRewardPerYear / Number(_totalStakedFormatted)) * 100;
+
+    return _apr;
+  };
+
   return {
     getXZKPContract,
     depositForTime,
@@ -170,6 +195,8 @@ export const useStakingContract = () => {
     depositAll,
     redeem,
     getUserStakeInfo,
-    harvestRewards
+    harvestRewards,
+    getStakingAPY,
+    getTotalStaked
   };
 };
