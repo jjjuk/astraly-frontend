@@ -1,5 +1,4 @@
-import {BLOCKS_PER_YEAR} from 'constants';
-import {REWARDS_PER_BLOCK} from 'constants';
+import {REWARDS_PER_BLOCK, BLOCKS_PER_YEAR} from 'constants/index';
 import {Contracts} from 'constants/networks';
 import {ethers} from 'ethers';
 import useContract from 'hooks/useContract';
