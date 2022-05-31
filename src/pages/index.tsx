@@ -1,23 +1,17 @@
-import {useStarknetReact} from '@web3-starknet-react/core';
-import type {NextPage} from 'next';
-import {useEffect} from 'react';
+import { useStarknetReact } from '@web3-starknet-react/core'
+import type { NextPage } from 'next'
+import { useEffect } from 'react'
 
-import Layout from '../layout';
-
-import Home from './home';
+import Home from './home'
 
 const ZkPad: NextPage = () => {
-  const {account} = useStarknetReact();
+  const { account } = useStarknetReact()
 
   useEffect(() => {
-    console.log(account);
-  }, [account]);
+    console.log(account)
+  }, [account])
 
-  return (
-    <Layout>
-      <Home />
-    </Layout>
-  );
-};
+  return <Home />
+}
 
-export default ZkPad;
+export default ZkPad

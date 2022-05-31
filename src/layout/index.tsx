@@ -1,19 +1,21 @@
-import Head from 'next/head';
-import Header from './header';
-import Footer from './footer';
-import {Container} from '@chakra-ui/react';
-import {ContractInterface} from 'starknet';
+import Header from './header/index'
+import Footer from './footer'
+import { PropsWithChildren } from 'react'
 
-export const siteTitle = 'zkPad';
-
-export default function Layout({children}: {children: React.ReactNode}) {
+export default function Layout({ children }: PropsWithChildren<{}>) {
   return (
     <>
-      <Container maxW={{base: '100%', md: '90%'}}>
+      <div className="default-layout flex flex-col min-h-full">
+        <div className="main-background"></div>
+
         <Header />
+
         <>{children}</>
-        <Footer />
-      </Container>
+
+        <div className="mt-auto">
+          <Footer />
+        </div>
+      </div>
     </>
-  );
+  )
 }
