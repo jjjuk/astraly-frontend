@@ -1,78 +1,78 @@
-import {Flex, usePrevious} from '@chakra-ui/react';
-import {UnsupportedChainIdError, useStarknetReact} from '@web3-starknet-react/core';
-import cx from 'classnames';
-import React, {useEffect} from 'react';
+import { Flex, usePrevious } from '@chakra-ui/react'
+import { UnsupportedChainIdError, useStarknetReact } from '@web3-starknet-react/core'
+import cx from 'classnames'
+import React, { useEffect } from 'react'
 
-import Modal from '../Modal';
-import {SUPPORTED_WALLETS} from 'constants/wallet';
+import Modal from '../Modal'
+import { SUPPORTED_WALLETS } from 'constants/wallet'
 
-import styles from './styles.module.scss';
+import styles from './styles.module.scss'
 
 // eslint-disable-next-line no-undef
-const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
+const isMainnet = process.env.REACT_APP_ENV === 'MAINNET'
 
-const Option = ({onClick = null, header, icon, active = false}: any) => {
+const Option = ({ onClick = null, header, icon, active = false }: any) => {
   return (
     <div onClick={onClick} className={cx(styles.option, active && styles.active)}>
       <img src={icon} className={styles.icon} alt="option-icon" />
       <div className={styles.header}>{header}</div>
     </div>
-  );
-};
+  )
+}
 
-const ConnectWalletModal = ({visible, onClose}: any) => {
-  const {activate, active, connector, error, deactivate} = useStarknetReact();
+const ConnectWalletModal = ({ visible, onClose }: any) => {
+  const { activate, active, connector, error, deactivate } = useStarknetReact()
 
   // close modal when a connection is successful
-  const activePrevious = usePrevious(active);
-  const connectorPrevious = usePrevious(connector);
+  const activePrevious = usePrevious(active)
+  const connectorPrevious = usePrevious(connector)
   useEffect(() => {
     if (
       visible &&
       ((active && !activePrevious) || (connector && connector !== connectorPrevious && !error))
     ) {
-      onClose();
+      onClose()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active, error, connector, visible, activePrevious, connectorPrevious]);
+  }, [active, error, connector, visible, activePrevious, connectorPrevious])
 
   const tryActivation = async (connector: any) => {
-    const conn = typeof connector === 'function' ? await connector() : connector;
+    const conn = typeof connector === 'function' ? await connector() : connector
 
-    Object.keys(SUPPORTED_WALLETS).map(key => {
+    Object.keys(SUPPORTED_WALLETS).map((key) => {
       if (connector === SUPPORTED_WALLETS[key].connector) {
-        return SUPPORTED_WALLETS[key].name;
+        return SUPPORTED_WALLETS[key].name
       }
-      return true;
-    });
+      return true
+    })
 
     conn &&
-      activate(conn, undefined, true).catch(error => {
-        console.log(error);
+      activate(conn, undefined, true).catch((error) => {
+        console.log(error)
         if (error instanceof UnsupportedChainIdError) {
-          activate(conn); // a little janky...can't use setError because the connector isn't set
+          activate(conn) // a little janky...can't use setError because the connector isn't set
         }
-      });
-  };
+      })
+  }
 
   const getOptions = () => {
-    return Object.keys(SUPPORTED_WALLETS).map(key => {
-      const option: any = SUPPORTED_WALLETS[key];
+    return Object.keys(SUPPORTED_WALLETS).map((key) => {
+      const option: any = SUPPORTED_WALLETS[key]
 
       return (
         <Option
           onClick={() => {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-            option.connector === connector ? null : tryActivation(option.connector);
+            option.connector === connector ? null : tryActivation(option.connector)
           }}
           key={key}
           active={option.connector === connector}
           header={option.name}
           icon={option.icon}
         />
-      );
-    });
-  };
+      )
+    })
+  }
 
   const getModalContent = () => {
     if (error instanceof UnsupportedChainIdError) {
@@ -85,10 +85,10 @@ const ConnectWalletModal = ({visible, onClose}: any) => {
             </div>
           </Flex>
         </div>
-      );
+      )
     }
-    return getOptions();
-  };
+    return getOptions()
+  }
 
   return (
     <Modal
@@ -100,11 +100,10 @@ const ConnectWalletModal = ({visible, onClose}: any) => {
           : 'Connect with one of our available wallet providers.'
       }
       onClose={onClose}
-      small
-    >
+      small>
       {getModalContent()}
     </Modal>
-  );
-};
+  )
+}
 
-export default ConnectWalletModal;
+export default ConnectWalletModal

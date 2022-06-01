@@ -79,10 +79,12 @@ const Index = (props: Props) => {
   return (
     <div className="header">
       <div className="g-container flex justify-between w-full py-22 items-center">
-        <div className="logo flex items-center ">
-          <img src={Logo} height="80" width="80" alt="ZKPAD logo" />
-          <div className="text-24 font-bold ml-4 font-heading text-primaryDark">ZKPAD</div>
-        </div>
+        <Link href={'/'}>
+          <div className="logo flex items-center cursor-pointer">
+            <img src={Logo} height="80" width="80" alt="ZKPAD logo" />
+            <div className="text-24 font-bold ml-4 font-heading text-primaryDark">ZKPAD</div>
+          </div>
+        </Link>
 
         <HeaderMenu />
 

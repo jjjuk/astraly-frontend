@@ -8,35 +8,41 @@ import {
   Stack,
   Text,
   useColorModeValue
-} from '@chakra-ui/react';
-import {Project} from 'interfaces';
-import Link from 'next/link';
-import React, {useEffect, useState} from 'react';
-import styles from '../../styles/hexagon.module.scss';
+} from '@chakra-ui/react'
+import { Project } from 'interfaces'
+import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
+import styles from '../../styles/hexagon.module.scss'
 
 interface Props {
-  project: Project;
+  project: Project
 }
 
-const ProjectCard = ({project}: Props) => {
-  const [roundTimer, setRoundTimer] = useState('...');
+const ProjectCard = ({ project }: Props) => {
+  const [roundTimer, setRoundTimer] = useState('...')
 
   const updateRoundTimer = () => {
-    const _roundId = project?.currentRoundId;
-    const _remainingTime = project?.rounds[_roundId].endDate.getTime() - new Date().getTime();
-    var days = Math.floor(_remainingTime / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((_remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((_remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((_remainingTime % (1000 * 60)) / 1000);
-    setRoundTimer(`${days}d${hours}h${minutes}m${seconds}s`);
-  };
+    const _roundId = project?.currentRoundId
+    const roundInfo = project?.rounds[_roundId]
+
+    if (!roundInfo || roundInfo.endDate.getTime() > new Date().getTime()) {
+      return `0d0h0m0s`
+    }
+
+    const _remainingTime = roundInfo.endDate.getTime() - new Date().getTime()
+    const days = Math.floor(_remainingTime / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((_remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutes = Math.floor((_remainingTime % (1000 * 60 * 60)) / (1000 * 60))
+    const seconds = Math.floor((_remainingTime % (1000 * 60)) / 1000)
+    setRoundTimer(`${days}d${hours}h${minutes}m${seconds}s`)
+  }
   useEffect(() => {
-    let interval = setInterval(() => updateRoundTimer(), 1000);
+    const interval = setInterval(() => updateRoundTimer(), 1000)
 
     return () => {
-      clearInterval(interval);
-    };
-  }, []);
+      clearInterval(interval)
+    }
+  }, [])
 
   return (
     <Link href={`/project/${project.id}`}>
@@ -48,15 +54,13 @@ const ProjectCard = ({project}: Props) => {
         overflow={'hidden'}
         cursor="pointer"
         height={'480px'}
-        border="2px solid #fff"
-      >
+        border="2px solid #fff">
         <Image height={'260px'} width={'full'} src={project?.cover} objectFit={'cover'} />
         <Flex justify={'left'} mt={-12} pl="18px">
           <div className={styles.hexBis}>
             <div
               className={styles.hex}
-              style={{['--link-logo' as any]: `url(${project?.logo})`}}
-            ></div>
+              style={{ ['--link-logo' as any]: `url(${project?.logo})` }}></div>
           </div>
           <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <defs>
@@ -84,8 +88,7 @@ const ProjectCard = ({project}: Props) => {
               fontSize="12px"
               lineHeight="150%"
               color="#8F00FF"
-              fontFamily="Druk Wide Web"
-            >
+              fontFamily="Druk Wide Web">
               ${project?.ticker}
             </Text>
           </Stack>
@@ -114,7 +117,7 @@ const ProjectCard = ({project}: Props) => {
         </Box>
       </Box>
     </Link>
-  );
-};
+  )
+}
 
-export default ProjectCard;
+export default ProjectCard

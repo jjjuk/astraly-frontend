@@ -10,8 +10,15 @@
 @font-face {
   font-family: 'Avenir Next';
   src: url('/fonts/AvenirNext/AvenirNextLTPro-Regular.otf');
-  weight: 400;
-  style: normal;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Avenir Next';
+  src: url('/fonts/AvenirNext/AvenirNextLTPro-Bold.otf');
+  font-weight: 700;
+  font-style: normal;
 }
 
 @font-face {
@@ -51,4 +58,23 @@ body {
     filter: blur(183px);
     border-radius: 100%;
   }
+}
+
+.text-shadow {
+  &.text-primary {
+    text-shadow: #370063 -2px 2px 0;
+  }
+
+  &.text-primaryDark {
+    text-shadow: #8F00FF -2px 2px 0;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

@@ -35,6 +35,7 @@
     "ethers": "^5.6.8",
     "file-loader": "^6.2.0",
     "framer-motion": "^6",
+    "lodash": "^4.17.21",
     "next": "12.1.0",
     "next-seo": "^5.1.0",
     "react": "17.0.2",
@@ -50,7 +51,8 @@
     "starknet": "^3.10.2",
     "starknet-analyzer": "^1.0.22",
     "swiper": "^8.1.4",
-    "tiny-warning": "^1.0.3"
+    "tiny-warning": "^1.0.3",
+    "vue-scrollto": "^2.20.0"
   },
   "devDependencies": {
     "@types/node": "17.0.21",

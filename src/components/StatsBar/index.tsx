@@ -1,49 +1,48 @@
-import {Flex, position, Text} from '@chakra-ui/react';
-import React from 'react';
-import Marquee from 'react-fast-marquee';
+import { Flex, position, Text } from '@chakra-ui/react'
+import React from 'react'
+import Marquee from 'react-fast-marquee'
 
 interface Stat {
-  title: string;
-  value: string;
+  title: string
+  value: string
 }
 
-const Stat = ({title, value}: Stat) => {
+const Stat = ({ title, value }: Stat) => {
   return (
-    <Flex gap="10px" margin="0 20px">
-      <Text color="black" fontWeight="black">
+    <Flex gap="8px" margin="0 12px" padding="2px 0 0 0">
+      <Text color="black" fontWeight="black" fontSize="12px">
         {title}
       </Text>
-      <Text color="purple.900" fontWeight="black">
+      <Text color="#8F00FF" fontWeight="black" fontSize="12px">
         {value}
       </Text>
     </Flex>
-  );
-};
-
-// borderTop = '1px solid #9D69DE';
-// borderBottom = '1px solid #9D69DE';
-// justifyContent = 'space-evenly';
-// width = '100vw';
+  )
+}
 
 const StatsBar = () => {
   return (
-    <Marquee
-      style={{
-        marginTop: '70px',
-        background: 'white',
-        width: '100vw',
-        position: 'absolute',
-        left: '0'
-      }}
-      gradient={false}
-    >
-      <Stat title="Average APY" value="83%" />
-      <Stat title="Total Value Staked" value="$ 210, 000, 000" />
-      <Stat title="ZKP Staked" value="12,000,000 ZKP" />
-      <Stat title="ZKP-LP Staked" value="12,000,000 ZKP-LP" />
-      <Stat title="Unique Stakers" value="20,000" />
-    </Marquee>
-  );
-};
+    <div className="uppercase">
+      <Marquee
+        style={{
+          background: 'white',
+          width: '100vw',
+          height: '24px'
+        }}
+        gradient={false}>
+        <Stat title="Average APY" value="83%" />
+        <Stat title="Total Value Staked" value="$ 210, 000, 000" />
+        <Stat title="ZKP Staked" value="12,000,000 ZKP" />
+        <Stat title="ZKP-LP Staked" value="12,000,000 ZKP-LP" />
+        <Stat title="Unique Stakers" value="20,000" />
+        <Stat title="Average APY" value="83%" />
+        <Stat title="Total Value Staked" value="$ 210, 000, 000" />
+        <Stat title="ZKP Staked" value="12,000,000 ZKP" />
+        <Stat title="ZKP-LP Staked" value="12,000,000 ZKP-LP" />
+        <Stat title="Unique Stakers" value="20,000" />
+      </Marquee>
+    </div>
+  )
+}
 
-export default StatsBar;
+export default StatsBar

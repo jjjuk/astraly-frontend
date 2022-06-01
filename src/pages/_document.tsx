@@ -1,44 +1,44 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import {ColorModeScript} from '@chakra-ui/color-mode';
-import createEmotionServer from '@emotion/server/create-instance';
-import type {DocumentContext} from 'next/document';
-import Document, {Html, Head, Main, NextScript} from 'next/document';
-import * as React from 'react';
-import customTheme from 'styles/customTheme';
+import { ColorModeScript } from '@chakra-ui/color-mode'
+import createEmotionServer from '@emotion/server/create-instance'
+import type { DocumentContext } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
+import * as React from 'react'
+import customTheme from 'styles/customTheme'
 
-import createEmotionCache from '../styles/createEmotionCache';
+import createEmotionCache from '../styles/createEmotionCache'
 
-const APP_NAME = 'ZkPad';
+const APP_NAME = 'ZkPad'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    const originalRenderPage = ctx.renderPage;
-    const cache = createEmotionCache();
+    const originalRenderPage = ctx.renderPage
+    const cache = createEmotionCache()
 
-    const {extractCriticalToChunks} = createEmotionServer(cache);
+    const { extractCriticalToChunks } = createEmotionServer(cache)
 
     ctx.renderPage = () =>
       originalRenderPage({
         // eslint-disable-next-line react/display-name
-        enhanceApp: (App: any) => props => <App emotionCache={cache} {...props} />
-      });
+        enhanceApp: (App: any) => (props) => <App emotionCache={cache} {...props} />
+      })
 
-    const initialProps = await Document.getInitialProps(ctx);
+    const initialProps = await Document.getInitialProps(ctx)
 
-    const emotionStyles = extractCriticalToChunks(initialProps.html);
-    const emotionStyleTags = emotionStyles.styles.map(style => (
+    const emotionStyles = extractCriticalToChunks(initialProps.html)
+    const emotionStyleTags = emotionStyles.styles.map((style) => (
       <style
         data-emotion={`${style.key} ${style.ids.join(' ')}`}
         key={style.key}
         // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{__html: style.css}}
+        dangerouslySetInnerHTML={{ __html: style.css }}
       />
-    ));
+    ))
 
     return {
       ...initialProps,
       styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags]
-    };
+    }
   }
 
   render() {
@@ -83,8 +83,8 @@ class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
-export default MyDocument;
+export default MyDocument
