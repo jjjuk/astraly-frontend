@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {useRouter} from 'next/router';
-import Layout from 'layout';
-import {Project, Round} from 'interfaces';
-import {projects} from 'utils/data';
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import Layout from 'layout'
+import { Project, Round } from 'interfaces'
+import { projects } from 'utils/data'
 import {
   Badge,
   Button,
@@ -17,23 +17,24 @@ import {
   UnorderedList,
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink
-} from '@chakra-ui/react';
-import Link from 'next/link';
-import styles from '../../styles/pid.module.scss';
+  BreadcrumbLink,
+} from '@chakra-ui/react'
+import Link from 'next/link'
+import styles from 'styles/pid.module.scss'
 
-import {default as _ReactPlayer} from 'react-player';
-import {ReactPlayerProps} from 'react-player/types/lib';
-const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>;
+import { default as _ReactPlayer } from 'react-player'
+import { ReactPlayerProps } from 'react-player/types/lib'
 
-const ProjectPage = () => {
-  const router = useRouter();
-  const {pid} = router.query;
-  const [project, setProject] = useState<Project | undefined>(undefined);
+const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>
+
+const ProjectPageContainer = () => {
+  const router = useRouter()
+  const { pid } = router.query
+  const [project, setProject] = useState<Project | undefined>(undefined)
 
   useEffect(() => {
-    setProject(projects.find(p => p.id === Number(pid)));
-  }, [pid]);
+    setProject(projects.find((p) => p.id === Number(pid)))
+  }, [pid])
 
   return (
     <Layout>
@@ -58,8 +59,7 @@ const ProjectPage = () => {
           color="purple.700"
           textShadow="-2px 2px 0px #8f00ff"
           mb={'64px'}
-          textTransform="uppercase"
-        >
+          textTransform="uppercase">
           {project?.name}
         </Heading>
       </Flex>
@@ -70,24 +70,21 @@ const ProjectPage = () => {
             width={'100%'}
             borderRadius="24px"
             border={'2px solid #fff'}
-            bg="#FAF3FF"
-          >
+            bg="#FAF3FF">
             <Flex
               className="Step 1"
               width={'25%'}
               borderRadius="24px"
               padding="20px"
               flexDir={'column'}
-              height={'100%'}
-            >
+              height={'100%'}>
               <Text
                 fontWeight="400"
                 fontSize="16px"
                 lineHeight="22px"
                 color="#8F00FF"
                 display={'flex'}
-                flexDir="row"
-              >
+                flexDir="row">
                 <Image src="/assets/imgs/star.png" mr={'3px'} height="10px" mt="auto" mb="auto" />
                 Step 1
               </Text>
@@ -97,8 +94,7 @@ const ProjectPage = () => {
                 fontSize="12px"
                 lineHeight="150%"
                 color="#8F00FF"
-                mt="5px"
-              >
+                mt="5px">
                 Ticket Claim
               </Text>
               <Text
@@ -108,8 +104,7 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 display={'flex'}
                 flexDir="row"
-                mt="8px"
-              >
+                mt="8px">
                 You can claim your tickets.
               </Text>
               <Text
@@ -121,8 +116,7 @@ const ProjectPage = () => {
                 flexDir="row"
                 pt="8px"
                 mt="auto"
-                mb="8px"
-              >
+                mb="8px">
                 2022-06-06
               </Text>
               <Button
@@ -133,9 +127,8 @@ const ProjectPage = () => {
                 fontFamily="Druk Wide Web"
                 color="white"
                 transition="all 0.5s ease"
-                _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                height={'24px'}
-              >
+                _hover={{ bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)' }}
+                height={'24px'}>
                 Claim
               </Button>
             </Flex>
@@ -145,16 +138,14 @@ const ProjectPage = () => {
               borderRadius="24px"
               padding="20px"
               flexDir={'column'}
-              height={'100%'}
-            >
+              height={'100%'}>
               <Text
                 fontWeight="400"
                 fontSize="16px"
                 lineHeight="22px"
                 color="#8F00FF"
                 display={'flex'}
-                flexDir="row"
-              >
+                flexDir="row">
                 <Image src="/assets/imgs/star.png" mr={'3px'} height="10px" mt="auto" mb="auto" />
                 Step 2
               </Text>
@@ -164,8 +155,7 @@ const ProjectPage = () => {
                 fontSize="12px"
                 lineHeight="150%"
                 color="#8F00FF"
-                mt="5px"
-              >
+                mt="5px">
                 Allocation
               </Text>
               <Text
@@ -175,8 +165,7 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 display={'flex'}
                 flexDir="row"
-                mt="8px"
-              >
+                mt="8px">
                 You can burn your tickets for allocation.
               </Text>
               <Text
@@ -188,8 +177,7 @@ const ProjectPage = () => {
                 flexDir="row"
                 pt="8px"
                 mt="auto"
-                mb="8px"
-              >
+                mb="8px">
                 2022-06-06
               </Text>
               <Button
@@ -200,9 +188,8 @@ const ProjectPage = () => {
                 fontFamily="Druk Wide Web"
                 color="white"
                 transition="all 0.5s ease"
-                _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                height={'24px'}
-              >
+                _hover={{ bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)' }}
+                height={'24px'}>
                 Claim
               </Button>
             </Flex>
@@ -212,16 +199,14 @@ const ProjectPage = () => {
               borderRadius="24px"
               padding="20px"
               flexDir={'column'}
-              height={'100%'}
-            >
+              height={'100%'}>
               <Text
                 fontWeight="400"
                 fontSize="16px"
                 lineHeight="22px"
                 color="#8F00FF"
                 display={'flex'}
-                flexDir="row"
-              >
+                flexDir="row">
                 <Image src="/assets/imgs/star.png" mr={'3px'} height="10px" mt="auto" mb="auto" />
                 Step 3
               </Text>
@@ -231,8 +216,7 @@ const ProjectPage = () => {
                 fontSize="12px"
                 lineHeight="150%"
                 color="#8F00FF"
-                mt="5px"
-              >
+                mt="5px">
                 Purchase
               </Text>
               <Text
@@ -242,8 +226,7 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 display={'flex'}
                 flexDir="row"
-                mt="8px"
-              >
+                mt="8px">
                 You can invest in the IDO.
               </Text>
               <Text
@@ -255,8 +238,7 @@ const ProjectPage = () => {
                 flexDir="row"
                 pt="8px"
                 mt="auto"
-                mb="8px"
-              >
+                mb="8px">
                 2022-06-06
               </Text>
               <Button
@@ -267,9 +249,8 @@ const ProjectPage = () => {
                 fontFamily="Druk Wide Web"
                 color="white"
                 transition="all 0.5s ease"
-                _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                height={'24px'}
-              >
+                _hover={{ bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)' }}
+                height={'24px'}>
                 Claim
               </Button>
             </Flex>
@@ -279,16 +260,14 @@ const ProjectPage = () => {
               borderRadius="24px"
               padding="20px"
               flexDir={'column'}
-              height={'100%'}
-            >
+              height={'100%'}>
               <Text
                 fontWeight="400"
                 fontSize="16px"
                 lineHeight="22px"
                 color="#8F00FF"
                 display={'flex'}
-                flexDir="row"
-              >
+                flexDir="row">
                 <Image src="/assets/imgs/star.png" mr={'3px'} height="10px" mt="auto" mb="auto" />
                 Step 4
               </Text>
@@ -298,8 +277,7 @@ const ProjectPage = () => {
                 fontSize="12px"
                 lineHeight="150%"
                 color="#8F00FF"
-                mt="5px"
-              >
+                mt="5px">
                 Distribution
               </Text>
               <Text
@@ -309,8 +287,7 @@ const ProjectPage = () => {
                 color="#8F00FF"
                 display={'flex'}
                 flexDir="row"
-                mt="8px"
-              >
+                mt="8px">
                 The tokens are gradually sent to your wallet
               </Text>
               <Text
@@ -322,8 +299,7 @@ const ProjectPage = () => {
                 flexDir="row"
                 pt="8px"
                 mt="auto"
-                mb="8px"
-              >
+                mb="8px">
                 2022-06-06
               </Text>
               <Button
@@ -334,9 +310,8 @@ const ProjectPage = () => {
                 fontFamily="Druk Wide Web"
                 color="white"
                 transition="all 0.5s ease"
-                _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                height={'24px'}
-              >
+                _hover={{ bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)' }}
+                height={'24px'}>
                 Claim
               </Button>
             </Flex>
@@ -348,13 +323,13 @@ const ProjectPage = () => {
             mt="16px"
             border="2px white solid"
             flexDir={'column'}
-            pb="14px"
-          >
+            pb="14px">
             <Flex width={'100%'} borderRadius={'26px'} overflow="hidden">
               <ReactPlayer width={'100%'} url="https://www.youtube.com/watch?v=ysz5S6PUM-U" />
             </Flex>
-            <div style={{transform: 'translateY(-35px)', marginRight: 'auto', marginLeft: '20px'}}>
-              <div style={{marginTop: 'auto', marginBottom: 'auto'}}>
+            <div
+              style={{ transform: 'translateY(-35px)', marginRight: 'auto', marginLeft: '20px' }}>
+              <div style={{ marginTop: 'auto', marginBottom: 'auto' }}>
                 <div className={styles.hex2}>
                   <div className={styles.hexBackground2}>
                     <img src={project?.logo} />
@@ -369,8 +344,7 @@ const ProjectPage = () => {
               fontSize="24px"
               lineHeight="31px"
               color="#8F00FF"
-              ml={'20px'}
-            >
+              ml={'20px'}>
               {project?.name}
             </Text>
             <Text
@@ -378,8 +352,7 @@ const ProjectPage = () => {
               lineHeight="19px"
               textTransform="uppercase"
               color="#9D69DE"
-              ml={'20px'}
-            >
+              ml={'20px'}>
               ${project?.ticker}
             </Text>
             <Flex gap="10px" ml={'20px'} mt="25px">
@@ -391,8 +364,7 @@ const ProjectPage = () => {
                   py={'5px'}
                   fontWeight="bold"
                   bg={'#fff'}
-                  color="#8F00FF"
-                >
+                  color="#8F00FF">
                   {category}
                 </Badge>
               ))}
@@ -408,10 +380,9 @@ const ProjectPage = () => {
             borderRadius="26px"
             border={'solid 2px #fff'}
             flexDir="column"
-            className="TopRight info Box"
-          >
+            className="TopRight info Box">
             <Flex width={'100%'} borderRadius="26px" bg="#FAF3FF" padding="20px">
-              <div style={{marginTop: 'auto', marginBottom: 'auto'}}>
+              <div style={{ marginTop: 'auto', marginBottom: 'auto' }}>
                 <div className={styles.hex}>
                   <div className={styles.hexBackground}>
                     <img src={project?.logo} />
@@ -428,8 +399,7 @@ const ProjectPage = () => {
                   fontWeight="700"
                   fontSize="40px"
                   lineHeight="110%"
-                  color="#370063"
-                >
+                  color="#370063">
                   {project?.name}
                 </Text>
               </Flex>
@@ -439,8 +409,7 @@ const ProjectPage = () => {
               padding="20px"
               width={'100%'}
               gridGap="10px"
-              className="TopRight info Box"
-            >
+              className="TopRight info Box">
               <Button
                 leftIcon={<Image src="/assets/imgs/rocket.png" height={'15px'} />}
                 bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
@@ -450,9 +419,8 @@ const ProjectPage = () => {
                 fontSize={'12px !important'}
                 color="white"
                 transition="all 0.5s ease"
-                _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                height={'54px'}
-              >
+                _hover={{ bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)' }}
+                height={'54px'}>
                 Apply Now
               </Button>
               <Link href={`/quests/${pid}`}>
@@ -465,9 +433,8 @@ const ProjectPage = () => {
                   fontFamily="Druk Wide Web"
                   color="white"
                   transition="all 0.5s ease"
-                  _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                  height={'54px'}
-                >
+                  _hover={{ bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)' }}
+                  height={'54px'}>
                   Booster Quests
                 </Button>
               </Link>
@@ -478,8 +445,7 @@ const ProjectPage = () => {
             height="100%"
             borderRadius="24px"
             flexDir={'column'}
-            border="2px solid #fff"
-          >
+            border="2px solid #fff">
             <Flex flexDir={'column'} padding="20px">
               <Text
                 fontFamily="Druk Wide Web"
@@ -487,8 +453,7 @@ const ProjectPage = () => {
                 fontSize="16px"
                 lineHeight="21px"
                 color="#9D69DE"
-                mb={'8px'}
-              >
+                mb={'8px'}>
                 Links
               </Text>
               <Flex gridGap={'10px'}></Flex>
@@ -500,8 +465,7 @@ const ProjectPage = () => {
                 fontSize="16px"
                 lineHeight="21px"
                 color="#9D69DE"
-                mb={'8px'}
-              >
+                mb={'8px'}>
                 Pitch
               </Text>
               <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
@@ -515,8 +479,7 @@ const ProjectPage = () => {
                 fontSize="16px"
                 lineHeight="21px"
                 color="#9D69DE"
-                mb={'8px'}
-              >
+                mb={'8px'}>
                 Admission
               </Text>
               <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
@@ -531,8 +494,7 @@ const ProjectPage = () => {
                 fontSize="16px"
                 lineHeight="21px"
                 color="#9D69DE"
-                mb={'8px'}
-              >
+                mb={'8px'}>
                 IDO Information
               </Text>
               <Flex width={'100%'}>
@@ -547,8 +509,7 @@ const ProjectPage = () => {
                   lineHeight="21px"
                   textAlign="right"
                   color="#8F00FF"
-                  ml={'auto'}
-                >
+                  ml={'auto'}>
                   {project?.totalRaise}
                 </Text>
               </Flex>
@@ -564,8 +525,7 @@ const ProjectPage = () => {
                   lineHeight="21px"
                   textAlign="right"
                   color="#8F00FF"
-                  ml={'auto'}
-                >
+                  ml={'auto'}>
                   ${project?.maxAllocation}
                 </Text>
               </Flex>
@@ -581,8 +541,7 @@ const ProjectPage = () => {
                   lineHeight="21px"
                   textAlign="right"
                   color="#8F00FF"
-                  ml={'auto'}
-                >
+                  ml={'auto'}>
                   {project?.maxAllocation}
                 </Text>
               </Flex>
@@ -598,8 +557,7 @@ const ProjectPage = () => {
                   lineHeight="21px"
                   textAlign="right"
                   color="#8F00FF"
-                  ml={'auto'}
-                >
+                  ml={'auto'}>
                   {project?.type}
                 </Text>
               </Flex>
@@ -615,8 +573,7 @@ const ProjectPage = () => {
                   lineHeight="21px"
                   textAlign="right"
                   color="#8F00FF"
-                  ml={'auto'}
-                >
+                  ml={'auto'}>
                   {project?.maxAllocation}
                 </Text>
               </Flex>
@@ -632,8 +589,7 @@ const ProjectPage = () => {
         bg="#fff"
         mt={'40px'}
         border="2px solid #fff"
-        padding={'20px'}
-      >
+        padding={'20px'}>
         <Flex className="Left container mov" width={'25%'} height="100%">
           <Flex
             bg={'#FAF3FF'}
@@ -641,8 +597,7 @@ const ProjectPage = () => {
             flexDir={'column'}
             borderRadius="24px"
             gridGap={'15px'}
-            padding="40px"
-          >
+            padding="40px">
             <Text fontFamily="Druk Wide Web" fontWeight="700" fontSize="16px" color="#9D69DE">
               Due Diligence
             </Text>
@@ -702,8 +657,7 @@ const ProjectPage = () => {
                   bg={project.currentRoundId === index ? 'purple.700' : 'purple.800'}
                   w="50px"
                   h="50px"
-                  mb={5}
-                >
+                  mb={5}>
                   {index}
                 </Flex>
                 <Text fontSize="lg" fontWeight="bold">
@@ -753,7 +707,7 @@ const ProjectPage = () => {
         </Flex>
       </Flex>
     </Layout>
-  );
-};
+  )
+}
 
-export default ProjectPage;
+export default ProjectPageContainer

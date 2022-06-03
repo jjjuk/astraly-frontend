@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 .g-container {
-  @apply mx-auto px-4;
-  max-width: 1568px;
+  @apply mx-auto px-20;
+  max-width: 1568 + 160px;
 }
 
 @font-face {

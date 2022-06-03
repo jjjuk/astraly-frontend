@@ -1,89 +1,91 @@
-import {Box, Button, Flex, Heading, Text} from '@chakra-ui/react';
-import {useStarknetReact} from '@web3-starknet-react/core';
-import {useFaucetContract} from 'contracts/faucet';
-import {ethers} from 'ethers';
-import Layout from 'layout';
-import React, {useEffect, useMemo, useState} from 'react';
-import {uint256} from 'starknet';
-import {Contracts} from 'constants/networks';
-import {verifyQuest} from 'utils/decode';
-import {quests} from 'utils/data';
-import {useSelector} from 'react-redux';
-import {RootState} from 'stores/reduxStore';
+import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
+import { useStarknetReact } from '@web3-starknet-react/core'
+import { useFaucetContract } from 'contracts/faucet'
+import { ethers } from 'ethers'
+import Layout from 'layout'
+import React, { useEffect, useMemo, useState } from 'react'
+import { uint256 } from 'starknet'
+import { Contracts } from 'constants/networks'
+import { verifyQuest } from 'utils/decode'
+import { quests } from 'utils/data'
+import { useSelector } from 'react-redux'
+import { RootState } from 'stores/reduxStore'
+import BuyPage from 'components/Pages/Buy/BuyPage'
 
-const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? 'SN_MAIN' : 'SN_GOERLI';
+const isMainnet = process.env.REACT_APP_ENV === 'MAINNET'
+const CHAIN = isMainnet ? 'SN_MAIN' : 'SN_GOERLI'
 
-const BuyPage = () => {
-  const {account, connector} = useStarknetReact();
-  const [mintAmount, setMintAmount] = useState('0');
-  const [roundTimer, setRoundTimer] = useState('...');
-  const [unlockTime, setUnlockTime] = useState(0);
-  const [allowed, setAllowed] = useState(true);
+const BuyPageContainer = () => {
+  return <BuyPage />
+  const { account, connector } = useStarknetReact()
+  const [mintAmount, setMintAmount] = useState('0')
+  const [roundTimer, setRoundTimer] = useState('...')
+  const [unlockTime, setUnlockTime] = useState(0)
+  const [allowed, setAllowed] = useState(true)
 
-  const {getWait, getAmount, getUnlockTime, allowedToWithdraw, faucetTransfer} =
-    useFaucetContract();
+  const { getWait, getAmount, getUnlockTime, allowedToWithdraw, faucetTransfer } =
+    useFaucetContract()
 
-  const {authToken} = useSelector((state: RootState) => state.ConnectWallet);
+  const { authToken } = useSelector((state: RootState) => state.ConnectWallet)
 
   const handleTransfer = async () => {
     try {
-      await faucetTransfer();
+      await faucetTransfer()
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleToWallet = async () => {
     try {
-      const _address = Contracts[CHAIN].token;
+      const _address = Contracts[CHAIN].token
       await (window as any).starknet?.request({
         type: 'wallet_watchAsset',
         params: {
           type: 'ERC20',
           options: {
-            address: _address
-          }
-        }
-      });
+            address: _address,
+          },
+        },
+      })
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const fetchInfo = async () => {
     try {
-      const _amount = await getAmount();
+      const _amount = await getAmount()
       const _formattedAmount = ethers.utils.formatUnits(
         uint256.uint256ToBN(_amount.res).toString(),
         'ether'
-      );
-      setMintAmount(_formattedAmount);
+      )
+      setMintAmount(_formattedAmount)
 
-      const _allowedToWithdraw = await allowedToWithdraw(account?.address);
-      setAllowed(_allowedToWithdraw.success.toNumber() as boolean);
+      const _allowedToWithdraw = await allowedToWithdraw(account?.address)
+      setAllowed(_allowedToWithdraw.success.toNumber() as boolean)
 
-      const _unlockTime = await getUnlockTime(account?.address);
-      setUnlockTime(_unlockTime.res.toNumber());
+      const _unlockTime = await getUnlockTime(account?.address)
+      setUnlockTime(_unlockTime.res.toNumber())
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   useEffect(() => {
-    if (account) fetchInfo();
-  }, [account]);
+    if (account) fetchInfo()
+  }, [account])
 
   useEffect(() => {
     const _interval = setInterval(() => {
-      const _remainingTime = new Date(unlockTime * 1000).getTime() - new Date().getTime();
-      const minutes = Math.floor((_remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((_remainingTime % (1000 * 60)) / 1000);
-      setRoundTimer(`${minutes}m${seconds}s`);
-    }, 1000);
+      const _remainingTime = new Date(unlockTime * 1000).getTime() - new Date().getTime()
+      const minutes = Math.floor((_remainingTime % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((_remainingTime % (1000 * 60)) / 1000)
+      setRoundTimer(`${minutes}m${seconds}s`)
+    }, 1000)
 
-    return () => clearInterval(_interval);
-  }, [unlockTime]);
+    return () => clearInterval(_interval)
+  }, [unlockTime])
 
   return (
     <Layout>
@@ -92,12 +94,11 @@ const BuyPage = () => {
           borderRadius="24px"
           bg="white"
           p={10}
-          width={{base: '90%', sm: '70%', md: '50%', lg: '40%', xl: '30%'}}
+          width={{ base: '90%', sm: '70%', md: '50%', lg: '40%', xl: '30%' }}
           justifyContent="center"
           flexDir="column"
           margin="auto"
-          gap="10px"
-        >
+          gap="10px">
           <Heading size="sm">Mint Amount: {mintAmount} ZKP</Heading>
           <Button
             bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
@@ -108,8 +109,7 @@ const BuyPage = () => {
             width="auto !important"
             color="white"
             disabled={!allowed}
-            onClick={handleTransfer}
-          >
+            onClick={handleTransfer}>
             Mint ZKP
           </Button>
           {!allowed && <Text>You will be able to whitdraw in {roundTimer}</Text>}
@@ -122,8 +122,7 @@ const BuyPage = () => {
             py="15px"
             width="80px !important"
             color="white"
-            onClick={handleToWallet}
-          >
+            onClick={handleToWallet}>
             Add ZKP to Wallet
           </Button>
         </Flex>
@@ -145,13 +144,12 @@ const BuyPage = () => {
               account,
               authToken
             )
-          }
-        >
+          }>
           Verify Quest
         </Button>
       )}
     </Layout>
-  );
-};
+  )
+}
 
-export default BuyPage;
+export default BuyPageContainer

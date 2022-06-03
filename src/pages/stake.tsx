@@ -11,41 +11,43 @@ import {
   Spinner,
   Text,
   VStack,
-  Tooltip
-} from '@chakra-ui/react';
-import {useStarknetReact} from '@web3-starknet-react/core';
-import {ethers} from 'ethers';
-import type {NextPage} from 'next';
-import {forwardRef, useEffect, useMemo, useReducer, useState} from 'react';
-import DatePicker from 'react-datepicker';
-import {number, Result, uint256} from 'starknet';
+  Tooltip,
+} from '@chakra-ui/react'
+import { useStarknetReact } from '@web3-starknet-react/core'
+import { ethers } from 'ethers'
+import type { NextPage } from 'next'
+import { forwardRef, useEffect, useMemo, useReducer, useState } from 'react'
+import DatePicker from 'react-datepicker'
+import { number, Result, uint256 } from 'starknet'
 
-import Layout from '../layout';
+import Layout from '../layout'
 
-import 'react-datepicker/dist/react-datepicker.css';
-import {CalendarIcon, InfoIcon, LockIcon} from '@chakra-ui/icons';
+import 'react-datepicker/dist/react-datepicker.css'
+import { CalendarIcon, InfoIcon, LockIcon } from '@chakra-ui/icons'
 
-import {useTokenContract} from 'contracts';
-import {useStakingContract} from 'contracts/staking';
-import ConnectWallet from 'components/ConnectWallet';
-import {Contracts} from 'constants/networks';
+import { useTokenContract } from 'contracts'
+import { useStakingContract } from 'contracts/staking'
+import ConnectWallet from 'components/ConnectWallet'
+import { Contracts } from 'constants/networks'
+import LockPage from '../components/Pages/Lock/LockPage'
 
 const StakePage: NextPage = () => {
-  const {account} = useStarknetReact();
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [zkpBalance, setZkpBalance] = useState('0');
-  const [lpBalance, setLPBalance] = useState('0');
-  const [stakeInfo, setStakeInfo] = useState<Result>({} as Result);
-  const [xzkpBalance, setXZkpBalance] = useState('0');
-  const [previewXZKP, setPreviewXZKP] = useState('0');
-  const [updatingPreview, setUpdatingPreview] = useState(false);
-  const [locking, setLocking] = useState(false);
-  const [harvesting, setHarvesting] = useState(false);
-  const [withdrawing, setWithdrawing] = useState(false);
-  const [zkpAmount, setZKPAmount] = useState('10.0');
-  const [currentAPY, setCurrentAPY] = useState(0);
-  const [zkpLPAmount, setZKPLPAmount] = useState('0');
-  const {getZKPBalance, getXZKPBalance, getLPBalance} = useTokenContract();
+  return <LockPage />
+  const { account } = useStarknetReact()
+  const [startDate, setStartDate] = useState<Date>(new Date())
+  const [zkpBalance, setZkpBalance] = useState('0')
+  const [lpBalance, setLPBalance] = useState('0')
+  const [stakeInfo, setStakeInfo] = useState<Result>({} as Result)
+  const [xzkpBalance, setXZkpBalance] = useState('0')
+  const [previewXZKP, setPreviewXZKP] = useState('0')
+  const [updatingPreview, setUpdatingPreview] = useState(false)
+  const [locking, setLocking] = useState(false)
+  const [harvesting, setHarvesting] = useState(false)
+  const [withdrawing, setWithdrawing] = useState(false)
+  const [zkpAmount, setZKPAmount] = useState('10.0')
+  const [currentAPY, setCurrentAPY] = useState(0)
+  const [zkpLPAmount, setZKPLPAmount] = useState('0')
+  const { getZKPBalance, getXZKPBalance, getLPBalance } = useTokenContract()
   const {
     previewDeposit,
     depositAll,
@@ -53,163 +55,163 @@ const StakePage: NextPage = () => {
     getUserStakeInfo,
     previewDepositLP,
     harvestRewards,
-    getStakingAPY
-  } = useStakingContract();
+    getStakingAPY,
+  } = useStakingContract()
 
-  const [isLockScreen, toggleScreen] = useReducer(s => !s, true);
+  const [isLockScreen, toggleScreen] = useReducer((s) => !s, true)
 
   const unlockRemainingTime = useMemo(
     () => new Date(stakeInfo?.unlock_time?.toNumber() * 1000).getTime() - new Date().getTime(),
     [stakeInfo]
-  );
-  const lockTime = useMemo(() => startDate.getTime() - new Date().getTime(), [startDate]);
+  )
+  const lockTime = useMemo(() => startDate.getTime() - new Date().getTime(), [startDate])
 
   const fetchBalances = async () => {
     try {
-      const _balance = await getZKPBalance(account?.address);
+      const _balance = await getZKPBalance(account?.address)
       const _formattedBalance = ethers.utils.formatUnits(
         uint256.uint256ToBN(_balance.balance).toString(),
         'ether'
-      );
-      setZkpBalance(_formattedBalance);
+      )
+      setZkpBalance(_formattedBalance)
 
-      const _lpBalance = await getLPBalance(account?.address, Contracts['SN_GOERLI'].lp_token);
+      const _lpBalance = await getLPBalance(account?.address, Contracts['SN_GOERLI'].lp_token)
       const _formattedLPBalance = ethers.utils.formatUnits(
         uint256.uint256ToBN(_lpBalance.balance).toString(),
         'ether'
-      );
-      setLPBalance(_formattedLPBalance);
+      )
+      setLPBalance(_formattedLPBalance)
 
-      const _xbalance = await getXZKPBalance(account?.address);
+      const _xbalance = await getXZKPBalance(account?.address)
       const _xformattedBalance = ethers.utils.formatUnits(
         uint256.uint256ToBN(_xbalance.balance).toString(),
         'ether'
-      );
-      setXZkpBalance(_xformattedBalance);
+      )
+      setXZkpBalance(_xformattedBalance)
 
-      if (Number(_xformattedBalance) > 0) toggleScreen();
+      if (Number(_xformattedBalance) > 0) toggleScreen()
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
-  };
+  }
   const fetchStakeInfo = async () => {
     try {
-      const _stakeInfo = await getUserStakeInfo(account?.address);
+      const _stakeInfo = await getUserStakeInfo(account?.address)
       // console.log(_stakeInfo);
-      setStakeInfo(_stakeInfo);
+      setStakeInfo(_stakeInfo)
     } catch (e) {
-      console.error(e);
+      console.error(e)
     }
-  };
+  }
 
   const updatePreview = async () => {
     try {
-      setUpdatingPreview(true);
-      const _daysPassed = lockTime / (3600 * 24 * 1000);
-      const _preview = await previewDeposit(zkpAmount, _daysPassed);
+      setUpdatingPreview(true)
+      const _daysPassed = lockTime / (3600 * 24 * 1000)
+      const _preview = await previewDeposit(zkpAmount, _daysPassed)
       const _formattedShares = ethers.utils.formatUnits(
         uint256.uint256ToBN(_preview.shares).toString(),
         'ether'
-      );
+      )
       if (Number(zkpLPAmount) > 0) {
         const _previewLP = await previewDepositLP(
           Contracts['SN_GOERLI'].lp_token,
           zkpLPAmount,
           _daysPassed
-        );
+        )
         const _formattedSharesLP = ethers.utils.formatUnits(
           uint256.uint256ToBN(_previewLP.shares).toString(),
           'ether'
-        );
-        const _sharesSum = Number(_formattedShares) + Number(_formattedSharesLP);
-        setPreviewXZKP(_sharesSum.toString());
+        )
+        const _sharesSum = Number(_formattedShares) + Number(_formattedSharesLP)
+        setPreviewXZKP(_sharesSum.toString())
       } else {
-        setPreviewXZKP(_formattedShares);
+        setPreviewXZKP(_formattedShares)
       }
 
-      setUpdatingPreview(false);
+      setUpdatingPreview(false)
     } catch (e) {
-      console.error(e);
-      setUpdatingPreview(false);
+      console.error(e)
+      setUpdatingPreview(false)
     }
-  };
+  }
 
   const handleLock = async () => {
-    if (!account?.address) return;
+    if (!account?.address) return
 
     try {
-      setLocking(true);
-      const _daysPassed = lockTime / (3600 * 24 * 1000);
+      setLocking(true)
+      const _daysPassed = lockTime / (3600 * 24 * 1000)
       const tx = await depositAll(
         Contracts['SN_GOERLI'].lp_token,
         zkpLPAmount,
         zkpAmount,
         account,
         _daysPassed
-      );
-      setLocking(false);
+      )
+      setLocking(false)
     } catch (e) {
-      console.error(e);
-      setLocking(false);
+      console.error(e)
+      setLocking(false)
     }
-  };
+  }
 
   const handleHarvest = async () => {
-    if (!account?.address) return;
+    if (!account?.address) return
 
     try {
-      setHarvesting(true);
-      const tx = await harvestRewards();
-      setHarvesting(false);
+      setHarvesting(true)
+      const tx = await harvestRewards()
+      setHarvesting(false)
     } catch (e) {
-      console.error(e);
-      setHarvesting(false);
+      console.error(e)
+      setHarvesting(false)
     }
-  };
+  }
 
   const handleWithdraw = async () => {
-    if (!account?.address) return;
+    if (!account?.address) return
 
     try {
-      setWithdrawing(true);
-      const tx = await redeem(xzkpBalance, account);
-      console.log(tx);
-      setWithdrawing(false);
+      setWithdrawing(true)
+      const tx = await redeem(xzkpBalance, account)
+      console.log(tx)
+      setWithdrawing(false)
     } catch (e) {
-      console.error(e);
-      setWithdrawing(false);
+      console.error(e)
+      setWithdrawing(false)
     }
-  };
+  }
 
   const fetchAPYs = async () => {
     try {
-      const apr = await getStakingAPY();
-      const num_periods = 365; // Compound Daily
-      console.log(apr);
-      const apy = (1 + apr / num_periods) ** num_periods - 1;
-      console.log(apy);
-      setCurrentAPY(apr);
+      const apr = await getStakingAPY()
+      const num_periods = 365 // Compound Daily
+      console.log(apr)
+      const apy = (1 + apr / num_periods) ** num_periods - 1
+      console.log(apy)
+      setCurrentAPY(apr)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   useEffect(() => {
     if (account?.address) {
-      fetchBalances();
-      fetchStakeInfo();
-      fetchAPYs();
+      fetchBalances()
+      fetchStakeInfo()
+      fetchAPYs()
     }
-  }, [account]);
+  }, [account])
 
   useEffect(() => {
-    updatePreview();
-  }, [zkpAmount, zkpLPAmount, startDate]);
+    updatePreview()
+  }, [zkpAmount, zkpLPAmount, startDate])
 
   const CustomDatePicker = forwardRef<
     HTMLButtonElement,
     React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
-  >(({value, onClick}, ref) => (
+  >(({ value, onClick }, ref) => (
     <Button
       leftIcon={<CalendarIcon />}
       bg="#fff"
@@ -217,14 +219,13 @@ const StakePage: NextPage = () => {
       border="1px solid #C89CFF"
       onClick={onClick}
       ref={ref}
-      _hover={{bg: '#C89CFF'}}
+      _hover={{ bg: '#C89CFF' }}
       fontFamily="Druk Wide Web"
       fontSize={'10px'}
-      height="56px"
-    >
-      <span style={{marginRight: '20px', color: '#9D69DE'}}>Date</span> {value}
+      height="56px">
+      <span style={{ marginRight: '20px', color: '#9D69DE' }}>Date</span> {value}
     </Button>
-  ));
+  ))
 
   return (
     <Layout>
@@ -251,32 +252,28 @@ const StakePage: NextPage = () => {
                   backgroundColor="#fff"
                   border={'2px #fff solid'}
                   width="100%"
-                  height={'100%'}
-                >
+                  height={'100%'}>
                   <Flex
                     borderRadius={'24px'}
                     background="purple.600"
                     width={'100%'}
                     flexDir="row"
                     padding="20px"
-                    minH={'50%'}
-                  >
+                    minH={'50%'}>
                     <Flex flexDir={'column'} margin="auto">
                       <Text
                         color="#9D69DE"
                         fontWeight={'700'}
                         onClick={() => setZKPAmount(zkpBalance)}
                         fontSize="12px"
-                        pb="5px"
-                      >
+                        pb="5px">
                         <span
                           style={{
                             color: '#C89CFF',
                             paddingRight: '30px',
                             fontWeight: '400',
-                            fontSize: '16px'
-                          }}
-                        >
+                            fontSize: '16px',
+                          }}>
                           Tokens
                         </span>
                         <span
@@ -285,9 +282,8 @@ const StakePage: NextPage = () => {
                             fontSize: '12px',
                             paddingRight: '15px',
                             fontWeight: '900',
-                            marginLeft: '40px'
-                          }}
-                        >
+                            marginLeft: '40px',
+                          }}>
                           Available
                         </span>
                         {zkpBalance}
@@ -298,13 +294,12 @@ const StakePage: NextPage = () => {
                         width="100%"
                         onChange={(valueString: string) => setZKPAmount(valueString)}
                         value={zkpAmount}
-                        position="relative"
-                      >
+                        position="relative">
                         <NumberInputField
                           bg="#fff"
                           textAlign="right"
                           borderRadius="8px"
-                          _hover={{bg: '#C89CFF'}}
+                          _hover={{ bg: '#C89CFF' }}
                           fontFamily="Druk Wide Web"
                           fontSize={'10px'}
                           height="56px"
@@ -316,8 +311,7 @@ const StakePage: NextPage = () => {
                           top={'21px'}
                           fontFamily="Druk Wide Web"
                           fontSize={'10px'}
-                          zIndex="10"
-                        >
+                          zIndex="10">
                           ZKP
                         </Text>
                       </NumberInput>
@@ -327,24 +321,21 @@ const StakePage: NextPage = () => {
                     padding="20px"
                     marginTop="auto"
                     marginBottom="auto"
-                    justifyContent={'center'}
-                  >
+                    justifyContent={'center'}>
                     <Flex flexDir={'column'} margin="auto">
                       <Text
                         color="#9D69DE"
                         fontWeight={'700'}
                         onClick={() => setZKPLPAmount(lpBalance)}
                         fontSize="12px"
-                        pb="5px"
-                      >
+                        pb="5px">
                         <span
                           style={{
                             color: '#C89CFF',
                             paddingRight: '20px',
                             fontWeight: '400',
-                            fontSize: '16px'
-                          }}
-                        >
+                            fontSize: '16px',
+                          }}>
                           Liquid Pools
                         </span>
                         <span
@@ -353,9 +344,8 @@ const StakePage: NextPage = () => {
                             fontSize: '12px',
                             paddingRight: '15px',
                             fontWeight: '900',
-                            marginLeft: '40px'
-                          }}
-                        >
+                            marginLeft: '40px',
+                          }}>
                           Available
                         </span>
                         {lpBalance}
@@ -366,13 +356,12 @@ const StakePage: NextPage = () => {
                         width="100%"
                         onChange={(valueString: string) => setZKPLPAmount(valueString)}
                         value={zkpLPAmount}
-                        position="relative"
-                      >
+                        position="relative">
                         <NumberInputField
                           bg="#fff"
                           textAlign="right"
                           borderRadius="8px"
-                          _hover={{bg: '#C89CFF'}}
+                          _hover={{ bg: '#C89CFF' }}
                           fontFamily="Druk Wide Web"
                           fontSize={'10px'}
                           height="56px"
@@ -384,8 +373,7 @@ const StakePage: NextPage = () => {
                           top={'21px'}
                           fontFamily="Druk Wide Web"
                           fontSize={'10px'}
-                          zIndex="10"
-                        >
+                          zIndex="10">
                           ZKP-LP
                         </Text>
                       </NumberInput>
@@ -402,23 +390,20 @@ const StakePage: NextPage = () => {
                   backgroundColor="#fff"
                   width="100%"
                   border={'2px #fff solid'}
-                  height="100%"
-                >
+                  height="100%">
                   <Flex
                     borderRadius={'24px'}
                     background="purple.600"
                     width={'100%'}
                     flexDir="row"
-                    padding="20px"
-                  >
+                    padding="20px">
                     <Flex flexDir={'column'}>
                       <Text
                         fontStyle="normal"
                         fontWeight="400"
                         fontSize="16px"
                         lineHeight="22px"
-                        color="#9D69DE"
-                      >
+                        color="#9D69DE">
                         Lock until
                       </Text>
                       <Flex flexDir={'row'} gridGap="10px" pt={'15px'}>
@@ -429,13 +414,12 @@ const StakePage: NextPage = () => {
                           fontSize="xs"
                           borderRadius="8px"
                           height="30px"
-                          _hover={{bg: 'purple.400'}}
+                          _hover={{ bg: 'purple.400' }}
                           onClick={() => {
-                            const d = new Date();
-                            d.setMonth(d.getMonth() + 6);
-                            setStartDate(d);
-                          }}
-                        >
+                            const d = new Date()
+                            d.setMonth(d.getMonth() + 6)
+                            setStartDate(d)
+                          }}>
                           6 Months
                         </Button>
                         <Button
@@ -445,13 +429,12 @@ const StakePage: NextPage = () => {
                           fontSize="xs"
                           borderRadius="8px"
                           height="30px"
-                          _hover={{bg: 'purple.400'}}
+                          _hover={{ bg: 'purple.400' }}
                           onClick={() => {
-                            const d = new Date();
-                            d.setMonth(d.getMonth() + 12);
-                            setStartDate(d);
-                          }}
-                        >
+                            const d = new Date()
+                            d.setMonth(d.getMonth() + 12)
+                            setStartDate(d)
+                          }}>
                           1 year
                         </Button>
                         <Button
@@ -461,13 +444,12 @@ const StakePage: NextPage = () => {
                           fontSize="xs"
                           borderRadius="8px"
                           height="30px"
-                          _hover={{bg: 'purple.400'}}
+                          _hover={{ bg: 'purple.400' }}
                           onClick={() => {
-                            const d = new Date();
-                            d.setMonth(d.getMonth() + 24);
-                            setStartDate(d);
-                          }}
-                        >
+                            const d = new Date()
+                            d.setMonth(d.getMonth() + 24)
+                            setStartDate(d)
+                          }}>
                           2 Year
                         </Button>
                       </Flex>
@@ -476,7 +458,7 @@ const StakePage: NextPage = () => {
                       <Flex height={'23px'} />
                       <DatePicker
                         selected={startDate}
-                        onChange={date => setStartDate(date || new Date())}
+                        onChange={(date) => setStartDate(date || new Date())}
                         customInput={<CustomDatePicker />}
                       />
                     </Flex>
@@ -485,8 +467,7 @@ const StakePage: NextPage = () => {
                     padding="20px"
                     marginTop="auto"
                     marginBottom="auto"
-                    justifyContent={'center'}
-                  >
+                    justifyContent={'center'}>
                     <Button
                       leftIcon={
                         <Image height={'19px'} width="15px" src={'/assets/imgs/locker.png'} />
@@ -498,14 +479,13 @@ const StakePage: NextPage = () => {
                       fontFamily="Druk Wide Web"
                       py="25px"
                       color="white"
-                      _hover={{bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)'}}
+                      _hover={{ bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)' }}
                       onClick={handleLock}
                       disabled={
                         lockTime < unlockRemainingTime ||
                         Number(zkpAmount) > Number(zkpBalance) ||
                         Number(zkpLPAmount) > Number(lpBalance)
-                      }
-                    >
+                      }>
                       Lock
                     </Button>
                   </Flex>
@@ -529,23 +509,20 @@ const StakePage: NextPage = () => {
                   backgroundColor="#fff"
                   width="100%"
                   border={'2px #fff solid'}
-                  height="100%"
-                >
+                  height="100%">
                   <Flex
                     borderRadius={'24px'}
                     background="purple.600"
                     width={'100%'}
                     flexDir="row"
-                    padding="20px"
-                  >
+                    padding="20px">
                     <Flex flexDir={'column'}>
                       <Text
                         fontStyle="normal"
                         fontWeight="400"
                         fontSize="16px"
                         lineHeight="22px"
-                        color="#9D69DE"
-                      >
+                        color="#9D69DE">
                         $ZKP staked
                       </Text>
                       <Flex flexDir={'row'} gridGap="10px" pt={'15px'}>
@@ -556,11 +533,10 @@ const StakePage: NextPage = () => {
                           fontSize="xs"
                           borderRadius="8px"
                           height="30px"
-                          _hover={{bg: 'purple.400'}}
+                          _hover={{ bg: 'purple.400' }}
                           onClick={() => {
-                            setZKPAmount('100');
-                          }}
-                        >
+                            setZKPAmount('100')
+                          }}>
                           100
                         </Button>
                         <Button
@@ -570,11 +546,10 @@ const StakePage: NextPage = () => {
                           fontSize="xs"
                           borderRadius="8px"
                           height="30px"
-                          _hover={{bg: 'purple.400'}}
+                          _hover={{ bg: 'purple.400' }}
                           onClick={() => {
-                            setZKPAmount('1000');
-                          }}
-                        >
+                            setZKPAmount('1000')
+                          }}>
                           1,000
                         </Button>
                         <Button
@@ -584,11 +559,10 @@ const StakePage: NextPage = () => {
                           fontSize="xs"
                           borderRadius="8px"
                           height="30px"
-                          _hover={{bg: 'purple.400'}}
+                          _hover={{ bg: 'purple.400' }}
                           onClick={() => {
-                            setZKPAmount('10000');
-                          }}
-                        >
+                            setZKPAmount('10000')
+                          }}>
                           10,000
                         </Button>
                       </Flex>
@@ -600,9 +574,8 @@ const StakePage: NextPage = () => {
                         onClick={() => setZKPAmount(zkpBalance)}
                         fontSize="13px"
                         pb="5px"
-                        ml={'auto'}
-                      >
-                        <span style={{color: '#C89CFF', paddingRight: '15px', fontWeight: '900'}}>
+                        ml={'auto'}>
+                        <span style={{ color: '#C89CFF', paddingRight: '15px', fontWeight: '900' }}>
                           Available
                         </span>
                         {zkpBalance}
@@ -612,13 +585,12 @@ const StakePage: NextPage = () => {
                         clampValueOnBlur={false}
                         width="100%"
                         onChange={(valueString: string) => setZKPAmount(valueString)}
-                        value={zkpAmount}
-                      >
+                        value={zkpAmount}>
                         <NumberInputField
                           bg="#fff"
                           textAlign="right"
                           borderRadius="8px"
-                          _hover={{bg: '#C89CFF'}}
+                          _hover={{ bg: '#C89CFF' }}
                           fontFamily="Druk Wide Web"
                           fontSize={'10px'}
                           height="56px"
@@ -631,16 +603,14 @@ const StakePage: NextPage = () => {
                     padding="20px"
                     marginTop="auto"
                     marginBottom="auto"
-                    justifyContent={'center'}
-                  >
+                    justifyContent={'center'}>
                     <Flex flexDir={'column'}>
                       <Text
                         fontStyle="normal"
                         fontWeight="400"
                         fontSize="16px"
                         lineHeight="22px"
-                        color="#9D69DE"
-                      >
+                        color="#9D69DE">
                         Lock until
                       </Text>
                       <Flex flexDir={'row'} gridGap="10px" pt={'15px'}>
@@ -651,13 +621,12 @@ const StakePage: NextPage = () => {
                           fontSize="xs"
                           borderRadius="8px"
                           height="30px"
-                          _hover={{bg: 'purple.400'}}
+                          _hover={{ bg: 'purple.400' }}
                           onClick={() => {
-                            const d = new Date();
-                            d.setMonth(d.getMonth() + 6);
-                            setStartDate(d);
-                          }}
-                        >
+                            const d = new Date()
+                            d.setMonth(d.getMonth() + 6)
+                            setStartDate(d)
+                          }}>
                           6 Months
                         </Button>
                         <Button
@@ -667,13 +636,12 @@ const StakePage: NextPage = () => {
                           fontSize="xs"
                           borderRadius="8px"
                           height="30px"
-                          _hover={{bg: 'purple.400'}}
+                          _hover={{ bg: 'purple.400' }}
                           onClick={() => {
-                            const d = new Date();
-                            d.setMonth(d.getMonth() + 12);
-                            setStartDate(d);
-                          }}
-                        >
+                            const d = new Date()
+                            d.setMonth(d.getMonth() + 12)
+                            setStartDate(d)
+                          }}>
                           1 year
                         </Button>
                         <Button
@@ -683,13 +651,12 @@ const StakePage: NextPage = () => {
                           fontSize="xs"
                           borderRadius="8px"
                           height="30px"
-                          _hover={{bg: 'purple.400'}}
+                          _hover={{ bg: 'purple.400' }}
                           onClick={() => {
-                            const d = new Date();
-                            d.setMonth(d.getMonth() + 24);
-                            setStartDate(d);
-                          }}
-                        >
+                            const d = new Date()
+                            d.setMonth(d.getMonth() + 24)
+                            setStartDate(d)
+                          }}>
                           2 Year
                         </Button>
                       </Flex>
@@ -698,7 +665,7 @@ const StakePage: NextPage = () => {
                       <Flex height={'23px'} />
                       <DatePicker
                         selected={startDate}
-                        onChange={date => setStartDate(date || new Date())}
+                        onChange={(date) => setStartDate(date || new Date())}
                         customInput={<CustomDatePicker />}
                       />
                     </Flex>
@@ -721,16 +688,14 @@ const StakePage: NextPage = () => {
                   backgroundColor="#fff"
                   border={'2px #fff solid'}
                   width="100%"
-                  height={'100%'}
-                >
+                  height={'100%'}>
                   <Flex
                     borderRadius={'24px'}
                     background="purple.600"
                     width={'100%'}
                     flexDir="row"
                     padding="20px"
-                    minH={'50%'}
-                  >
+                    minH={'50%'}>
                     <Text
                       fontStyle="normal"
                       fontWeight="400"
@@ -738,8 +703,7 @@ const StakePage: NextPage = () => {
                       lineHeight="22px"
                       color="#9D69DE"
                       marginTop={'auto'}
-                      marginBottom={'auto'}
-                    >
+                      marginBottom={'auto'}>
                       Total Estimated Number of lottery tickets earned per IDO
                     </Text>
                     <Flex
@@ -755,8 +719,7 @@ const StakePage: NextPage = () => {
                       color="#8F00FF"
                       fontFamily={'Druk Wide Web'}
                       marginTop={'auto'}
-                      marginBottom={'auto'}
-                    >
+                      marginBottom={'auto'}>
                       {Math.round(Math.pow(Number(xzkpBalance) + Number(previewXZKP), 0.6))}
                     </Flex>
                   </Flex>
@@ -764,8 +727,7 @@ const StakePage: NextPage = () => {
                     padding="20px"
                     marginTop="auto"
                     marginBottom="auto"
-                    justifyContent={'center'}
-                  >
+                    justifyContent={'center'}>
                     <Text
                       fontStyle="normal"
                       fontWeight="400"
@@ -773,8 +735,7 @@ const StakePage: NextPage = () => {
                       lineHeight="22px"
                       color="#9D69DE"
                       mt="auto"
-                      mb="auto"
-                    >
+                      mb="auto">
                       Estimated APY
                     </Text>
                     <Tooltip
@@ -786,8 +747,7 @@ const StakePage: NextPage = () => {
                       borderRadius={'26px'}
                       color="#9D69DE"
                       fontWeight={'600'}
-                      textAlign="justify"
-                    >
+                      textAlign="justify">
                       <Image
                         src={'/assets/imgs/info.png'}
                         width="24px"
@@ -810,8 +770,7 @@ const StakePage: NextPage = () => {
                       color="#8F00FF"
                       fontFamily={'Druk Wide Web'}
                       marginTop="auto"
-                      marginLeft={'auto'}
-                    >
+                      marginLeft={'auto'}>
                       {currentAPY}%
                     </Flex>
                   </Flex>
@@ -830,23 +789,20 @@ const StakePage: NextPage = () => {
                 backgroundColor="#fff"
                 width="100%"
                 border={'2px #fff solid'}
-                height="100%"
-              >
+                height="100%">
                 <Flex
                   borderRadius={'24px'}
                   background="purple.600"
                   width={'100%'}
                   flexDir="row"
-                  padding="20px"
-                >
+                  padding="20px">
                   <Flex flexDir={'column'} width="full">
                     <Heading
                       fontStyle="normal"
                       fontWeight="400"
                       lineHeight="22px"
                       size="sm"
-                      color="purple.700"
-                    >
+                      color="purple.700">
                       Harvest rewards
                     </Heading>
                     <Flex flexDir="row" justifyContent="space-between">
@@ -868,9 +824,8 @@ const StakePage: NextPage = () => {
                     fontFamily="Druk Wide Web"
                     py="25px"
                     color="white"
-                    _hover={{bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)'}}
-                    onClick={handleHarvest}
-                  >
+                    _hover={{ bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)' }}
+                    onClick={handleHarvest}>
                     Claim 135 ZKP
                   </Button>
                 </Flex>
@@ -883,8 +838,7 @@ const StakePage: NextPage = () => {
                 bg={'#fff'}
                 borderRadius="24px"
                 padding={'30px'}
-                className="How it works"
-              >
+                className="How it works">
                 <Text
                   fontFamily="Druk Wide Web"
                   fontStyle="normal"
@@ -893,8 +847,7 @@ const StakePage: NextPage = () => {
                   lineHeight="21px"
                   display="flex"
                   alignItems="center"
-                  color="#9D69DE"
-                >
+                  color="#9D69DE">
                   How it Works
                   <Tooltip
                     label="This is estimated APY bruh don't panick, it may change or it may not, god knows, and I'm not god at all, I'm just a nice looking dev."
@@ -905,8 +858,7 @@ const StakePage: NextPage = () => {
                     borderRadius={'26px'}
                     color="#9D69DE"
                     fontWeight={'600'}
-                    textAlign="justify"
-                  >
+                    textAlign="justify">
                     <Image
                       src={'/assets/imgs/info.png'}
                       width="24px"
@@ -923,8 +875,7 @@ const StakePage: NextPage = () => {
                   lineHeight="22px"
                   color="#9D69DE"
                   pt={'10px'}
-                  textAlign="left"
-                >
+                  textAlign="left">
                   Owning ZKP tokens or ZKP-LP is requirement in order to participate in IDOs on
                   ZkPad.
                 </Text>
@@ -934,8 +885,7 @@ const StakePage: NextPage = () => {
                   lineHeight="22px"
                   color="#9D69DE"
                   pt={'10px'}
-                  textAlign="left"
-                >
+                  textAlign="left">
                   You can lock your tokens and receive lottery tickets to invest in the listed
                   projects.
                 </Text>
@@ -947,8 +897,7 @@ const StakePage: NextPage = () => {
                 bg="#FAF3FF"
                 flexDir={'column'}
                 justifyContent="center"
-                className="Steps"
-              >
+                className="Steps">
                 <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
                   Step 1
                 </Text>
@@ -1322,7 +1271,7 @@ const StakePage: NextPage = () => {
         </Flex>
       )} */}
     </Layout>
-  );
-};
+  )
+}
 
-export default StakePage;
+export default StakePage

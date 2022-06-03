@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {useRouter} from 'next/router';
-import Layout from 'layout';
-import {Project, Round} from 'interfaces';
-import {projects, quests} from 'utils/data';
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import Layout from 'layout'
+import { Project, Round } from 'interfaces'
+import { projects, quests } from 'utils/data'
 import {
   Badge,
   Breadcrumb,
@@ -12,23 +12,25 @@ import {
   Flex,
   Heading,
   Image,
-  Text
-} from '@chakra-ui/react';
-import styles from '../../styles/pid.module.scss';
-import ClaimOrBurn from 'components/ClaimOrBurn';
-import Requirements from 'components/Requirements';
-import EntryRequirements from 'components/EntryRequirements';
-import ApplyNInvest from 'components/ApplyNInvest';
-import Christophe from 'components/Christophe';
+  Text,
+} from '@chakra-ui/react'
+import styles from 'styles/pid.module.scss'
+import ClaimOrBurn from 'components/ClaimOrBurn'
+import EntryRequirements from 'components/EntryRequirements'
+import ApplyNInvest from 'components/ApplyNInvest'
+import Requirements from 'components/Requirements'
+import Christophe from 'components/Christophe'
+import BurnPage from 'components/Pages/Project/Burn/BurnPage'
 
-const QuestPage = () => {
-  const router = useRouter();
-  const {pid} = router.query;
-  const [project, setProject] = useState<Project | undefined>(undefined);
+const BurnContainer = () => {
+  return <BurnPage />
+  const router = useRouter()
+  const { pid } = router.query
+  const [project, setProject] = useState<Project | undefined>(undefined)
 
   useEffect(() => {
-    setProject(projects.find(p => p.id === Number(pid)));
-  }, [pid]);
+    setProject(projects.find((p) => p.id === Number(pid)))
+  }, [pid])
   return (
     <Layout>
       <Breadcrumb color={'#9D69DE'}>
@@ -42,7 +44,7 @@ const QuestPage = () => {
         </BreadcrumbItem>
         <BreadcrumbItem>
           <BreadcrumbLink href="#" color={'#8F00FF'} fontWeight="900">
-            Claim your Lottery Tickets
+            Burn for allocation
           </BreadcrumbLink>
         </BreadcrumbItem>
       </Breadcrumb>
@@ -55,14 +57,13 @@ const QuestPage = () => {
           color="purple.700"
           textShadow="-2px 2px 0px #8f00ff"
           pb={'64px'}
-          textTransform="uppercase"
-        >
-          Claim
+          textTransform="uppercase">
+          Burn
         </Heading>
       </Flex>
       <Flex className="Container Project" flexDir={'row'} gridGap="10px">
-        <Flex className="Left Container" width={'70%'} flexDir="column" gridGap={'20px'}>
-          <ClaimOrBurn idoID={pid} />
+        <Flex className="Left Container" width={'70%'} flexDir="column" gridGap="20px">
+          <ClaimOrBurn idoID={pid} burn />
           <EntryRequirements />
           <ApplyNInvest project={project} />
         </Flex>
@@ -73,7 +74,7 @@ const QuestPage = () => {
         </Flex>
       </Flex>
     </Layout>
-  );
-};
+  )
+}
 
-export default QuestPage;
+export default BurnContainer

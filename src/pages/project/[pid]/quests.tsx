@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {useRouter} from 'next/router';
-import Layout from 'layout';
-import {Project, Round} from 'interfaces';
-import {projects, quests} from 'utils/data';
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import Layout from 'layout'
+import { Project, Round } from 'interfaces'
+import { projects, quests } from 'utils/data'
 import {
   Badge,
   Breadcrumb,
@@ -12,18 +12,20 @@ import {
   Flex,
   Heading,
   Image,
-  Text
-} from '@chakra-ui/react';
-import styles from '../../styles/pid.module.scss';
+  Text,
+} from '@chakra-ui/react'
+import styles from '../../styles/pid.module.scss'
+import ProjectQuestsPage from 'components/Pages/Project/Quests/ProjectQuestsPage'
 
 const QuestPage = () => {
-  const router = useRouter();
-  const {pid} = router.query;
-  const [project, setProject] = useState<Project | undefined>(undefined);
+  return <ProjectQuestsPage />
+  const router = useRouter()
+  const { pid } = router.query
+  const [project, setProject] = useState<Project | undefined>(undefined)
 
   useEffect(() => {
-    setProject(projects.find(p => p.id === Number(pid)));
-  }, [pid]);
+    setProject(projects.find((p) => p.id === Number(pid)))
+  }, [pid])
   return (
     <Layout>
       <Breadcrumb color={'#9D69DE'}>
@@ -51,8 +53,7 @@ const QuestPage = () => {
           textShadow="-2px 2px 0px #8f00ff"
           pb={'64px'}
           textTransform="uppercase"
-          mt="4px"
-        >
+          mt="4px">
           Booster Quests
         </Heading>
       </Flex>
@@ -69,10 +70,9 @@ const QuestPage = () => {
             borderRadius="26px"
             border={'solid 2px #fff'}
             flexDir="column"
-            className="TopRight info Box"
-          >
+            className="TopRight info Box">
             <Flex width={'100%'} borderRadius="26px" bg="#FAF3FF" padding="20px">
-              <div style={{marginTop: 'auto', marginBottom: 'auto'}}>
+              <div style={{ marginTop: 'auto', marginBottom: 'auto' }}>
                 <div className={styles.hex}>
                   <div className={styles.hexBackground}>
                     <img src={project?.logo} />
@@ -89,8 +89,7 @@ const QuestPage = () => {
                   fontWeight="700"
                   fontSize="40px"
                   lineHeight="110%"
-                  color="#370063"
-                >
+                  color="#370063">
                   {project?.name}
                 </Text>
               </Flex>
@@ -100,8 +99,7 @@ const QuestPage = () => {
               padding="20px"
               width={'100%'}
               gridGap="10px"
-              className="TopRight info Box"
-            >
+              className="TopRight info Box">
               <Button
                 leftIcon={<Image src="/assets/imgs/rocket.png" height={'15px'} />}
                 bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
@@ -111,9 +109,8 @@ const QuestPage = () => {
                 fontSize={'12px !important'}
                 color="white"
                 transition="all 0.5s ease"
-                _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                height={'54px'}
-              >
+                _hover={{ bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)' }}
+                height={'54px'}>
                 Apply Now
               </Button>
               <Button
@@ -125,9 +122,8 @@ const QuestPage = () => {
                 fontFamily="Druk Wide Web"
                 color="white"
                 transition="all 0.5s ease"
-                _hover={{bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)'}}
-                height={'54px'}
-              >
+                _hover={{ bg: 'linear-gradient(360deg, #9F24FF 0%,#7E1AFF  50%)' }}
+                height={'54px'}>
                 Booster Quests
               </Button>
             </Flex>
@@ -137,8 +133,7 @@ const QuestPage = () => {
             height="100%"
             borderRadius="24px"
             flexDir={'column'}
-            border="2px solid #fff"
-          >
+            border="2px solid #fff">
             <Flex flexDir={'column'} padding="20px">
               <Text
                 fontFamily="Druk Wide Web"
@@ -146,8 +141,7 @@ const QuestPage = () => {
                 fontSize="16px"
                 lineHeight="21px"
                 color="#9D69DE"
-                mb={'8px'}
-              >
+                mb={'8px'}>
                 Links
               </Text>
               <Flex gridGap={'10px'}></Flex>
@@ -159,8 +153,7 @@ const QuestPage = () => {
                 fontSize="16px"
                 lineHeight="21px"
                 color="#9D69DE"
-                mb={'8px'}
-              >
+                mb={'8px'}>
                 Pitch
               </Text>
               <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
@@ -174,8 +167,7 @@ const QuestPage = () => {
                 fontSize="16px"
                 lineHeight="21px"
                 color="#9D69DE"
-                mb={'8px'}
-              >
+                mb={'8px'}>
                 Admission
               </Text>
               <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
@@ -190,8 +182,7 @@ const QuestPage = () => {
                 fontSize="16px"
                 lineHeight="21px"
                 color="#9D69DE"
-                mb={'8px'}
-              >
+                mb={'8px'}>
                 IDO Information
               </Text>
               <Flex width={'100%'}>
@@ -206,8 +197,7 @@ const QuestPage = () => {
                   lineHeight="21px"
                   textAlign="right"
                   color="#8F00FF"
-                  ml={'auto'}
-                >
+                  ml={'auto'}>
                   {project?.totalRaise}
                 </Text>
               </Flex>
@@ -223,8 +213,7 @@ const QuestPage = () => {
                   lineHeight="21px"
                   textAlign="right"
                   color="#8F00FF"
-                  ml={'auto'}
-                >
+                  ml={'auto'}>
                   ${project?.maxAllocation}
                 </Text>
               </Flex>
@@ -240,8 +229,7 @@ const QuestPage = () => {
                   lineHeight="21px"
                   textAlign="right"
                   color="#8F00FF"
-                  ml={'auto'}
-                >
+                  ml={'auto'}>
                   {project?.maxAllocation}
                 </Text>
               </Flex>
@@ -257,8 +245,7 @@ const QuestPage = () => {
                   lineHeight="21px"
                   textAlign="right"
                   color="#8F00FF"
-                  ml={'auto'}
-                >
+                  ml={'auto'}>
                   {project?.type}
                 </Text>
               </Flex>
@@ -274,8 +261,7 @@ const QuestPage = () => {
                   lineHeight="21px"
                   textAlign="right"
                   color="#8F00FF"
-                  ml={'auto'}
-                >
+                  ml={'auto'}>
                   {project?.maxAllocation}
                 </Text>
               </Flex>
@@ -284,7 +270,7 @@ const QuestPage = () => {
         </Flex>
       </Flex>
     </Layout>
-  );
-};
+  )
+}
 
-export default QuestPage;
+export default QuestPage

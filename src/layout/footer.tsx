@@ -1,64 +1,60 @@
-import React from 'react';
-import {
-  Flex,
-  HStack,
-  SimpleGrid,
-  Box,
-  Text,
-  Link,
-  Image,
-  useDisclosure,
-  Heading
-} from '@chakra-ui/react';
-import NavLink from '../components/NavLink';
-import {
-  CareerLink,
-  WhitepaperLink,
-  TwitterLink,
-  DiscordLink,
-  GitHubLink,
-  TelegramLink,
-  TermConditionLink,
-  PrivacyPolicyLink
-} from '../constants';
+import { ContactEmail, DiscordLink, GitHubLink, TwitterLink, WhitepaperLink } from '../constants'
+import TwitterIcon from 'assets/icons/Twitter.svg'
+import DiscordIcon from 'assets/icons/Discord.svg'
+import DocumentIcon from 'assets/icons/Document.svg'
+import FolderIcon from 'assets/icons/Folder.svg'
+import Logo from 'assets/images/logo-text.svg'
+import Link from 'next/link'
 
-interface Props {}
-
-const Footer = (props: Props) => {
-  const {isOpen, onOpen, onClose} = useDisclosure();
-
+const Item = ({ icon, label, href }: { icon: string; label: string; href: string }) => {
   return (
-    <Flex direction={['column', 'row']} justify="space-between" pt="20px" pb="20px">
-      <Box mt="15px">
-        <HStack spacing={['10px', '45px']} justify="space-between">
-          <Flex justify="space-between" wrap="wrap" gap={{base: '20px', lg: '30px'}}>
-            <NavLink name="Whitepaper" href={WhitepaperLink} />
-            <NavLink name="Twitter" href={TwitterLink} />
-            <NavLink name="Discord" href={DiscordLink} />
-            <NavLink name="GitHub" href={GitHubLink} />
-            {/* <NavLink name={`Terms & Condition`} href={TermConditionLink} />
-            <NavLink name={`Privacy & Policy`} href={PrivacyPolicyLink} /> */}
-          </Flex>
-        </HStack>
-      </Box>
-      <Flex direction={['column', 'row']} justify="space-between">
-        <Text color="gray.400" mt="15px" mr="50px">
-          Get in touch:{' '}
-          <Link color="purple.900" href="mailto: contact@zkpad.io">
-            contact@zkpad.io
-          </Link>
-        </Text>
-        <Link href="/">
-          <Flex align="center" mr={5}>
-            <Image src="/images/logo.png" alt="zkPad" mr="4" h="57px" />
-            <Heading fontSize="24px" mt="5px" color="black">
-              ZKPAD
-            </Heading>
-          </Flex>
-        </Link>
-      </Flex>
-    </Flex>
-  );
-};
+    <>
+      <Link href={href}>
+        <div className="flex items-center text-primary cursor-pointer">
+          <div className="icon mr-2 transform -translate-y-0.5">
+            <img src={icon} alt={label} />
+          </div>
 
-export default Footer;
+          <div className="text">{label}</div>
+        </div>
+      </Link>
+    </>
+  )
+}
+
+const Footer = () => {
+  const Links = [
+    [TwitterIcon, 'Twitter', TwitterLink],
+    [DiscordIcon, 'Discord', DiscordLink],
+    [DocumentIcon, 'Whitepaper', WhitepaperLink],
+    [FolderIcon, 'Docs', GitHubLink],
+  ]
+  return (
+    <>
+      <div className="g-container py-4">
+        <div className="py-2 flex items-center justify-between text-16">
+          <div className="links flex items-center gap-11">
+            {Links.map(([icon, label, href]) => (
+              <Item icon={icon} label={label} href={href} key={label} />
+            ))}
+          </div>
+
+          <div className="flex items-center">
+            <p className={'mr-8'}>
+              Get in touch:{' '}
+              <a href={`mailto:${ContactEmail}`} className={'text-primary'}>
+                {ContactEmail}{' '}
+              </a>
+            </p>
+
+            <Link href={'/'}>
+              <img src={Logo} alt={'Zkpad'} />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default Footer
