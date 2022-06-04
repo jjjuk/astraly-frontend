@@ -11,7 +11,7 @@
       }
 
       &:hover {
-        @apply font-bold text-primary;
+        @apply font-normal text-primary;
         .iconSolid {
           opacity: 1;
         }
@@ -49,7 +49,7 @@
 
   &Active,
   &:hover {
-    @apply font-bold text-primary;
+    @apply font-normal text-primary;
     .iconSolid {
       opacity: 1;
     }

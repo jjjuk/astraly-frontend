@@ -78,3 +78,28 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.block {
+  @apply bg-white border border-2 border-white rounded-3xl;
+  &--contrast {
+    @apply bg-primaryClearBg rounded-3xl px-8 py-7
+  }
+
+  &__item {
+    @apply px-8 py-7
+  }
+}
+
+.title {
+  &--medium {
+    @apply font-heading text-primaryDark text-24;
+  }
+  &--big {
+    @apply text-54 font-heading uppercase text-primaryDark text-shadow;
+    text-shadow: #8F00FF -2px 2px 0;
+  }
+}
+
+.small-title {
+  @apply font-heading mb-4 uppercase text-primaryClear;
+}

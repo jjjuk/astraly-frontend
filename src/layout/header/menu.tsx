@@ -5,7 +5,7 @@ import styles from './menu.module.scss'
 
 const MenuItem = ({
   children,
-  link
+  link,
 }: PropsWithChildren<{
   link: {
     text: string
@@ -55,26 +55,26 @@ const Links = [
     text: 'Home',
     iconOutline: <Home />,
     iconSolid: <HomeFull />,
-    href: '/'
+    href: '/',
   },
   {
     text: 'Launchpad',
     iconOutline: <Launchpad />,
     iconSolid: <LaunchpadFull />,
-    href: '/launchpad'
+    href: '/launchpad',
   },
   {
     text: 'Lock',
     iconOutline: <Lock />,
     iconSolid: <LockFull />,
-    href: '/stake'
+    href: '/stake',
   },
   {
     text: 'Buy $ZKP',
     iconOutline: <Buy />,
     iconSolid: <BuyFull />,
-    href: '/buy'
-  }
+    href: '/buy',
+  },
 ]
 
 const HeaderMenu = () => {
@@ -82,7 +82,7 @@ const HeaderMenu = () => {
   const container = useRef<HTMLDivElement>(null)
   const [underlineStyle, setUnderLineStyle] = useState({
     transform: 'translateX(0)',
-    width: '20px'
+    width: '20px',
   })
 
   const redrawUnderline = () => {
@@ -103,7 +103,7 @@ const HeaderMenu = () => {
 
     setUnderLineStyle({
       width: `${element.offsetWidth - (isFirst || isLast ? 22 : 46)}px`,
-      transform: `translateX(${element.offsetLeft + (isFirst ? 2 : 24)}px)`
+      transform: `translateX(${element.offsetLeft + (isFirst ? 2 : 24)}px)`,
     })
   }
 

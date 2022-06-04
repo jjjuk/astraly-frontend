@@ -34,7 +34,9 @@ module.exports = {
         '558px': '558px',
       },
       width: {
+        50: '200px',
         90: '360px',
+        147: '588px',
       },
       height: {
         82: '328px',
@@ -42,6 +44,7 @@ module.exports = {
       },
       boxShadow: {
         purpleDark: '0px 20px 35px rgba(55, 0, 99, 0.2)',
+        purpleLight: '0px 32px 48px rgba(55, 0, 99, 0.08)',
       },
       margin: {
         '-13': '-52px',

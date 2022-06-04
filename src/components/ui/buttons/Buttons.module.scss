@@ -1,5 +1,5 @@
 .baseButton {
-  @apply font-heading text-white relative cursor-pointer flex items-center justify-center py-3;
+  @apply font-heading text-white relative cursor-pointer flex items-center justify-center py-3 transition;
   font-size: 16px;
   line-height: 1.31;
   background: linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%);
@@ -7,6 +7,7 @@
   border-radius: 16px;
   gap: 10px;
   &::before {
+    @apply transition;
     position: absolute;
     top: -2px;
     left: -2px;
@@ -16,5 +17,11 @@
     width: calc(100% + 4px);
     background: linear-gradient(360deg, #9F24FF 0%, #7E1AFF 50%);
     border-radius: 18px;
+  }
+  &:hover {
+    background: linear-gradient(360deg, #9F24FF 0%, #7E1AFF 50%);
+    &::before {
+      background: linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%);
+    }
   }
 }
