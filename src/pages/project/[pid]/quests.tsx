@@ -14,7 +14,7 @@ import {
   Image,
   Text,
 } from '@chakra-ui/react'
-import styles from '../../styles/pid.module.scss'
+import styles from '../../../styles/pid.module.scss'
 import ProjectQuestsPage from 'components/Pages/Project/Quests/ProjectQuestsPage'
 
 const QuestPage = () => {

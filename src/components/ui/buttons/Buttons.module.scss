@@ -24,4 +24,24 @@
       background: linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%);
     }
   }
+
+  &.baseButtonSmall {
+    @apply pt-2 pb-1.5;
+    font-size: 12px;
+  }
+
+  &.baseButtonDisabled {
+    @apply text-primary;
+    opacity: .5;
+    background: none;
+    pointer-events: none;
+    border: 1px solid #9F24FF;
+    &::before {
+      display: none;
+    }
+  }
+
+  &.baseButtonInline {
+    @apply inline-flex;
+  }
 }

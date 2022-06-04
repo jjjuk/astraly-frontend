@@ -10,6 +10,7 @@ module.exports = {
       },
       lineHeight: {
         12: '1.2',
+        128: '1.28',
         131: '1.31',
         138: '1.38',
       },
@@ -19,7 +20,9 @@ module.exports = {
       fontSize: {
         12: '12px',
         14: '14px',
+        16: '16px',
         24: '24px',
+        40: '40px',
         54: '54px',
       },
       colors: {

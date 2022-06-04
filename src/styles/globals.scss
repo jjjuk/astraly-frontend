@@ -86,7 +86,11 @@ body {
   }
 
   &__item {
-    @apply px-8 py-7
+    @apply px-8 py-7;
+  }
+
+  &.bg-whitePurple {
+    background: #FAF3FF;
   }
 }
 
@@ -98,8 +102,26 @@ body {
     @apply text-54 font-heading uppercase text-primaryDark text-shadow;
     text-shadow: #8F00FF -2px 2px 0;
   }
+
+  &--small {
+    @apply font-heading text-primaryClear mb-1;
+    &.mb-5 {
+      margin-bottom: 20px;
+    }
+  }
 }
 
 .small-title {
   @apply font-heading mb-4 uppercase text-primaryClear;
 }
+
+.video-format {
+  padding-top: 60%;
+  position: relative;
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+

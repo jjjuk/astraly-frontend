@@ -24,10 +24,12 @@ import styles from 'styles/pid.module.scss'
 
 import { default as _ReactPlayer } from 'react-player'
 import { ReactPlayerProps } from 'react-player/types/lib'
+import ProjectPage from '../../../components/Pages/Project/ProjectPage'
 
 const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>
 
 const ProjectPageContainer = () => {
+  return <ProjectPage />
   const router = useRouter()
   const { pid } = router.query
   const [project, setProject] = useState<Project | undefined>(undefined)

@@ -8,26 +8,26 @@ export const rounds: Round[] = [
     title: 'Ticket Claim',
     description: 'You can claim your ticket.',
     startDate: new Date('05/04/2022'),
-    endDate: new Date('06/05/2022')
+    endDate: new Date('06/05/2022'),
   },
   {
     title: 'Allocation',
     description: 'You can burn your ticket for allocations.',
     startDate: new Date('05/21/2022'),
-    endDate: new Date('07/22/2022')
+    endDate: new Date('07/22/2022'),
   },
   {
     title: 'Purchase',
     description: 'You can invest in the IDO.',
     startDate: new Date('05/23/2022'),
-    endDate: new Date('08/26/2022')
+    endDate: new Date('08/26/2022'),
   },
   {
     title: 'Distribution',
     description: 'The tokens are gradually sent to your wallet.',
     startDate: new Date('05/30/2022'),
-    endDate: new Date('09/31/2022')
-  }
+    endDate: new Date('09/31/2022'),
+  },
 ]
 
 export const projects: Project[] = [
@@ -45,11 +45,11 @@ export const projects: Project[] = [
     currentRoundId: 0,
     type: 'IDO',
     categories: ['DeFi', 'DEX'],
-    rounds
+    rounds,
   },
   {
-    id: 0,
-    name: 'ZkSwaap',
+    id: 1,
+    name: 'ZkSwaap2',
     description:
       'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
     ticker: 'ZKS',
@@ -61,11 +61,11 @@ export const projects: Project[] = [
     currentRoundId: 1,
     type: 'IDO',
     categories: ['DeFi', 'DEX'],
-    rounds
+    rounds,
   },
   {
-    id: 0,
-    name: 'ZkSwaap',
+    id: 3,
+    name: 'ZkSwaap4',
     description:
       'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
     ticker: 'ZKS',
@@ -77,10 +77,10 @@ export const projects: Project[] = [
     currentRoundId: 2,
     type: 'IDO',
     categories: ['DeFi', 'DEX'],
-    rounds
+    rounds,
   },
   {
-    id: 0,
+    id: 4,
     name: 'ZkSwaap',
     description:
       'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
@@ -93,10 +93,10 @@ export const projects: Project[] = [
     currentRoundId: 3,
     type: 'IDO',
     categories: ['DeFi', 'DEX'],
-    rounds
+    rounds,
   },
   {
-    id: 0,
+    id: 5,
     name: 'ZkSwaap',
     description:
       'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
@@ -109,8 +109,8 @@ export const projects: Project[] = [
     currentRoundId: 0,
     type: 'IDO',
     categories: ['DeFi', 'DEX'],
-    rounds
-  }
+    rounds,
+  },
 ]
 
 export const quests: Quest[] = [
@@ -126,9 +126,9 @@ export const quests: Quest[] = [
         {
           name: 'assets',
           type: 'Uint256',
-          value: { low: formatUnits('100', 'ether'), high: 0 }
-        }
-      ]
-    }
-  }
+          value: { low: formatUnits('100', 'ether'), high: 0 },
+        },
+      ],
+    },
+  },
 ]

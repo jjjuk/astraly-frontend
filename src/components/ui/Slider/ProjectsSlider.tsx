@@ -11,7 +11,7 @@ const itemClass = 'ProjectCard'
 const ArrowButton = ({
   onClick,
   left,
-  isActive
+  isActive,
 }: {
   onClick?: any
   left?: boolean
@@ -138,17 +138,8 @@ const ProjectsSlider = () => {
     VueScrollTo.scrollTo(element, 200, {
       container: container.current,
       offset,
-      x: true
+      x: true,
     })
-    // window.requestAnimationFrame(() => {
-    //   setScroll(() =>
-    //     VueScrollTo.scrollTo(element, 200, {
-    //       container: container.current,
-    //       offset,
-    //       x: true
-    //     })
-    //   )
-    // })
   }
 
   return (

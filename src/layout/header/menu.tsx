@@ -18,7 +18,10 @@ const MenuItem = ({
   const [isCurrentRoute, setIsCurrentRoute] = useState(false)
 
   useEffect(() => {
-    setIsCurrentRoute(router.route === link.href)
+    setIsCurrentRoute(
+      router.route === link.href ||
+        (router.route.startsWith('/project') && link.href === '/launchpad')
+    )
   }, [router.route])
 
   return (
@@ -89,7 +92,10 @@ const HeaderMenu = () => {
     if (!container.current) {
       return
     }
-    const activeIndex = Links.findIndex((x) => x.href === router.route)
+    const activeIndex = Links.findIndex(
+      (x) =>
+        x.href === router.route || (router.route.startsWith('/project') && x.href === '/launchpad')
+    )
     const element = container.current.querySelector(
       `.${styles.menuItem}:nth-child(${activeIndex + 1})`
     )

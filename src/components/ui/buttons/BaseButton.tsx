@@ -3,11 +3,24 @@ import styles from './Buttons.module.scss'
 
 const BaseButton = ({
   className,
-  children
+  children,
+  small,
+  disabled,
+  inline,
 }: PropsWithChildren<{
   className?: string
+  small?: boolean
+  disabled?: boolean
+  inline?: boolean
 }>) => {
-  return <div className={`BaseButton ${className} ${styles.baseButton}`}>{children}</div>
+  return (
+    <div
+      className={`BaseButton ${className} ${styles.baseButton} ${small && styles.baseButtonSmall} ${
+        disabled && styles.baseButtonDisabled
+      } ${inline && styles.baseButtonInline}`}>
+      {children}
+    </div>
+  )
 }
 
 export default BaseButton
