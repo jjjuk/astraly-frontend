@@ -18,21 +18,23 @@ const Toast = ({ toast }: { toast: ToastNotification }) => {
   })
 
   return (
-    <div className={styles.toastNotification}>
-      <div className="flex items-start">
-        <div className="flex mr-20 items-start">
-          <div className="icon">
-            <img src={CheckIcon} />
+    <div className={styles.toastNotificationContainer}>
+      <div className={styles.toastNotification}>
+        <div className="flex items-start">
+          <div className="flex mr-20 items-start">
+            <div className="icon">
+              <img src={CheckIcon} />
+            </div>
+            <div>
+              <div className="text-12 text-primaryClear">{toast.title}</div>
+              {toast.action}
+            </div>
           </div>
-          <div>
-            <div className="text-12 text-primaryClear">{toast.title}</div>
-            {toast.action}
+          <div className="uppercase">
+            <BaseButton onClick={() => remove()} xSmall={true} className="px-2">
+              Close
+            </BaseButton>
           </div>
-        </div>
-        <div className="uppercase">
-          <BaseButton onClick={() => remove()} xSmall={true} className="px-2">
-            Close
-          </BaseButton>
         </div>
       </div>
     </div>
