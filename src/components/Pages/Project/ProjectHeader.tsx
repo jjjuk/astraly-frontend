@@ -10,25 +10,38 @@ const routes = {
   quests: 'Booster Quests',
 }
 
+const titles: { [key: string]: string } = {
+  burn: 'Burn',
+  claim: 'Claim',
+  buy: 'Purschase',
+  portfolio: 'Portfolio',
+  quests: 'Booster Quests',
+}
+
 const ProjectHeader = ({ project }: { project?: Project }) => {
   const router = useRouter()
   const [steps, setSteps] = useState([
     { href: '/launchpad', label: 'Launchpad' },
     { href: `/project/${project?.id}`, label: project?.name },
   ])
+  const [title, setTitle] = useState('')
 
   useEffect(() => {
     const steps = [
       { href: '/launchpad', label: 'Launchpad' },
       { href: `/project/${project?.id}`, label: project?.name },
     ]
+    let title = project?.name || ''
 
     Object.entries(routes).map(([key, value]) => {
-      router.route.endsWith(key) &&
+      if (router.route.endsWith(key)) {
         steps.push({ href: `/project/${project?.id}/${key}`, label: value })
+        title = titles[key]
+      }
     })
 
     setSteps(steps)
+    setTitle(title)
   }, [router.route])
 
   if (!project) {
@@ -40,7 +53,7 @@ const ProjectHeader = ({ project }: { project?: Project }) => {
 
       <div className="title mb-12">
         <div className="back"></div>
-        <h1 className="title--big">{project.name}</h1>
+        <h1 className="title--big">{title}</h1>
       </div>
     </div>
   )
