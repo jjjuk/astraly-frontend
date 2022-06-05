@@ -1,16 +1,16 @@
-import {Button, Icon} from '@chakra-ui/react';
-import React from 'react';
-import ConnectWalletModal from './ConnectWalletModal';
-import {useDispatch, useSelector} from 'react-redux';
-import ModalActions from 'actions/modal.actions';
-import {RootState} from 'stores/reduxStore';
-import {useAppDispatch} from 'hooks/hooks';
-import {ChevronRightIcon} from '@chakra-ui/icons';
-import {BiWallet} from 'react-icons/bi';
+import { Button, Icon } from '@chakra-ui/react'
+import React from 'react'
+import ConnectWalletModal from './ConnectWalletModal'
+import { useDispatch, useSelector } from 'react-redux'
+import ModalActions from 'actions/modal.actions'
+import { RootState } from 'stores/reduxStore'
+import { useAppDispatch } from 'hooks/hooks'
+import { ChevronRightIcon } from '@chakra-ui/icons'
+import { BiWallet } from 'react-icons/bi'
 
 const ConnectWallet = (props: any) => {
-  const {connectWalletModalVisible} = useSelector((state: RootState) => state.Modal);
-  const dispatch = useAppDispatch();
+  const { connectWalletModalVisible } = useSelector((state: RootState) => state.Modal)
+  const dispatch = useAppDispatch()
 
   return (
     <>
@@ -28,12 +28,11 @@ const ConnectWallet = (props: any) => {
         py="25px"
         onClick={() => dispatch(ModalActions.showConnectWalletModal())}
         width="auto !important"
-        {...props}
-      >
+        {...props}>
         Connect Wallet
       </Button>
     </>
-  );
-};
+  )
+}
 
-export default ConnectWallet;
+export default ConnectWallet

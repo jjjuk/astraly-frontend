@@ -32,6 +32,12 @@
     height: auto;
   }
 
+  &.baseButtonXSmall {
+    padding: 2px 16px 0;
+    font-size: 12px;
+    height: auto;
+  }
+
   &.baseButtonDisabled {
     @apply text-primary;
     opacity: .5;

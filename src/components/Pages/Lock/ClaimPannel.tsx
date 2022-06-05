@@ -3,11 +3,14 @@ import { useStakingContract } from '../../../contracts/staking'
 import UploadIcon from 'assets/icons/outline/Upload.svg'
 import { PropsWithChildren } from 'react'
 import Star from 'assets/images/star--current.svg?inline'
+import { useAppDispatch } from '../../../hooks/hooks'
+import ToastActions from '../../../actions/toast.actions'
 
 const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
   const availableZKP = 135
   const { harvestRewards } = useStakingContract()
   const steps = ['Buy zkp tokens', 'Stake ZKP tokens', 'Claim lottery tickets', 'Invest in IDOs']
+  const dispatch = useAppDispatch()
 
   const Step = ({ children, index }: PropsWithChildren<{ index: number }>) => {
     return (
@@ -17,6 +20,16 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
       </div>
     )
   }
+
+  const claim = () => {
+    dispatch(
+      ToastActions.addToast({
+        title: 'Claim made',
+        action: <div className="font-heading text-12 text-primary">View on explorer</div>,
+      })
+    )
+  }
+
   return (
     <div className="ClaimPannel sticky top-6 left-0">
       <div className="grid grid-cols-2 gap-6 mb-6">
@@ -31,14 +44,12 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
         </div>
         <div className="block block--contrast">
           {steps.map((step, index) => (
-            <>
-              <Step index={index} key={index}>
-                {step}
-              </Step>
+            <div key={index}>
+              <Step index={index}>{step}</Step>
               {index !== steps.length - 1 && (
                 <Star alt={''} className="inline-block my- text-whitePurple" />
               )}
-            </>
+            </div>
           ))}
         </div>
       </div>
@@ -55,7 +66,7 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
             </div>
           </div>
           <div className="block__item">
-            <BaseButton>
+            <BaseButton onClick={claim}>
               <img src={UploadIcon} alt={''} />
               Claim {availableZKP} ZKP
             </BaseButton>

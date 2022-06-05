@@ -23,14 +23,14 @@ function getLibrary(provider, connector) {
 }
 
 const Web3ReactProviderDefault = dynamic(() => import('../components/defaultprovider'), {
-  ssr: false
+  ssr: false,
 })
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     splitbee.init({
       scriptUrl: '/bee.js',
-      apiUrl: '/_hive'
+      apiUrl: '/_hive',
     })
   }, [])
 

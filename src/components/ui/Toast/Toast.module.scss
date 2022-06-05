@@ -1,0 +1,19 @@
+.toastNotification {
+  @apply p-4;
+  pointer-events: all;
+  background: #FAF3FF;
+  box-shadow: 0 20px 35px rgba(55, 0, 99, 0.2);
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.toastContainer {
+  position: absolute;
+  right: 0;
+  padding: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 1000;
+  overflow: hidden;
+}

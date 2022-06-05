@@ -1,14 +1,14 @@
-import { WalletConnectConstants } from '../constants/walletconnect.constants';
+import { WalletConnectConstants } from '../constants/walletconnect.constants'
 
 const WalletConnectActions = {
   connectWallet,
   disconnectWallet,
-};
+}
 
 function connectWallet(authToken: string, isModerator: boolean) {
   return (dispatch: any) => {
-    dispatch(_connectWallet(authToken, isModerator));
-  };
+    dispatch(_connectWallet(authToken, isModerator))
+  }
 }
 
 const _connectWallet = (authToken: string, isModerator: boolean) => {
@@ -16,19 +16,19 @@ const _connectWallet = (authToken: string, isModerator: boolean) => {
     type: WalletConnectConstants.WALLETCONNECTED,
     token: authToken,
     isModerator,
-  };
-};
+  }
+}
 
 function disconnectWallet() {
   return (dispatch: any) => {
-    dispatch(_disconnectWallet());
-  };
+    dispatch(_disconnectWallet())
+  }
 }
 
 const _disconnectWallet = () => {
   return {
     type: WalletConnectConstants.WALLETDISCONNECTED,
-  };
-};
+  }
+}
 
-export default WalletConnectActions;
+export default WalletConnectActions
