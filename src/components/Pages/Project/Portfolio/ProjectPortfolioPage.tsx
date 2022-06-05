@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Project } from '../../../../interfaces'
 import { projects } from '../../../../utils/data'
 import ProjectLayout from '../ProjectLayout'
+import InvestmentOverview from '../../../ui/Investment/InvestmentOverview'
 
 const ProjectPortfolioPage = () => {
   const router = useRouter()
@@ -19,7 +20,9 @@ const ProjectPortfolioPage = () => {
 
   return (
     <>
-      <ProjectLayout project={project}></ProjectLayout>
+      <ProjectLayout project={project}>
+        <InvestmentOverview />
+      </ProjectLayout>
     </>
   )
 }
