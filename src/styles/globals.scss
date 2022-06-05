@@ -105,6 +105,9 @@ body {
 
   &--small {
     @apply font-heading text-primaryClear mb-1;
+    &.mb-4 {
+      margin-bottom: 16px;
+    }
     &.mb-5 {
       margin-bottom: 20px;
     }

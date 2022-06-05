@@ -21,7 +21,7 @@ const Breadcrumbs = ({
               key={index}
               condition={!!href}
               wrapper={(children: ReactElement) => <Link href={href ?? ''}>{children}</Link>}>
-              <div className={`${isLast && 'text-primary font-bold'}`}>{label}</div>
+              <div className={`${isLast && 'text-primary font-bold'} cursor-pointer`}>{label}</div>
             </ConditionalWrapper>
             {!isLast && '/'}
             {isLast && (

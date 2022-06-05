@@ -2,6 +2,13 @@ import Breadcrumbs from './Breadcrumbs'
 import { Project } from '../../../interfaces'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+const routes = {
+  burn: 'Burn for allocation',
+  claim: 'Claim your lottery tickets',
+  buy: 'Buy and invest',
+  portfolio: 'Distribution',
+  quests: 'Booster Quests',
+}
 
 const ProjectHeader = ({ project }: { project?: Project }) => {
   const router = useRouter()
@@ -16,9 +23,10 @@ const ProjectHeader = ({ project }: { project?: Project }) => {
       { href: `/project/${project?.id}`, label: project?.name },
     ]
 
-    if (router.route.endsWith('claim')) {
-      steps.push({ href: `/project/${project?.id}/claim`, label: 'Claim' })
-    }
+    Object.entries(routes).map(([key, value]) => {
+      router.route.endsWith(key) &&
+        steps.push({ href: `/project/${project?.id}/${key}`, label: value })
+    })
 
     setSteps(steps)
   }, [router.route])
