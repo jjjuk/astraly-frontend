@@ -1,7 +1,10 @@
 import Breadcrumbs from './Breadcrumbs'
 import { Project } from '../../../interfaces'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import Back from 'assets/icons/Back.svg'
+import Link from 'next/link'
+
 const routes = {
   burn: 'Burn for allocation',
   claim: 'Claim your lottery tickets',
@@ -51,8 +54,15 @@ const ProjectHeader = ({ project }: { project?: Project }) => {
     <div className="ProjectHeader">
       <Breadcrumbs steps={steps} />
 
-      <div className="title mb-12">
-        <div className="back"></div>
+      <div className="title mb-12 flex items-start">
+        <Link href={steps[steps.length - 2].href}>
+          <a className="inline-flex mt-3 mr-6  transition-all hover:transform  hover:scale-110 hover:-translate-y-px rounded-full">
+            <div className="back hover:shadow-purpleLight">
+              <img src={Back} alt={'go back to project'} />
+            </div>
+          </a>
+        </Link>
+
         <h1 className="title--big">{title}</h1>
       </div>
     </div>
