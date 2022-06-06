@@ -5,6 +5,7 @@ import { PropsWithChildren } from 'react'
 import Star from 'assets/images/star--current.svg?inline'
 import { useAppDispatch } from '../../../hooks/hooks'
 import ToastActions from '../../../actions/toast.actions'
+import { SendIcon } from '../../ui/Icons/Icons'
 
 const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
   const availableZKP = 135
@@ -67,7 +68,7 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
           </div>
           <div className="block__item">
             <BaseButton onClick={claim}>
-              <img src={UploadIcon} alt={''} />
+              <SendIcon className={'mr-2'} />
               Claim {availableZKP} ZKP
             </BaseButton>
           </div>

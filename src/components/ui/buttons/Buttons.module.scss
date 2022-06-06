@@ -8,6 +8,19 @@
   border-radius: 16px;
   gap: 10px;
   height: 55px;
+  span {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    top: 2px;
+  }
+
+  svg, img {
+    transform: translateY(-1px);
+  }
+
   &::before {
     transition: all .3s ease-in-out;
     position: absolute;
@@ -20,12 +33,21 @@
     background: linear-gradient(360deg, #9F24FF 0%, #7E1AFF 50%);
     border-radius: 18px;
   }
-  &:hover {
+
+  &::after {
+    content: '';
+    transition: all .3s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index:0;
+    height: 100%;
+    width: 100%;
     background: linear-gradient(360deg, #9F24FF 0%, #7E1AFF 50%);
-    &::before {
-      background: linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%);
-    }
+    border-radius: 18px;
+    opacity: 0;
   }
+
 
   &.baseButtonSmall {
     @apply pt-2 pb-1.5;
@@ -52,5 +74,37 @@
 
   &.baseButtonInline {
     @apply inline-flex;
+  }
+
+  &Icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%)!important;
+    transition: all .3s ease-in-out;
+    z-index: 1;
+    &Solid {
+      opacity: 0;
+    }
+  }
+
+  &:hover {
+    &::after {
+      opacity: 1;
+    }
+
+    &::before {
+      background: linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%);
+    }
+
+    .baseButtonIcon {
+      &Solid {
+        opacity: 1;
+      }
+
+      &Outline {
+        opacity: 0;
+      }
+    }
   }
 }

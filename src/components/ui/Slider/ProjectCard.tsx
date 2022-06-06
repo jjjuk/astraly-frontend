@@ -56,8 +56,8 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         <div className="claim absolute top-3 right-3 bg-white border border-whitePurple font-heading text-12 py-0.5 px-3 rounded-md text-primaryClear">
           {currentRound?.title} Open
         </div>
-        <div className="cover w-full overflow-hidden h-82 rounded-3xl">
-          <img src={project.cover} alt={''} className={'w-full h-full object-cover'} />
+        <div className="cover w-full overflow-hidden h-82 rounded-t-3xl">
+          <img src={project.cover} alt={''} className={'w-full h-full object-cover '} />
         </div>
         <div className="project-info pt-0 pb-4 px-6">
           <div className="flex items-center justify-between -mt-13">

@@ -27,9 +27,9 @@ const HomeHeading = () => {
             </p>
             <div className="flex buttons">
               <BaseButton className={'px-12 group'}>
-                <ShoppingCart />
+                <ShoppingCart className={'mr-3'} />
                 Buy $ZKP
-                <Chevron className={'ml-2 icon-right'} />
+                <Chevron className={'ml-3 icon-right'} />
               </BaseButton>
 
               <div className="flex items-center ml-12">

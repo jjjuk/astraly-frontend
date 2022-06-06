@@ -4,7 +4,7 @@ import BaseInput from '../../ui/inputs/BaseInput'
 import DateSelector from './DateSelector'
 import BlockLabel from '../../ui/BlockLabel'
 import PlusIcon from 'assets/icons/Plus.svg'
-import LockIcon from 'assets/icons/outline/Unlock--current.svg?inline'
+import { LockIcon } from 'components/ui/Icons/Icons'
 
 const LockForm = () => {
   const [zkpBalance, setZkpBalance] = useState('0')
@@ -45,7 +45,7 @@ const LockForm = () => {
 
           <div className="button px-8 py-7 ">
             <BaseButton>
-              <LockIcon />
+              <LockIcon className={'mr-2'} />
               Lock
             </BaseButton>
           </div>

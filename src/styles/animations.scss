@@ -65,7 +65,25 @@
   }
   &:hover {
     .icon-right {
-      transform: translateX(4px);
+      transform: translateX(4px) translateY(-1px);
+    }
+  }
+
+  .animatedIcon {
+    .animatedIconOutline, .animatedIconSolid {
+      transition: all .3s ease-in-out;
+    }
+    .animatedIconSolid {
+      opacity: 0;
+    }
+  }
+
+  &:hover {
+    .animatedIconOutline {
+      opacity: 0;
+    }
+    .animatedIconSolid {
+      opacity: 1;
     }
   }
 }
@@ -87,8 +105,8 @@
     height: 0 !important;
   }
 }
-.home-heading__animation {
 
+.home-heading__animation {
   &-exit-active {
     transition: all .3s ease-in-out;
     height: 0 !important;

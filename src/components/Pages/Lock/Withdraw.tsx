@@ -1,5 +1,6 @@
 import BaseButton from 'components/ui/buttons/BaseButton'
 import UploadIcon from 'assets/icons/outline/Upload.svg'
+import { SendIcon } from '../../ui/Icons/Icons'
 
 const Withdraw = () => {
   return (
@@ -18,7 +19,7 @@ const Withdraw = () => {
 
       <div className="block__item">
         <BaseButton>
-          <img src={UploadIcon} alt={''} />
+          <SendIcon className={'mr-2'} />
           Withdraw
         </BaseButton>
       </div>

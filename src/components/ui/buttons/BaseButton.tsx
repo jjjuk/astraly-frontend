@@ -23,7 +23,7 @@ const BaseButton = ({
         xSmall && styles.baseButtonXSmall
       } ${disabled && styles.baseButtonDisabled} ${inline && styles.baseButtonInline}`}
       onClick={onClick}>
-      {children}
+      <span>{children}</span>
     </div>
   )
 }
