@@ -13,6 +13,7 @@
 
   input {
     @apply text-primary font-heading;
+    transition: all .3s ease-in-out;
     outline: none;
     background: transparent;
     width: 0;

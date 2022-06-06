@@ -44,3 +44,17 @@ import CartSolid from 'assets/icons/currentColor/Shopping-cart.svg?inline'
 export const CartIcon = (props: any) => {
   return <IconTemplate outline={<Cart />} solid={<CartSolid />} {...props} />
 }
+
+import Rocket from 'assets/icons/currentColor/Rocket.svg?inline'
+import RocketSolid from 'assets/icons/solid/Rocket.svg?inline'
+
+export const RocketIcon = (props: any) => {
+  return <IconTemplate outline={<Rocket />} solid={<RocketSolid />} {...props} />
+}
+
+import Bolt from 'assets/icons/outline/Lightning-alt.svg?inline'
+import BoltSolid from 'assets/icons/currentColor/Lightning-alt.svg?inline'
+
+export const BoltIcon = (props: any) => {
+  return <IconTemplate outline={<Bolt />} solid={<BoltSolid />} {...props} />
+}

@@ -2,6 +2,7 @@ import { Project } from '../../../../interfaces'
 import ProjectLogo from '../../../ui/ProjectLogo'
 import BaseButton from '../../../ui/buttons/BaseButton'
 import Link from 'next/link'
+import { BoltIcon, RocketIcon } from '../../../ui/Icons/Icons'
 
 const ProjectInfos = ({ project }: { project: Project }) => {
   return (
@@ -21,10 +22,16 @@ const ProjectInfos = ({ project }: { project: Project }) => {
 
         <div className="block__item">
           <div className="flex gap-4 w-full">
-            <BaseButton className={'w-full'}>Apply now</BaseButton>
+            <BaseButton className={'w-full'}>
+              <RocketIcon className={'mr-1'} />
+              Apply now
+            </BaseButton>
             <Link href={`/project/${project.id}/quests`}>
               <a className="cursor-pointer w-full">
-                <BaseButton className={'w-full'}>Booster quests</BaseButton>
+                <BaseButton className={'w-full px-4 whitespace-nowrap'}>
+                  <BoltIcon className={'mr-1'} />
+                  Booster quests
+                </BaseButton>
               </a>
             </Link>
           </div>
