@@ -1,16 +1,28 @@
 import BlockLabel from '../../ui/BlockLabel'
 import BaseInput from '../../ui/inputs/BaseInput'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import BaseButton from '../../ui/buttons/BaseButton'
 import PlusIcon from '../../../assets/icons/Plus.svg'
 import ArrowDown from 'assets/icons/ArrowDown.svg?inline'
 import Toggle from 'components/ui/inputs/Toggle'
+import { CartIcon } from '../../ui/Icons/Icons'
 
 const BuyForm = () => {
   const [ethValue, setEthValue] = useState('0')
   const [zkpValue, setZkpValue] = useState('0')
 
   const [isLocked, setIsLocked] = useState(true)
+
+  const [title, setTitle] = useState('')
+  const [buttonText, setButtonText] = useState('')
+
+  useEffect(() => {
+    const title = isLocked ? 'Locked (Recommended)' : 'Buy and lock (Recommended)'
+    const buttonText = isLocked ? 'Buy and lock' : 'Buy only'
+
+    setTitle(title)
+    setButtonText(buttonText)
+  }, [isLocked])
 
   return (
     <div className="BuyForm grid grid-cols-3 gap-4">
@@ -31,7 +43,7 @@ const BuyForm = () => {
 
       <div className="block col-start-2 col-end-4 ">
         <div className="block--contrast">
-          <div className="text-16 font-bold mb-2 text-primaryClear">Locked (Recommended)</div>
+          <div className="text-16 font-bold mb-2 text-primaryClear">{title}</div>
           <div className="flex items-center gap-6">
             <Toggle value={isLocked} onClick={() => setIsLocked((oldValue) => !oldValue)} />
             <p className={'text-12 text-primaryClear font-bold'}>
@@ -45,7 +57,10 @@ const BuyForm = () => {
         </div>
 
         <div className="block__item">
-          <BaseButton>Buy and lock</BaseButton>
+          <BaseButton>
+            <CartIcon className={'mr-3'} />
+            {buttonText}
+          </BaseButton>
         </div>
       </div>
     </div>

@@ -1,0 +1,13 @@
+.vertical {
+  @apply text-primaryClear;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  &Line {
+    @apply bg-primaryClearBg;
+    height: 200px;
+    border-radius: 3px;
+    width: 4px;
+  }
+}

@@ -6,6 +6,7 @@ import Star from 'assets/images/star--current.svg?inline'
 import { useAppDispatch } from '../../../hooks/hooks'
 import ToastActions from '../../../actions/toast.actions'
 import { SendIcon } from '../../ui/Icons/Icons'
+import Hint from '../../ui/Hint/Hint'
 
 const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
   const availableZKP = 135
@@ -35,7 +36,16 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
     <div className="ClaimPannel sticky top-6 left-0">
       <div className="grid grid-cols-2 gap-6 mb-6">
         <div className="block block__item text-primaryClear">
-          <div className="font-heading text-16 mb-6">How it works?</div>
+          <div className="flex">
+            <div className="font-heading text-16 mb-6">How it works?</div>
+            <Hint>
+              <div className="font-bold">
+                Mauris elit metus, rutrum eu malesuada ac, interdum a ex. Suspendisse quis
+                ullamcorper nibh, sit amet cursus arcu. Duis faucibus risus nec rhoncus varius.
+              </div>
+            </Hint>
+          </div>
+
           <p>
             Owning ZKP tokens or ZKP-LP is requirement in order to participate in IDOs on ZkPad.
             <br />

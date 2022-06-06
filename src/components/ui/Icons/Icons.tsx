@@ -37,3 +37,10 @@ import SendSolid from 'assets/icons/currentColor/Upload.svg?inline'
 export const SendIcon = (props: any) => {
   return <IconTemplate outline={<Send />} solid={<SendSolid />} {...props} />
 }
+
+import Cart from 'assets/icons/currentColor/Shopping-cart-outline.svg?inline'
+import CartSolid from 'assets/icons/currentColor/Shopping-cart.svg?inline'
+
+export const CartIcon = (props: any) => {
+  return <IconTemplate outline={<Cart />} solid={<CartSolid />} {...props} />
+}

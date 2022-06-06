@@ -3,6 +3,7 @@ import LockForm from './LockForm'
 import Simulator from './Simulator'
 import Withdraw from './Withdraw'
 import ClaimPannel from './ClaimPannel'
+import Vertical from '../../ui/Separator/Vertical'
 
 const LockPage = () => {
   const [startDate, setStartDate] = useState<Date>(new Date())
@@ -16,8 +17,8 @@ const LockPage = () => {
           Lock $ZKP
         </h1>
 
-        <div className="grid grid-cols-3 gap-12">
-          <div className={'col-end-3 col-start-1'}>
+        <div className="flex gap-6">
+          <div className={'w-full flex-grow'}>
             <div className="mb-10">
               <LockForm />
             </div>
@@ -29,6 +30,12 @@ const LockPage = () => {
           </div>
 
           <div>
+            <div className="sticky top-6 left-0">
+              <Vertical />
+            </div>
+          </div>
+
+          <div className={'w-127 flex-shrink-0'}>
             <ClaimPannel />
           </div>
         </div>
