@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .g-container {
-  @apply mx-auto px-20;
+  @apply mx-auto px-20 w-full;
   max-width: 1568 + 160px;
 }
 
@@ -55,11 +55,52 @@ body {
     height: 1920px;
     left: 0;
     top: 214px;
-    background: rgba(143, 0, 255, 0.05);
+    background: #F2E0FF;
     filter: blur(183px);
     border-radius: 100%;
+    z-index: 2;
   }
 }
+
+.bg-line {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -1;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 1920px;
+    height: 1920px;
+    right: -20%;
+    top: 370px;
+    border: 2px solid #9D69DE;
+    border-radius: 100%;
+    z-index: -1;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 1920px;
+    height: 1920px;
+    left: 0;
+    top: 214px;
+    background: #F2E0FF;
+    filter: blur(183px);
+    border-radius: 100%;
+    z-index: 2;
+  }
+}
+
+.border-3 {
+  border-width: 3px;
+}
+
+
 
 .text-shadow {
   &.text-primary {
@@ -122,6 +163,7 @@ body {
 .video-format {
   padding-top: 60%;
   position: relative;
+
   img {
     position: absolute;
     top: 0;
@@ -129,20 +171,4 @@ body {
   }
 }
 
-.from-right {
-  &-enter {
-    transform: translateX(100%);
-  }
-
-  &-enter-active {
-    transform: translateX(0);
-    transition: all .3s ease-in-out;
-  }
-
-  &-exit-active {
-    transform: translateX(200%);
-    transition: all .3s ease-in-out;
-    height: 0!important;
-  }
-}
-
+@import 'animations';

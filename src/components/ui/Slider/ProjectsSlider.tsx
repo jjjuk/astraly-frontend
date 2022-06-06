@@ -151,7 +151,7 @@ const ProjectsSlider = () => {
           <ArrowButton onClick={next} isActive={canNext} />
         </div>
       </Container>
-      <div className="w-full overflow-auto py-8 no-scrollbar" ref={container}>
+      <div className="w-full overflow-auto py-8 no-scrollbar pb-14" ref={container}>
         <Container>
           <div className="PackSlider flex flex-nowrap gap-6">
             {projects.map((project, index) => (

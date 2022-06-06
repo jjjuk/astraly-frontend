@@ -1,5 +1,6 @@
 .baseButton {
-  @apply font-heading text-white relative cursor-pointer flex items-center justify-center py-3 transition;
+  @apply font-heading text-white relative cursor-pointer flex items-center justify-center py-3;
+  transition: all .3s ease-in-out;
   font-size: 16px;
   line-height: 1.31;
   background: linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%);
@@ -8,7 +9,7 @@
   gap: 10px;
   height: 55px;
   &::before {
-    @apply transition;
+    transition: all .3s ease-in-out;
     position: absolute;
     top: -2px;
     left: -2px;

@@ -51,12 +51,12 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
   return (
     <Link href={`/project/${project.id}`}>
       <div
-        className="ProjectCard bg-white rounded-3xl border-2 border-white w-90 shrink-0 relative overflow-hidden"
+        className="ProjectCard bg-white rounded-3xl border-3 border-white w-90 shrink-0 relative hover:shadow-purpleDark transition-all cursor-pointer hover:border-primary"
         data-index={index}>
         <div className="claim absolute top-3 right-3 bg-white border border-whitePurple font-heading text-12 py-0.5 px-3 rounded-md text-primaryClear">
           {currentRound?.title} Open
         </div>
-        <div className="cover w-full overflow-hidden h-82">
+        <div className="cover w-full overflow-hidden h-82 rounded-3xl">
           <img src={project.cover} alt={''} className={'w-full h-full object-cover'} />
         </div>
         <div className="project-info pt-0 pb-4 px-6">

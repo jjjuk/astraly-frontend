@@ -17,6 +17,10 @@ import customTheme from '../styles/customTheme'
 
 import Web3ReactManager from 'components/Web3ReactManager'
 import { useStore } from 'stores/reduxStore'
+import { useRouter } from 'next/router'
+import UiActions from '../actions/ui.actions'
+import { PAGES } from '../constants/ui.constants'
+import { useAppDispatch } from '../hooks/hooks'
 
 function getLibrary(provider, connector) {
   return new Provider(provider)

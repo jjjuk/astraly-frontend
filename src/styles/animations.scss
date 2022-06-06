@@ -1,0 +1,106 @@
+.planet_svg__star {
+  animation-iteration-count: infinite;
+  animation-duration: 20s;
+
+  &__top {
+    animation-name: 'star-top';
+  }
+
+  &__left {
+    animation-name: 'star-left';
+  }
+
+  &__right {
+    animation-name: 'star-right';
+  }
+}
+
+@keyframes star-top {
+  50% {
+    transform: translateX(-50px) translateY(40px);
+  }
+}
+
+@keyframes star-left {
+  50% {
+    transform: translateX(30px) translateY(-20px);
+  }
+}
+
+@keyframes star-right {
+  50% {
+    transform: translateX(-30px) translateY(-5px);
+  }
+}
+
+.planet_svg__planet {
+  animation-iteration-count: infinite;
+  animation-duration: 20s;
+
+  &__big {
+    animation-name: 'planet-big';
+  }
+
+  &__small {
+    animation-name: 'planet-small';
+  }
+}
+
+@keyframes planet-big {
+  50% {
+    transform: translateX(10px) translateY(-5px);
+  }
+}
+
+@keyframes planet-small {
+  50% {
+    transform: translateX(30px) translateY(20px);
+  }
+}
+
+
+.BaseButton {
+  .icon-right {
+    transition: all .3s ease-in-out;
+  }
+  &:hover {
+    .icon-right {
+      transform: translateX(4px);
+    }
+  }
+}
+
+
+.from-right {
+  &-enter {
+    transform: translateX(100%);
+  }
+
+  &-enter-active {
+    transform: translateX(0);
+    transition: all .3s ease-in-out;
+  }
+
+  &-exit-active {
+    transform: translateX(200%);
+    transition: all .3s ease-in-out;
+    height: 0 !important;
+  }
+}
+.home-heading__animation {
+
+  &-exit-active {
+    transition: all .3s ease-in-out;
+    height: 0 !important;
+
+    p, .buttons, h1 {
+      transition: all 0s ease-in-out;
+      opacity: 0;
+    }
+
+    .planets, .bg-line{
+      transition: all .3s ease-in-out;
+      transform: translateY(400px);
+    }
+  }
+}

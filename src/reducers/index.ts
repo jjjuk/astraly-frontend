@@ -4,6 +4,7 @@ import { Auth } from './auth.reducers'
 import { ConnectWallet } from './connectwallet.reducers'
 import { Modal } from './modal.reducers'
 import { Toast } from './toast.reducers'
+import { Ui } from './ui.reducers'
 // import { Collections } from './collections.reducers';
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   ConnectWallet,
   Modal,
   Toast,
+  Ui,
   // Collections,
 })
 
