@@ -3,6 +3,7 @@ import ProjectInfos from './Main/ProjectInfos'
 import { useRouter } from 'next/router'
 import { Project } from '../../../interfaces'
 import ProjectHeader from './ProjectHeader'
+import Vertical from '../../ui/Separator/Vertical'
 
 const ProjectLayout = ({ children, project }: PropsWithChildren<{ project: Project }>) => {
   const router = useRouter()
@@ -10,10 +11,16 @@ const ProjectLayout = ({ children, project }: PropsWithChildren<{ project: Proje
     <div className="ProjectLayout g-container">
       <ProjectHeader project={project} />
 
-      <div className="grid grid-cols-3 gap-12 mb-10">
+      <div className="flex gap-6 mb-10">
         <div className="col-end-3 col-start-1">{children}</div>
 
         <div>
+          <div className="sticky top-6 left-0">
+            <Vertical />
+          </div>
+        </div>
+
+        <div className={'w-127 flex-shrink-0'}>
           <ProjectInfos project={project} />
         </div>
       </div>

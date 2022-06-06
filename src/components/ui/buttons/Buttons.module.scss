@@ -53,12 +53,20 @@
     @apply pt-2 pb-1.5;
     font-size: 12px;
     height: auto;
+    border-radius: 8px;
+    span {
+      top: -1px;
+    }
   }
 
   &.baseButtonXSmall {
     padding: 2px 16px 0;
     font-size: 12px;
     height: auto;
+    border-radius: 8px;
+    span {
+      top: -1px;
+    }
   }
 
   &.baseButtonDisabled {
