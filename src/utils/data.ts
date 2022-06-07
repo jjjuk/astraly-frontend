@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import { formatUnits } from 'ethers/lib/utils'
-import { Project, Quest, Round } from 'interfaces'
+import { Project, Quest, QuestType, Round } from 'interfaces'
 import { bnToUint256, Uint256 } from 'starknet/dist/utils/uint256'
 
 export const rounds: Round[] = [
@@ -124,6 +124,7 @@ export const quests: Quest[] = [
     reward: 'Rewards: 3x to win the lottery',
     link: '/',
     isClaimed: false,
+    type: QuestType.PRODUCT,
     event: {
       name: 'Deposit',
       transmitterContract: '0x06d845edc32c8a613861d32a6500be2069cfae861147833eda962a7c89cdd724',
