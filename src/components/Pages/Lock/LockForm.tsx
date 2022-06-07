@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import BaseButton from 'components/ui/buttons/BaseButton'
 import BaseInput from '../../ui/inputs/BaseInput'
 import DateSelector from './DateSelector'
@@ -8,8 +8,21 @@ import { LockIcon } from 'components/ui/Icons/Icons'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { useStakingContract } from 'contracts/staking'
 import { Contracts } from 'constants/networks'
+import { ethers } from 'ethers'
+import { uint256 } from 'starknet'
+import { Spinner } from '@chakra-ui/react'
 
-const LockForm = ({ zkpBalance, lpBalance }: { zkpBalance: string; lpBalance: string }) => {
+const LockForm = ({
+  zkpBalance,
+  lpBalance,
+  xzkpBalance,
+  currentAPY,
+}: {
+  zkpBalance: string
+  lpBalance: string
+  xzkpBalance: string
+  currentAPY: number
+}) => {
   const { account } = useStarknetReact()
 
   const [locking, setLocking] = useState(false)
@@ -17,9 +30,14 @@ const LockForm = ({ zkpBalance, lpBalance }: { zkpBalance: string; lpBalance: st
   const [zkpAmount, setZKPAmount] = useState('10.0')
   const [zkpLPAmount, setZKPLPAmount] = useState('0')
 
+  const [previewXZKP, setPreviewXZKP] = useState('0')
+  const [updatingPreview, setUpdatingPreview] = useState(false)
+
   const [startDate, setStartDate] = useState<Date | null>(null)
 
   const { depositAll } = useStakingContract()
+
+  const { previewDeposit, previewDepositLP } = useStakingContract()
 
   const lockTime = useMemo(
     () => (startDate ? startDate.getTime() - new Date().getTime() : 0),
@@ -46,6 +64,42 @@ const LockForm = ({ zkpBalance, lpBalance }: { zkpBalance: string; lpBalance: st
       setLocking(false)
     }
   }
+
+  const updatePreview = async () => {
+    try {
+      setUpdatingPreview(true)
+      const _daysPassed = lockTime / (3600 * 24 * 1000)
+      const _preview = await previewDeposit(zkpAmount, _daysPassed)
+      const _formattedShares = ethers.utils.formatUnits(
+        uint256.uint256ToBN(_preview.shares).toString(),
+        'ether'
+      )
+      if (Number(zkpLPAmount) > 0) {
+        const _previewLP = await previewDepositLP(
+          Contracts['SN_GOERLI'].lp_token,
+          zkpLPAmount,
+          _daysPassed
+        )
+        const _formattedSharesLP = ethers.utils.formatUnits(
+          uint256.uint256ToBN(_previewLP.shares).toString(),
+          'ether'
+        )
+        const _sharesSum = Number(_formattedShares) + Number(_formattedSharesLP)
+        setPreviewXZKP(_sharesSum.toString())
+      } else {
+        setPreviewXZKP(_formattedShares)
+      }
+
+      setUpdatingPreview(false)
+    } catch (e) {
+      console.error(e)
+      setUpdatingPreview(false)
+    }
+  }
+
+  useEffect(() => {
+    updatePreview()
+  }, [zkpAmount, zkpLPAmount, startDate])
 
   return (
     <div className="LockForm">
@@ -85,6 +139,31 @@ const LockForm = ({ zkpBalance, lpBalance }: { zkpBalance: string; lpBalance: st
               <LockIcon className={'mr-2'} />
               Lock
             </BaseButton>
+          </div>
+        </div>
+      </div>
+      <div className="block results w-full mt-8">
+        <div className="block--contrast">
+          <div className="text-12 text-primaryClear mb-2">Total</div>
+
+          <div className="flex items-center">
+            <p className="text-primaryClear">Estimated number of lottery tickets earned per IDO</p>
+            <div className="ml-4 bg-white text-24 font-heading px-5 pt-2 pb-1.5 text-primaryClear rounded-xl flex items-center justify-center shadow-purpleLight">
+              {updatingPreview ? (
+                <Spinner />
+              ) : (
+                Math.round(Math.pow(Number(xzkpBalance) + Number(previewXZKP), 0.6))
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="block__item">
+          <div className="flex justify-between items-center text-primaryClear pt-6">
+            <p>Estimated APY</p>
+            <div className="ml-4 bg-white text-24 font-heading px-5 pt-2 pb-1.5 text-primaryClear rounded-xl flex items-center justify-center shadow-purpleLight">
+              {currentAPY}%
+            </div>
           </div>
         </div>
       </div>

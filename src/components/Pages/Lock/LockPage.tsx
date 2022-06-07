@@ -13,18 +13,13 @@ import { Contracts } from 'constants/networks'
 
 const LockPage = () => {
   const { account } = useStarknetReact()
-  const [startDate, setStartDate] = useState<Date>(new Date())
   const [zkpBalance, setZkpBalance] = useState('0')
   const [lpBalance, setLPBalance] = useState('0')
   const [stakeInfo, setStakeInfo] = useState<Result>({} as Result)
   const [xzkpBalance, setXZkpBalance] = useState('0')
-  const [previewXZKP, setPreviewXZKP] = useState('0')
-  const [updatingPreview, setUpdatingPreview] = useState(false)
-  const [zkpAmount, setZKPAmount] = useState('10.0')
   const [currentAPY, setCurrentAPY] = useState(0)
-  const [zkpLPAmount, setZKPLPAmount] = useState('0')
   const { getZKPBalance, getXZKPBalance, getLPBalance } = useTokenContract()
-  const { previewDeposit, getUserStakeInfo, previewDepositLP, getStakingAPY } = useStakingContract()
+  const { getUserStakeInfo, getStakingAPY } = useStakingContract()
 
   const unlockRemainingTime = useMemo(
     () => new Date(stakeInfo?.unlock_time?.toNumber() * 1000).getTime() - new Date().getTime(),
@@ -82,38 +77,6 @@ const LockPage = () => {
     }
   }
 
-  // const updatePreview = async () => {
-  //   try {
-  //     setUpdatingPreview(true)
-  //     const _daysPassed = lockTime / (3600 * 24 * 1000)
-  //     const _preview = await previewDeposit(zkpAmount, _daysPassed)
-  //     const _formattedShares = ethers.utils.formatUnits(
-  //       uint256.uint256ToBN(_preview.shares).toString(),
-  //       'ether'
-  //     )
-  //     if (Number(zkpLPAmount) > 0) {
-  //       const _previewLP = await previewDepositLP(
-  //         Contracts['SN_GOERLI'].lp_token,
-  //         zkpLPAmount,
-  //         _daysPassed
-  //       )
-  //       const _formattedSharesLP = ethers.utils.formatUnits(
-  //         uint256.uint256ToBN(_previewLP.shares).toString(),
-  //         'ether'
-  //       )
-  //       const _sharesSum = Number(_formattedShares) + Number(_formattedSharesLP)
-  //       setPreviewXZKP(_sharesSum.toString())
-  //     } else {
-  //       setPreviewXZKP(_formattedShares)
-  //     }
-
-  //     setUpdatingPreview(false)
-  //   } catch (e) {
-  //     console.error(e)
-  //     setUpdatingPreview(false)
-  //   }
-  // }
-
   useEffect(() => {
     if (account?.address) {
       fetchBalances()
@@ -121,10 +84,6 @@ const LockPage = () => {
       fetchAPYs()
     }
   }, [account])
-
-  // useEffect(() => {
-  //   updatePreview()
-  // }, [zkpAmount, zkpLPAmount, startDate])
 
   return (
     <div className="LockPage mb-10">
@@ -136,11 +95,16 @@ const LockPage = () => {
         <div className="lg:flex gap-6">
           <div className={'w-full flex-grow'}>
             <div className="mb-10">
-              <LockForm zkpBalance={zkpBalance} lpBalance={lpBalance} />
+              <LockForm
+                zkpBalance={zkpBalance}
+                lpBalance={lpBalance}
+                xzkpBalance={xzkpBalance}
+                currentAPY={currentAPY}
+              />
             </div>
-            <div className="mb-10">
-              <Simulator />
-            </div>
+            {/* <div className="mb-10">
+              <Simulator currentAPY={currentAPY} zkpBalance={zkpBalance} />
+            </div> */}
 
             <Withdraw
               xzkpBalance={xzkpBalance}

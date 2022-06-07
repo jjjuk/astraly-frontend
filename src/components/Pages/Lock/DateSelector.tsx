@@ -18,7 +18,7 @@ const DateSelector = ({
   const options = [
     ['6 Months', 6],
     ['1 Year', 12],
-    ['3 Years', 12 * 3],
+    ['2 Years', 12 * 2],
   ]
 
   return (
