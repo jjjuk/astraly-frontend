@@ -1,0 +1,21 @@
+.modal {
+
+  &Background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #2E2E2E;
+    z-index: 1000;
+    opacity: .4;
+  }
+
+  &Content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 1004;
+  }
+}

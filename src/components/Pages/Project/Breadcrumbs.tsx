@@ -16,7 +16,7 @@ const Breadcrumbs = ({
       {steps.map(({ label, href }, index) => {
         const isLast = index === steps.length - 1
         return (
-          <>
+          <div key={index} className="flex gap-2 items-center">
             <ConditionalWrapper
               key={index}
               condition={!!href}
@@ -25,9 +25,9 @@ const Breadcrumbs = ({
             </ConditionalWrapper>
             {!isLast && '/'}
             {isLast && (
-              <Star alt={''} className="inline-block transform -translate-y-0.5 text-primary" />
+              <Star alt={''} className="inline-block transform -translate-y-px text-primary" />
             )}
-          </>
+          </div>
         )
       })}
     </div>

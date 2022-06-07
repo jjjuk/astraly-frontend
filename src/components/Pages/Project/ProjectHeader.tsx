@@ -56,7 +56,7 @@ const ProjectHeader = ({ project }: { project?: Project }) => {
 
       <div className="title mb-12 flex items-start">
         <Link href={steps[steps.length - 2].href}>
-          <a className="inline-flex mt-3.5 mr-6  transition-all hover:transform  hover:scale-110 hover:-translate-y-px rounded-full">
+          <a className="inline-flex mt-3.5 mr-6 transition-all hover:transform  hover:scale-110 hover:-translate-y-px rounded-full">
             <div className="back hover:shadow-purpleLight rounded-full">
               <img src={Back} alt={'go back to project'} className={'rounded-full'} />
             </div>

@@ -5,22 +5,21 @@ import Discord from 'assets/icons/currentColor/Discord.svg?inline'
 import Swap from 'assets/icons/currentColor/Swap.svg?inline'
 import Send from 'assets/icons/currentColor/Send.svg?inline'
 import Lightning from 'assets/icons/currentColor/Lightning-alt.svg?inline'
+import { ForwardIcon } from '../../../ui/Icons/Icons'
+import QuestModal from './QuestModal'
+import { useState } from 'react'
+import { Quest } from '../../../../interfaces'
+import { getIcon } from './utils'
 
-const getIcon = (quest: any) => {
-  if (quest.icon === 'twitter') {
-    return <Twitter />
-  }
-  if (quest.icon === 'discord') {
-    return <Discord />
-  }
-  if (quest.icon === 'swap') {
-    return <Swap />
-  }
-  if (quest.icon === 'send') {
-    return <Send />
-  }
-}
-const QuestBlocks = ({ quests, title }: { quests: typeof socialQuests; title: string }) => {
+const QuestBlocks = ({
+  quests,
+  title,
+  showQuest,
+}: {
+  quests: typeof socialQuests
+  title: string
+  showQuest: any
+}) => {
   return (
     <div className="block mb-4">
       <div className="block--contrast">
@@ -29,7 +28,7 @@ const QuestBlocks = ({ quests, title }: { quests: typeof socialQuests; title: st
 
       <div className="block__item">
         {quests.map((quest, index) => (
-          <div className="grid grid-cols-2 gap-10 mb-10">
+          <div className="grid grid-cols-2 gap-10 mb-10" key={index}>
             <div
               className={`flex items-center ${
                 quest.isClaimed ? 'text-whitePurple' : 'text-primary'
@@ -46,7 +45,18 @@ const QuestBlocks = ({ quests, title }: { quests: typeof socialQuests; title: st
                 </div>
               </div>
             </div>
-            <BaseButton>Go to Quest</BaseButton>
+            <BaseButton
+              className={`${quest.isClaimed && 'opacity-50 pointer-events-none'} `}
+              onClick={() => showQuest(quest)}>
+              {quest.isClaimed ? (
+                'Claimed'
+              ) : (
+                <>
+                  <ForwardIcon className={'mr-1'} />
+                  Go to Quest
+                </>
+              )}
+            </BaseButton>
           </div>
         ))}
       </div>
@@ -55,10 +65,17 @@ const QuestBlocks = ({ quests, title }: { quests: typeof socialQuests; title: st
 }
 
 const Quests = () => {
+  const [doShowModal, setDoShowModal] = useState(true)
+  const [quest, setQuest] = useState<Quest | null>(null)
+  const showQuest = (quest: Quest) => {
+    setDoShowModal(true)
+    setQuest(quest)
+  }
   return (
     <div className="Quests">
-      <QuestBlocks quests={socialQuests} title={'Social Quests'} />
-      <QuestBlocks quests={productQuests} title={'Product Quests'} />
+      <QuestModal quest={quest} isOpen={doShowModal} close={() => setDoShowModal(false)} />
+      <QuestBlocks quests={socialQuests} title={'Social Quests'} showQuest={showQuest} />
+      <QuestBlocks quests={productQuests} title={'Product Quests'} showQuest={showQuest} />
     </div>
   )
 }

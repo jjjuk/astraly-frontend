@@ -34,6 +34,12 @@ body {
   @apply text-primaryClear;
 }
 
+body {
+  &.modal-open {
+    overflow: hidden;
+  }
+}
+
 #__next {
   height: 100%;
 }

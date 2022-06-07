@@ -31,4 +31,9 @@ export interface Quest {
   name?: string
   description?: string
   event: OrganizedEvent
+  icon: string
+  quest: string
+  reward: string
+  link: string
+  isClaimed: boolean
 }
