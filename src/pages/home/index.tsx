@@ -1,35 +1,13 @@
-import { ChevronRightIcon } from '@chakra-ui/icons'
-import { Button, Flex, Heading, Icon, Tag, Text, VStack, position } from '@chakra-ui/react'
-import ProjectCard from 'components/ProjectCard'
 import StatsBar from 'components/StatsBar'
-import { Project } from 'interfaces'
-import { projects } from 'utils/data'
-import React, { useRef } from 'react'
-import { MdOutlineShoppingCart } from 'react-icons/md'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { FreeMode, Navigation, Scrollbar, A11y } from 'swiper'
+import React from 'react'
 
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import 'swiper/css/scrollbar'
-import 'swiper/css/free-mode'
-import HomeHeading from '../../components/Pages/Home/HomeHeading'
-import ProjectsSlider from '../../components/ui/Slider/ProjectsSlider'
+import ProjectsSlider from 'components/ui/Slider/ProjectsSlider'
 import Container from 'components/ui/Container'
 import Link from 'next/link'
 
-interface Props {}
-
-SwiperCore.use([Navigation])
-
-const Home = (props: Props) => {
+const Home = () => {
   return (
     <div>
-      {/*<div className="g-container mt-2">*/}
-      {/*  <HomeHeading />*/}
-      {/*</div>*/}
-
       <div className="my-20 w-full overflow-hidden">
         <StatsBar />
       </div>

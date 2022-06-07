@@ -5,8 +5,22 @@ import StarkNetLogo from 'assets/images/Starknet-logo-dark1.svg'
 import Planets from 'assets/animations/planet.svg?inline'
 import Line from 'assets/images/bg-line.svg'
 import ShoppingCart from 'assets/icons/currentColor/Shopping-cart.svg?inline'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { useEffect, useState } from 'react'
 
 const HomeHeading = () => {
+  const TitleSpans = ['Curated', 'Excellent', 'Audited']
+  const [currentTitle, setCurrentTitle] = useState(TitleSpans[0])
+
+  useEffect(() => {
+    setTimeout(() => {
+      const index = TitleSpans.indexOf(currentTitle)
+      const title = index === TitleSpans.length - 1 ? TitleSpans[0] : TitleSpans[index + 1]
+
+      setCurrentTitle(title)
+    }, 3000)
+  }, [currentTitle])
+
   return (
     <div className="HomeHeading">
       <div className="bg-line"></div>
@@ -17,7 +31,12 @@ const HomeHeading = () => {
               className={
                 'text-54 text-primaryDark font-heading uppercase text-shadow leading-131 mb-2'
               }>
-              Invest in <span className={'text-primary text-shadow'}>Curated</span>
+              Invest in&nbsp;
+              <TransitionGroup className="itext-primary text-shadow inline relative">
+                <CSSTransition key={currentTitle} timeout={300} classNames="home-title__animation">
+                  <span className={'text-primary text-shadow inline-block'}>{currentTitle}</span>
+                </CSSTransition>
+              </TransitionGroup>
               <br />
               StarkNet projects.
             </h1>
