@@ -25,6 +25,10 @@ export interface Project {
   rounds: Round[]
 }
 
+export enum QuestType {
+  SOCIAL = 'SOCIAL',
+  PRODUCT = 'PRODUCT',
+}
 export interface Quest {
   _id: string
   idoId: number
@@ -36,4 +40,5 @@ export interface Quest {
   reward: string
   link: string
   isClaimed: boolean
+  type: QuestType
 }

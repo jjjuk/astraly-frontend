@@ -1,0 +1,30 @@
+.base-text {
+  @apply text-16 text-primaryClear leading-138;
+}
+
+.title {
+  // legacy
+  &--medium {
+    @apply font-heading text-primaryDark text-24;
+  }
+
+  &--big {
+    @apply text-54 font-heading uppercase text-primaryDark text-shadow;
+    text-shadow: #8F00FF -2px 2px 0;
+  }
+
+  &--small {
+    @apply font-heading text-primaryClear mb-1;
+    &.mb-4 {
+      margin-bottom: 16px;
+    }
+
+    &.mb-5 {
+      margin-bottom: 20px;
+    }
+  }
+
+  &Xs {
+    @apply font-heading text-12 text-primaryClear;
+  }
+}
