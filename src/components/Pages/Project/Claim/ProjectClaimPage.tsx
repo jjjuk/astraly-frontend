@@ -88,11 +88,14 @@ const ProjectClaimPage = () => {
           </div>
 
           <div className="block__item">
-            <div className="grid grid-cols-3 gap-4">
-              <BaseButton className="col-span-2" onClick={handleClaimTickets} disabled={claiming}>
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+              <BaseButton
+                className="xl:col-span-2"
+                onClick={handleClaimTickets}
+                disabled={claiming}>
                 <img src={UploadIcon} alt={''} /> {claiming ? <Spinner /> : 'Claim Tokens'}
               </BaseButton>
-              <BaseButton className="col-span-1">
+              <BaseButton className="xl:col-span-1">
                 <Unlock />
                 Lock more $ZKP
               </BaseButton>

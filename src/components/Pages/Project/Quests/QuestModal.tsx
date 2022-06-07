@@ -10,7 +10,7 @@ import { useState } from 'react'
 import SandWatch from 'assets/icons/solid/Sand-watch.svg'
 import ToastActions from '../../../../actions/toast.actions'
 import { useAppDispatch } from '../../../../hooks/hooks'
-
+import CloseIcon from 'assets/icons/CrossHex.svg'
 const QuestModal = ({
   quest,
   isOpen,
@@ -41,6 +41,11 @@ const QuestModal = ({
   return (
     <BaseModal isOpen={isOpen} close={close}>
       <div className={`block ${styles.questModal}`}>
+        <div
+          className="absolute top-4 right-4  hover:shadow-purpleLight rounded-full transition-all hover:transform  hover:scale-110 hover:-translate-y-px rounded-full cursor-pointer"
+          onClick={close}>
+          <img src={CloseIcon} alt={'close'} />
+        </div>
         <div className="block--contrast">
           <div className="title--medium mb-4">Product Quest</div>
 

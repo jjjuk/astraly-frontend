@@ -124,7 +124,7 @@ const LockPage = () => {
             </div>
           </div>
 
-          <div className={'mt-4 md:mt-0 lg:w-127 flex-shrink-0 '}>
+          <div className={'mt-4 md:mt-0 w-1/3 xl:w-127 flex-shrink-0 '}>
             <ClaimPannel />
           </div>
         </div>

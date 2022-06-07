@@ -72,3 +72,10 @@ import LikeSolid from 'assets/icons/currentColor/LikeSolid.svg?inline'
 export const LikeIcon = (props: any) => {
   return <IconTemplate outline={<Like />} solid={<LikeSolid />} {...props} />
 }
+
+import Checked from 'assets/icons/currentColor/Checked-box--outline.svg?inline'
+import CheckedSolid from 'assets/icons/currentColor/Checked-box.svg?inline'
+
+export const CheckedIcon = (props: any) => {
+  return <IconTemplate outline={<Checked />} solid={<CheckedSolid />} {...props} />
+}

@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 .g-container {
-  @apply mx-auto px-4 md:px-20 w-full;
-  max-width: 1568 + 160px;
+  @apply mx-auto px-4 w-full;
+  max-width: 1568 + 16px;
 }
 
 @font-face {
@@ -137,7 +137,12 @@ body {
 .block {
   @apply bg-white border border-2 border-white rounded-3xl;
   &--contrast {
-    @apply bg-primaryClearBg rounded-3xl px-8 py-7
+    @apply bg-primaryClearBg rounded-3xl px-8 py-7;
+
+    &.py-3 {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
   }
 
   &__item {

@@ -1,6 +1,7 @@
 .questModal {
   width: 100vw;
   @screen lg {
+    width: auto;
     min-width: 984px;
   }
 }

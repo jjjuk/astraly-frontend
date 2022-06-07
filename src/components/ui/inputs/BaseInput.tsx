@@ -10,7 +10,7 @@ const BaseInput = ({
   label: string
   value: string
   onChange: ChangeEventHandler<HTMLInputElement>
-  max: number
+  max?: number
 }) => {
   const input = useRef<HTMLInputElement | null>(null)
   return (

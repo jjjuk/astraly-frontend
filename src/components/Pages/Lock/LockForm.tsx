@@ -103,7 +103,7 @@ const LockForm = ({
 
   return (
     <div className="LockForm">
-      <div className="lg:grid grid-cols-3 gap-4">
+      <div className="lg:grid grid-cols-1 xl:grid-cols-3 gap-4">
         <div className="tokens block mb-4 lg:mb-0">
           <div className="token block--contrast">
             <BlockLabel label={'Tokens'} value={zkpBalance} />
@@ -129,7 +129,7 @@ const LockForm = ({
           </div>
         </div>
 
-        <div className="date grid col-start-2 col-end-4 block">
+        <div className="date grid xl:col-start-2 xl:col-end-4 block">
           <div className="date-input bg-primaryClearBg rounded-3xl px-8 py-7 ">
             <DateSelector startDate={startDate} setStartDate={setStartDate} />
           </div>

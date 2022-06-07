@@ -3,14 +3,18 @@ import { format } from 'date-fns'
 import BaseButton from '../../../ui/buttons/BaseButton'
 import Star from 'assets/images/star--current.svg?inline'
 import { ConditionalWrapper } from 'components/ui/react'
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, ReactNode, useEffect, useState } from 'react'
 import Link from 'next/link'
+import { SendIcon } from '../../../ui/Icons/Icons'
+import CartIcon from 'assets/icons/solid/Cart.svg?inline'
+import FireIcon from 'assets/icons/solid/Fire.svg?inline'
+import ChartIcon from 'assets/icons/solid/Chart.svg?inline'
 
-const stepsText: { [key: Round['title']]: string[] } = {
-  'Ticket Claim': ['Ticket Claim open', 'Claimed', 'claim'],
-  Allocation: ['Burn lottery tickets', 'Tickets burned', 'burn'],
-  Purchase: ['Buy and invest', 'Invested', 'buy'],
-  Distribution: ['Portfolio', 'Portfolio', 'portfolio'],
+const stepsText: { [key: Round['title']]: string | ReactNode[] } = {
+  'Ticket Claim': ['Ticket Claim open', 'Claimed', 'claim', <SendIcon />],
+  Allocation: ['Burn lottery tickets', 'Tickets burned', 'burn', <FireIcon />],
+  Purchase: ['Buy and invest', 'Invested', 'buy', <CartIcon />],
+  Distribution: ['Portfolio', 'Portfolio', 'portfolio', <ChartIcon />],
 }
 
 const RoadmapItem = ({
@@ -40,10 +44,15 @@ const RoadmapItem = ({
       className={`${
         isActive ? 'bg-white rounded-3xl text-primary' : 'text-primaryClear'
       } py-8 px-6 flex flex-col`}>
-      <div className="flex items-center">
-        <Star alt={''} className="inline-block transform -translate-y-px mr-1" />
-        Step {index}
+      <div className="flex justify-between">
+        <div className="flex items-center">
+          <Star alt={''} className="inline-block transform -translate-y-px mr-1" />
+          Step {index}
+        </div>
+
+        {isActive && stepText[3]}
       </div>
+
       <div className="font-heading mb-2">{step.title}</div>
       <div className="text"> {step.description}</div>
       <div className="text mt-auto mb-2 pt-4">
@@ -69,7 +78,7 @@ const RoadmapItem = ({
 const Roadmap = ({ project }: { project: Project }) => {
   return (
     <div className="Roadmap mb-4 md:mb-0">
-      <div className="block bg-whitePurple lg:grid grid-cols-4 ">
+      <div className="block bg-whitePurple lg:grid xl:grid-cols-2 2xl:grid-cols-4 ">
         {project.rounds.map((round, index) => (
           <RoadmapItem step={round} project={project} key={index} index={index} />
         ))}

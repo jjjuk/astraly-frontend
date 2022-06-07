@@ -12,7 +12,7 @@ const ProjectLayout = ({ children, project }: PropsWithChildren<{ project: Proje
       <ProjectHeader project={project} />
 
       <div className="lg:flex gap-6 mb-10">
-        <div className="col-end-3 col-start-1">{children}</div>
+        <div className="col-end-3 col-start-1 w-full">{children}</div>
 
         <div className="hidden lg:block">
           <div className="sticky top-6 left-0">
@@ -20,7 +20,7 @@ const ProjectLayout = ({ children, project }: PropsWithChildren<{ project: Proje
           </div>
         </div>
 
-        <div className={'mt-4 md:mt-0 lg:w-127 flex-shrink-0'}>
+        <div className={'mt-4 md:mt-0 lg:w-1/3 flex-shrink-0'}>
           <ProjectInfos project={project} />
         </div>
       </div>

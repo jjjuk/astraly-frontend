@@ -75,7 +75,7 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
 
   return (
     <div className="ClaimPannel sticky top-6 left-0">
-      <div className="grid grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
         <div className="block block__item text-primaryClear">
           <div className="flex">
             <div className="font-heading text-16 mb-6">How it works?</div>

@@ -25,6 +25,7 @@ const ProjectQuestsPage = () => {
     <>
       <ProjectLayout project={project}>
         <QuestRequirements />
+
         <div className="block mb-4">
           <div className="bg-primaryClearBg rounded-3xl px-8 py-5">
             <div className="flex items-center text-primaryDark">
@@ -39,7 +40,9 @@ const ProjectQuestsPage = () => {
             </div>
           </div>
         </div>
+
         <Quests />
+
         <AllocationInfo />
       </ProjectLayout>
     </>

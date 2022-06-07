@@ -3,26 +3,37 @@ import ProjectLogo from '../../../ui/ProjectLogo'
 import BaseButton from '../../../ui/buttons/BaseButton'
 import Link from 'next/link'
 import { BoltIcon, RocketIcon } from '../../../ui/Icons/Icons'
+import Award from 'assets/icons/solid/Award.svg'
+import Shield from 'assets/icons/solid/Shield.svg'
+import Notification from 'assets/icons/solid/Notification.svg'
 
 const ProjectInfos = ({ project }: { project: Project }) => {
   return (
     <div className="ProjectInfos sticky top-6 left-0">
       <div className="block mb-4">
-        <div className="block--contrast">
-          <div className="flex items-center">
+        <div className="block--contrast py-3">
+          <div className="flex items-center relative">
             <div className="logo">
               <ProjectLogo project={project} />
             </div>
             <div className="info ml-4">
-              <div className="text-16 text-primaryClear">Apply and invest in</div>
-              <div className="font-heading text-40 text-primaryDark leading-10">{project.name}</div>
+              <div className="text-16 text-primaryClear font-bold">Apply and invest in</div>
+              <div className="font-heading text-24 2xl:text-40 text-primaryDark leading-12">
+                {project.name}
+              </div>
+            </div>
+
+            <div className="icons flex gap-2 absolute top-0 right-0">
+              <img src={Award} alt={''} />
+              <img src={Shield} alt={''} />
+              <img src={Notification} alt={''} />
             </div>
           </div>
         </div>
 
         <div className="block__item">
-          <div className="flex gap-4 w-full">
-            <BaseButton className={'w-full'}>
+          <div className="flex-col 2xl:flex-row flex gap-3 w-full">
+            <BaseButton className={'w-full px-1'}>
               <RocketIcon className={'mr-1'} />
               Apply now
             </BaseButton>

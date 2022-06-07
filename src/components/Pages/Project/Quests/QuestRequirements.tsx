@@ -1,5 +1,6 @@
 import BaseButton from '../../../ui/buttons/BaseButton'
 import Check from 'assets/icons/solid/Check.svg'
+import { LockIcon, CheckedIcon } from '../../../ui/Icons/Icons'
 
 const QuestRequirements = () => {
   return (
@@ -18,7 +19,10 @@ const QuestRequirements = () => {
               <img src={Check} alt={''} className={'mr-2 transform -translate-y-0.5'} />
               Submit your KYC documents
             </div>
-            <BaseButton>Submit your KYC</BaseButton>
+            <BaseButton>
+              <CheckedIcon className={'mr-1'} />
+              Submit your KYC
+            </BaseButton>
           </div>
 
           <div>
@@ -26,7 +30,10 @@ const QuestRequirements = () => {
               <img src={Check} alt={''} className={'mr-2 transform -translate-y-0.5'} />
               Lock 200 ZKP on our vault
             </div>
-            <BaseButton>Submit your KYC</BaseButton>
+            <BaseButton>
+              <LockIcon className={'mr-1'} />
+              Lock more $ZKP
+            </BaseButton>
           </div>
         </div>
       </div>
