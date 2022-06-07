@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/display-name */
 import React, { forwardRef, useRef } from 'react'
 import ReactDatePicker from 'react-datepicker'
 import InputGroup from './InputGroup'
@@ -7,9 +10,9 @@ const DatePicker = ({ value, onInput }: { value: Date | null; onInput: (date: Da
     HTMLButtonElement,
     React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
   >(({ value, onClick, placeholder }, ref) => (
-    <div onClick={onClick} ref={ref}>
+    <button onClick={onClick} ref={ref}>
       <span className={'font-heading text-12'}>{value || placeholder}</span>
-    </div>
+    </button>
   ))
 
   const inputRef = useRef<ReactDatePicker>(null)

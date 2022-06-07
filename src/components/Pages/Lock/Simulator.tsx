@@ -5,7 +5,7 @@ import BaseInput from '../../ui/inputs/BaseInput'
 import DateSelector from './DateSelector'
 import BlockLabel from '../../ui/BlockLabel'
 
-const Simulator = ({ currentAPY, zkpBalance }: { currentAPY: number; zkpBalance: string }) => {
+const Simulator = ({ currentAPY, zkpBalance }: { currentAPY?: number; zkpBalance?: string }) => {
   const [startDate, setStartDate] = useState<Date | null>(null)
   const [zkpAmount, setZKPAmount] = useState('0')
 

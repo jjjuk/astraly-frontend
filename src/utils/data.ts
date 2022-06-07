@@ -119,6 +119,11 @@ export const quests: Quest[] = [
     idoId: 0,
     name: 'Lock ZKP on ZkPad!',
     description: 'For this quest, you need to lock at least 100 ZKP tokens on ZkPad.',
+    icon: 'swap',
+    quest: 'Make a Swap',
+    reward: 'Rewards: 3x to win the lottery',
+    link: '/',
+    isClaimed: false,
     event: {
       name: 'Deposit',
       transmitterContract: '0x06d845edc32c8a613861d32a6500be2069cfae861147833eda962a7c89cdd724',

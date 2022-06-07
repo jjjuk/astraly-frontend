@@ -20,7 +20,7 @@ const ProfileCover = () => {
 
             <div className="block__item">
               <div className="-mt-20"></div>
-              <ProjectLogo project={{}} />
+              <ProjectLogo />
               <div className="text-primary">Address</div>
 
               <div className="flex items-center">

@@ -2,7 +2,7 @@ import { Project } from '../../interfaces'
 import styles from '../../styles/hexagon.module.scss'
 import React from 'react'
 
-const ProjectLogo = ({ project }: { project: Project }) => {
+const ProjectLogo = ({ project }: { project?: Project }) => {
   return (
     <div className="logo">
       <div className={styles.hexBis}>

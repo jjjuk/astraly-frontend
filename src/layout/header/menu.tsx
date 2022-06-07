@@ -101,7 +101,7 @@ const HeaderMenu = () => {
       activeIndex = 0
     }
 
-    const element = container.current.querySelector(
+    const element: any = container.current.querySelector(
       `.${styles.menuItem}:nth-child(${activeIndex + 1})`
     )
 

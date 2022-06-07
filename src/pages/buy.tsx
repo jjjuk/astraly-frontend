@@ -127,7 +127,7 @@ const BuyPageContainer = () => {
           </Button>
         </Flex>
       </Flex>
-      {account && (
+      {/* {account && (
         <Button
           bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
           boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
@@ -147,7 +147,7 @@ const BuyPageContainer = () => {
           }>
           Verify Quest
         </Button>
-      )}
+      )} */}
     </Layout>
   )
 }
