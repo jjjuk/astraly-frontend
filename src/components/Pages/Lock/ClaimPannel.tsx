@@ -1,18 +1,21 @@
 import BaseButton from 'components/ui/buttons/BaseButton'
 import { useStakingContract } from '../../../contracts/staking'
 import UploadIcon from 'assets/icons/outline/Upload.svg'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useState } from 'react'
 import Star from 'assets/images/star--current.svg?inline'
 import { useAppDispatch } from '../../../hooks/hooks'
 import ToastActions from '../../../actions/toast.actions'
 import { SendIcon } from '../../ui/Icons/Icons'
 import Hint from '../../ui/Hint/Hint'
+import { useStarknetReact } from '@web3-starknet-react/core'
 
 const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
-  const availableZKP = 135
+  const { account } = useStarknetReact()
   const { harvestRewards } = useStakingContract()
   const steps = ['Buy zkp tokens', 'Stake ZKP tokens', 'Claim lottery tickets', 'Invest in IDOs']
   const dispatch = useAppDispatch()
+
+  const [harvesting, setHarvesting] = useState(false)
 
   const Step = ({ children, index }: PropsWithChildren<{ index: number }>) => {
     return (
@@ -23,13 +26,29 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
     )
   }
 
-  const claim = () => {
-    dispatch(
-      ToastActions.addToast({
-        title: 'Claim made',
-        action: <div className="font-heading text-12 text-primary">View on explorer</div>,
-      })
-    )
+  const handleHarvest = async () => {
+    if (!account?.address) return
+
+    try {
+      setHarvesting(true)
+      const tx = await harvestRewards()
+      setHarvesting(false)
+      dispatch(
+        ToastActions.addToast({
+          title: 'Claim made',
+          action: (
+            <a
+              className="font-heading text-12 text-primary"
+              href={`https://goerli.voyager.online/tx/${tx.transaction_hash}`}>
+              View on explorer
+            </a>
+          ),
+        })
+      )
+    } catch (e) {
+      console.error(e)
+      setHarvesting(false)
+    }
   }
 
   return (
@@ -73,13 +92,13 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
               <div className="text-16 text-primaryClear transform translate-y-px">
                 $ZKP Available
               </div>
-              <div className="font-heading text-16 ml-6 text-primary">{availableZKP}</div>
+              <div className="font-heading text-16 ml-6 text-primary">X</div>
             </div>
           </div>
           <div className="block__item">
-            <BaseButton onClick={claim}>
+            <BaseButton onClick={handleHarvest} disabled={harvesting}>
               <SendIcon className={'mr-2'} />
-              Claim {availableZKP} ZKP
+              Claim X ZKP
             </BaseButton>
           </div>
         </div>

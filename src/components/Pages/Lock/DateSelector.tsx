@@ -1,9 +1,15 @@
-import { useState } from 'react'
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import { Dispatch, SetStateAction, useState } from 'react'
 import DatePicker from '../../ui/inputs/DatePicker'
 
-const DateSelector = () => {
-  const [startDate, setStartDate] = useState<Date | null>(null)
-
+const DateSelector = ({
+  startDate,
+  setStartDate,
+}: {
+  startDate: Date | null
+  setStartDate: Dispatch<SetStateAction<Date | null>>
+}) => {
   const setRoundDate = (months: number) => {
     const d = new Date()
     d.setMonth(d.getMonth() + months)
