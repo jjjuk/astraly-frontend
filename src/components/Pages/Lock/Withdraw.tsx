@@ -56,7 +56,7 @@ const Withdraw = ({
           <div className="font-heading text-primary">
             {unlockRemainingTime > 0 ? (
               <>
-                Locked until
+                Locked until{' '}
                 {new Date(stakeInfo?.unlock_time?.toNumber() * 1000).toLocaleDateString()} (
                 {Math.round(unlockRemainingTime / (1000 * 3600 * 24))} days)
               </>
