@@ -144,9 +144,9 @@ const LockForm = ({
       </div>
       <div className="block results w-full mt-8">
         <div className="block--contrast">
-          <div className="text-12 text-primaryClear mb-2">Total</div>
+          <div className="text-12 text-primaryClear font-bold mb-2">Total</div>
 
-          <div className="flex items-center">
+          <div className="flex items-center justify-between">
             <p className="text-primaryClear">Estimated number of lottery tickets earned per IDO</p>
             <div className="ml-4 bg-white text-24 font-heading px-5 pt-2 pb-1.5 text-primaryClear rounded-xl flex items-center justify-center shadow-purpleLight">
               {updatingPreview ? (

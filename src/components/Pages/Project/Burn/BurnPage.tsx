@@ -86,10 +86,10 @@ const BurnPage = () => {
   }
 
   useEffect(() => {
-    if (account?.address) {
+    if (account?.address && project) {
       fetchBalances()
     }
-  }, [account])
+  }, [account, project])
 
   useEffect(() => {
     if (authToken && project) {
@@ -110,7 +110,7 @@ const BurnPage = () => {
                   Available
                 </div>
 
-                <div className="font-heading text-primary ml-6">100.00</div>
+                <div className="font-heading text-primary ml-6">{ticketsBalance}</div>
               </div>
             </div>
 
