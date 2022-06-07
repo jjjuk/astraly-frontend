@@ -1,21 +1,24 @@
 import BaseButton from 'components/ui/buttons/BaseButton'
 import { useStakingContract } from '../../../contracts/staking'
 import UploadIcon from 'assets/icons/outline/Upload.svg'
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
 import Star from 'assets/images/star--current.svg?inline'
 import { useAppDispatch } from '../../../hooks/hooks'
 import ToastActions from '../../../actions/toast.actions'
 import { SendIcon } from '../../ui/Icons/Icons'
 import Hint from '../../ui/Hint/Hint'
 import { useStarknetReact } from '@web3-starknet-react/core'
+import { uint256 } from 'starknet'
+import { ethers } from 'ethers'
 
 const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
   const { account } = useStarknetReact()
-  const { harvestRewards } = useStakingContract()
+  const { harvestRewards, getPendingRewards } = useStakingContract()
   const steps = ['Buy zkp tokens', 'Stake ZKP tokens', 'Claim lottery tickets', 'Invest in IDOs']
   const dispatch = useAppDispatch()
 
   const [harvesting, setHarvesting] = useState(false)
+  const [pendingRewards, setPendingRewards] = useState('0')
 
   const Step = ({ children, index }: PropsWithChildren<{ index: number }>) => {
     return (
@@ -50,6 +53,25 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
       setHarvesting(false)
     }
   }
+
+  const updateRewards = async () => {
+    try {
+      const _rewards = await getPendingRewards(account?.address)
+      const _formattedRewards = ethers.utils.formatUnits(
+        uint256.uint256ToBN(_rewards.rewards).toString(),
+        'ether'
+      )
+      setPendingRewards(_formattedRewards)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (account?.address) {
+      updateRewards()
+    }
+  }, [account])
 
   return (
     <div className="ClaimPannel sticky top-6 left-0">
@@ -92,13 +114,13 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
               <div className="text-16 text-primaryClear transform translate-y-px">
                 $ZKP Available
               </div>
-              <div className="font-heading text-16 ml-6 text-primary">X</div>
+              <div className="font-heading text-16 ml-6 text-primary">{pendingRewards}</div>
             </div>
           </div>
           <div className="block__item">
             <BaseButton onClick={handleHarvest} disabled={harvesting}>
               <SendIcon className={'mr-2'} />
-              Claim X ZKP
+              Claim {pendingRewards} ZKP
             </BaseButton>
           </div>
         </div>

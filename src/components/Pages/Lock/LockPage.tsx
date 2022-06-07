@@ -16,10 +16,11 @@ const LockPage = () => {
   const [zkpBalance, setZkpBalance] = useState('0')
   const [lpBalance, setLPBalance] = useState('0')
   const [stakeInfo, setStakeInfo] = useState<Result>({} as Result)
+  const [userInfo, setUserInfo] = useState<Result>({} as Result)
   const [xzkpBalance, setXZkpBalance] = useState('0')
   const [currentAPY, setCurrentAPY] = useState(0)
   const { getZKPBalance, getXZKPBalance, getLPBalance } = useTokenContract()
-  const { getUserStakeInfo, getStakingAPY } = useStakingContract()
+  const { getUserStakeInfo, getStakingAPY, getUserInfo } = useStakingContract()
 
   const unlockRemainingTime = useMemo(
     () => new Date(stakeInfo?.unlock_time?.toNumber() * 1000).getTime() - new Date().getTime(),
@@ -72,6 +73,9 @@ const LockPage = () => {
       const _stakeInfo = await getUserStakeInfo(account?.address)
       // console.log(_stakeInfo);
       setStakeInfo(_stakeInfo)
+
+      const _userInfo = await getUserInfo(account?.address)
+      setUserInfo(_userInfo)
     } catch (e) {
       console.error(e)
     }
@@ -110,6 +114,7 @@ const LockPage = () => {
               xzkpBalance={xzkpBalance}
               unlockRemainingTime={unlockRemainingTime}
               stakeInfo={stakeInfo}
+              userInfo={userInfo}
             />
           </div>
 

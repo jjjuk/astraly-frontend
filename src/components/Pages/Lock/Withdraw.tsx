@@ -4,16 +4,20 @@ import { SendIcon } from '../../ui/Icons/Icons'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { useState } from 'react'
 import { useStakingContract } from 'contracts/staking'
-import { number, Result } from 'starknet'
+import { number, Result, uint256 } from 'starknet'
+import { ethers } from 'ethers'
+import { Spinner } from '@chakra-ui/react'
 
 const Withdraw = ({
   xzkpBalance,
   unlockRemainingTime,
   stakeInfo,
+  userInfo,
 }: {
   xzkpBalance: string
   unlockRemainingTime: number
   stakeInfo: Result
+  userInfo: Result
 }) => {
   const { account } = useStarknetReact()
   const [withdrawing, setWithdrawing] = useState(false)
@@ -39,7 +43,13 @@ const Withdraw = ({
         <div className="title--medium mb-6">Withdraw Liquid Pool</div>
         <div className="flex items-center justify-between text-16 mb-2">
           <div className="text-primaryClear">ZKP Staked</div>
-          <div className="font-heading text-primary">X</div>
+          <div className="font-heading text-primary">
+            {userInfo?.amount ? (
+              ethers.utils.formatUnits(uint256.uint256ToBN(userInfo?.amount).toString(), 'ether')
+            ) : (
+              <Spinner />
+            )}
+          </div>
         </div>
         <div className="flex items-center justify-between text-16">
           <div className="text-primaryClear">Time left to unlock</div>
