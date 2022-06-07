@@ -25,8 +25,8 @@ const BuyForm = () => {
   }, [isLocked])
 
   return (
-    <div className="BuyForm grid grid-cols-3 gap-4">
-      <div className="block">
+    <div className="BuyForm lg:grid grid-cols-3 gap-4">
+      <div className="block mb-4 md:mb-0">
         <div className="block--contrast">
           <BlockLabel label={'You pay'} value={'100.00'} />
           <BaseInput label={'ETH'} value={ethValue} onChange={(e) => setEthValue(e.target.value)} />

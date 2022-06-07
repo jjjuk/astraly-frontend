@@ -7,7 +7,7 @@ import { useState } from 'react'
 const ProfileButton = () => {
   const [showTooltip, setShowTooltip] = useState(false)
   return (
-    <div className="profile-button relative">
+    <div className="hidden lg:block profile-button relative">
       <BaseButton className="px-6" onClick={() => setShowTooltip(true)}>
         <WalletIcon className={'mr-3'} />
         Connect

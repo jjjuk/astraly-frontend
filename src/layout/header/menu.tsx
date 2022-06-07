@@ -34,7 +34,7 @@ const MenuItem = ({
           </div>
           <div className={styles.iconOutline}>{link.iconOutline}</div>
         </div>
-        {isCurrentRoute} {children}
+        <span className={'hidden lg:inline'}>{children}</span>
       </div>
     </Link>
   )

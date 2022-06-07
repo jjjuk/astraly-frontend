@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .g-container {
-  @apply mx-auto px-20 w-full;
+  @apply mx-auto px-4 md:px-20 w-full;
   max-width: 1568 + 160px;
 }
 
@@ -167,6 +167,10 @@ body {
       margin-bottom: 20px;
     }
   }
+}
+
+.page-title {
+  @apply text-40 lg:text-54;
 }
 
 .small-title {

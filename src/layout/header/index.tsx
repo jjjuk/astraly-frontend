@@ -10,7 +10,7 @@ import {
   Hide,
   Text,
   useColorModeValue,
-  Icon
+  Icon,
 } from '@chakra-ui/react'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import cx from 'classnames'
@@ -82,7 +82,9 @@ const Index = (props: Props) => {
         <Link href={'/'}>
           <div className="logo flex items-center cursor-pointer">
             <img src={Logo} height="80" width="80" alt="ZKPAD logo" />
-            <div className="text-24 font-bold ml-4 font-heading text-primaryDark">ZKPAD</div>
+            <div className="text-24 font-bold ml-4 font-heading text-primaryDark hidden md:inline-block">
+              ZKPAD
+            </div>
           </div>
         </Link>
 

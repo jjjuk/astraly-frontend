@@ -11,16 +11,16 @@ const ProjectLayout = ({ children, project }: PropsWithChildren<{ project: Proje
     <div className="ProjectLayout g-container">
       <ProjectHeader project={project} />
 
-      <div className="flex gap-6 mb-10">
+      <div className="lg:flex gap-6 mb-10">
         <div className="col-end-3 col-start-1">{children}</div>
 
-        <div>
+        <div className="hidden lg:block">
           <div className="sticky top-6 left-0">
             <Vertical />
           </div>
         </div>
 
-        <div className={'w-127 flex-shrink-0'}>
+        <div className={'mt-4 md:mt-0 lg:w-127 flex-shrink-0'}>
           <ProjectInfos project={project} />
         </div>
       </div>

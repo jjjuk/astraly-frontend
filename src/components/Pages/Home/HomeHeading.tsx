@@ -23,7 +23,7 @@ const HomeHeading = () => {
 
   return (
     <div className="HomeHeading">
-      <div className="bg-line"></div>
+      <div className="hidden lg:block bg-line"></div>
       <div className="g-container">
         <div className="flex items-end">
           <div>
@@ -45,7 +45,7 @@ const HomeHeading = () => {
               tickets to <strong>invest</strong> in the listed projects.
             </p>
             <div className="flex buttons">
-              <BaseButton className={'px-12 group'}>
+              <BaseButton className={'px-3 lg:px-12 group'}>
                 <ShoppingCart className={'mr-3'} />
                 Buy $ZKP
                 <Chevron className={'ml-3 icon-right'} />
@@ -58,7 +58,7 @@ const HomeHeading = () => {
             </div>
           </div>
 
-          <div className="planets ml-auto">
+          <div className="planets ml-auto hidden lg:block">
             <Planets />
           </div>
         </div>

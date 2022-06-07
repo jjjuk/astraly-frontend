@@ -13,11 +13,11 @@ const LockPage = () => {
   return (
     <div className="LockPage mb-10">
       <div className="g-container">
-        <h1 className="text-54 font-heading uppercase mb-16 text-primaryDark text-shadow">
+        <h1 className="page-title font-heading uppercase mb-16 text-primaryDark text-shadow">
           Lock $ZKP
         </h1>
 
-        <div className="flex gap-6">
+        <div className="lg:flex gap-6">
           <div className={'w-full flex-grow'}>
             <div className="mb-10">
               <LockForm />
@@ -29,13 +29,13 @@ const LockPage = () => {
             <Withdraw />
           </div>
 
-          <div>
+          <div className={'hidden lg:block'}>
             <div className="sticky top-6 left-0">
               <Vertical />
             </div>
           </div>
 
-          <div className={'w-127 flex-shrink-0'}>
+          <div className={'mt-4 md:mt-0 lg:w-127 flex-shrink-0 '}>
             <ClaimPannel />
           </div>
         </div>

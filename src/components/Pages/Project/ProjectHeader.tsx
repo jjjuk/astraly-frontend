@@ -72,9 +72,11 @@ const ProjectHeader = ({ project }: { project?: Project }) => {
             </div>
           </a>
         </Link>
-        <h1 className="title--big leading-12">{title}</h1>
+        <h1 className="page-title title--big leading-12">{title}</h1>
 
-        {isQuests && <Lightning className={'lightning_svg absolute right-28 -top-20'} />}
+        {isQuests && (
+          <Lightning className={'hidden lg:block lightning_svg absolute right-28 -top-20'} />
+        )}
       </div>
     </div>
   )

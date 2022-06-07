@@ -9,8 +9,8 @@ const launchpad: NextPage = () => {
   return (
     <div className="launchpad">
       <Container>
-        <div className="flex">
-          <h1 className="text-54 font-heading uppercase mb-16 text-primaryDark text-shadow">
+        <div className="lg:flex mb-16">
+          <h1 className="page-title font-heading uppercase text-primaryDark text-shadow mb-4 lg:mb-0">
             Launchpad
           </h1>
 

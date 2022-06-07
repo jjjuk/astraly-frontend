@@ -14,8 +14,8 @@ const LockForm = () => {
 
   return (
     <div className="LockForm">
-      <div className="grid grid-cols-3 gap-4">
-        <div className="tokens block">
+      <div className="lg:grid grid-cols-3 gap-4">
+        <div className="tokens block mb-4 lg:mb-0">
           <div className="token block--contrast">
             <BlockLabel label={'Tokens'} value={'100.00'} />
             <BaseInput

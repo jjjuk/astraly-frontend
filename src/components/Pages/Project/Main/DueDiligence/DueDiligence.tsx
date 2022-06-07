@@ -28,12 +28,12 @@ const DueDiligence = ({ project }: { project: Project }) => {
 
   return (
     <div className="DueDiligence block p-8 mb-10">
-      <div className="flex gap-16">
-        <div>
+      <div className="lg:flex gap-16">
+        <div className="hidden lg:block">
           <DueDiligenceMenu />
         </div>
 
-        <div className={`${styles.dueDiligence} pr-40`}>
+        <div className={`${styles.dueDiligence} lg:pr-40`}>
           <h3>1. Due Diligence</h3>
           <p className="mb-6">
             For each project featured on ZkPad, we create a Due Diligence report with our team of

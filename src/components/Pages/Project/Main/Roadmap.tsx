@@ -68,8 +68,8 @@ const RoadmapItem = ({
 
 const Roadmap = ({ project }: { project: Project }) => {
   return (
-    <div className="Roadmap">
-      <div className="block bg-whitePurple grid grid-cols-4">
+    <div className="Roadmap mb-4 md:mb-0">
+      <div className="block bg-whitePurple lg:grid grid-cols-4 ">
         {project.rounds.map((round, index) => (
           <RoadmapItem step={round} project={project} key={index} index={index} />
         ))}
