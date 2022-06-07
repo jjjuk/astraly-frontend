@@ -1,3 +1,5 @@
+import { QuestType } from '../../../../interfaces'
+
 export const socialQuests = [
   {
     icon: 'twitter',
@@ -29,6 +31,7 @@ export const productQuests = [
     reward: 'Rewards: 3x to win the lottery',
     link: '/',
     isClaimed: false,
+    type: QuestType.PRODUCT,
   },
   {
     icon: 'send',
@@ -36,5 +39,6 @@ export const productQuests = [
     reward: 'Rewards: 5x to win the lottery',
     link: '/',
     isClaimed: true,
+    type: QuestType.PRODUCT,
   },
 ]

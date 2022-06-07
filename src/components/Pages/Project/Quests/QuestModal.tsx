@@ -1,4 +1,4 @@
-import { Quest } from '../../../../interfaces'
+import { Quest, QuestType } from '../../../../interfaces'
 import BaseModal from '../../../ui/Modal/BaseModal'
 import styles from './Modal.module.scss'
 import Lightning from '../../../../assets/icons/currentColor/Lightning-alt.svg?inline'
@@ -6,11 +6,12 @@ import BaseButton from '../../../ui/buttons/BaseButton'
 import { ForwardIcon, LikeIcon } from '../../../ui/Icons/Icons'
 import { getIcon } from './utils'
 import UrlInput from '../../../ui/inputs/UrlInput'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SandWatch from 'assets/icons/solid/Sand-watch.svg'
 import ToastActions from '../../../../actions/toast.actions'
 import { useAppDispatch } from '../../../../hooks/hooks'
 import CloseIcon from 'assets/icons/CrossHex.svg'
+
 const QuestModal = ({
   quest,
   isOpen,
@@ -24,7 +25,6 @@ const QuestModal = ({
   const dispatch = useAppDispatch()
 
   const approve = () => {
-    setUrl('')
     dispatch(
       ToastActions.addToast({
         title: 'Successful quest',
@@ -33,6 +33,10 @@ const QuestModal = ({
     )
     close()
   }
+
+  useEffect(() => {
+    setUrl('')
+  }, [isOpen])
 
   if (!quest) {
     return <></>
@@ -47,7 +51,9 @@ const QuestModal = ({
           <img src={CloseIcon} alt={'close'} />
         </div>
         <div className="block--contrast">
-          <div className="title--medium mb-4">Product Quest</div>
+          <div className="title--medium mb-4">
+            {quest.type === QuestType.PRODUCT ? 'Product' : 'Social'} Quest
+          </div>
 
           <div className="flex items-center text-primaryDark">
             <div className="text-primaryClear">
@@ -86,7 +92,25 @@ const QuestModal = ({
               Open Link
             </BaseButton>
           </div>
+
+          {quest.type === QuestType.PRODUCT && (
+            <div className="block--contrast py-3 mb-6">
+              <div className="titleXs mb-2">Steps</div>
+
+              <ul className="list-decimal base-text ml-4">
+                <li>Open the link</li>
+                <li>Swap</li>
+                <li>
+                  Paste the hash of transaction on{' '}
+                  <a href={'https://voyager.online/'} className="font-bold text-primary">
+                    https://voyager.online/
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
           <UrlInput
+            questType={quest.type}
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             setValue={(value) => setUrl(value)}
@@ -96,7 +120,7 @@ const QuestModal = ({
             className={`${!url && 'opacity-50 pointer-events-none'} `}
             onClick={() => approve()}>
             {!url && <img src={SandWatch} alt={''} className={'mr-2'} />}
-            {!url && 'Waiting Url'}
+            {!url && (quest.type === QuestType.PRODUCT ? 'Waiting Hash' : 'Waiting Url')}
 
             {url && <LikeIcon className={'mr-2'} />}
             {url && 'Approve Quest'}
