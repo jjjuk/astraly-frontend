@@ -39,10 +39,6 @@ const BurnPage = () => {
     setProject(projects.find((p) => p.id === Number(pid)))
   }, [pid])
 
-  if (!project) {
-    return <></>
-  }
-
   const handleBurnTickets = async () => {
     try {
       setBurning(true)
@@ -69,7 +65,7 @@ const BurnPage = () => {
   const fetchBalances = async () => {
     try {
       setLoading(true)
-      const _ticketsBalance = await getTicketsBalance(account?.address, project.id.toString())
+      const _ticketsBalance = await getTicketsBalance(account?.address, project?.id.toString())
       console.log(_ticketsBalance)
       setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString())
       setLoading(false)
@@ -80,6 +76,7 @@ const BurnPage = () => {
   }
 
   const fetchQuestsInfo = async () => {
+    if (!project) return
     try {
       const proof = await fetchProof(authToken, project.id.toString())
       setMerkleProof(proof.data)
@@ -95,43 +92,47 @@ const BurnPage = () => {
   }, [account])
 
   useEffect(() => {
-    if (authToken) {
+    if (authToken && project) {
       fetchQuestsInfo()
     }
-  }, [authToken])
+  }, [authToken, project])
 
   return (
     <>
-      <ProjectLayout project={project}>
-        <div className="block mb-4">
-          <div className="block--contrast">
-            <div className="title--medium mb-1">Lottery tickets to burn</div>
+      {project && (
+        <ProjectLayout project={project}>
+          <div className="block mb-4">
+            <div className="block--contrast">
+              <div className="title--medium mb-1">Lottery tickets to burn</div>
 
-            <div className="flex items-center">
-              <div className="text-primaryClear font-bold transform translate-y-px">Available</div>
+              <div className="flex items-center">
+                <div className="text-primaryClear font-bold transform translate-y-px">
+                  Available
+                </div>
 
-              <div className="font-heading text-primary ml-6">100.00</div>
+                <div className="font-heading text-primary ml-6">100.00</div>
+              </div>
+            </div>
+
+            <div className="block__item">
+              <div className="grid grid-cols-2 gap-4">
+                <BaseInput
+                  label={'Tickets'}
+                  value={amountToBurn}
+                  max={Number(ticketsBalance)}
+                  onChange={(e) => setAmountToBurn(e.target.value)}
+                />
+
+                <BaseButton onClick={handleBurnTickets} disabled={burning}>
+                  <img src={FireIcon} alt={''} />
+                  {burning ? <Spinner /> : 'Burn Tickets'}
+                </BaseButton>
+              </div>
             </div>
           </div>
-
-          <div className="block__item">
-            <div className="grid grid-cols-2 gap-4">
-              <BaseInput
-                label={'Tickets'}
-                value={amountToBurn}
-                max={Number(ticketsBalance)}
-                onChange={(e) => setAmountToBurn(e.target.value)}
-              />
-
-              <BaseButton onClick={handleBurnTickets} disabled={burning}>
-                <img src={FireIcon} alt={''} />
-                {burning ? <Spinner /> : 'Burn Tickets'}
-              </BaseButton>
-            </div>
-          </div>
-        </div>
-        <AllocationInfo />
-      </ProjectLayout>
+          <AllocationInfo />
+        </ProjectLayout>
+      )}
     </>
   )
 }

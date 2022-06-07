@@ -32,14 +32,10 @@ const ProjectClaimPage = () => {
     setProject(projects.find((p) => p.id === Number(pid)))
   }, [pid])
 
-  if (!project) {
-    return <></>
-  }
-
   const handleClaimTickets = async () => {
     try {
       setClaiming(true)
-      const tx = await claimLotteryTickets(project.id.toString())
+      const tx = await claimLotteryTickets(project?.id.toString())
       console.log(tx)
       setClaiming(false)
     } catch (e) {
@@ -70,6 +66,10 @@ const ProjectClaimPage = () => {
       fetchBalances()
     }
   }, [account])
+
+  if (!project) {
+    return <></>
+  }
 
   return (
     <>
