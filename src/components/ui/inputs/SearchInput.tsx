@@ -12,7 +12,7 @@ const SearchInput = () => {
       onClick={() => {
         !hasFocus && input.current?.focus()
       }}>
-      <div className="icon mr-3">
+      <div className={`icon mr-2 ${!hasFocus && '-ml-4'}`}>
         <SearchIcon />
       </div>
       <div className="text font-heading">Search</div>
