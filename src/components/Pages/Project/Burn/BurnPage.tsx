@@ -7,12 +7,33 @@ import AllocationInfo from '../Main/AllocationInfo'
 import BaseInput from '../../../ui/inputs/BaseInput'
 import FireIcon from 'assets/icons/outline/Fire.svg'
 import BaseButton from '../../../ui/buttons/BaseButton'
+import { useStarknetReact } from '@web3-starknet-react/core'
+import { useSelector } from 'react-redux'
+import { useTokenContract } from 'contracts'
+import { useLotteryTokenContract } from 'contracts/lottery'
+import { RootState } from 'stores/reduxStore'
+import { useApi } from 'api'
+import { uint256 } from 'starknet'
+import { Spinner } from '@chakra-ui/react'
 
 const BurnPage = () => {
   const router = useRouter()
+  const { account } = useStarknetReact()
   const { pid } = router.query
   const [project, setProject] = useState<Project | undefined>(undefined)
-  const [tickets, setTickets] = useState('100')
+  const [ticketsBalance, setTicketsBalance] = useState('0')
+  const [amountToBurn, setAmountToBurn] = useState('0')
+  const [burning, setBurning] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const [merkleProof, setMerkleProof] = useState<string[]>([])
+
+  const { authToken } = useSelector((state: RootState) => state.ConnectWallet)
+  const { user } = useSelector((state: RootState) => state.Auth)
+
+  const { burn: burnTickets, getTicketsBalance, burnWithQuest } = useLotteryTokenContract()
+
+  const { fetchProof } = useApi()
 
   useEffect(() => {
     setProject(projects.find((p) => p.id === Number(pid)))
@@ -21,6 +42,63 @@ const BurnPage = () => {
   if (!project) {
     return <></>
   }
+
+  const handleBurnTickets = async () => {
+    try {
+      setBurning(true)
+      let tx
+      if (user.questsCompleted.length === 0) {
+        tx = await burnTickets(account, pid, amountToBurn)
+      } else {
+        tx = await burnWithQuest(
+          account,
+          pid,
+          amountToBurn,
+          user.questsCompleted.length,
+          merkleProof
+        )
+      }
+      // TODO: toast
+      setBurning(false)
+    } catch (e) {
+      console.error(e)
+      setBurning(false)
+    }
+  }
+
+  const fetchBalances = async () => {
+    try {
+      setLoading(true)
+      const _ticketsBalance = await getTicketsBalance(account?.address, project.id.toString())
+      console.log(_ticketsBalance)
+      setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString())
+      setLoading(false)
+    } catch (e) {
+      console.error(e)
+      setLoading(false)
+    }
+  }
+
+  const fetchQuestsInfo = async () => {
+    try {
+      const proof = await fetchProof(authToken, project.id.toString())
+      setMerkleProof(proof.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (account?.address) {
+      fetchBalances()
+    }
+  }, [account])
+
+  useEffect(() => {
+    if (authToken) {
+      fetchQuestsInfo()
+    }
+  }, [authToken])
 
   return (
     <>
@@ -40,13 +118,14 @@ const BurnPage = () => {
             <div className="grid grid-cols-2 gap-4">
               <BaseInput
                 label={'Tickets'}
-                value={tickets}
-                onChange={(e) => setTickets(e.target.value)}
+                value={amountToBurn}
+                max={Number(ticketsBalance)}
+                onChange={(e) => setAmountToBurn(e.target.value)}
               />
 
-              <BaseButton>
+              <BaseButton onClick={handleBurnTickets} disabled={burning}>
                 <img src={FireIcon} alt={''} />
-                Burn tickets
+                {burning ? <Spinner /> : 'Burn Tickets'}
               </BaseButton>
             </div>
           </div>

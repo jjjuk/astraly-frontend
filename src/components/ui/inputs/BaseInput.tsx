@@ -5,10 +5,12 @@ const BaseInput = ({
   label,
   value,
   onChange,
+  max,
 }: {
   label: string
   value: string
   onChange: ChangeEventHandler<HTMLInputElement>
+  max: number
 }) => {
   const input = useRef<HTMLInputElement | null>(null)
   return (
@@ -16,6 +18,7 @@ const BaseInput = ({
       <div className="input">
         <input
           ref={input}
+          max={max}
           value={value}
           onChange={onChange}
           className={'outline-0 w-full text-right'}
