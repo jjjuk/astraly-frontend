@@ -92,10 +92,15 @@ const HeaderMenu = () => {
     if (!container.current) {
       return
     }
-    const activeIndex = Links.findIndex(
+    let activeIndex = Links.findIndex(
       (x) =>
         x.href === router.route || (router.route.startsWith('/project') && x.href === '/launchpad')
     )
+
+    if (activeIndex == -1) {
+      activeIndex = 0
+    }
+
     const element = container.current.querySelector(
       `.${styles.menuItem}:nth-child(${activeIndex + 1})`
     )
