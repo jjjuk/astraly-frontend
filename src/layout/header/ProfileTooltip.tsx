@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable no-undef */
 import styles from './Profile.module.scss'
 import React, { useState } from 'react'
 import Book from 'assets/icons/outline/Book-open.svg'
@@ -8,12 +12,12 @@ import Cross from 'assets/icons/solid/Cross.svg'
 
 import { SUPPORTED_WALLETS } from '../../constants/wallet'
 import Link from 'next/link'
+import { UnsupportedChainIdError, useStarknetReact } from '@web3-starknet-react/core'
 
 const ProfileTooltip = ({ close }: { close: () => void }) => {
-  const [isConnected, setIsConnected] = useState(false)
-
+  const { account, deactivate, activate, connector, error } = useStarknetReact()
   const getTitle = () => {
-    if (isConnected) {
+    if (account) {
       return (
         <>
           Wallet Connected <Check class={'ml-1'} />
@@ -24,8 +28,27 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
     }
   }
 
+  const tryActivation = async (connector: any) => {
+    const conn = typeof connector === 'function' ? await connector() : connector
+
+    Object.keys(SUPPORTED_WALLETS).map((key) => {
+      if (connector === SUPPORTED_WALLETS[key].connector) {
+        return SUPPORTED_WALLETS[key].name
+      }
+      return true
+    })
+
+    conn &&
+      activate(conn, undefined, true).catch((error) => {
+        console.log(error)
+        if (error instanceof UnsupportedChainIdError) {
+          activate(conn) // a little janky...can't use setError because the connector isn't set
+        }
+      })
+  }
+
   const getContent = () => {
-    if (isConnected) {
+    if (account) {
       return (
         <>
           <Link href={'/profile'}>
@@ -39,7 +62,7 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
           </Link>
           <div
             className="font-heading text-12 text-center text-white cursor-pointer"
-            onClick={() => setIsConnected(false)}>
+            onClick={deactivate}>
             Disconnect
           </div>
         </>
@@ -50,7 +73,11 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
         return (
           <div
             className="bg-white px-4 py-2 mb-2 rounded-xl flex items-center justify-center font-bold text-primary cursor-pointer text-24"
-            onClick={() => setIsConnected(true)}>
+            onClick={() => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+              option.connector === connector ? null : tryActivation(option.connector)
+            }}
+            key={key}>
             <img src={option.icon} alt="option-icon" height={32} width={32} className="mr-2" />
             {option.name}
           </div>
@@ -72,7 +99,7 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
 
       <div className="text-12 text-center text-white flex items-center justify-center font-bold">
         <img src={Book} alt={''} className="mr-2" />
-        How to get Metamask?
+        How to get a Starknet Wallet?
       </div>
     </div>
   )

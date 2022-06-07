@@ -78,7 +78,7 @@ const ConnectWalletModal = ({ visible, onClose }: any) => {
     if (error instanceof UnsupportedChainIdError) {
       return (
         <div>
-          <div className={styles.text}>Please connect to {isMainnet ? 'Ethereum' : 'Rinkeby'}.</div>
+          <div className={styles.text}>Please connect to {isMainnet ? 'Ethereum' : 'Goerli'}.</div>
           <Flex border="2px solid #000" width="100%" marginBottom="20px">
             <div className={styles.switchBtn} onClick={deactivate}>
               Disconnect
