@@ -81,7 +81,7 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
             <div className="font-heading text-16 mb-6">How it works?</div>
             <div className="ml-2">
               <Hint>
-                <div className="font-bold">
+                <div className="font-bold w-[260px] px-2 py-2">
                   Mauris elit metus, rutrum eu malesuada ac, interdum a ex. Suspendisse quis
                   ullamcorper nibh, sit amet cursus arcu. Duis faucibus risus nec rhoncus varius.
                 </div>

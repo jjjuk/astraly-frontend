@@ -23,9 +23,9 @@ const InvestmentOverview = () => {
       <div className="block--contrast">
         <h2 className="title--medium">Investment overview</h2>
 
-        <div className="grid grid-cols-4 mt-6">
+        <div className="grid grid-cols-2 xl:grid-cols-4 mt-6">
           {stats.map(([label, value], index) => (
-            <div>
+            <div key={index}>
               <div className="text-primaryClear">{label}</div>
               <div className="font-heading text-primaryDark text-24">{value}</div>
             </div>

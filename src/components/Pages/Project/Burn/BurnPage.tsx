@@ -5,7 +5,6 @@ import { projects } from '../../../../utils/data'
 import ProjectLayout from '../ProjectLayout'
 import AllocationInfo from '../Main/AllocationInfo'
 import BaseInput from '../../../ui/inputs/BaseInput'
-import FireIcon from 'assets/icons/outline/Fire.svg'
 import BaseButton from '../../../ui/buttons/BaseButton'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { useSelector } from 'react-redux'
@@ -15,6 +14,7 @@ import { RootState } from 'stores/reduxStore'
 import { useApi } from 'api'
 import { uint256 } from 'starknet'
 import { Spinner } from '@chakra-ui/react'
+import { FireIcon } from 'components/ui/Icons/Icons'
 
 const BurnPage = () => {
   const router = useRouter()
@@ -115,7 +115,7 @@ const BurnPage = () => {
             </div>
 
             <div className="block__item">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                 <BaseInput
                   label={'Tickets'}
                   value={amountToBurn}
@@ -124,7 +124,7 @@ const BurnPage = () => {
                 />
 
                 <BaseButton onClick={handleBurnTickets} disabled={burning}>
-                  <img src={FireIcon} alt={''} />
+                  <FireIcon />
                   {burning ? <Spinner /> : 'Burn Tickets'}
                 </BaseButton>
               </div>

@@ -6,6 +6,7 @@ import { BoltIcon, RocketIcon } from '../../../ui/Icons/Icons'
 import Award from 'assets/icons/solid/Award.svg'
 import Shield from 'assets/icons/solid/Shield.svg'
 import Notification from 'assets/icons/solid/Notification.svg'
+import Hint from '../../../ui/Hint/Hint'
 
 const ProjectInfos = ({ project }: { project: Project }) => {
   return (
@@ -24,9 +25,13 @@ const ProjectInfos = ({ project }: { project: Project }) => {
             </div>
 
             <div className="icons flex gap-2 absolute top-0 right-0">
-              <img src={Award} alt={''} />
-              <img src={Shield} alt={''} />
-              <img src={Notification} alt={''} />
+              <Hint icon={<img src={Award} alt={''} />}>
+                <span className={'font-bold text-primary'}>Promoted</span>
+              </Hint>
+              <Hint icon={<img src={Shield} alt={''} />}>
+                <span className={'font-bold text-primary'}>Audited</span>
+              </Hint>
+              {/*<Hint icon={<img src={Notification} alt={''} />}>Promoted</Hint>*/}
             </div>
           </div>
         </div>

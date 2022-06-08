@@ -28,10 +28,10 @@ const ProjectBuyPage = () => {
   return (
     <>
       <ProjectLayout project={project}>
-        <div className="grid grid-cols-3 gap-4 mb-4">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4">
           <div className="block">
             <div className="block--contrast">
-              <BlockLabel label={'You pay'} value={'100.00'} />
+              <BlockLabel label={'You pay'} value={'100.00'} onClick={() => setEthValue('100')} />
               <BaseInput
                 label={'ETH'}
                 value={ethValue}
@@ -52,7 +52,7 @@ const ProjectBuyPage = () => {
             </div>
           </div>
 
-          <div className="block col-span-2">
+          <div className="block xl:col-span-2">
             <div className="block--contrast">
               <div className="font-bold mb-2 text-primaryClear">Buy information</div>
 

@@ -15,6 +15,7 @@ import { useLotteryTokenContract } from 'contracts/lottery'
 import { ethers } from 'ethers'
 import { uint256 } from 'starknet'
 import { Spinner } from '@chakra-ui/react'
+import { LockIcon, SendIcon } from '../../../ui/Icons/Icons'
 
 const ProjectClaimPage = () => {
   const router = useRouter()
@@ -88,15 +89,13 @@ const ProjectClaimPage = () => {
           </div>
 
           <div className="block__item">
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-              <BaseButton
-                className="xl:col-span-2"
-                onClick={handleClaimTickets}
-                disabled={claiming}>
-                <img src={UploadIcon} alt={''} /> {claiming ? <Spinner /> : 'Claim Tokens'}
+            <div className="flex flex-col md:flex-row gap-4">
+              <BaseButton className="w-full" onClick={handleClaimTickets} disabled={claiming}>
+                <SendIcon className={'mr-2'} />
+                {claiming ? <Spinner /> : 'Claim Tokens'}
               </BaseButton>
-              <BaseButton className="xl:col-span-1">
-                <Unlock />
+              <BaseButton className="xl:col-span-1 whitespace-nowrap px-5">
+                <LockIcon className={'mr-2'} />
                 Lock more $ZKP
               </BaseButton>
             </div>

@@ -79,3 +79,10 @@ import CheckedSolid from 'assets/icons/currentColor/Checked-box.svg?inline'
 export const CheckedIcon = (props: any) => {
   return <IconTemplate outline={<Checked />} solid={<CheckedSolid />} {...props} />
 }
+
+import Fire from 'assets/icons/currentColor/Fire--outline.svg?inline'
+import FireSolid from 'assets/icons/currentColor/Fire.svg?inline'
+
+export const FireIcon = (props: any) => {
+  return <IconTemplate outline={<Fire />} solid={<FireSolid />} {...props} />
+}
