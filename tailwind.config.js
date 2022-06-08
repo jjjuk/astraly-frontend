@@ -32,6 +32,7 @@ module.exports = {
         primaryClearBg: '#FAF3FF',
         whitePurple: '#C89CFF',
         gray: '#898989',
+        bgPurple: 'rgba(143, 0, 255, 0.05)',
       },
       maxWidth: {
         '558px': '558px',

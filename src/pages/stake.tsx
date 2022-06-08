@@ -22,7 +22,6 @@ import { number, Result, uint256 } from 'starknet'
 
 import Layout from '../layout'
 
-import 'react-datepicker/dist/react-datepicker.css'
 import { CalendarIcon, InfoIcon, LockIcon } from '@chakra-ui/icons'
 
 import { useTokenContract } from 'contracts'

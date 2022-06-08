@@ -6,13 +6,14 @@ import styles from './Profile.module.scss'
 import React, { useState } from 'react'
 import Book from 'assets/icons/outline/Book-open.svg'
 import Check from 'assets/icons/currentColor/Check.svg?inline'
-import User from 'assets/icons/solid/User.svg'
+import User from 'assets/icons/currentColor/User.svg?inline'
 import Chevron from 'assets/icons/Chevron.svg?inline'
 import Cross from 'assets/icons/solid/Cross.svg'
 
 import { SUPPORTED_WALLETS } from '../../constants/wallet'
 import Link from 'next/link'
 import { UnsupportedChainIdError, useStarknetReact } from '@web3-starknet-react/core'
+import BaseButton from '../../components/ui/buttons/BaseButton'
 
 const ProfileTooltip = ({ close }: { close: () => void }) => {
   const { account, deactivate, activate, connector, error } = useStarknetReact()
@@ -20,7 +21,7 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
     if (account) {
       return (
         <>
-          Wallet Connected <Check className={'ml-1'} />
+          Wallet Connected <Check className={'ml-1 transform -translate-y-0.5'} />
         </>
       )
     } else {
@@ -52,16 +53,14 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
       return (
         <>
           <Link href={'/profile'}>
-            <a
-              className="bg-white text-primary rounded-xl flex items-center justify-center text-24 font-bold py-2 mb-4 cursor-pointer"
-              onClick={() => close()}>
-              <img src={User} className={'mr-1'} alt={''} />
+            <BaseButton onClick={() => close()} white={true} className={'mb-2'}>
+              <User className={'mr-1'} />
               Your Profile
-              <Chevron className={'ml-1'} />
-            </a>
+              <Chevron className={'ml-1 icon-right'} />
+            </BaseButton>
           </Link>
           <div
-            className="font-heading text-12 text-center text-white cursor-pointer"
+            className="font-heading text-12 text-center text-white cursor-pointer hover:bg-white hover:text-primary rounded-md transition-all"
             onClick={deactivate}>
             Disconnect
           </div>

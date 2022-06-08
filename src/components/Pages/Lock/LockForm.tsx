@@ -106,7 +106,11 @@ const LockForm = ({
       <div className="lg:grid grid-cols-1 xl:grid-cols-3 gap-4">
         <div className="tokens block mb-4 lg:mb-0">
           <div className="token block--contrast">
-            <BlockLabel label={'Tokens'} value={zkpBalance} />
+            <BlockLabel
+              label={'Tokens'}
+              value={zkpBalance}
+              onClick={() => setZKPAmount(zkpBalance)}
+            />
             <BaseInput
               max={Number(zkpBalance)}
               label={'ETH'}
@@ -119,7 +123,11 @@ const LockForm = ({
           </div>
 
           <div className="pools px-8 py-7 ">
-            <BlockLabel label={'Liquid Pools'} value={lpBalance} />
+            <BlockLabel
+              label={'Liquid Pools'}
+              value={lpBalance}
+              onClick={() => setZKPLPAmount(lpBalance)}
+            />
             <BaseInput
               label={'ZKP-LP'}
               max={Number(lpBalance)}

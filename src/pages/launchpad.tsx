@@ -8,25 +8,27 @@ import Filter from 'components/ui/inputs/Filter'
 const launchpad: NextPage = () => {
   return (
     <div className="launchpad">
-      <Container>
-        <div className="lg:flex mb-16">
-          <h1 className="page-title font-heading uppercase text-primaryDark text-shadow mb-4 lg:mb-0">
-            Launchpad
-          </h1>
+      <div className={'bg-gradient-to-t from-bgPurple to-transparent'}>
+        <Container>
+          <div className="lg:flex mb-16 ">
+            <h1 className="page-title font-heading uppercase text-primaryDark text-shadow mb-4 lg:mb-0">
+              Launchpad
+            </h1>
 
-          <div className="filter ml-auto flex items-center">
-            <div className="mr-4">
-              <SearchInput />
+            <div className="filter ml-auto flex items-center">
+              <div className="mr-4">
+                <SearchInput />
+              </div>
+
+              <Filter />
             </div>
-
-            <Filter />
           </div>
-        </div>
 
-        <h2 className="text-24 text-primaryClear font-heading mb-6">ONGOING PROJETCS</h2>
-      </Container>
+          <h2 className="text-24 text-primaryClear font-heading mb-6">ONGOING PROJETCS</h2>
+        </Container>
 
-      <ProjectsSlider />
+        <ProjectsSlider />
+      </div>
 
       {/*<div className="relative">*/}
       {/*  <div className="main-background absolute bottom-0"></div>*/}

@@ -92,7 +92,7 @@ const LockPage = () => {
   return (
     <div className="LockPage mb-10">
       <div className="g-container">
-        <h1 className="page-title font-heading uppercase mb-16 text-primaryDark text-shadow">
+        <h1 className="page-title font-heading uppercase mb-8 lg:mb-16 text-primaryDark text-shadow">
           Lock $ZKP
         </h1>
 
@@ -124,7 +124,7 @@ const LockPage = () => {
             </div>
           </div>
 
-          <div className={'mt-4 md:mt-0 w-1/3 xl:w-127 flex-shrink-0 '}>
+          <div className={'mt-4 md:mt-0 w-1/4 2xl:w-127 flex-shrink-0 '}>
             <ClaimPannel />
           </div>
         </div>

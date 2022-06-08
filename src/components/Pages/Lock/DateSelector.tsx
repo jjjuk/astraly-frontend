@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Dispatch, SetStateAction, useState } from 'react'
-import DatePicker from '../../ui/inputs/DatePicker'
+import DatePicker from 'components/ui/inputs/DatePicker'
 
 const DateSelector = ({
   startDate,

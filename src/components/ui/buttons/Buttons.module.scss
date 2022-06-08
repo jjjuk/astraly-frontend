@@ -1,6 +1,5 @@
 .baseButton {
-  @apply font-heading text-white relative cursor-pointer flex items-center justify-center py-3;
-  transition: all .3s ease-in-out;
+  @apply font-heading text-white relative cursor-pointer flex items-center justify-center py-3 transition-all;
   font-size: 16px;
   line-height: 1.31;
   background: linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%);
@@ -22,7 +21,7 @@
   }
 
   &::before {
-    transition: all .3s ease-in-out;
+    @apply transition-all;
     position: absolute;
     top: -2px;
     left: -2px;
@@ -35,8 +34,8 @@
   }
 
   &::after {
+    @apply transition-all;
     content: '';
-    transition: all .3s ease-in-out;
     position: absolute;
     top: 0;
     left: 0;
@@ -85,14 +84,27 @@
   }
 
   &Icon {
+    @apply transition-all;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%)!important;
-    transition: all .3s ease-in-out;
     z-index: 1;
     &Solid {
       opacity: 0;
+    }
+  }
+
+  &White {
+    @apply text-primary;
+    background: white;
+    &::before, &::after {
+      display: none;
+    }
+
+    &:hover {
+      @apply text-white border border-white;
+      background: transparent;
     }
   }
 

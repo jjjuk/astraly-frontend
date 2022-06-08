@@ -24,9 +24,12 @@
 }
 
 .menuItem {
-  @apply flex items-center leading-6;
-  transition: all .1s ease-in;
-  padding: 0 22px;
+  @apply flex items-center leading-6 transition-all;
+  padding: 0 12px;
+  @screen md {
+    padding: 0 22px;
+  }
+
   &:first-of-type {
     @apply pl-0;
   }
@@ -40,11 +43,11 @@
   }
 
   .iconSolid {
-    transition: all .1s ease-in;
+    @apply transition-all;
     opacity: 0;
   }
   .iconOutline {
-    transition: all .1s ease-in;
+    @apply transition-all;
   }
 
   &Active,

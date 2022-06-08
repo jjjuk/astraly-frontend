@@ -10,7 +10,7 @@ const Item = ({ icon, label, href }: { icon: string; label: string; href: string
   return (
     <>
       <Link href={href}>
-        <div className="flex items-center text-primary cursor-pointer mb-2 lg:mb-0">
+        <div className="flex items-center text-primary cursor-pointer">
           <div className="icon mr-2 transform -translate-y-0.5">
             <img src={icon} alt={label} />
           </div>
@@ -33,7 +33,7 @@ const Footer = () => {
     <>
       <div className="g-container py-4">
         <div className="py-2 flex flex-col lg:flex-row items-center justify-between text-16">
-          <div className="links flex items-center gap-11">
+          <div className="links flex flex-wrap items-center gap-4 lg:gap-11 mb-6 lg:mb-0">
             {Links.map(([icon, label, href]) => (
               <Item icon={icon} label={label} href={href} key={label} />
             ))}

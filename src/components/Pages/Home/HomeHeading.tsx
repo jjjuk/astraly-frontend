@@ -29,7 +29,7 @@ const HomeHeading = () => {
           <div>
             <h1
               className={
-                'text-54 text-primaryDark font-heading uppercase text-shadow leading-131 mb-2'
+                'page-title text-primaryDark font-heading uppercase text-shadow leading-131 mb-2'
               }>
               Invest in&nbsp;
               <TransitionGroup className="itext-primary text-shadow inline relative">
@@ -40,18 +40,18 @@ const HomeHeading = () => {
               <br />
               StarkNet projects.
             </h1>
-            <p className={'text-24 text-primaryClear max-w-558px mb-12'}>
+            <p className={'medium-text max-w-558px mb-12'}>
               <strong>Buy</strong> ZKP tokens and <strong>stake</strong> them and receive lottery
               tickets to <strong>invest</strong> in the listed projects.
             </p>
-            <div className="flex buttons">
+            <div className="md:flex buttons">
               <BaseButton className={'px-3 lg:px-12 group'}>
                 <ShoppingCart className={'mr-3'} />
                 Buy $ZKP
                 <Chevron className={'ml-3 icon-right'} />
               </BaseButton>
 
-              <div className="flex items-center ml-12">
+              <div className="flex items-center mt-6 justify-center md:mt-0 md:justify-start md:ml-12">
                 <div className="text-16 text-primaryClear leading-138 pt-0.5">Powered by</div>
                 <img src={StarkNetLogo} alt={'StarkNet Logo'} className={'ml-2'} />
               </div>

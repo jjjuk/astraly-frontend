@@ -67,7 +67,7 @@
 
 .BaseButton {
   .icon-right {
-    transition: all .3s ease-in-out;
+    @apply transition-all;
   }
   &:hover {
     .icon-right {
@@ -77,7 +77,7 @@
 
   .animatedIcon {
     .animatedIconOutline, .animatedIconSolid {
-      transition: all .3s ease-in-out;
+      @apply transition-all;
     }
     .animatedIconSolid {
       opacity: 0;
