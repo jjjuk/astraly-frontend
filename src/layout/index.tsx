@@ -30,11 +30,15 @@ export default function Layout({ children }: PropsWithChildren<any>) {
             style={{
               background: 'black',
               width: '100vw',
-              height: '24px',
+              height: '28px',
             }}
+            speed={50}
             gradient={false}>
             <div className="text-white flex items-center text-14 transform translate-y-px">
-              testnet
+              This application runs on <span className="underline px-1">Starknet</span> testnet,
+              which is still in
+              <span className="font-bold pl-1"> alpha</span>. Transactions can take longer than
+              expected. Starkware is working on making it faster. Thank you for your patience.
               <Warning className={'text-yellow-400 ml-2 transform -translate-y-px'} />
             </div>
           </Marquee>
