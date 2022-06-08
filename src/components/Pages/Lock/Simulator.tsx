@@ -15,7 +15,7 @@ const Simulator = ({ currentAPY, zkpBalance }: { currentAPY?: number; zkpBalance
     <div className="Simulator">
       <div className="headers">
         <div className="xl:flex gap-4">
-          <div className=" w-147 shrink-0">
+          <div className="md:w-147 shrink-0">
             <div className="title small-title pl-8">Staking calculator</div>
           </div>
           <div>
