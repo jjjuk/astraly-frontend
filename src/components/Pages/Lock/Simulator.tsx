@@ -30,7 +30,7 @@ const Simulator = ({ currentAPY, zkpBalance }: { currentAPY?: number; zkpBalance
               <BlockLabel
                 label={'$ZKP staked'}
                 value={'100.00'}
-                onClick={() => setZKPAmount(100)}
+                onClick={() => setZKPAmount('100')}
               />
               <div className="grid grid-cols-5 gap-5">
                 <div className="labels grid-cols-3 grid gap-3 items-center col-start-1 col-end-4">
