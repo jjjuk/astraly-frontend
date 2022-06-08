@@ -24,7 +24,7 @@ const QuestBlocks = ({
       </div>
       <div className="block__item">
         {quests.map((quest, index) => (
-          <div className="grid grid-cols-2 gap-10 mb-10" key={index}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10" key={index}>
             <div
               className={`flex items-center ${
                 quest.isClaimed ? 'text-whitePurple' : 'text-primary'

@@ -70,9 +70,9 @@ const QuestModal = ({
         </div>
 
         <div className="block__item">
-          <div className="grid grid-cols-5 gap-2 mb-10 px-4 ">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-2 mb-10 px-4 ">
             <div
-              className={`flex items-center col-span-3 ${
+              className={`flex items-center md:col-span-3 ${
                 quest.isClaimed ? 'text-whitePurple' : 'text-primary'
               }`}>
               <div className="icon flex-shrink-0 mr-4">{getIcon(quest)}</div>

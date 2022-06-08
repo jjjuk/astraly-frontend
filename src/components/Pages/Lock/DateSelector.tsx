@@ -23,9 +23,9 @@ const DateSelector = ({
 
   return (
     <div className="DateSelector">
-      <div className="label text-primaryClear">Lock until</div>
+      <div className="label text-primaryClear mb-2 md:mb-0">Lock until</div>
 
-      <div className="flex gap-5">
+      <div className="flex flex-col md:flex-row gap-2 md:gap-5">
         <div className="labels grid-cols-3 grid gap-3 items-center shrink-0">
           {options.map(([label, value]) => (
             <div

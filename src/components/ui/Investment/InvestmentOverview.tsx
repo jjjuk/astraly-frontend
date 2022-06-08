@@ -16,24 +16,28 @@ const InvestmentOverview = () => {
       <div className="block--contrast">
         <h2 className="title--medium">Investment overview</h2>
 
-        <div className="flex items-center mt-6 ">
-          <img src={Exclamation} alt={''} className={'mr-6 flex-shrink-0'} />
+        <div className="flex flex-col md:flex-row items-center mt-6">
+          <img
+            src={Exclamation}
+            alt={''}
+            className={'mr-6 flex-shrink-0 self-start md:self-center  mb-6 md:mb-0'}
+          />
 
           <div className="grid grid-cols-2 xl:grid-cols-4 w-full gap-3">
             {stats.map(([label, value], index) => (
               <div key={index}>
                 <div className="text-primaryClear">{label}</div>
-                <div className="font-heading text-primaryDark text-24">{value}</div>
+                <div className="font-heading text-primaryDark text-[18px] md:text-24">{value}</div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="block__item">
-        <div className="title--small mb-5">Last transactions</div>
+      <div className="px-0 py-7 md:px-8">
+        <div className="title--small mb-5 ml-2 md:ml-o">Last transactions</div>
 
-        <div className="grid grid-cols-3 text-primaryClear px-8 mb-3">
+        <div className="grid grid-cols-3 text-primaryClear px-4 md:px-8 mb-3">
           <div>Interaction</div>
           <div>Date</div>
           <div className="text-right">Transaction</div>
@@ -41,7 +45,7 @@ const InvestmentOverview = () => {
 
         {transactions.map((transaction, index) => (
           <div
-            className="grid grid-cols-3 font-heading text-primaryClear bg-primaryClearBg rounded-3xl px-8 py-6 text-12 mb-2"
+            className="grid grid-cols-3 font-heading text-primaryClear bg-primaryClearBg rounded-3xl  px-4 md:px-8 py-6 text-[10px] md:text-12 mb-2"
             key={index}>
             <div>{transaction.action}</div>
             <div>{format(transaction.date, 'dd MMMM yyyy')}</div>

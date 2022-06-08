@@ -32,8 +32,8 @@ const Simulator = ({ currentAPY, zkpBalance }: { currentAPY?: number; zkpBalance
                 value={'100.00'}
                 onClick={() => setZKPAmount('100')}
               />
-              <div className="grid grid-cols-5 gap-5">
-                <div className="labels grid-cols-3 grid gap-3 items-center col-start-1 col-end-4">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-2 md:gap-5">
+                <div className="labels grid-cols-3 grid gap-3 items-center md:col-span-3">
                   {amounts.map((amount) => (
                     <div
                       className="bg-primary rounded-md text-white flex items-center justify-center px-3 pt-1 pb-0.5 text-12 font-bold cursor-pointer"
@@ -43,7 +43,7 @@ const Simulator = ({ currentAPY, zkpBalance }: { currentAPY?: number; zkpBalance
                     </div>
                   ))}
                 </div>
-                <div className="col-start-4 col-end-6">
+                <div className="md:col-span-2">
                   <BaseInput
                     max={Number(zkpBalance)}
                     label={'Total'}
