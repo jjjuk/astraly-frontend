@@ -17,7 +17,7 @@ const routes = {
 const titles: { [key: string]: string | ReactNode } = {
   burn: 'Burn',
   claim: 'Claim',
-  buy: 'Purschase',
+  buy: 'Purchase',
   portfolio: 'Portfolio',
   quests: (
     <>

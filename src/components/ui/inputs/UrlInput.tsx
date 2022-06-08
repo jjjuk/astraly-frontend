@@ -34,7 +34,7 @@ const UrlInput = ({
         ? {
             icon: <Gear className={'mr-2'} />,
             label: 'HASH',
-            placeholder: 'PPaste Transaction Hash here',
+            placeholder: 'Paste Transaction Hash here',
           }
         : defaultOptions
     )

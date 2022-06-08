@@ -24,7 +24,7 @@ const launchpad: NextPage = () => {
             </div>
           </div>
 
-          <h2 className="text-24 text-primaryClear font-heading mb-6">ONGOING PROJETCS</h2>
+          <h2 className="text-24 text-primaryClear font-heading mb-6">ONGOING PROJECTS</h2>
         </Container>
 
         <ProjectsSlider />
