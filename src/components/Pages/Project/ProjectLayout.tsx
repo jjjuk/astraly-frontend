@@ -20,7 +20,7 @@ const ProjectLayout = ({ children, project }: PropsWithChildren<{ project: Proje
           </div>
         </div>
 
-        <div className={'mt-4 md:mt-0 lg:w-1/3 flex-shrink-0'}>
+        <div className={'mt-4 lg:mt-0 lg:w-1/3 flex-shrink-0'}>
           <ProjectInfos project={project} />
         </div>
       </div>

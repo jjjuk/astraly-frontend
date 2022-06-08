@@ -1,14 +1,7 @@
 import { transactions } from './transactions'
 import { format } from 'date-fns'
 import Link from 'next/link'
-
-const Stat = () => {
-  return <></>
-}
-
-const Transaction = () => {
-  return <></>
-}
+import Exclamation from 'assets/icons/Exclamation.svg'
 
 const InvestmentOverview = () => {
   const stats = [
@@ -23,13 +16,17 @@ const InvestmentOverview = () => {
       <div className="block--contrast">
         <h2 className="title--medium">Investment overview</h2>
 
-        <div className="grid grid-cols-2 xl:grid-cols-4 mt-6">
-          {stats.map(([label, value], index) => (
-            <div key={index}>
-              <div className="text-primaryClear">{label}</div>
-              <div className="font-heading text-primaryDark text-24">{value}</div>
-            </div>
-          ))}
+        <div className="flex items-center mt-6 ">
+          <img src={Exclamation} alt={''} className={'mr-6 flex-shrink-0'} />
+
+          <div className="grid grid-cols-2 xl:grid-cols-4 w-full gap-3">
+            {stats.map(([label, value], index) => (
+              <div key={index}>
+                <div className="text-primaryClear">{label}</div>
+                <div className="font-heading text-primaryDark text-24">{value}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

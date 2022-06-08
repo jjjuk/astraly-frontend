@@ -119,6 +119,12 @@ body {
     z-index: -1;
   }
 
+  &--quests {
+    &::after {
+      top: 280px
+    }
+  }
+
   &::before {
     content: '';
     position: absolute;

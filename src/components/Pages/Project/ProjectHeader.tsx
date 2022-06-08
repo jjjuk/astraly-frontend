@@ -61,7 +61,7 @@ const ProjectHeader = ({ project }: { project?: Project }) => {
     return <></>
   }
   return (
-    <div className="ProjectHeader">
+    <div className="ProjectHeader xl:mt-10">
       <Breadcrumbs steps={steps} />
 
       <div className="title mb-12 flex items-start relative mt-2">
@@ -75,7 +75,7 @@ const ProjectHeader = ({ project }: { project?: Project }) => {
         <h1 className="page-title leading-[54px]">{title}</h1>
 
         {isQuests && (
-          <Lightning className={'hidden lg:block lightning_svg absolute right-28 -top-20'} />
+          <Lightning className={'hidden lg:block lightning_svg absolute right-28 -top-[140px]'} />
         )}
       </div>
     </div>

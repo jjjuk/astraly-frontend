@@ -1,14 +1,10 @@
 import { productQuests, socialQuests } from './quests.mock'
-import BaseButton from '../../../ui/buttons/BaseButton'
-import Twitter from 'assets/icons/currentColor/Twitter.svg?inline'
-import Discord from 'assets/icons/currentColor/Discord.svg?inline'
-import Swap from 'assets/icons/currentColor/Swap.svg?inline'
-import Send from 'assets/icons/currentColor/Send.svg?inline'
+import BaseButton from 'components/ui/buttons/BaseButton'
 import Lightning from 'assets/icons/currentColor/Lightning-alt.svg?inline'
-import { ForwardIcon } from '../../../ui/Icons/Icons'
+import { ForwardIcon } from 'components/ui/Icons/Icons'
 import QuestModal from './QuestModal'
 import { useState } from 'react'
-import { Quest } from '../../../../interfaces'
+import { Quest } from 'interfaces'
 import { getIcon } from './utils'
 
 const QuestBlocks = ({
@@ -22,10 +18,10 @@ const QuestBlocks = ({
 }) => {
   return (
     <div className="block mb-4">
+      <div className="hidden lg:block bg-line bg-line--quests"></div>
       <div className="block--contrast">
         <div className="title--medium">{title}</div>
       </div>
-
       <div className="block__item">
         {quests.map((quest, index) => (
           <div className="grid grid-cols-2 gap-10 mb-10" key={index}>
