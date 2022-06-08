@@ -42,31 +42,31 @@ const RoadmapItem = ({
     <div
       className={`${
         isActive ? 'bg-white rounded-3xl text-primary' : 'text-primaryClear'
-      } py-8 px-6 flex flex-col`}>
+      } p-3 xl:py-8 xl:px-6 flex flex-col`}>
       <div className="flex justify-between">
-        <div className="flex items-center">
-          <Star className="inline-block transform -translate-y-px mr-1" />
+        <div className="flex items-center text-12 xl:text-16">
+          <Star className="inline-block transform -translate-y-px mr-1 " />
           Step {index}
         </div>
 
         {isActive && stepText[3]}
       </div>
 
-      <div className="font-heading mb-2">{step.title}</div>
-      <div className="text"> {step.description}</div>
-      <div className="text mt-auto mb-2 pt-4">
-        {format(step.startDate, 'yyyy-MM-dd')} {isActive && 'true'}
+      <div className="font-heading mb-2 text-12 xl:text-16">{step.title}</div>
+      <div className="text-12 xl:text-16"> {step.description}</div>
+      <div className="text-12 xl:text-16  mt-auto mb-2 pt-4">
+        {format(step.startDate, 'yyyy-MM-dd')}
       </div>
       {isActive ? (
         <Link href={href}>
           <a>
-            <BaseButton small={true} disabled={!isActive}>
+            <BaseButton small={true} disabled={!isActive} className={'text-center'}>
               {ButtonText}
             </BaseButton>
           </a>
         </Link>
       ) : (
-        <BaseButton small={true} disabled={!isActive}>
+        <BaseButton small={true} disabled={!isActive} className={'text-center'}>
           {ButtonText}
         </BaseButton>
       )}
@@ -77,7 +77,7 @@ const RoadmapItem = ({
 const Roadmap = ({ project }: { project: Project }) => {
   return (
     <div className="Roadmap mb-4 md:mb-0">
-      <div className="block bg-whitePurple lg:grid xl:grid-cols-2 2xl:grid-cols-4 ">
+      <div className="block bg-whitePurple md:grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4 ">
         {project.rounds.map((round, index) => (
           <RoadmapItem step={round} project={project} key={index} index={index} />
         ))}

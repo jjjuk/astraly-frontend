@@ -66,13 +66,13 @@ const ProjectHeader = ({ project }: { project?: Project }) => {
 
       <div className="title mb-12 flex items-start relative mt-2">
         <Link href={steps[steps.length - 2].href}>
-          <a className="inline-flex mt-1.5 mr-6 transition-all hover:transform  hover:scale-110 hover:-translate-y-px rounded-full">
+          <a className="inline-flex  mr-6 transition-all hover:transform  hover:scale-110 hover:-translate-y-px rounded-full">
             <div className="back hover:shadow-purpleLight rounded-full">
               <img src={Back} alt={'go back to project'} className={'rounded-full'} />
             </div>
           </a>
         </Link>
-        <h1 className="page-title title--big leading-12">{title}</h1>
+        <h1 className="page-title leading-[54px]">{title}</h1>
 
         {isQuests && (
           <Lightning className={'hidden lg:block lightning_svg absolute right-28 -top-20'} />
