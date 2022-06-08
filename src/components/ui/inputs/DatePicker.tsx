@@ -4,6 +4,8 @@
 import React, { forwardRef, useRef } from 'react'
 import ReactDatePicker from 'react-datepicker'
 import InputGroup from './InputGroup'
+import { addYears } from 'date-fns'
+// import 'react-datepicker/dist/react-datepicker.css'
 
 const DatePicker = ({ value, onInput }: { value: Date | null; onInput: (date: Date) => void }) => {
   const CustomDatePicker = forwardRef<
@@ -29,6 +31,9 @@ const DatePicker = ({ value, onInput }: { value: Date | null; onInput: (date: Da
           selected={value}
           onChange={onInput}
           placeholderText={'mm/dd/year'}
+          minDate={new Date()}
+          maxDate={addYears(new Date(), 10)}
+          showYearDropdown
           customInput={<CustomDatePicker />}
         />
       </InputGroup>

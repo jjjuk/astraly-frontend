@@ -12,7 +12,7 @@ const ProfileButton = () => {
   return (
     <>
       <div className="hidden lg:block profile-button relative">
-        <BaseButton className="px-6" onClick={() => setShowTooltip(true)}>
+        <BaseButton className="px-6" medium={true} onClick={() => setShowTooltip(true)}>
           <WalletIcon className={'mr-3'} />
           {account ? truncateAddress(account.address) : 'Connect'}
           <Chevron className={'icon-right ml-3'} />

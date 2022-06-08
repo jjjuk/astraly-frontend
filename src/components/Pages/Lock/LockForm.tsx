@@ -113,7 +113,7 @@ const LockForm = ({
             />
             <BaseInput
               max={Number(zkpBalance)}
-              label={'ETH'}
+              label={'ZKP'}
               value={zkpAmount}
               onChange={(event) => setZKPAmount(event.target.value)}
             />

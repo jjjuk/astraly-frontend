@@ -7,6 +7,7 @@ import Line from 'assets/images/bg-line.svg'
 import ShoppingCart from 'assets/icons/currentColor/Shopping-cart.svg?inline'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 const HomeHeading = () => {
   const TitleSpans = ['Curated', 'Excellent', 'Audited']
@@ -45,11 +46,13 @@ const HomeHeading = () => {
               tickets to <strong>invest</strong> in the listed projects.
             </p>
             <div className="md:flex buttons">
-              <BaseButton className={'px-3 lg:px-12 group'}>
-                <ShoppingCart className={'mr-3'} />
-                Buy $ZKP
-                <Chevron className={'ml-3 icon-right'} />
-              </BaseButton>
+              <Link href={'/buy'}>
+                <BaseButton className={'px-3 lg:px-12 group'} medium={true}>
+                  <ShoppingCart className={'mr-3'} />
+                  Buy $ZKP
+                  <Chevron className={'ml-3 icon-right'} />
+                </BaseButton>
+              </Link>
 
               <div className="flex items-center mt-6 justify-center md:mt-0 md:justify-start md:ml-12">
                 <div className="text-16 text-primaryClear leading-138 pt-0.5">Powered by</div>

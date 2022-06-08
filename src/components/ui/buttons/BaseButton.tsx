@@ -6,6 +6,7 @@ const BaseButton = ({
   children,
   small,
   xSmall,
+  medium,
   disabled,
   inline,
   onClick,
@@ -14,6 +15,7 @@ const BaseButton = ({
   className?: string
   small?: boolean
   xSmall?: boolean
+  medium?: boolean
   disabled?: boolean
   inline?: boolean
   white?: boolean
@@ -25,6 +27,7 @@ const BaseButton = ({
     disabled: disabled ? styles.baseButtonDisabled : undefined,
     inline: inline ? styles.baseButtonInline : undefined,
     white: white ? styles.baseButtonWhite : undefined,
+    medium: medium ? styles.baseButtonMedium : undefined,
   })
     .filter((x) => x)
     .join(' ')

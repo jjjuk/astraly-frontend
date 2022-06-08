@@ -108,6 +108,10 @@
     }
   }
 
+  &Medium {
+    @apply text-14 h-12;
+  }
+
   &:hover {
     &::after {
       opacity: 1;

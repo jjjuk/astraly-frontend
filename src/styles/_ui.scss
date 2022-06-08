@@ -8,9 +8,9 @@
 
 .medium-text {
   @apply base-text;
-  @apply text-[18px];
+  @apply text-[16px];
   @screen md {
-    @apply text-24;
+    @apply text-[18px];
   }
 }
 
@@ -47,7 +47,7 @@
 
 
 .react-datepicker {
-  @apply base-text block font-sans shadow-purpleLight px-3 py-3;
+  @apply base-text block font-sans shadow-purpleLight px-3 py-3 grid grid-cols-2;
   &-popper {
     z-index: 100;
   }
@@ -58,19 +58,23 @@
 
   &__navigation {
     @apply small-text;
-    width: 50%;
 
     &--previous {
       text-align: left;
     }
 
     &--next {
+      @apply col-start-2;
       text-align: right;
     }
   }
 
+  &__month-container {
+    @apply col-span-2
+  }
+
   &__current-month {
-    @apply font-heading text-14 my-2;
+    @apply font-heading text-14 mt-2;
   }
 
   &__day-names {
@@ -82,7 +86,7 @@
   }
 
   &__month {
-    @apply bg-bgPurple rounded-2xl p-3
+    @apply bg-bgPurple rounded-2xl p-3 z-0 relative;
   }
 
   &__week {
@@ -104,5 +108,31 @@
     &--selected {
       @apply bg-primary text-white rounded-2xl;
     }
+  }
+
+  .react-datepicker__header__dropdown--scroll {
+    @apply py-2 mb-2;
+  }
+
+  .react-datepicker__year-dropdown {
+    @apply absolute bg-primaryClearBg border border-white rounded-2xl z-10 p-4 left-1/2 transform -translate-x-1/2;
+  }
+
+  .react-datepicker__year-read-view {
+    position: relative;
+    display: inline-block;
+  }
+
+  .react-datepicker__year-read-view--down-arrow {
+    position: absolute;
+    transform: translateX(8px) translateY(2px) rotate(135deg) ;
+    border-color: #9D69DE;
+    border-style: solid;
+    border-width: 3px 3px 0 0;
+    content: "";
+    display: block;
+    height: 9px;
+    width: 9px;
+    left: 100%;
   }
 }

@@ -24,7 +24,7 @@
 }
 
 .menuItem {
-  @apply flex items-center leading-6 transition-all;
+  @apply flex items-center leading-6 transition-all text-14;
   padding: 0 12px;
   @screen md {
     padding: 0 22px;
@@ -39,7 +39,7 @@
 
   .icon {
     @apply mr-1 h-6;
-    transform: translateY(-3px);
+    transform: translateY(-1px);
   }
 
   .iconSolid {

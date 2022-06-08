@@ -7,6 +7,8 @@ import { useRouter } from 'next/router'
 import { useAppDispatch } from '../hooks/hooks'
 import UiActions from '../actions/ui.actions'
 import { PAGES } from '../constants/ui.constants'
+import Marquee from 'react-fast-marquee'
+import Warning from 'assets/icons/currentColor/warning.svg?inline'
 
 export default function Layout({ children }: PropsWithChildren<any>) {
   const router = useRouter()
@@ -23,6 +25,20 @@ export default function Layout({ children }: PropsWithChildren<any>) {
   return (
     <>
       <div className="default-layout flex flex-col min-h-full">
+        <div className="w-full overflow-hidden">
+          <Marquee
+            style={{
+              background: 'black',
+              width: '100vw',
+              height: '24px',
+            }}
+            gradient={false}>
+            <div className="text-white flex items-center text-14 transform translate-y-px">
+              testnet
+              <Warning className={'text-yellow-400 ml-2 transform -translate-y-px'} />
+            </div>
+          </Marquee>
+        </div>
         <ToastContainer />
 
         <div className="main-background"></div>
