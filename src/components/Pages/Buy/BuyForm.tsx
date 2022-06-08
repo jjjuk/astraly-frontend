@@ -2,7 +2,6 @@ import BlockLabel from '../../ui/BlockLabel'
 import BaseInput from '../../ui/inputs/BaseInput'
 import { useEffect, useState } from 'react'
 import BaseButton from '../../ui/buttons/BaseButton'
-import PlusIcon from '../../../assets/icons/Plus.svg'
 import ArrowDown from 'assets/icons/ArrowDown.svg?inline'
 import Toggle from 'components/ui/inputs/Toggle'
 import { CartIcon } from '../../ui/Icons/Icons'
@@ -26,9 +25,9 @@ const BuyForm = () => {
 
   return (
     <div className="BuyForm lg:grid grid-cols-3 gap-4">
-      <div className="block mb-4 md:mb-0">
+      <div className="block mb-4 lg:mb-0">
         <div className="block--contrast">
-          <BlockLabel label={'You pay'} value={'100.00'} />
+          <BlockLabel label={'You pay'} value={'100.00'} onClick={() => setEthValue('100')} />
           <BaseInput label={'ETH'} value={ethValue} onChange={(e) => setEthValue(e.target.value)} />
         </div>
         <div className="flex items-center justify-center -my-3 text-primaryClear">

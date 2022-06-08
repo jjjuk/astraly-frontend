@@ -7,7 +7,7 @@ const BuyPage = () => {
   return (
     <div className="BuyPage">
       <div className="g-container mb-20">
-        <h1 className="page-title title--big mb-16">Lock $ZKP</h1>
+        <h1 className="page-title mb-16">Buy $ZKP</h1>
 
         <div className="lg:flex gap-6">
           <div className={'col-end-3 col-start-1'}>
@@ -24,7 +24,7 @@ const BuyPage = () => {
             </div>
           </div>
 
-          <div className={'mt-4 md:mt-0 w-1/3 xl:w-127 flex-shrink-0'}>
+          <div className={'mt-4 md:mt-0 w-full lg:w-1/4 2xl:w-127 flex-shrink-0 '}>
             <ClaimPannel hideHarvest={true} />
           </div>
         </div>

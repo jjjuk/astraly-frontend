@@ -14,7 +14,7 @@ const Simulator = ({ currentAPY, zkpBalance }: { currentAPY?: number; zkpBalance
   return (
     <div className="Simulator">
       <div className="headers">
-        <div className="lg:flex gap-4 ">
+        <div className="xl:flex gap-4">
           <div className=" w-147 shrink-0">
             <div className="title small-title pl-8">Staking calculator</div>
           </div>
@@ -23,11 +23,15 @@ const Simulator = ({ currentAPY, zkpBalance }: { currentAPY?: number; zkpBalance
           </div>
         </div>
       </div>
-      <div className="lg:flex gap-4 items-stretch ">
-        <div className="staking lg:w-147 shrink-0 mb-4 md:mb-0">
+      <div className="xl:flex gap-4 items-stretch ">
+        <div className="staking xl:w-147 shrink-0 mb-4 xl:mb-0">
           <div className="block">
             <div className="total block--contrast">
-              <BlockLabel label={'$ZKP staked'} value={'100.00'} />
+              <BlockLabel
+                label={'$ZKP staked'}
+                value={'100.00'}
+                onClick={() => setZKPAmount(100)}
+              />
               <div className="grid grid-cols-5 gap-5">
                 <div className="labels grid-cols-3 grid gap-3 items-center col-start-1 col-end-4">
                   {amounts.map((amount) => (

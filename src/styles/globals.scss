@@ -197,7 +197,8 @@ body {
 }
 
 .page-title {
-  @apply text-[32px] lg:text-40 xl:text-54;
+  @apply text-[32px] lg:text-40 xl:text-54  font-heading uppercase text-primaryDark text-shadow;
+  text-shadow: #8F00FF -2px 2px 0;
 }
 
 .small-title {
