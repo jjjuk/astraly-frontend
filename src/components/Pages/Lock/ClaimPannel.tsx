@@ -98,9 +98,7 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
           {steps.map((step, index) => (
             <div key={index}>
               <Step index={index}>{step}</Step>
-              {index !== steps.length - 1 && (
-                <Star alt={''} className="inline-block my- text-whitePurple" />
-              )}
+              {index !== steps.length - 1 && <Star className="inline-block my- text-whitePurple" />}
             </div>
           ))}
         </div>

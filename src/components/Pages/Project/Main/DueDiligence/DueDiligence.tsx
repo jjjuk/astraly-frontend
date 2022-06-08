@@ -9,7 +9,7 @@ const Separator = () => {
   return (
     <>
       <div className="flex my-10">
-        <Star alt={''} className="inline-block transform -translate-y-1 text-primaryClear" />
+        <Star className="inline-block transform -translate-y-1 text-primaryClear" />
         <div className="h-1 bg-primaryClearBg rounded-full w-60 ml-10"></div>
       </div>
     </>

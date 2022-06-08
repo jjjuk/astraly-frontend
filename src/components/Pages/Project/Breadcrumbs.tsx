@@ -24,9 +24,7 @@ const Breadcrumbs = ({
               <div className={`${isLast && 'text-primary font-bold'} cursor-pointer`}>{label}</div>
             </ConditionalWrapper>
             {!isLast && '/'}
-            {isLast && (
-              <Star alt={''} className="inline-block transform -translate-y-px text-primary" />
-            )}
+            {isLast && <Star className="inline-block transform -translate-y-px text-primary" />}
           </div>
         )
       })}

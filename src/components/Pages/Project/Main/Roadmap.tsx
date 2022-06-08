@@ -11,10 +11,10 @@ import FireIcon from 'assets/icons/solid/Fire.svg?inline'
 import ChartIcon from 'assets/icons/solid/Chart.svg?inline'
 
 const stepsText: { [key: Round['title']]: string | ReactNode[] } = {
-  'Ticket Claim': ['Ticket Claim open', 'Claimed', 'claim', <SendIcon />],
-  Allocation: ['Burn lottery tickets', 'Tickets burned', 'burn', <FireIcon />],
-  Purchase: ['Buy and invest', 'Invested', 'buy', <CartIcon />],
-  Distribution: ['Portfolio', 'Portfolio', 'portfolio', <ChartIcon />],
+  'Ticket Claim': ['Ticket Claim open', 'Claimed', 'claim', <SendIcon key={'claim'} />],
+  Allocation: ['Burn lottery tickets', 'Tickets burned', 'burn', <FireIcon key={'burn'} />],
+  Purchase: ['Buy and invest', 'Invested', 'buy', <CartIcon key={'buy'} />],
+  Distribution: ['Portfolio', 'Portfolio', 'portfolio', <ChartIcon key={'portfolio'} />],
 }
 
 const RoadmapItem = ({
@@ -46,7 +46,7 @@ const RoadmapItem = ({
       } py-8 px-6 flex flex-col`}>
       <div className="flex justify-between">
         <div className="flex items-center">
-          <Star alt={''} className="inline-block transform -translate-y-px mr-1" />
+          <Star className="inline-block transform -translate-y-px mr-1" />
           Step {index}
         </div>
 

@@ -1,5 +1,4 @@
 declare module '*.svg?inline' {
-  import {ReactComponentElement} from 'react';
-  const content: ReactComponentElement<SVGElement>;
-  export default ReactComponentElement<SVGElement>
+  const content: React.FC<React.SVGProps<SVGSVGElement>>
+  export default content
 }

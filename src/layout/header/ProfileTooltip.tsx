@@ -20,7 +20,7 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
     if (account) {
       return (
         <>
-          Wallet Connected <Check class={'ml-1'} />
+          Wallet Connected <Check className={'ml-1'} />
         </>
       )
     } else {
@@ -57,7 +57,7 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
               onClick={() => close()}>
               <img src={User} className={'mr-1'} alt={''} />
               Your Profile
-              <Chevron className={'ml-1'} alt={''} />
+              <Chevron className={'ml-1'} />
             </a>
           </Link>
           <div
