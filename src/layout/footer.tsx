@@ -48,7 +48,7 @@ const Footer = () => {
             </p>
 
             <Link href={'/'}>
-              <img src={Logo} alt={'Zkpad'} />
+              <img src={Logo} alt={'Astraly'} />
             </Link>
           </div>
         </div>

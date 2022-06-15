@@ -5,8 +5,8 @@ const AllocationInfo = () => {
         <div className="title--medium mb-6">Get your allocation</div>
 
         <p className="text-primaryClear leading-138">
-          We are excited to launch our IDO on ZkPad. For a chance to win an allocation, please fill
-          out the form below and perform all tasks accordingly.
+          We are excited to launch our IDO on Astraly. For a chance to win an allocation, please
+          fill out the form below and perform all tasks accordingly.
         </p>
 
         <p className="text-primaryClear mt-6 uppercase">Good Luck! 🚀</p>
@@ -17,9 +17,9 @@ const AllocationInfo = () => {
 
         <ul className="list-disc text-primaryClear leading-138 ml-4">
           <li className="mb-5">
-            On ZkPad, every holder xZKP holder can claim or buy tickets. However, due to the current
-            jurisdiction, only users from countries where it is legally allowed to participate in
-            IDOs will be able to receive an allocation and invest.
+            On Astraly, every holder xZKP holder can claim or buy tickets. However, due to the
+            current jurisdiction, only users from countries where it is legally allowed to
+            participate in IDOs will be able to receive an allocation and invest.
           </li>
 
           <li className="mb-5">

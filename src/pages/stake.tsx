@@ -876,7 +876,7 @@ const StakePage: NextPage = () => {
                   pt={'10px'}
                   textAlign="left">
                   Owning ZKP tokens or ZKP-LP is requirement in order to participate in IDOs on
-                  ZkPad.
+                  Astraly.
                 </Text>
                 <Text
                   fontWeight="400"

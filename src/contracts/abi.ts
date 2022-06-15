@@ -84,10 +84,6 @@ export const ZKP_TOKEN_ABI = [
         name: '_cap',
         type: 'Uint256',
       },
-      {
-        name: '_distribution_address',
-        type: 'felt',
-      },
     ],
     name: 'constructor',
     outputs: [],
@@ -189,6 +185,17 @@ export const ZKP_TOKEN_ABI = [
       },
     ],
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: '_vault_address',
+        type: 'felt',
+      },
+    ],
+    name: 'set_vault_address',
+    outputs: [],
     type: 'function',
   },
   {
@@ -2163,6 +2170,17 @@ export const XZKP_TOKEN_ABI = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        name: 'new_owner',
+        type: 'felt',
+      },
+    ],
+    name: 'transferOwnership',
+    outputs: [],
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'pause',
     outputs: [],
@@ -2297,8 +2315,12 @@ export const LOTTERY_TOKEN_ABI = [
   {
     inputs: [
       {
-        name: 'uri',
+        name: 'uri_len',
         type: 'felt',
+      },
+      {
+        name: 'uri',
+        type: 'felt*',
       },
       {
         name: 'owner',
@@ -2331,12 +2353,21 @@ export const LOTTERY_TOKEN_ABI = [
     type: 'function',
   },
   {
-    inputs: [],
+    inputs: [
+      {
+        name: 'id',
+        type: 'felt',
+      },
+    ],
     name: 'uri',
     outputs: [
       {
-        name: 'uri',
+        name: 'uri_len',
         type: 'felt',
+      },
+      {
+        name: 'uri',
+        type: 'felt*',
       },
     ],
     stateMutability: 'view',
@@ -2429,6 +2460,21 @@ export const LOTTERY_TOKEN_ABI = [
       },
     ],
     name: 'setApprovalForAll',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'uri_len',
+        type: 'felt',
+      },
+      {
+        name: 'uri',
+        type: 'felt*',
+      },
+    ],
+    name: 'setURI',
     outputs: [],
     type: 'function',
   },
@@ -2669,6 +2715,22 @@ export const LOTTERY_TOKEN_ABI = [
         type: 'Uint256',
       },
     ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'sig_len',
+        type: 'felt',
+      },
+      {
+        name: 'sig',
+        type: 'felt*',
+      },
+    ],
+    name: 'checkKYCSignature',
+    outputs: [],
     stateMutability: 'view',
     type: 'function',
   },

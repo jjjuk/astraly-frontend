@@ -90,7 +90,7 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
           </div>
 
           <p>
-            Owning ZKP tokens or ZKP-LP is requirement in order to participate in IDOs on ZkPad.
+            Owning ZKP tokens or ZKP-LP is requirement in order to participate in IDOs on Astraly.
             <br />
             <br />
             You can lock your tokens and receive lottery tickets to invest in the listed projects.

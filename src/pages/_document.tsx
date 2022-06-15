@@ -8,7 +8,7 @@ import customTheme from 'styles/customTheme'
 
 import createEmotionCache from '../styles/createEmotionCache'
 
-const APP_NAME = 'ZkPad'
+const APP_NAME = 'Astraly'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -20,7 +20,7 @@ class MyDocument extends Document {
     ctx.renderPage = () =>
       originalRenderPage({
         // eslint-disable-next-line react/display-name
-        enhanceApp: (App: any) => (props) => <App emotionCache={cache} {...props} />
+        enhanceApp: (App: any) => (props) => <App emotionCache={cache} {...props} />,
       })
 
     const initialProps = await Document.getInitialProps(ctx)
@@ -37,7 +37,7 @@ class MyDocument extends Document {
 
     return {
       ...initialProps,
-      styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags]
+      styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags],
     }
   }
 
@@ -68,8 +68,11 @@ class MyDocument extends Document {
           {/* <link rel='mask-icon' href='/safari-pinned-tab.svg' color='#29296e' /> */}
           <meta name="msapplication-TileColor" content="#29296e" />
           <meta name="theme-color" content="#ffffff" />
-          <meta name="description" content="ZkPad - 1st launchpad powered by Starknet" />
-          <meta property="og:title" content="ZkPad App" />
+          <meta
+            name="description"
+            content="Astraly - Fundraising and Community engagement powered by Starknet"
+          />
+          <meta property="og:title" content="Astraly App" />
           <meta
             property="og:description"
             content="We're building a venture investment platform for all."

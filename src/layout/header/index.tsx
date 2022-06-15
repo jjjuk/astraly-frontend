@@ -56,9 +56,9 @@ const Index = () => {
       <div className="g-container flex justify-between w-full py-22 items-center">
         <Link href={'/'}>
           <div className="logo flex items-center cursor-pointer">
-            <img src={Logo} height="80" width="80" alt="ZKPAD logo" />
+            <img src={Logo} height="80" width="80" alt="Astraly logo" />
             <div className="text-24 font-bold ml-4 font-heading text-primaryDark hidden md:inline-block">
-              ZKPAD
+              Astraly
             </div>
           </div>
         </Link>

@@ -36,7 +36,7 @@ const DueDiligence = ({ project }: { project: Project }) => {
         <div className={`${styles.dueDiligence} lg:pr-40`}>
           <h3>1. Due Diligence</h3>
           <p className="mb-6">
-            For each project featured on ZkPad, we create a Due Diligence report with our team of
+            For each project featured on Astraly, we create a Due Diligence report with our team of
             internal experts and advisors. You can read the full document here:
           </p>
           <BaseButton inline={true} className={'px-6'}>
@@ -82,7 +82,7 @@ const DueDiligence = ({ project }: { project: Project }) => {
 
           {/*<h3>5. Roadmap</h3>*/}
           {/*<p>*/}
-          {/*  For each project featured on ZkPad, we create a Due Diligence report with our team of*/}
+          {/*  For each project featured on Astraly, we create a Due Diligence report with our team of*/}
           {/*  internal experts and advisors. You can read the full document here:*/}
           {/*</p>*/}
         </div>

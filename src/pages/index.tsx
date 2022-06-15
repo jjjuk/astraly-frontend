@@ -7,7 +7,7 @@ import { useAppDispatch } from '../hooks/hooks'
 import { PAGES } from '../constants/ui.constants'
 import UiActions from '../actions/ui.actions'
 
-const ZkPad: NextPage = () => {
+const Astraly: NextPage = () => {
   const { account } = useStarknetReact()
   const dispatch = useAppDispatch()
 
@@ -22,4 +22,4 @@ const ZkPad: NextPage = () => {
   return <Home />
 }
 
-export default ZkPad
+export default Astraly

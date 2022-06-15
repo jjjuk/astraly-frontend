@@ -1,5 +1,5 @@
-import {Flex, Text} from '@chakra-ui/react';
-import React from 'react';
+import { Flex, Text } from '@chakra-ui/react'
+import React from 'react'
 
 const EntryRequirements = () => {
   return (
@@ -10,20 +10,18 @@ const EntryRequirements = () => {
         width={'100%'}
         padding="25px"
         gridGap={'24px'}
-        flexDir="column"
-      >
+        flexDir="column">
         <Text
           fontFamily="Druk Wide Web"
           fontWeight="700"
           fontSize="24px"
           lineHeight="31px"
-          color="#370063"
-        >
+          color="#370063">
           Get your Allocation
         </Text>
         <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
-          We are excited to launch our IDO on ZkPad. For a chance to win an allocation, please fill
-          out the form below and perform all tasks accordingly.
+          We are excited to launch our IDO on Astraly. For a chance to win an allocation, please
+          fill out the form below and perform all tasks accordingly.
         </Text>
         <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
           Good Luck!
@@ -35,12 +33,11 @@ const EntryRequirements = () => {
           fontWeight="700"
           fontSize="16px"
           lineHeight="21px"
-          color="#9D69DE"
-        >
+          color="#9D69DE">
           Conditions of Entry
         </Text>
         <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
-          On ZkPad, every holder xZKP holder can claim or buy tickets. However, due to the current
+          On Astraly, every holder xZKP holder can claim or buy tickets. However, due to the current
           jurisdiction, only users from countries where it is legally allowed to participate in IDOs
           will be able to receive an allocation and invest. <br />
           <br />
@@ -56,7 +53,7 @@ const EntryRequirements = () => {
         </Text>
       </Flex>
     </Flex>
-  );
-};
+  )
+}
 
-export default EntryRequirements;
+export default EntryRequirements
