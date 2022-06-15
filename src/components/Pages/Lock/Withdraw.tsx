@@ -44,8 +44,11 @@ const Withdraw = ({
         <div className="flex items-center justify-between text-16 mb-2">
           <div className="text-primaryClear">ZKP Staked</div>
           <div className="font-heading text-primary">
-            {userInfo?.amount ? (
-              ethers.utils.formatUnits(uint256.uint256ToBN(userInfo?.amount).toString(), 'ether')
+            {userInfo?.info?.amount ? (
+              ethers.utils.formatUnits(
+                uint256.uint256ToBN(userInfo?.info?.amount).toString(),
+                'ether'
+              )
             ) : (
               <Spinner />
             )}

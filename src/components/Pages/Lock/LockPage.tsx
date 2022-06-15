@@ -75,6 +75,7 @@ const LockPage = () => {
       setStakeInfo(_stakeInfo)
 
       const _userInfo = await getUserInfo(account?.address)
+      console.log(_userInfo)
       setUserInfo(_userInfo)
     } catch (e) {
       console.error(e)

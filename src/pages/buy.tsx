@@ -11,12 +11,15 @@ import { quests } from 'utils/data'
 import { useSelector } from 'react-redux'
 import { RootState } from 'stores/reduxStore'
 import BuyPage from 'components/Pages/Buy/BuyPage'
+import BaseButton from 'components/ui/buttons/BaseButton'
+import { WalletIcon } from 'components/ui/Icons/Icons'
+import Chevron from 'assets/icons/Chevron.svg?inline'
 
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET'
 const CHAIN = isMainnet ? 'SN_MAIN' : 'SN_GOERLI'
 
 const BuyPageContainer = () => {
-  return <BuyPage />
+  // return <BuyPage />
   const { account, connector } = useStarknetReact()
   const [mintAmount, setMintAmount] = useState('0')
   const [roundTimer, setRoundTimer] = useState('...')
@@ -79,76 +82,56 @@ const BuyPageContainer = () => {
   useEffect(() => {
     const _interval = setInterval(() => {
       const _remainingTime = new Date(unlockTime * 1000).getTime() - new Date().getTime()
+      // const days = Math.floor(_remainingTime / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((_remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
       const minutes = Math.floor((_remainingTime % (1000 * 60 * 60)) / (1000 * 60))
       const seconds = Math.floor((_remainingTime % (1000 * 60)) / 1000)
-      setRoundTimer(`${minutes}m${seconds}s`)
+      setRoundTimer(`${hours}h${minutes}m${seconds}s`)
     }, 1000)
 
     return () => clearInterval(_interval)
   }, [unlockTime])
 
   return (
-    <Layout>
-      <Flex minH={'74vh'}>
-        <Flex
-          borderRadius="24px"
-          bg="white"
-          p={10}
-          width={{ base: '90%', sm: '70%', md: '50%', lg: '40%', xl: '30%' }}
-          justifyContent="center"
-          flexDir="column"
-          margin="auto"
-          gap="10px">
-          <Heading size="sm">Mint Amount: {mintAmount} ZKP</Heading>
-          <Button
-            bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
-            boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
-            borderRadius="16px"
-            fontFamily="Druk Wide Web"
-            py="25px"
-            width="auto !important"
-            color="white"
-            disabled={!allowed}
-            onClick={handleTransfer}>
-            Mint ZKP
-          </Button>
-          {!allowed && <Text>You will be able to whitdraw in {roundTimer}</Text>}
-          <Button
-            bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
-            boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
-            borderRadius="16px"
-            fontFamily="Druk Wide Web"
-            fontSize={'5px'}
-            py="15px"
-            width="80px !important"
-            color="white"
-            onClick={handleToWallet}>
-            Add ZKP to Wallet
-          </Button>
-        </Flex>
-      </Flex>
-      {/* {account && (
-        <Button
+    // <Layout>
+    <Flex minH={'74vh'}>
+      <Flex
+        borderRadius="24px"
+        bg="white"
+        p={10}
+        width={{ base: '90%', sm: '70%', md: '50%', lg: '40%', xl: '30%' }}
+        justifyContent="center"
+        flexDir="column"
+        margin="auto"
+        gap="10px">
+        <Heading size="sm">Mint Amount: {mintAmount} ZKP</Heading>
+        {/* <Button
           bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
           boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
           borderRadius="16px"
           fontFamily="Druk Wide Web"
-          fontSize={'5px'}
-          py="15px"
-          width="80px !important"
+          py="25px"
+          width="auto !important"
           color="white"
-          onClick={() =>
-            verifyQuest(
-              '0x2b4225d53bf9456318b1eea1161eadcfdcb2c6573208fbbd45f8626eb57f32a',
-              quests[0],
-              account,
-              authToken
-            )
-          }>
-          Verify Quest
-        </Button>
-      )} */}
-    </Layout>
+          disabled={!allowed}
+          onClick={handleTransfer}>
+          Mint ZKP
+        </Button> */}
+
+        <BaseButton onClick={handleTransfer} disabled={!allowed} className={'px-3 lg:px-12 group'}>
+          Mint
+        </BaseButton>
+        {!allowed && <Text>You will be able to whitdraw in {roundTimer}</Text>}
+
+        <BaseButton onClick={handleToWallet} className={'px-3 lg:px-12 group'} medium={true}>
+          <WalletIcon className={'mr-3'} />
+          Add ZKP to Wallet
+          <Chevron className={'ml-3 icon-right'} />
+        </BaseButton>
+      </Flex>
+    </Flex>
+
+    // </Layout>
   )
 }
 
