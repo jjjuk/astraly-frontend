@@ -49,13 +49,6 @@ const LockPage = () => {
       )
       setZkpBalance(_formattedBalance)
 
-      const _lpBalance = await getLPBalance(account?.address, Contracts['SN_GOERLI'].lp_token)
-      const _formattedLPBalance = ethers.utils.formatUnits(
-        uint256.uint256ToBN(_lpBalance.balance).toString(),
-        'ether'
-      )
-      setLPBalance(_formattedLPBalance)
-
       const _xbalance = await getXZKPBalance(account?.address)
       const _xformattedBalance = ethers.utils.formatUnits(
         uint256.uint256ToBN(_xbalance.balance).toString(),
@@ -63,6 +56,12 @@ const LockPage = () => {
       )
       setXZkpBalance(_xformattedBalance)
 
+      const _lpBalance = await getLPBalance(account?.address, Contracts['SN_GOERLI'].lp_token)
+      const _formattedLPBalance = ethers.utils.formatUnits(
+        uint256.uint256ToBN(_lpBalance.balance).toString(),
+        'ether'
+      )
+      setLPBalance(_formattedLPBalance)
       // if (Number(_xformattedBalance) > 0) toggleScreen()
     } catch (e) {
       console.error(e)
@@ -105,6 +104,7 @@ const LockPage = () => {
                 lpBalance={lpBalance}
                 xzkpBalance={xzkpBalance}
                 currentAPY={currentAPY}
+                unlockRemainingTime={unlockRemainingTime}
               />
             </div>
             {/* <div className="mb-10">

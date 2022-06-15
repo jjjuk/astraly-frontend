@@ -17,11 +17,13 @@ const LockForm = ({
   lpBalance,
   xzkpBalance,
   currentAPY,
+  unlockRemainingTime,
 }: {
   zkpBalance: string
   lpBalance: string
   xzkpBalance: string
   currentAPY: number
+  unlockRemainingTime: number
 }) => {
   const { account } = useStarknetReact()
 
@@ -89,7 +91,6 @@ const LockForm = ({
       } else {
         setPreviewXZKP(_formattedShares)
       }
-
       setUpdatingPreview(false)
     } catch (e) {
       console.error(e)
@@ -108,7 +109,7 @@ const LockForm = ({
           <div className="token block--contrast">
             <BlockLabel
               label={'Tokens'}
-              value={zkpBalance}
+              value={Number(zkpBalance).toFixed(3)}
               onClick={() => setZKPAmount(zkpBalance)}
             />
             <BaseInput
@@ -125,7 +126,7 @@ const LockForm = ({
           <div className="pools px-8 py-7 ">
             <BlockLabel
               label={'Liquid Pools'}
-              value={lpBalance}
+              value={Number(lpBalance).toFixed(3)}
               onClick={() => setZKPLPAmount(lpBalance)}
             />
             <BaseInput
@@ -143,7 +144,14 @@ const LockForm = ({
           </div>
 
           <div className="button px-8 py-7 ">
-            <BaseButton onClick={handleLock} disabled={locking}>
+            <BaseButton
+              onClick={handleLock}
+              disabled={
+                locking ||
+                lockTime < unlockRemainingTime ||
+                Number(zkpAmount) > Number(zkpBalance) ||
+                Number(zkpLPAmount) > Number(lpBalance)
+              }>
               <LockIcon className={'mr-2'} />
               Lock
             </BaseButton>

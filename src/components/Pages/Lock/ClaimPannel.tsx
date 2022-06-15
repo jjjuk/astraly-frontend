@@ -114,13 +114,15 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
               <div className="text-16 text-primaryClear transform translate-y-px">
                 $ZKP Available
               </div>
-              <div className="font-heading text-16 ml-6 text-primary">{pendingRewards}</div>
+              <div className="font-heading text-16 ml-6 text-primary">
+                {Number(pendingRewards).toFixed(3)}
+              </div>
             </div>
           </div>
           <div className="block__item">
             <BaseButton onClick={handleHarvest} disabled={harvesting}>
               <SendIcon className={'mr-2'} />
-              Claim {pendingRewards} ZKP
+              Claim {Number(pendingRewards).toFixed(3)} ZKP
             </BaseButton>
           </div>
         </div>
