@@ -197,6 +197,28 @@ export const useStakingContract = () => {
 
     return _totalStakedFormatted
   }
+  const getZKPStaked = async () => {
+    const contract = await getXZKPContract()
+
+    const _totalStaked = await contract.call('totalFloat', [])
+    const _totalStakedFormatted = ethers.utils.formatUnits(
+      uint256ToBN(_totalStaked.float).toString(),
+      'ether'
+    )
+
+    return _totalStakedFormatted
+  }
+  const getZKPLPStaked = async () => {
+    const contract = await getXZKPContract()
+
+    const _totalStaked = await contract.call('totalFloatLP', [])
+    const _totalStakedFormatted = ethers.utils.formatUnits(
+      uint256ToBN(_totalStaked.float).toString(),
+      'ether'
+    )
+
+    return _totalStakedFormatted
+  }
 
   const getStakingAPY = async () => {
     const _totalStakedFormatted = await getTotalStaked()
@@ -222,5 +244,7 @@ export const useStakingContract = () => {
     getUserInfo,
     getUserDeposit,
     getPendingRewards,
+    getZKPStaked,
+    getZKPLPStaked,
   }
 }

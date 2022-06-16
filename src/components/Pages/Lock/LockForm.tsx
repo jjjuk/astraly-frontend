@@ -178,7 +178,7 @@ const LockForm = ({
           <div className="flex justify-between items-center text-primaryClear pt-6">
             <p>Estimated APY</p>
             <div className="ml-4 bg-white text-24 font-heading px-5 pt-2 pb-1.5 text-primaryClear rounded-xl flex items-center justify-center shadow-purpleLight">
-              {currentAPY}%
+              {currentAPY.toFixed(2)}%
             </div>
           </div>
         </div>

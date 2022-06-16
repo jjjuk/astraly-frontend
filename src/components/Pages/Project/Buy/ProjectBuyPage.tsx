@@ -60,7 +60,7 @@ const ProjectBuyPage = () => {
             <div className="block--contrast">
               <BlockLabel
                 label={'You pay'}
-                value={Number(ethBalance)}
+                value={Number(ethBalance).toFixed(3)}
                 onClick={() => setEthValue(ethBalance.toString())}
               />
               <BaseInput
