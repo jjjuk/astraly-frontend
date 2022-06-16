@@ -8,14 +8,41 @@ import BlockLabel from '../../../ui/BlockLabel'
 import BaseInput from '../../../ui/inputs/BaseInput'
 import ArrowDown from 'assets/icons/ArrowDown.svg?inline'
 import BaseButton from '../../../ui/buttons/BaseButton'
+import { useStarknetReact } from '@web3-starknet-react/core'
+import { ethers } from 'ethers'
+import { useTokenContract } from 'contracts'
+import { uint256 } from 'starknet'
 
 const ProjectBuyPage = () => {
   const router = useRouter()
+  const { account } = useStarknetReact()
   const { pid } = router.query
   const [project, setProject] = useState<Project | undefined>(undefined)
 
   const [ethValue, setEthValue] = useState('0')
+  const [ethBalance, setETHBalance] = useState('0')
   const [zkpValue, setZkpValue] = useState('0')
+
+  const { getETHBalance } = useTokenContract()
+
+  const updateBalance = async () => {
+    try {
+      const _balance = await getETHBalance(account?.address)
+      const _formattedBalance = ethers.utils.formatUnits(
+        uint256.uint256ToBN(_balance.balance).toString(),
+        'ether'
+      )
+      setETHBalance(_formattedBalance)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (account?.address) {
+      updateBalance()
+    }
+  }, [account])
 
   useEffect(() => {
     setProject(projects.find((p) => p.id === Number(pid)))
@@ -31,7 +58,11 @@ const ProjectBuyPage = () => {
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4">
           <div className="block">
             <div className="block--contrast">
-              <BlockLabel label={'You pay'} value={'100.00'} onClick={() => setEthValue('100')} />
+              <BlockLabel
+                label={'You pay'}
+                value={Number(ethBalance)}
+                onClick={() => setEthValue(ethBalance.toString())}
+              />
               <BaseInput
                 label={'ETH'}
                 value={ethValue}
@@ -62,7 +93,9 @@ const ProjectBuyPage = () => {
               </div>
               <div className="flex items-center justify-between text-16">
                 <div className="text-primaryClear">1 ETH equals</div>
-                <div className="font-heading text-primary">$ZKL 200.000</div>
+                <div className="font-heading text-primary">
+                  ${project.ticker} {project.totalRaise?.toFixed(2)}
+                </div>
               </div>
             </div>
 
