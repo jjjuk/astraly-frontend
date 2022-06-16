@@ -96,7 +96,7 @@ const ProjectClaimPage = () => {
               </BaseButton>
               <BaseButton className="xl:col-span-1 whitespace-nowrap px-5">
                 <LockIcon className={'mr-2'} />
-                Lock more $ZKP
+                Lock more $ASTR
               </BaseButton>
             </div>
           </div>

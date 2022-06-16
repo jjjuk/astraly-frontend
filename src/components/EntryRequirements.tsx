@@ -37,7 +37,7 @@ const EntryRequirements = () => {
           Conditions of Entry
         </Text>
         <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
-          On Astraly, every holder xZKP holder can claim or buy tickets. However, due to the current
+          On Astraly, every holder xASTR holder can claim or buy tickets. However, due to the current
           jurisdiction, only users from countries where it is legally allowed to participate in IDOs
           will be able to receive an allocation and invest. <br />
           <br />

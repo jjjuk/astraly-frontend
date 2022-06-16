@@ -14,7 +14,7 @@ import { ethers } from 'ethers'
 const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
   const { account } = useStarknetReact()
   const { harvestRewards, getPendingRewards } = useStakingContract()
-  const steps = ['Buy zkp tokens', 'Stake ZKP tokens', 'Claim lottery tickets', 'Invest in IDOs']
+  const steps = ['Buy astr tokens', 'Stake ASTR tokens', 'Claim lottery tickets', 'Invest in IDOs']
   const dispatch = useAppDispatch()
 
   const [harvesting, setHarvesting] = useState(false)
@@ -90,7 +90,7 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
           </div>
 
           <p>
-            Owning ZKP tokens or ZKP-LP is requirement in order to participate in IDOs on Astraly.
+            Owning ASTR tokens or ASTR-LP is requirement in order to participate in IDOs on Astraly.
             <br />
             <br />
             You can lock your tokens and receive lottery tickets to invest in the listed projects.
@@ -112,7 +112,7 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
             <div className="title--medium mb-1">Harvest rewards</div>
             <div className="flex items-center">
               <div className="text-16 text-primaryClear transform translate-y-px">
-                $ZKP Available
+                $ASTR Available
               </div>
               <div className="font-heading text-16 ml-6 text-primary">
                 {Number(pendingRewards).toFixed(3)}
@@ -122,7 +122,7 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
           <div className="block__item">
             <BaseButton onClick={handleHarvest} disabled={harvesting}>
               <SendIcon className={'mr-2'} />
-              Claim {Number(pendingRewards).toFixed(3)} ZKP
+              Claim {Number(pendingRewards).toFixed(3)} ASTR
             </BaseButton>
           </div>
         </div>

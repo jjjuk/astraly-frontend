@@ -42,7 +42,7 @@ const Withdraw = ({
       <div className="block--contrast">
         <div className="title--medium mb-6">Withdraw Liquid Pool</div>
         <div className="flex items-center justify-between text-16 mb-2">
-          <div className="text-primaryClear">ZKP Staked</div>
+          <div className="text-primaryClear">ASTR Staked</div>
           <div className="font-heading text-primary">
             {userInfo?.info?.amount ? (
               ethers.utils.formatUnits(

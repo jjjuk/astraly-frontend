@@ -104,7 +104,7 @@ const BuyPageContainer = () => {
         flexDir="column"
         margin="auto"
         gap="10px">
-        <Heading size="sm">Mint Amount: {mintAmount} ZKP</Heading>
+        <Heading size="sm">Mint Amount: {mintAmount} ASTR</Heading>
         {/* <Button
           bg="linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)"
           boxShadow="0px 20px 35px rgba(55, 0, 99, 0.2)"
@@ -115,7 +115,7 @@ const BuyPageContainer = () => {
           color="white"
           disabled={!allowed}
           onClick={handleTransfer}>
-          Mint ZKP
+          Mint ASTR
         </Button> */}
 
         <BaseButton onClick={handleTransfer} disabled={!allowed} className={'px-3 lg:px-12 group'}>
@@ -125,7 +125,7 @@ const BuyPageContainer = () => {
 
         <BaseButton onClick={handleToWallet} className={'px-3 lg:px-12 group'} medium={true}>
           <WalletIcon className={'mr-3'} />
-          Add ZKP to Wallet
+          Add ASTR to Wallet
           <Chevron className={'ml-3 icon-right'} />
         </BaseButton>
       </Flex>

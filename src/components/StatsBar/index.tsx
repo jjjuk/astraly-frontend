@@ -71,13 +71,13 @@ const StatsBar = () => {
         gradient={false}>
         <Stat title="Average APY" value={`${currentAPY.toFixed(3)} %`} />
         <Stat title="Total Value Staked" value="$ 210, 000, 000" />
-        <Stat title="ZKP Staked" value={`${Number(zkpStaked).toFixed(2)} ZKP`} />
-        <Stat title="ZKP-LP Staked" value={`${zkpLPStaked} ZKP-LP`} />
+        <Stat title="ASTR Staked" value={`${Number(zkpStaked).toFixed(2)} ASTR`} />
+        <Stat title="ASTR-LP Staked" value={`${zkpLPStaked} ASTR-LP`} />
         <Stat title="Unique Stakers" value="20,000" />
         <Stat title="Average APY" value={`${currentAPY.toFixed(3)} %`} />
         <Stat title="Total Value Staked" value="$ 210, 000, 000" />
-        <Stat title="ZKP Staked" value={`${Number(zkpStaked).toFixed(2)} ZKP`} />
-        <Stat title="ZKP-LP Staked" value={`${zkpLPStaked} ZKP-LP`} />
+        <Stat title="ASTR Staked" value={`${Number(zkpStaked).toFixed(2)} ASTR`} />
+        <Stat title="ASTR-LP Staked" value={`${zkpLPStaked} ASTR-LP`} />
         <Stat title="Unique Stakers" value="20,000" />
       </Marquee>
     </div>

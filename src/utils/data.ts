@@ -117,8 +117,8 @@ export const quests: Quest[] = [
   {
     _id: '3289429304',
     idoId: 0,
-    name: 'Lock ZKP on Astraly!',
-    description: 'For this quest, you need to lock at least 100 ZKP tokens on Astraly.',
+    name: 'Lock ASTR on Astraly!',
+    description: 'For this quest, you need to lock at least 100 ASTR tokens on Astraly.',
     icon: 'swap',
     quest: 'Make a Swap',
     reward: 'Rewards: 3x to win the lottery',

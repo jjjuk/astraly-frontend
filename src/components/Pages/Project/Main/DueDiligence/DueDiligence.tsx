@@ -16,7 +16,7 @@ const Separator = () => {
   )
 }
 const DueDiligence = ({ project }: { project: Project }) => {
-  const steps = ['Buy zkp tokens', 'Stake ZKP tokens', 'Claim lottery tickets', 'Invest in IDOs']
+  const steps = ['Buy astr tokens', 'Stake ASTR tokens', 'Claim lottery tickets', 'Invest in IDOs']
   const Step = ({ children, index }: PropsWithChildren<{ index: number }>) => {
     return (
       <div className="text-primaryClear text-16">

@@ -67,7 +67,7 @@ const ProjectInfos = ({ project }: { project: Project }) => {
         <div className="block__item">
           <div className="title--small">Admission</div>
           <p className="text-primaryClear">
-            Have locked ZKP tokens 5 transactions on Uniswap in the last 6 month Have at least 2500$
+            Have locked ASTR tokens 5 transactions on Uniswap in the last 6 month Have at least 2500$
             of tokens on your wallet
           </p>
         </div>

@@ -47,7 +47,7 @@ const BuyForm = () => {
             <Toggle value={isLocked} onClick={() => setIsLocked((oldValue) => !oldValue)} />
             <p className={'text-12 text-primaryClear font-bold'}>
               By ticking this box, you will purchase the tokens AND we will lock them in our vault.
-              The tokens you will receive in your wallet are xZKP. <br />
+              The tokens you will receive in your wallet are xASTR. <br />
               <strong className="text-primary">
                 This will allow you to claim lottery tickets and participate in IDOs.
               </strong>

@@ -229,7 +229,7 @@ const StakePage: NextPage = () => {
   return (
     <Layout>
       <Heading size="2xl" color="purple.700" textShadow="-2px 2px 0px #8f00ff" mb={'64px'}>
-        LOCK ZKP
+        LOCK ASTR
       </Heading>
       <Flex>
         <Flex flexDir={'row'} gridGap="20px">
@@ -240,9 +240,9 @@ const StakePage: NextPage = () => {
                   pl={'45px'}
                   size="26px"
                   color="#370063"
-                  // textShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+                // textShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
                 >
-                  LOCK YOUR ZKP
+                  LOCK YOUR ASTR
                 </Heading>
                 <Flex
                   flexDir={'column'}
@@ -311,7 +311,7 @@ const StakePage: NextPage = () => {
                           fontFamily="Druk Wide Web"
                           fontSize={'10px'}
                           zIndex="10">
-                          ZKP
+                          ASTR
                         </Text>
                       </NumberInput>
                     </Flex>
@@ -373,7 +373,7 @@ const StakePage: NextPage = () => {
                           fontFamily="Druk Wide Web"
                           fontSize={'10px'}
                           zIndex="10">
-                          ZKP-LP
+                          ASTR-LP
                         </Text>
                       </NumberInput>
                     </Flex>
@@ -497,7 +497,7 @@ const StakePage: NextPage = () => {
                   pl={'45px'}
                   size="26px"
                   color="purple.500"
-                  // textShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+                // textShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
                 >
                   STAKING CALCULATOR
                 </Heading>
@@ -522,7 +522,7 @@ const StakePage: NextPage = () => {
                         fontSize="16px"
                         lineHeight="22px"
                         color="#9D69DE">
-                        $ZKP staked
+                        $ASTR staked
                       </Text>
                       <Flex flexDir={'row'} gridGap="10px" pt={'15px'}>
                         <Button
@@ -676,7 +676,7 @@ const StakePage: NextPage = () => {
                   pl={'45px'}
                   size="26px"
                   color="purple.500"
-                  // textShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+                // textShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
                 >
                   RESULTS
                 </Heading>
@@ -806,7 +806,7 @@ const StakePage: NextPage = () => {
                     </Heading>
                     <Flex flexDir="row" justifyContent="space-between">
                       <Text pt={2} fontWeight="bold" color="purple.500">
-                        $ZKP Available
+                        $ASTR Available
                       </Text>
                       <Text pt={2} fontWeight="bold" fontFamily="Druk Wide Web" color="purple.500">
                         135
@@ -825,7 +825,7 @@ const StakePage: NextPage = () => {
                     color="white"
                     _hover={{ bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)' }}
                     onClick={handleHarvest}>
-                    Claim 135 ZKP
+                    Claim 135 ASTR
                   </Button>
                 </Flex>
               </Flex>
@@ -875,7 +875,7 @@ const StakePage: NextPage = () => {
                   color="#9D69DE"
                   pt={'10px'}
                   textAlign="left">
-                  Owning ZKP tokens or ZKP-LP is requirement in order to participate in IDOs on
+                  Owning ASTR tokens or ASTR-LP is requirement in order to participate in IDOs on
                   Astraly.
                 </Text>
                 <Text
@@ -901,7 +901,7 @@ const StakePage: NextPage = () => {
                   Step 1
                 </Text>
                 <Text fontWeight="900" fontSize="16px" lineHeight="19px" color="#9D69DE">
-                  Buy ZKP tokens
+                  Buy ASTR tokens
                 </Text>
                 <Image
                   src="/assets/imgs/star.png"
@@ -913,7 +913,7 @@ const StakePage: NextPage = () => {
                   Step 2
                 </Text>
                 <Text fontWeight="900" fontSize="16px" lineHeight="19px" color="#9D69DE">
-                  Stake ZKP tokens
+                  Stake ASTR tokens
                 </Text>
                 <Image
                   src="/assets/imgs/star.png"
@@ -948,7 +948,7 @@ const StakePage: NextPage = () => {
         <Flex gap="20px">
           <Flex bg="#8f00ff" width="40%" p={7} flexDir="column" gap="10px" margin="50px 0">
             <Flex justifyContent="space-between" width="100%">
-              <Heading size="md">LOCK YOUR ZKP</Heading>
+              <Heading size="md">LOCK YOUR ASTR</Heading>
               <IconButton
                 variant="outline"
                 colorScheme="white"
@@ -967,7 +967,7 @@ const StakePage: NextPage = () => {
                 px={3}
                 height="50px"
               >
-                ZKP
+                ASTR
               </Flex>
               <Flex flex="auto" flexDir="column" gap="5px">
                 <NumberInput
@@ -999,7 +999,7 @@ const StakePage: NextPage = () => {
                 px={3}
                 height="50px"
               >
-                ZKP-LP
+                ASTR-LP
               </Flex>
               <Flex flex="auto" flexDir="column" gap="5px">
                 <NumberInput
@@ -1200,11 +1200,11 @@ const StakePage: NextPage = () => {
             )}
             <VStack spacing="10px">
               <Flex justifyContent="space-between" alignItems="center" width="100%">
-                <Heading size="sm">Staked ZKP</Heading>
+                <Heading size="sm">Staked ASTR</Heading>
                 <Text>0</Text>
               </Flex>
               <Flex justifyContent="space-between" alignItems="center" width="100%">
-                <Heading size="sm">Staked ZKP-LP</Heading>
+                <Heading size="sm">Staked ASTR-LP</Heading>
                 <Text>0</Text>
               </Flex>
             </VStack>

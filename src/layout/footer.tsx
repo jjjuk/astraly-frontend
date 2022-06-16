@@ -1,5 +1,7 @@
-import { ContactEmail, DiscordLink, GitHubLink, TwitterLink, WhitepaperLink } from '../constants'
+import { ContactEmail, DiscordLink, GitHubLink, DocsLink, TwitterLink, WhitepaperLink, TelegramLink } from '../constants'
 import TwitterIcon from 'assets/icons/Twitter.svg'
+import TelegramIcon from 'assets/icons/Telegram.svg'
+import GithubIcon from 'assets/icons/Github.svg'
 import DiscordIcon from 'assets/icons/Discord.svg'
 import DocumentIcon from 'assets/icons/Document.svg'
 import FolderIcon from 'assets/icons/Folder.svg'
@@ -27,7 +29,10 @@ const Footer = () => {
     [TwitterIcon, 'Twitter', TwitterLink],
     [DiscordIcon, 'Discord', DiscordLink],
     [DocumentIcon, 'Whitepaper', WhitepaperLink],
-    [FolderIcon, 'Docs', GitHubLink],
+    [GithubIcon, 'Github', GitHubLink],
+    [TelegramIcon, 'Telegram', TelegramLink],
+    [FolderIcon, 'Docs', DocsLink],
+
   ]
   return (
     <>
