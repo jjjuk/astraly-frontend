@@ -1,4 +1,12 @@
-import { ContactEmail, DiscordLink, GitHubLink, DocsLink, TwitterLink, WhitepaperLink, TelegramLink } from '../constants'
+import {
+  ContactEmail,
+  DiscordLink,
+  GitHubLink,
+  DocsLink,
+  TwitterLink,
+  WhitepaperLink,
+  TelegramLink,
+} from '../constants'
 import TwitterIcon from 'assets/icons/Twitter.svg'
 import TelegramIcon from 'assets/icons/Telegram.svg'
 import GithubIcon from 'assets/icons/Github.svg'
@@ -11,7 +19,7 @@ import Link from 'next/link'
 const Item = ({ icon, label, href }: { icon: string; label: string; href: string }) => {
   return (
     <>
-      <Link href={href}>
+      <a href={href} target="__blank">
         <div className="flex items-center text-primary cursor-pointer">
           <div className="icon mr-2 transform -translate-y-0.5">
             <img src={icon} alt={label} />
@@ -19,7 +27,7 @@ const Item = ({ icon, label, href }: { icon: string; label: string; href: string
 
           <div className="text">{label}</div>
         </div>
-      </Link>
+      </a>
     </>
   )
 }
@@ -32,7 +40,6 @@ const Footer = () => {
     [GithubIcon, 'Github', GitHubLink],
     [TelegramIcon, 'Telegram', TelegramLink],
     [FolderIcon, 'Docs', DocsLink],
-
   ]
   return (
     <>

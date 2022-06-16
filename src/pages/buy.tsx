@@ -123,7 +123,7 @@ const BuyPageContainer = () => {
         </BaseButton>
         {!allowed && <Text>You will be able to whitdraw in {roundTimer}</Text>}
 
-        <BaseButton onClick={handleToWallet} className={'px-3 lg:px-12 group'} medium={true}>
+        <BaseButton onClick={handleToWallet} className={'px-3 lg:px-12 group'} medium={true} small>
           <WalletIcon className={'mr-3'} />
           Add ASTR to Wallet
           <Chevron className={'ml-3 icon-right'} />
