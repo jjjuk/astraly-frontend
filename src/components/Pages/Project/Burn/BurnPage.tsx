@@ -15,6 +15,8 @@ import { useApi } from 'api'
 import { uint256 } from 'starknet'
 import { Spinner } from '@chakra-ui/react'
 import { FireIcon } from 'components/ui/Icons/Icons'
+import ToastActions from 'actions/toast.actions'
+import { useAppDispatch } from 'hooks/hooks'
 
 const BurnPage = () => {
   const router = useRouter()
@@ -35,6 +37,8 @@ const BurnPage = () => {
 
   const { fetchProof } = useApi()
 
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
     setProject(projects.find((p) => p.id === Number(pid)))
   }, [pid])
@@ -54,7 +58,18 @@ const BurnPage = () => {
           merkleProof
         )
       }
-      // TODO: toast
+      dispatch(
+        ToastActions.addToast({
+          title: 'Claim made',
+          action: (
+            <a
+              className="font-heading text-12 text-primary"
+              href={`https://goerli.voyager.online/tx/${tx.transaction_hash}`}>
+              View on explorer
+            </a>
+          ),
+        })
+      )
       setBurning(false)
     } catch (e) {
       console.error(e)

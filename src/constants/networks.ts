@@ -13,9 +13,9 @@ export const Contracts = {
     eth: '',
   },
   SN_GOERLI: {
-    token: '0x042ad3518eceeecc43309cf7035ad83006d1b2abb9fb32ab0b79056b1d18c48b',
-    staking: '0x005f4736f8446220048498d4011792ce35b17eca8ff905653b84235ae3d5ef86',
-    lottery_token: '0x073b8aefa3943dc5a42558d80ebb0ceeefca2500c424199e4cfed1d83c6e2e2d',
+    token: '0x0248113a97f772906b5b81e1bf66ed243fbe57d7a0400884ee0b09dacef4790d',
+    staking: '0x034484cd2006e8eab8a427256be25ef0fc357c96b8c53b62d5267fc72c41c15a',
+    lottery_token: '0x07dda671af29b0ac0837ad17fd450e2b2e243fe59103c0bdf034f2806cfe1bb8',
     faucet: '0x00688bd7e6f585e1e660a0b5bee74d0fe88361bafa5df656d8cb98347cedc215',
     lp_token: '',
     eth: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',

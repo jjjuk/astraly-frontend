@@ -11,6 +11,8 @@ import { Contracts } from 'constants/networks'
 import { ethers } from 'ethers'
 import { uint256 } from 'starknet'
 import { Spinner } from '@chakra-ui/react'
+import { useAppDispatch } from 'hooks/hooks'
+import ToastActions from 'actions/toast.actions'
 
 const LockForm = ({
   zkpBalance,
@@ -46,6 +48,8 @@ const LockForm = ({
     [startDate]
   )
 
+  const dispatch = useAppDispatch()
+
   const handleLock = async () => {
     if (!account?.address) return
 
@@ -59,7 +63,18 @@ const LockForm = ({
         account,
         _daysPassed
       )
-      // TODO: toast
+      dispatch(
+        ToastActions.addToast({
+          title: 'Tokens Locked',
+          action: (
+            <a
+              className="font-heading text-12 text-primary"
+              href={`https://goerli.voyager.online/tx/${tx.transaction_hash}`}>
+              View on explorer
+            </a>
+          ),
+        })
+      )
       setLocking(false)
     } catch (e) {
       console.error(e)
