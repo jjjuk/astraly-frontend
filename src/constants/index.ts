@@ -13,5 +13,5 @@ export const PrivacyPolicyLink = '#'
 export const ContactEmail = 'contact@zkpadfi.io'
 export const ApiContact = 'https://zkpad-api.herokuapp.com/contact/save'
 
-export const REWARDS_PER_BLOCK = 100
-export const BLOCKS_PER_YEAR = 1051200
+export const REWARDS_PER_BLOCK = 10
+export const BLOCKS_PER_YEAR = 429240
