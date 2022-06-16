@@ -1,4 +1,4 @@
-import { number } from 'starknet'
+import { AccountInterface, number } from 'starknet'
 import { OrganizedEvent } from 'utils/types/organizedStarknet'
 
 export interface Round {
@@ -18,6 +18,7 @@ export interface Project {
   logo?: string
   cover?: string
   totalRaise?: number
+  tokenPrice?: number
   maxAllocation?: number
   currentRoundId: number
   type?: ProjectType
@@ -34,11 +35,11 @@ export interface Quest {
   idoId: number
   name?: string
   description?: string
-  event: OrganizedEvent
+  event: (account: AccountInterface) => OrganizedEvent
   icon: string
-  quest: string
-  reward: string
+  quest?: string
+  reward?: string
   link: string
-  isClaimed: boolean
+  isClaimed?: boolean
   type: QuestType
 }

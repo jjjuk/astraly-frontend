@@ -47,8 +47,8 @@ const DueDiligence = ({ project }: { project: Project }) => {
 
           <h3>2. Summary</h3>
           <p>
-            ZkLend is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with
-            ultra‐low slippage, zero fees and the full security of Ethereum.
+            This project is a placeholder. Once Astraly is live on mainnet, you’ll be able to
+            discover and invest in real projects building on StarkNet.
           </p>
 
           <Separator />
