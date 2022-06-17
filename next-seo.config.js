@@ -4,14 +4,14 @@ const defaultSEOConfig = {
   titleTemplate: '%s',
   defaultTitle: 'Astraly - Fundraising and community engagement platform on Starknet.',
   description: 'Target the right people for the right projects.',
-  canonical: 'https://astraly.xyz/',
+  canonical: 'https://testnet.astraly.xyz/',
   openGraph: {
-    url: 'https://astraly.xyz/',
+    url: 'https://testnet.astraly.xyz/',
     title: 'Astraly App',
     description: 'Target the right people for the right projects.',
     images: [
       {
-        url: 'https://astraly.xyz/images/home/banner_3d_full.png',
+        url: 'https://testnet.astraly.xyz/images/home/banner_3d_full.png',
         alt: 'Astraly',
         width: 800,
         height: 420,
