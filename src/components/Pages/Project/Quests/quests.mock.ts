@@ -29,7 +29,7 @@ export const productQuests: Quest[] = [
     idoId: 3,
     name: 'Claim your ASTR!',
     description: 'Claim 100 ASTR tokens using the Astraly faucet.',
-    icon: 'swap',
+    icon: 'send',
     link: '/buy',
     type: QuestType.PRODUCT,
     event: (account: AccountInterface) => {
@@ -61,7 +61,7 @@ export const productQuests: Quest[] = [
     idoId: 0,
     name: 'Lock your ASTR!',
     description: 'Lock at least 100 ASTR tokens on Astraly.',
-    icon: 'swap',
+    icon: 'lock',
     link: '/stake',
     type: QuestType.PRODUCT,
     event: (account?: AccountInterface) => {

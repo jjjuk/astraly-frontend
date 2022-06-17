@@ -38,9 +38,8 @@ export const projects: Project[] = [
     description:
       'This project is a placeholder. Once Astraly is live on mainnet, you’ll be able to discover and invest in real projects building on StarkNet.',
     ticker: 'ASTR',
-    logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-    cover:
-      'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+    logo: 'https://testnet.astraly.xyz/images/logo.png',
+    cover: 'https://testnet.astraly.xyz/images/home/investors.png',
     totalRaise: 1000,
     tokenPrice: 0.1,
     maxAllocation: 500,
