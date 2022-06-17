@@ -28,7 +28,7 @@ const Simulator = ({ currentAPY, zkpBalance }: { currentAPY?: number; zkpBalance
           <div className="block">
             <div className="total block--contrast">
               <BlockLabel
-                label={'$ZKP staked'}
+                label={'$ASTR staked'}
                 value={'100.00'}
                 onClick={() => setZKPAmount('100')}
               />

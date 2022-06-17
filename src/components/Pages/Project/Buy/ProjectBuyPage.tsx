@@ -76,7 +76,7 @@ const ProjectBuyPage = () => {
             <div className="block__item">
               <div className="ml-4 text-primaryClear">You receive</div>
               <BaseInput
-                label={'ZKP'}
+                label={'ASTR'}
                 value={zkpValue}
                 onChange={(e) => setZkpValue(e.target.value)}
               />

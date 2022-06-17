@@ -5,8 +5,8 @@ import Exclamation from 'assets/icons/Exclamation.svg'
 
 const InvestmentOverview = () => {
   const stats = [
-    ['$ZKP Staked', '1,135.56'],
-    ['ZKP-LP Staked', '315.24'],
+    ['$ASTR Staked', '1,135.56'],
+    ['ASTR-LP Staked', '315.24'],
     ['Total $USD invested', '$34,230'],
     ['IDO participations', '3'],
   ]

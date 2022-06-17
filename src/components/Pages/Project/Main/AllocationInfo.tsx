@@ -17,7 +17,7 @@ const AllocationInfo = () => {
 
         <ul className="list-disc text-primaryClear leading-138 ml-4">
           <li className="mb-5">
-            On Astraly, every holder xZKP holder can claim or buy tickets. However, due to the
+            On Astraly, every holder xASTR holder can claim or buy tickets. However, due to the
             current jurisdiction, only users from countries where it is legally allowed to
             participate in IDOs will be able to receive an allocation and invest.
           </li>

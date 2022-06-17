@@ -42,14 +42,14 @@ const HomeHeading = () => {
               StarkNet projects.
             </h1>
             <p className={'medium-text max-w-558px mb-12'}>
-              <strong>Buy</strong> ZKP tokens and <strong>stake</strong> them and receive lottery
+              <strong>Buy</strong> ASTR tokens, <strong>stake</strong> them and receive lottery
               tickets to <strong>invest</strong> in the listed projects.
             </p>
             <div className="md:flex buttons">
               <Link href={'/buy'}>
                 <BaseButton className={'px-3 lg:px-12 group'} medium={true}>
                   <ShoppingCart className={'mr-3'} />
-                  Buy $ZKP
+                  Buy $ASTR
                   <Chevron className={'ml-3 icon-right'} />
                 </BaseButton>
               </Link>

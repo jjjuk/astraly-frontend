@@ -73,7 +73,7 @@ const Links = [
     href: '/stake',
   },
   {
-    text: 'Buy $ZKP',
+    text: 'Buy $ASTR',
     iconOutline: <Buy />,
     iconSolid: <BuyFull />,
     href: '/buy',

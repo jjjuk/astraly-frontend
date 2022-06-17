@@ -171,7 +171,7 @@ const QuestPage = () => {
                 Admission
               </Text>
               <Text fontSize="16px" lineHeight="22px" color="#9D69DE">
-                Have locked ZKP tokens 5 transactions on Uniswap in the last 6 month Have at least
+                Have locked ASTR tokens 5 transactions on Uniswap in the last 6 month Have at least
                 2500$ of tokens on your wallet
               </Text>
             </Flex>

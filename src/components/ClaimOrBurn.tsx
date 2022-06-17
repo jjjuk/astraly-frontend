@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Flex, Image, NumberInput, NumberInputField, Spinner, Text} from '@chakra-ui/react';
-import {useStarknetReact} from '@web3-starknet-react/core';
-import {ethers} from 'ethers';
-import {uint256} from 'starknet';
-import {useTokenContract} from 'contracts';
-import {useLotteryTokenContract} from 'contracts/lottery';
-import {useSelector} from 'react-redux';
-import {RootState} from 'stores/reduxStore';
-import {useApi} from 'api';
+import React, { useEffect, useState } from 'react';
+import { Button, Flex, Image, NumberInput, NumberInputField, Spinner, Text } from '@chakra-ui/react';
+import { useStarknetReact } from '@web3-starknet-react/core';
+import { ethers } from 'ethers';
+import { uint256 } from 'starknet';
+import { useTokenContract } from 'contracts';
+import { useLotteryTokenContract } from 'contracts/lottery';
+import { useSelector } from 'react-redux';
+import { RootState } from 'stores/reduxStore';
+import { useApi } from 'api';
 
-const ClaimOrBurn = ({burn, idoID}: any) => {
-  const {account} = useStarknetReact();
+const ClaimOrBurn = ({ burn, idoID }: any) => {
+  const { account } = useStarknetReact();
   const [xzkpBalance, setXZkpBalance] = useState('0');
   const [ticketsBalance, setTicketsBalance] = useState('0');
   const [amountToBurn, setAmountToBurn] = useState('0');
@@ -20,10 +20,10 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
 
   const [merkleProof, setMerkleProof] = useState<string[]>([]);
 
-  const {authToken} = useSelector((state: RootState) => state.ConnectWallet);
-  const {user} = useSelector((state: RootState) => state.Auth);
+  const { authToken } = useSelector((state: RootState) => state.ConnectWallet);
+  const { user } = useSelector((state: RootState) => state.Auth);
 
-  const {getXZKPBalance} = useTokenContract();
+  const { getXZKPBalance } = useTokenContract();
   const {
     claimLotteryTickets,
     burn: burnTickets,
@@ -31,7 +31,7 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
     burnWithQuest
   } = useLotteryTokenContract();
 
-  const {fetchProof} = useApi();
+  const { fetchProof } = useApi();
 
   const handleClaimTickets = async () => {
     try {
@@ -156,8 +156,8 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
                 ? '...'
                 : Number(ticketsBalance)
               : loading
-              ? '...'
-              : Math.floor(Math.pow(Number(xzkpBalance), 0.6))}
+                ? '...'
+                : Math.floor(Math.pow(Number(xzkpBalance), 0.6))}
           </Text>
         </Flex>
       </Flex>
@@ -175,7 +175,7 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
               bg="#fff"
               textAlign="right"
               borderRadius="8px"
-              _hover={{bg: '#C89CFF'}}
+              _hover={{ bg: '#C89CFF' }}
               fontFamily="Druk Wide Web"
               fontSize={'10px'}
               height="56px"
@@ -204,7 +204,7 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
             fontFamily="Druk Wide Web"
             py="25px"
             color="white"
-            _hover={{bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)'}}
+            _hover={{ bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)' }}
             onClick={handleBurnTickets}
           >
             {burning ? <Spinner /> : 'Burn Tickets'}
@@ -221,7 +221,7 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
             fontFamily="Druk Wide Web"
             py="25px"
             color="white"
-            _hover={{bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)'}}
+            _hover={{ bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)' }}
             onClick={handleClaimTickets}
           >
             {claiming ? <Spinner /> : 'Claim Tokens'}
@@ -235,9 +235,9 @@ const ClaimOrBurn = ({burn, idoID}: any) => {
             fontFamily="Druk Wide Web"
             py="25px"
             color="white"
-            _hover={{bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)'}}
+            _hover={{ bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)' }}
           >
-            Lock More ZKP
+            Lock More ASTR
           </Button>
         </Flex>
       )}

@@ -28,11 +28,11 @@ const QuestRequirements = () => {
           <div>
             <div className="font-bold text-center text-primary mb-3 flex items-center justify-center">
               <img src={Check} alt={''} className={'mr-2 transform -translate-y-0.5'} />
-              Lock 200 ZKP on our vault
+              Lock 200 ASTR on our vault
             </div>
             <BaseButton>
               <LockIcon className={'mr-1'} />
-              Lock more $ZKP
+              Lock more $ASTR
             </BaseButton>
           </div>
         </div>
