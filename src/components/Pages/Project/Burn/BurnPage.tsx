@@ -81,7 +81,7 @@ const BurnPage = () => {
     try {
       setLoading(true)
       const _ticketsBalance = await getTicketsBalance(account?.address, project?.id.toString())
-      console.log(_ticketsBalance)
+      // console.log(_ticketsBalance)
       setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString())
       setLoading(false)
     } catch (e) {

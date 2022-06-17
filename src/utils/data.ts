@@ -8,32 +8,32 @@ export const rounds: Round[] = [
   {
     title: 'Ticket Claim',
     description: 'You can claim your ticket.',
-    startDate: new Date('05/04/2022'),
-    endDate: new Date('06/05/2022'),
+    startDate: new Date(1655481600 * 1000),
+    endDate: new Date(1655827200 * 1000),
   },
   {
     title: 'Allocation',
     description: 'You can burn your ticket for allocations.',
-    startDate: new Date('05/21/2022'),
-    endDate: new Date('07/22/2022'),
+    startDate: new Date(1655827200 * 1000),
+    endDate: new Date(1656000000 * 1000),
   },
   {
     title: 'Purchase',
     description: 'You can invest in the IDO.',
-    startDate: new Date('05/23/2022'),
-    endDate: new Date('08/26/2022'),
+    startDate: new Date(1656000000 * 1000),
+    endDate: new Date(1656345600 * 1000),
   },
   {
     title: 'Distribution',
     description: 'The tokens are gradually sent to your wallet.',
-    startDate: new Date('05/30/2022'),
-    endDate: new Date('09/31/2022'),
+    startDate: new Date(1656345600 * 1000),
+    endDate: new Date(1656864000 * 1000),
   },
 ]
 
 export const projects: Project[] = [
   {
-    id: 0,
+    id: 3,
     name: 'Demo Project',
     description:
       'This project is a placeholder. Once Astraly is live on mainnet, you’ll be able to discover and invest in real projects building on StarkNet.',
@@ -41,84 +41,84 @@ export const projects: Project[] = [
     logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
     cover:
       'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    totalRaise: 1500000,
-    tokenPrice: 10,
+    totalRaise: 1000,
+    tokenPrice: 0.1,
     maxAllocation: 500,
     currentRoundId: 0,
     type: 'IDO',
     categories: ['DeFi', 'DEX'],
     rounds,
   },
-  {
-    id: 1,
-    name: 'ZkSwaap2',
-    description:
-      'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
-    ticker: 'ZKS',
-    logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-    cover:
-      'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    totalRaise: 1500000,
-    maxAllocation: 500,
-    currentRoundId: 1,
-    type: 'IDO',
-    categories: ['DeFi', 'DEX'],
-    rounds,
-  },
-  {
-    id: 3,
-    name: 'ZkSwaap4',
-    description:
-      'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
-    ticker: 'ZKS',
-    logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-    cover:
-      'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    totalRaise: 1500000,
-    maxAllocation: 500,
-    currentRoundId: 2,
-    type: 'IDO',
-    categories: ['DeFi', 'DEX'],
-    rounds,
-  },
-  {
-    id: 4,
-    name: 'ZkSwaap',
-    description:
-      'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
-    ticker: 'ZKS',
-    logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-    cover:
-      'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    totalRaise: 1500000,
-    maxAllocation: 500,
-    currentRoundId: 3,
-    type: 'IDO',
-    categories: ['DeFi', 'DEX'],
-    rounds,
-  },
-  {
-    id: 5,
-    name: 'ZkSwaap',
-    description:
-      'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
-    ticker: 'ZKS',
-    logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-    cover:
-      'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    totalRaise: 1500000,
-    maxAllocation: 500,
-    currentRoundId: 0,
-    type: 'IDO',
-    categories: ['DeFi', 'DEX'],
-    rounds,
-  },
+  // {
+  //   id: 1,
+  //   name: 'ZkSwaap2',
+  //   description:
+  //     'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
+  //   ticker: 'ZKS',
+  //   logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
+  //   cover:
+  //     'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+  //   totalRaise: 1500000,
+  //   maxAllocation: 500,
+  //   currentRoundId: 1,
+  //   type: 'IDO',
+  //   categories: ['DeFi', 'DEX'],
+  //   rounds,
+  // },
+  // {
+  //   id: 3,
+  //   name: 'ZkSwaap4',
+  //   description:
+  //     'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
+  //   ticker: 'ZKS',
+  //   logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
+  //   cover:
+  //     'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+  //   totalRaise: 1500000,
+  //   maxAllocation: 500,
+  //   currentRoundId: 2,
+  //   type: 'IDO',
+  //   categories: ['DeFi', 'DEX'],
+  //   rounds,
+  // },
+  // {
+  //   id: 4,
+  //   name: 'ZkSwaap',
+  //   description:
+  //     'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
+  //   ticker: 'ZKS',
+  //   logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
+  //   cover:
+  //     'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+  //   totalRaise: 1500000,
+  //   maxAllocation: 500,
+  //   currentRoundId: 3,
+  //   type: 'IDO',
+  //   categories: ['DeFi', 'DEX'],
+  //   rounds,
+  // },
+  // {
+  //   id: 5,
+  //   name: 'ZkSwaap',
+  //   description:
+  //     'SithSwap is a next‐gen AMM on Starknet featuring instant volatile and stable swaps with ultra‐low slippage, zero fees and the full security of Ethereum.',
+  //   ticker: 'ZKS',
+  //   logo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
+  //   cover:
+  //     'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+  //   totalRaise: 1500000,
+  //   maxAllocation: 500,
+  //   currentRoundId: 0,
+  //   type: 'IDO',
+  //   categories: ['DeFi', 'DEX'],
+  //   rounds,
+  // },
 ]
 
 export const quests: Quest[] = [
   {
     _id: '3289429304',
-    idoId: 0,
+    idoId: 3,
     name: 'Claim your ASTR!',
     description: 'For this quest, you need to claim 100 ASTR tokens using the Astraly faucet.',
     icon: 'swap',

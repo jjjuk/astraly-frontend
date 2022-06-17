@@ -89,8 +89,8 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 
           <div className="name font-bold text-24 leading-12">{project.name}</div>
           <div className="ticker font-heading text-primary text-12 mb-6">${project.ticker}</div>
-          <Item label={'Total raise'}>${project.totalRaise}</Item>
-          <Item label={'Max. allocation'}>${project.maxAllocation}</Item>
+          <Item label={'Total raise'}>ETH {project.totalRaise}</Item>
+          <Item label={'Token price'}>ETH {project.tokenPrice}</Item>
           <Item label={'Round closes in'}>{roundTimer}</Item>
         </div>
       </div>

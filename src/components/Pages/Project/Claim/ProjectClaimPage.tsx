@@ -16,6 +16,7 @@ import { ethers } from 'ethers'
 import { uint256 } from 'starknet'
 import { Spinner } from '@chakra-ui/react'
 import { LockIcon, SendIcon } from '../../../ui/Icons/Icons'
+import Link from 'next/link'
 
 const ProjectClaimPage = () => {
   const router = useRouter()
@@ -92,12 +93,14 @@ const ProjectClaimPage = () => {
             <div className="flex flex-col md:flex-row gap-4">
               <BaseButton className="w-full" onClick={handleClaimTickets} disabled={claiming}>
                 <SendIcon className={'mr-2'} />
-                {claiming ? <Spinner /> : 'Claim Tokens'}
+                {claiming ? <Spinner /> : 'Claim Tickets'}
               </BaseButton>
-              <BaseButton className="xl:col-span-1 whitespace-nowrap px-5">
-                <LockIcon className={'mr-2'} />
-                Lock more $ASTR
-              </BaseButton>
+              <Link href="/stake">
+                <BaseButton className="xl:col-span-1 whitespace-nowrap px-5">
+                  <LockIcon className={'mr-2'} />
+                  Lock more $ASTR
+                </BaseButton>
+              </Link>
             </div>
           </div>
         </div>
