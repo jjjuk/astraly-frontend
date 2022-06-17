@@ -47,14 +47,14 @@ const BurnPage = () => {
     try {
       setBurning(true)
       let tx
-      if (user.questsCompleted.length === 0) {
+      if (!user.questsCompleted || user.questsCompleted.length === 0) {
         tx = await burnTickets(account, pid, amountToBurn)
       } else {
         tx = await burnWithQuest(
           account,
           pid,
           amountToBurn,
-          user.questsCompleted.length,
+          user.questsCompleted?.length,
           merkleProof
         )
       }
