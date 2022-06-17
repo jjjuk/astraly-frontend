@@ -60,7 +60,7 @@ export const useLotteryTokenContract = () => {
   const getTicketsBalance = async (address: string | undefined, id: number.BigNumberish) => {
     const contract = await getLotteryTokenContract()
 
-    return await contract.call('balanceOf', [address, parseInputAmountToUint256(id.toString())])
+    return await contract.call('balanceOf', [address, parseInputAmountToUint256(id.toString(), 0)])
   }
 
   return {
