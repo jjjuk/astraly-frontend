@@ -11,6 +11,11 @@ import SandWatch from 'assets/icons/solid/Sand-watch.svg'
 import ToastActions from '../../../../actions/toast.actions'
 import { useAppDispatch } from '../../../../hooks/hooks'
 import CloseIcon from 'assets/icons/CrossHex.svg'
+import Link from 'next/link'
+import { verifyQuest } from 'utils/decode'
+import { useStarknetReact } from '@web3-starknet-react/core'
+import { useSelector } from 'react-redux'
+import { RootState } from 'stores/reduxStore'
 
 const QuestModal = ({
   quest,
@@ -22,16 +27,38 @@ const QuestModal = ({
   close: any
 }) => {
   const [url, setUrl] = useState('')
+  const { account } = useStarknetReact()
   const dispatch = useAppDispatch()
+  const { authToken } = useSelector((state: RootState) => state.ConnectWallet)
 
-  const approve = () => {
-    dispatch(
-      ToastActions.addToast({
-        title: 'Successful quest',
-        action: <div className="font-heading text-12 text-primary">View on explorer</div>,
-      })
-    )
-    close()
+  const approve = async () => {
+    if (!quest || !account) return
+    if (quest.type === QuestType.PRODUCT) {
+      const valid = await verifyQuest(url, quest, account, authToken)
+
+      if (valid) {
+        dispatch(
+          ToastActions.addToast({
+            title: 'Successful quest',
+            action: (
+              <div className="font-heading text-12 text-primary">
+                Your chances are now increased
+              </div>
+            ),
+            isValid: true,
+          })
+        )
+        close()
+      } else {
+        dispatch(
+          ToastActions.addToast({
+            title: 'Transaction hash not valid',
+            action: <div className="font-heading text-12 text-primary">Try again</div>,
+            isValid: false,
+          })
+        )
+      }
+    }
   }
 
   useEffect(() => {
@@ -77,20 +104,22 @@ const QuestModal = ({
               }`}>
               <div className="icon flex-shrink-0 mr-4">{getIcon(quest)}</div>
               <div>
-                <div className="">{quest.quest}</div>
+                <div className="">{quest.name}</div>
 
                 <div className="flex font-heading">
                   <div className="mr-1 text-primary">
                     <Lightning />
                   </div>
-                  {quest.reward}
+                  {quest.description}
                 </div>
               </div>
             </div>
-            <BaseButton className={'col-span-2'}>
-              <ForwardIcon className={'mr-1'} />
-              Open Link
-            </BaseButton>
+            <a href={quest.link} target="__blank" className={'col-span-2'}>
+              <BaseButton>
+                <ForwardIcon className={'mr-1'} />
+                Open Link
+              </BaseButton>
+            </a>
           </div>
 
           {quest.type === QuestType.PRODUCT && (
@@ -99,11 +128,11 @@ const QuestModal = ({
 
               <ul className="list-decimal base-text ml-4">
                 <li>Open the link</li>
-                <li>Swap</li>
+                {/* <li>Swap</li> */}
                 <li>
                   Paste the hash of transaction on{' '}
                   <a href={'https://voyager.online/'} className="font-bold text-primary">
-                    https://voyager.online/
+                    voyager
                   </a>
                 </li>
               </ul>

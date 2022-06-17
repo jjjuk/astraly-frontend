@@ -31,11 +31,11 @@ export enum QuestType {
   PRODUCT = 'PRODUCT',
 }
 export interface Quest {
-  _id: string
+  _id?: string
   idoId: number
   name?: string
   description?: string
-  event: (account: AccountInterface) => OrganizedEvent
+  event?: (account: AccountInterface) => OrganizedEvent
   icon: string
   quest?: string
   reward?: string

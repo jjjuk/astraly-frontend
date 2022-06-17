@@ -68,6 +68,7 @@ const BurnPage = () => {
               View on explorer
             </a>
           ),
+          isValid: true,
         })
       )
       setBurning(false)

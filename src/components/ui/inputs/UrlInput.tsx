@@ -46,7 +46,7 @@ const UrlInput = ({
         {options.icon}
         <div className="font-heading text-12 mr-2 uppercase">{options.label}</div>
 
-        <Hint>Explain</Hint>
+        <Hint>You can find the transaction hash on voyager or on your Argent X wallet.</Hint>
       </div>
 
       <input

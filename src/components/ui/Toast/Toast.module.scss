@@ -1,12 +1,12 @@
 .toastNotification {
   @apply p-4;
   pointer-events: all;
-  background: #FAF3FF;
+  background: #faf3ff;
   box-shadow: 0 20px 35px rgba(55, 0, 99, 0.2);
   border-radius: 16px;
 }
 
-.toastNotificationContainer{
+.toastNotificationContainer {
   height: 90px;
 }
 
@@ -17,6 +17,6 @@
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
-  z-index: 1000;
+  z-index: 100000;
   overflow: hidden;
 }

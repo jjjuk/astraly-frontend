@@ -22,50 +22,59 @@ export const verifyQuest = async (
   account: AccountInterface,
   authToken: string | null | undefined
 ) => {
-  const accountEvent = quest.event(account)
+  try {
+    if (!quest.event || !quest._id) return false
+    const accountEvent = quest.event(account)
 
-  if (!accountEvent.transmitterContract) return
+    if (!accountEvent.transmitterContract) return
 
-  const receipt = await provider.getTransactionReceipt(txHash)
-  const trace = await provider.getTransactionTrace(txHash)
-  // console.log(receipt);
-  // console.log(trace);
+    const receipt = await provider.getTransactionReceipt(txHash)
+    const trace = await provider.getTransactionTrace(txHash)
+    // console.log(receipt);
+    // console.log(trace);
 
-  // Check if it comes from the right account
-  if (account.address !== trace.function_invocation.contract_address) {
-    return
-  }
-
-  const events: OrganizedEvent[] = []
-  // TODO: Fix events when from_address is a Proxy
-  for (const event of receipt.events) {
-    // Hacky hack
-    const _event = event as any
-    if (events.length === 0)
-      _event.keys = _event.keys.map((k: string) => validateAndParseAddress(k))
-
-    const _contractCallAnalyzer = await new ContractCallOrganizer(_event.from_address).initialize(
-      provider
-    )
-    // console.log(_contractCallAnalyzer);
-    const eventCalldata = await _contractCallAnalyzer.organizeEvent(_event)
-    if (eventCalldata) {
-      events.push(eventCalldata)
+    // Check if it comes from the right account
+    if (account.address !== trace.function_invocation.contract_address) {
+      return false
     }
-  }
-  // console.log(events);
 
-  // Check if events match quest criteria
-  const _events = events.find(
-    (e: OrganizedEvent) =>
-      e.name === accountEvent.name &&
-      e.transmitterContract === accountEvent.transmitterContract &&
-      isValidEvent(e, accountEvent)
-  )
-  console.log(_events)
-  if (_events !== undefined) {
-    // Validate quest
-    await validateQuest(authToken, quest._id)
+    const events: OrganizedEvent[] = []
+    // TODO: Fix events when from_address is a Proxy
+    for (const event of receipt.events) {
+      // Hacky hack
+      // const _event = event as any
+      // if (events.length === 0)
+      //   _event.keys = _event.keys.map((k: string) => validateAndParseAddress(k))
+
+      const _contractCallAnalyzer = await new ContractCallOrganizer(
+        (event as any).from_address
+      ).initialize(provider)
+      // console.log(_contractCallAnalyzer);
+      const eventCalldata = await _contractCallAnalyzer.organizeEvent(event)
+      if (eventCalldata) {
+        events.push(eventCalldata)
+      }
+    }
+    console.log(events)
+
+    // Check if events match quest criteria
+    const _events = events.find(
+      (e: OrganizedEvent) =>
+        e.name === accountEvent.name &&
+        e.transmitterContract === accountEvent.transmitterContract &&
+        isValidEvent(e, accountEvent)
+    )
+    console.log(_events)
+    if (_events !== undefined) {
+      // Validate quest
+      await validateQuest(authToken, quest._id)
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.error(error)
+    return false
   }
 }
 

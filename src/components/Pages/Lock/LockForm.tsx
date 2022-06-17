@@ -73,6 +73,7 @@ const LockForm = ({
               View on explorer
             </a>
           ),
+          isValid: true,
         })
       )
       setLocking(false)
