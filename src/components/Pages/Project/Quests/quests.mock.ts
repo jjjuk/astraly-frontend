@@ -1,44 +1,81 @@
-import { QuestType } from '../../../../interfaces'
+import { formatUnits } from 'ethers/lib/utils'
+import { AccountInterface } from 'starknet'
+import { Quest, QuestType } from '../../../../interfaces'
 
-export const socialQuests = [
+export const socialQuests: Quest[] = [
   {
+    idoId: 3,
     icon: 'twitter',
-    quest: 'Follow on Twitter',
-    reward: 'Rewards: 2x to win the lottery',
-    link: '/',
+    name: 'Follow Astraly on Twitter',
+    description: 'Rewards: increase your chances to win the lottery',
+    link: 'https://twitter.com/AstralyXYZ',
     isClaimed: false,
+    type: QuestType.SOCIAL,
   },
   {
-    icon: 'twitter',
-    quest: 'Write a tweet about ZKLend',
-    reward: 'Rewards: 3x to win the lottery',
-    link: '/',
-    isClaimed: true,
-  },
-  {
+    idoId: 3,
     icon: 'discord',
-    quest: 'Enter on Discord',
-    reward: 'Rewards: 5x to win the lottery',
-    link: '/',
-    isClaimed: true,
+    name: 'Join Astraly Discord',
+    description: 'Rewards: increase your chances to win the lottery',
+    link: 'https://discord.gg/astralyxyz',
+    isClaimed: false,
+    type: QuestType.SOCIAL,
   },
 ]
 
-export const productQuests = [
+export const productQuests: Quest[] = [
   {
-    icon: 'swap',
-    quest: 'Make a Swap',
-    reward: 'Rewards: 3x to win the lottery',
-    link: '/',
-    isClaimed: false,
+    _id: '3289429304',
+    idoId: 3,
+    name: 'Claim your ASTR!',
+    description: 'Claim 100 ASTR tokens using the Astraly faucet.',
+    icon: 'send',
+    link: '/buy',
     type: QuestType.PRODUCT,
+    event: (account: AccountInterface) => {
+      return {
+        name: 'Transfer',
+        transmitterContract: '0x05a6b68181bb48501a7a447a3f99936827e41d77114728960f22892f02e24928',
+        calldata: [
+          {
+            name: 'from_',
+            type: 'felt',
+            value: '0x02810b322f1709382244cebec85e47098d2b913e910ae5d3650aaa46ba6526fe',
+          },
+          {
+            name: 'to',
+            type: 'felt',
+            value: account.address,
+          },
+          {
+            name: 'value',
+            type: 'Uint256',
+            value: { low: formatUnits('100', 'ether'), high: 0 },
+          },
+        ],
+      }
+    },
   },
   {
-    icon: 'send',
-    quest: 'Provide Liquidity',
-    reward: 'Rewards: 5x to win the lottery',
-    link: '/',
-    isClaimed: true,
+    _id: '3289429304',
+    idoId: 0,
+    name: 'Lock your ASTR!',
+    description: 'Lock at least 100 ASTR tokens on Astraly.',
+    icon: 'lock',
+    link: '/stake',
     type: QuestType.PRODUCT,
+    event: (account?: AccountInterface) => {
+      return {
+        name: 'Deposit',
+        transmitterContract: '0x005ef67d8c38b82ba699f206bf0db59f1828087a710bad48cc4d51a2b0da4c29',
+        calldata: [
+          {
+            name: 'assets',
+            type: 'Uint256',
+            value: { low: formatUnits('100', 'ether'), high: 0 },
+          },
+        ],
+      }
+    },
   },
 ]

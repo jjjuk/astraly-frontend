@@ -6,6 +6,7 @@ export type ToastNotification = {
   title: string
   action: any
   postion: ToastPositions
+  isValid: boolean
 }
 
 export type ToastNotificationMessage = Partial<ToastNotification>

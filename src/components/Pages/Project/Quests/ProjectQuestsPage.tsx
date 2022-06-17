@@ -32,8 +32,8 @@ const ProjectQuestsPage = () => {
               <img src={Lightning} alt={''} />
               <ul className={'list-disc ml-8'}>
                 <li>
-                  <strong>Booster Quests</strong> are optional but provide you with a multiplier of
-                  the number of tickets you can get.
+                  <strong>Booster Quests</strong> are optional but increse your chances of winning
+                  an allocation when burning your lottery tickets.
                 </li>
                 <li>It’s also a great opportunity to learn more about the product by using it.</li>
               </ul>

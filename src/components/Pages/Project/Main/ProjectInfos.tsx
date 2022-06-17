@@ -20,7 +20,7 @@ const ProjectInfos = ({ project }: { project: Project }) => {
             <div className="info ml-4">
               <div className="text-16 text-primaryClear font-bold">Apply and invest in</div>
               <div className="font-heading text-24 2xl:text-40 text-primaryDark leading-12">
-                {project.name}
+                {project?.name}
               </div>
             </div>
 
@@ -38,10 +38,12 @@ const ProjectInfos = ({ project }: { project: Project }) => {
 
         <div className="block__item">
           <div className="flex-col 2xl:flex-row flex gap-3 w-full">
-            <BaseButton className={'w-full px-1'}>
-              <RocketIcon className={'mr-1'} />
-              Apply now
-            </BaseButton>
+            <Link href="/">
+              <BaseButton className={'w-full px-1'}>
+                <RocketIcon className={'mr-1'} />
+                Apply now
+              </BaseButton>
+            </Link>
             <Link href={`/project/${project.id}/quests`}>
               <a className="cursor-pointer w-full">
                 <BaseButton className={'w-full px-4 whitespace-nowrap'}>
@@ -67,8 +69,9 @@ const ProjectInfos = ({ project }: { project: Project }) => {
         <div className="block__item">
           <div className="title--small">Admission</div>
           <p className="text-primaryClear">
-            Have locked ASTR tokens 5 transactions on Uniswap in the last 6 month Have at least 2500$
-            of tokens on your wallet
+            Have ASTR tokens locked. On Astraly mainnet, the projects listed will be able to set
+            rules to participate in the fundraise like “have at least $2500 worth of assets in your
+            wallet” or “have used uniswap 5 times in the last 12 month”
           </p>
         </div>
 
@@ -77,21 +80,21 @@ const ProjectInfos = ({ project }: { project: Project }) => {
 
           <div className="flex justify-between mb-4">
             <div className="text-primaryClear">Hardcap</div>
-            <div className="font-heading text-primary text-right">${project?.totalRaise}</div>
+            <div className="font-heading text-primary text-right">ETH {project?.totalRaise}</div>
           </div>
 
           <div className="flex justify-between mb-4">
             <div className="text-primaryClear">Token price</div>
-            <div className="font-heading text-primary text-right">${project?.maxAllocation}</div>
+            <div className="font-heading text-primary text-right">ETH {project?.tokenPrice}</div>
             {
               // TODO get value
             }
           </div>
 
-          <div className="flex justify-between mb-4">
+          {/* <div className="flex justify-between mb-4">
             <div className="text-primaryClear">Max. Allocation</div>
             <div className="font-heading text-primary text-right">${project?.maxAllocation}</div>
-          </div>
+          </div> */}
 
           <div className="flex justify-between mb-4">
             <div className="text-primaryClear">Type</div>
@@ -100,7 +103,7 @@ const ProjectInfos = ({ project }: { project: Project }) => {
 
           <div className="flex justify-between">
             <div className="text-primaryClear">Blockchain</div>
-            <div className="font-heading text-primary text-right">Ethereum - L2: StarkNet</div>
+            <div className="font-heading text-primary text-right">StarkNet</div>
             {
               // TODO get value
             }

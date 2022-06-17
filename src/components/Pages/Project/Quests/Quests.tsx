@@ -12,7 +12,7 @@ const QuestBlocks = ({
   title,
   showQuest,
 }: {
-  quests: typeof socialQuests
+  quests: Quest[]
   title: string
   showQuest: any
 }) => {
@@ -31,13 +31,13 @@ const QuestBlocks = ({
               }`}>
               <div className="icon flex-shrink-0 mr-4">{getIcon(quest)}</div>
               <div>
-                <div className="">{quest.quest}</div>
+                <div className="">{quest.name}</div>
 
                 <div className="flex font-heading">
                   <div className="mr-1">
                     <Lightning />
                   </div>
-                  {quest.reward}
+                  {quest.description}
                 </div>
               </div>
             </div>

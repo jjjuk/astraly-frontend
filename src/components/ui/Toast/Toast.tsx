@@ -5,6 +5,7 @@ import ToastActions from '../../../actions/toast.actions'
 import styles from './Toast.module.scss'
 import BaseButton from '../buttons/BaseButton'
 import CheckIcon from 'assets/icons/solid/Check.svg'
+import CrossIcon from 'assets/icons/solid/Cross.svg'
 
 const Toast = ({ toast }: { toast: ToastNotification }) => {
   const dispatch = useAppDispatch()
@@ -23,7 +24,11 @@ const Toast = ({ toast }: { toast: ToastNotification }) => {
         <div className="flex items-start">
           <div className="flex mr-20 items-start">
             <div className="icon">
-              <img src={CheckIcon} />
+              <img
+                className="bg-purple"
+                src={toast.isValid ? CheckIcon : CrossIcon}
+                alt="is-valid-icon"
+              />
             </div>
             <div>
               <div className="text-12 text-primaryClear">{toast.title}</div>

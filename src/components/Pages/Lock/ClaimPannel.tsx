@@ -46,6 +46,7 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
               View on explorer
             </a>
           ),
+          isValid: true,
         })
       )
     } catch (e) {

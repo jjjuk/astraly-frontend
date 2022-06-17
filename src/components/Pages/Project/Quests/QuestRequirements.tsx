@@ -1,6 +1,7 @@
 import BaseButton from '../../../ui/buttons/BaseButton'
 import Check from 'assets/icons/solid/Check.svg'
 import { LockIcon, CheckedIcon } from '../../../ui/Icons/Icons'
+import Link from 'next/link'
 
 const QuestRequirements = () => {
   return (
@@ -30,10 +31,12 @@ const QuestRequirements = () => {
               <img src={Check} alt={''} className={'mr-2 transform -translate-y-0.5'} />
               Lock 200 ASTR on our vault
             </div>
-            <BaseButton>
-              <LockIcon className={'mr-1'} />
-              Lock more $ASTR
-            </BaseButton>
+            <Link href="/stake">
+              <BaseButton>
+                <LockIcon className={'mr-1'} />
+                Lock more $ASTR
+              </BaseButton>
+            </Link>
           </div>
         </div>
       </div>
