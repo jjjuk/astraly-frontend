@@ -719,7 +719,7 @@ const StakePage: NextPage = () => {
                       fontFamily={'Druk Wide Web'}
                       marginTop={'auto'}
                       marginBottom={'auto'}>
-                      {Math.round(Math.pow(Number(xzkpBalance) + Number(previewXZKP), 0.6))}
+                      {Math.floor(Math.pow(Number(xzkpBalance) + Number(previewXZKP), 0.6))}
                     </Flex>
                   </Flex>
                   <Flex

@@ -184,7 +184,7 @@ const LockForm = ({
               {updatingPreview ? (
                 <Spinner />
               ) : (
-                Math.round(Math.pow(Number(xzkpBalance) + Number(previewXZKP), 0.6))
+                Math.floor(Math.pow(Number(xzkpBalance) + Number(previewXZKP), 0.6))
               )}
             </div>
           </div>
