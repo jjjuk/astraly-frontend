@@ -2,14 +2,49 @@ import { transactions } from './transactions'
 import { format } from 'date-fns'
 import Link from 'next/link'
 import Exclamation from 'assets/icons/Exclamation.svg'
+import { useEffect, useState } from 'react'
+import { useStakingContract } from 'contracts/staking'
+import { useStarknetReact } from '@web3-starknet-react/core'
+import { ethers } from 'ethers'
+import { uint256 } from 'starknet'
 
 const InvestmentOverview = () => {
-  const stats = [
-    ['$ASTR Staked', '1,135.56'],
-    ['ASTR-LP Staked', '315.24'],
-    ['Total $USD invested', '$34,230'],
-    ['IDO participations', '3'],
-  ]
+  const { account } = useStarknetReact()
+
+  const [stats, setStats] = useState([['']])
+  const { getUserInfo } = useStakingContract()
+
+  const fetchInformation = async () => {
+    try {
+      const _userInfo = await getUserInfo(account?.address)
+      // console.log(_userInfo)
+      const _stakedZKP = ethers.utils.formatUnits(
+        uint256.uint256ToBN(_userInfo?.info?.amount).toString(),
+        'ether'
+      )
+
+      const stats = [
+        ['$ASTR Staked', _stakedZKP],
+        ['ASTR-LP Staked', '0.0'],
+        ['Total $USD invested', '0.0'],
+        ['IDO participations', '0'],
+      ]
+      setStats(stats)
+    } catch (e) {
+      console.error(e)
+      const stats = [
+        ['$ASTR Staked', '-'],
+        ['ASTR-LP Staked', '-'],
+        ['Total $USD invested', '-'],
+        ['IDO participations', '-'],
+      ]
+      setStats(stats)
+    }
+  }
+
+  useEffect(() => {
+    fetchInformation()
+  }, [])
 
   return (
     <div className="block">

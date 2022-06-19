@@ -37,7 +37,7 @@ const launchpad: NextPage = () => {
       <Container>
         <h2 className="text-24 text-primaryClear font-heading mb-6 mt-8">FINISHED LAUNCHPADS</h2>
       </Container>
-      <ProjectsSlider />
+      {/* <ProjectsSlider /> */}
     </div>
   )
 }
