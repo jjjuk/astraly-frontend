@@ -78,19 +78,20 @@ const InvestmentOverview = () => {
           <div className="text-right">Transaction</div>
         </div>
 
-        {transactions.map((transaction, index) => (
-          <div
-            className="grid grid-cols-3 font-heading text-primaryClear bg-primaryClearBg rounded-3xl  px-4 md:px-8 py-6 text-[10px] md:text-12 mb-2"
-            key={index}>
-            <div>{transaction.action}</div>
-            <div>{format(transaction.date, 'dd MMMM yyyy')}</div>
-            <div className="text-right text-primary">
-              <Link href={'/'}>
-                <a className="cursor-pointer">View on Voyager</a>
-              </Link>
+        {transactions &&
+          transactions.map((transaction: any, index) => (
+            <div
+              className="grid grid-cols-3 font-heading text-primaryClear bg-primaryClearBg rounded-3xl  px-4 md:px-8 py-6 text-[10px] md:text-12 mb-2"
+              key={index}>
+              <div>{transaction?.action}</div>
+              <div>{format(transaction?.date, 'dd MMMM yyyy')}</div>
+              <div className="text-right text-primary">
+                <Link href={'/'}>
+                  <a className="cursor-pointer">View on Voyager</a>
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   )
