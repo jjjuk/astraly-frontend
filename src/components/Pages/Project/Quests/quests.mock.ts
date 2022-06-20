@@ -25,7 +25,7 @@ export const socialQuests: Quest[] = [
 
 export const productQuests: Quest[] = [
   {
-    _id: '3289429304',
+    _id: '62b0d0d97b8d23057e2e143e',
     idoId: 3,
     name: 'Claim your ASTR!',
     description: 'Claim 100 ASTR tokens using the Astraly faucet.',
@@ -57,8 +57,8 @@ export const productQuests: Quest[] = [
     },
   },
   {
-    _id: '3289429304',
-    idoId: 0,
+    _id: '62b0d14b7b8d23057e2e143f',
+    idoId: 3,
     name: 'Lock your ASTR!',
     description: 'Lock at least 100 ASTR tokens on Astraly.',
     icon: 'lock',
