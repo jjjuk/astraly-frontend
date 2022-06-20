@@ -35,6 +35,7 @@ function MyApp({ Component, pageProps }) {
     splitbee.init({
       scriptUrl: '/bee.js',
       apiUrl: '/_hive',
+      token: 'FVZ18D6TRP3C',
     })
   }, [])
 
