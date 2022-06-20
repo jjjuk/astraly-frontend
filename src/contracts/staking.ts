@@ -97,24 +97,33 @@ export const useStakingContract = () => {
       ],
     }
 
-    // const _approveLPTx: Call = {
-    //   contractAddress: lpToken,
-    //   entrypoint: 'approve',
-    //   calldata: [contract.address, ...parseInputAmountToUint256ExecuteCall(amountLP)]
-    // };
+    const _approveLPTx: Call = {
+      contractAddress: lpToken,
+      entrypoint: 'approve',
+      calldata: [contract.address, ...parseInputAmountToUint256ExecuteCall(amountLP)],
+    }
 
-    // const _depositLPTx: Call = {
-    //   contractAddress: contract.address,
-    //   entrypoint: 'depositLP',
-    //   calldata: [
-    //     lpToken,
-    //     ...parseInputAmountToUint256ExecuteCall(amountLP),
-    //     account.address,
-    //     toFelt(lockTime)
-    //   ]
-    // };
+    const _depositLPTx: Call = {
+      contractAddress: contract.address,
+      entrypoint: 'depositLP',
+      calldata: [
+        lpToken,
+        ...parseInputAmountToUint256ExecuteCall(amountLP),
+        account.address,
+        toFelt(lockTime),
+      ],
+    }
+    let calls
+    if (Number(amountLP) > 0 && Number(amountZKP) > 0)
+      calls = [_approveTx, _approveLPTx, _depositTx, _depositLPTx]
+    else if (Number(amountLP) > 0) {
+      calls = [_approveLPTx, _depositLPTx]
+    } else {
+      calls = [_approveTx, _depositTx]
+    }
+    console.log(calls)
 
-    return await account.execute([_approveTx, _depositTx])
+    return await account.execute(calls)
   }
 
   const redeem = async (shares: string, account: AccountInterface) => {

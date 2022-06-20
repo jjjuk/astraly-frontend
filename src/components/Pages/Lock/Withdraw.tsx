@@ -7,17 +7,22 @@ import { useStakingContract } from 'contracts/staking'
 import { number, Result, uint256 } from 'starknet'
 import { ethers } from 'ethers'
 import { Spinner } from '@chakra-ui/react'
+import { Contracts } from 'constants/networks'
 
 const Withdraw = ({
   xzkpBalance,
   unlockRemainingTime,
   stakeInfo,
   userInfo,
+  lpStaked,
+  zkpStaked,
 }: {
   xzkpBalance: string
   unlockRemainingTime: number
   stakeInfo: Result
   userInfo: Result
+  lpStaked: string | null
+  zkpStaked: string | null
 }) => {
   const { account } = useStarknetReact()
   const [withdrawing, setWithdrawing] = useState(false)
@@ -43,16 +48,9 @@ const Withdraw = ({
         <div className="title--medium mb-6">Withdraw Liquid Pool</div>
         <div className="flex items-center justify-between text-16 mb-2">
           <div className="text-primaryClear">ASTR Staked</div>
-          <div className="font-heading text-primary">
-            {userInfo?.info?.amount ? (
-              ethers.utils.formatUnits(
-                uint256.uint256ToBN(userInfo?.info?.amount).toString(),
-                'ether'
-              )
-            ) : (
-              <Spinner />
-            )}
-          </div>
+          <div className="font-heading text-primary">{zkpStaked ? zkpStaked : <Spinner />}</div>
+          <div className="text-primaryClear">ASTR-LP Staked</div>
+          <div className="font-heading text-primary">{lpStaked ? lpStaked : <Spinner />}</div>
         </div>
         <div className="flex items-center justify-between text-16">
           <div className="text-primaryClear">Time left to unlock</div>
