@@ -3,9 +3,11 @@ import BaseButton from 'components/ui/buttons/BaseButton'
 import Lightning from 'assets/icons/currentColor/Lightning-alt.svg?inline'
 import { ForwardIcon } from 'components/ui/Icons/Icons'
 import QuestModal from './QuestModal'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Quest } from 'interfaces'
 import { getIcon } from './utils'
+import { useSelector } from 'react-redux'
+import { RootState } from 'stores/reduxStore'
 
 const QuestBlocks = ({
   quests,
@@ -16,6 +18,10 @@ const QuestBlocks = ({
   title: string
   showQuest: any
 }) => {
+  const { user } = useSelector((state: RootState) => state.Auth)
+
+  useEffect(() => console.log('u', user), [user])
+
   return (
     <div className="block mb-4">
       <div className="hidden lg:block bg-line bg-line--quests"></div>
@@ -27,7 +33,9 @@ const QuestBlocks = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10" key={index}>
             <div
               className={`flex items-center ${
-                quest.isClaimed ? 'text-whitePurple' : 'text-primary'
+                user?.questCompleted?.find((q: any) => q._id === quest._id)
+                  ? 'text-whitePurple'
+                  : 'text-primary'
               }`}>
               <div className="icon flex-shrink-0 mr-4">{getIcon(quest)}</div>
               <div>
@@ -42,9 +50,12 @@ const QuestBlocks = ({
               </div>
             </div>
             <BaseButton
-              className={`${quest.isClaimed && 'opacity-50 pointer-events-none'} `}
+              className={`${
+                user?.questCompleted?.find((q: any) => q._id === quest._id) &&
+                'opacity-50 pointer-events-none'
+              } `}
               onClick={() => showQuest(quest)}>
-              {quest.isClaimed ? (
+              {user?.questCompleted?.find((q: any) => q._id === quest._id) ? (
                 'Claimed'
               ) : (
                 <>

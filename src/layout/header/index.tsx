@@ -26,8 +26,8 @@ const Index = () => {
       dispatch(WalletConnectActions.connectWallet(token, false))
       dispatch(AuthActions.fetchStart())
       try {
-        const { data } = await getAccountDetails()
-        console.log(data)
+        const data = await getAccountDetails()
+        // console.log('data', data)
         dispatch(AuthActions.fetchSuccess(data))
       } catch {
         dispatch(AuthActions.fetchFailed())
