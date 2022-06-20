@@ -81,11 +81,11 @@ export const useApi = () => {
 
   const validateQuest = async (questId: string) => {
     return client
-      .query({
+      .mutate({
         variables: {
           questId,
         },
-        query: gql`
+        mutation: gql`
           mutation completeQuest($questId: String!) {
             completeQuest(questId: $questId) {
               _id

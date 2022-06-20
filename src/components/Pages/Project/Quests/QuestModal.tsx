@@ -16,6 +16,7 @@ import { verifyQuest } from 'utils/decode'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { useSelector } from 'react-redux'
 import { RootState } from 'stores/reduxStore'
+import { useApi } from 'api'
 
 const QuestModal = ({
   quest,
@@ -30,6 +31,7 @@ const QuestModal = ({
   const { account } = useStarknetReact()
   const dispatch = useAppDispatch()
   const { authToken } = useSelector((state: RootState) => state.ConnectWallet)
+  const { validateQuest } = useApi()
 
   const approve = async () => {
     if (!quest || !account) return
@@ -37,6 +39,8 @@ const QuestModal = ({
       const valid = await verifyQuest(url, quest, account, authToken)
 
       if (valid) {
+        validateQuest(String(quest._id))
+
         dispatch(
           ToastActions.addToast({
             title: 'Successful quest',
@@ -58,6 +62,18 @@ const QuestModal = ({
           })
         )
       }
+    } else {
+      validateQuest(String(quest._id))
+      dispatch(
+        ToastActions.addToast({
+          title: 'Successful quest',
+          action: (
+            <div className="font-heading text-12 text-primary">Your chances are now increased</div>
+          ),
+          isValid: true,
+        })
+      )
+      close()
     }
   }
 
