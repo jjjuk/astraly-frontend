@@ -101,7 +101,7 @@ const BurnPage = () => {
   const fetchQuestsInfo = async () => {
     if (!project) return
     try {
-      const proof = await fetchProof(authToken, project.id.toString())
+      const proof = await fetchProof(project.id.toString())
       setMerkleProof(proof.data)
     } catch (error) {
       console.error(error)
