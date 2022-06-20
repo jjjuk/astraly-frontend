@@ -96,10 +96,14 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
 
       <div className="mb-6">{getContent()}</div>
 
-      <div className="text-12 text-center text-white flex items-center justify-center font-bold">
+      <a
+        className="text-12 text-center text-white flex items-center justify-center font-bold"
+        href="https://wp.astraly.xyz/step-by-step-guide/connecting-your-staknet-wallet"
+        target={'_blank'}
+        rel="noreferrer">
         <img src={Book} alt={''} className="mr-2" />
         How to get a Starknet Wallet?
-      </div>
+      </a>
     </div>
   )
 }
