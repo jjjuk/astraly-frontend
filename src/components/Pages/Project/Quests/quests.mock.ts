@@ -1,4 +1,4 @@
-import { formatUnits } from 'ethers/lib/utils'
+import { parseUnits } from 'ethers/lib/utils'
 import { AccountInterface } from 'starknet'
 import { Quest, QuestType } from '../../../../interfaces'
 
@@ -50,7 +50,7 @@ export const productQuests: Quest[] = [
           {
             name: 'value',
             type: 'Uint256',
-            value: { low: formatUnits('100', 'ether'), high: 0 },
+            value: { low: parseUnits('100.0', 'ether').toString(), high: 0 },
           },
         ],
       }
@@ -72,7 +72,7 @@ export const productQuests: Quest[] = [
           {
             name: 'assets',
             type: 'Uint256',
-            value: { low: formatUnits('100', 'ether'), high: 0 },
+            value: { low: parseUnits('100.0', 'ether').toString(), high: 0 },
           },
         ],
       }
