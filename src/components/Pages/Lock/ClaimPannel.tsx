@@ -83,8 +83,7 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
             <div className="ml-2">
               <Hint>
                 <div className="font-bold w-[260px] px-2 py-2">
-                  Mauris elit metus, rutrum eu malesuada ac, interdum a ex. Suspendisse quis
-                  ullamcorper nibh, sit amet cursus arcu. Duis faucibus risus nec rhoncus varius.
+                  You can only get $ZKP or ZKP-LP from AlphaRoad for now
                 </div>
               </Hint>
             </div>
