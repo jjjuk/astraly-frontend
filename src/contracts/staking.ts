@@ -220,7 +220,7 @@ export const useStakingContract = () => {
   const getZKPLPStaked = async () => {
     const contract = await getXZKPContract()
 
-    const _totalStaked = await contract.call('totalFloatLP', [])
+    const _totalStaked = await contract.call('totalFloatLP', [Contracts['SN_GOERLI'].lp_token])
     const _totalStakedFormatted = ethers.utils.formatUnits(
       uint256ToBN(_totalStaked.float).toString(),
       'ether'

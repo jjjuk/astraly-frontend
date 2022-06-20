@@ -758,6 +758,23 @@ export const XZKP_TOKEN_ABI = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        name: 'lp_token',
+        type: 'felt',
+      },
+    ],
+    name: 'totalFloatLP',
+    outputs: [
+      {
+        name: 'float',
+        type: 'Uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'totalStrategyHoldings',
     outputs: [
