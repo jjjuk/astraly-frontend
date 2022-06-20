@@ -11,6 +11,7 @@ export const Contracts = {
     faucet: '',
     lp_token: '',
     eth: '',
+    factory: '',
   },
   SN_GOERLI: {
     token: '0x05a6b68181bb48501a7a447a3f99936827e41d77114728960f22892f02e24928',
@@ -19,5 +20,6 @@ export const Contracts = {
     faucet: '0x02810b322f1709382244cebec85e47098d2b913e910ae5d3650aaa46ba6526fe',
     lp_token: '0x38bd0f8aff67ade736159d373cf3399d15529445b147b6b3348cc96cdf66ad8',
     eth: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+    factory: '0x04db841c9371a7b84de3bcf69dcb5946eb81793b405228bf5862995f1d08023b',
   },
 }

@@ -2887,4 +2887,925 @@ export const FAUCET_ABI = [
   },
 ]
 
-export default { ZKP_TOKEN_ABI, XZKP_TOKEN_ABI, LOTTERY_TOKEN_ABI, FAUCET_ABI }
+export const IDO_FACTORY_ABI = [
+  {
+    data: [
+      {
+        name: 'id',
+        type: 'felt',
+      },
+      {
+        name: 'address',
+        type: 'felt',
+      },
+    ],
+    keys: [],
+    name: 'IDO_Created',
+    type: 'event',
+  },
+  {
+    inputs: [
+      {
+        name: 'id',
+        type: 'felt',
+      },
+    ],
+    name: 'get_ido_launch_date',
+    outputs: [
+      {
+        name: 'launch_date',
+        type: 'felt',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'id',
+        type: 'felt',
+      },
+    ],
+    name: 'get_ido_address',
+    outputs: [
+      {
+        name: 'address',
+        type: 'felt',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'get_random_number_generator_address',
+    outputs: [
+      {
+        name: 'res',
+        type: 'felt',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'get_lottery_ticket_contract_address',
+    outputs: [
+      {
+        name: 'res',
+        type: 'felt',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'get_payment_token_address',
+    outputs: [
+      {
+        name: 'payment_token_address',
+        type: 'felt',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'id',
+        type: 'felt',
+      },
+    ],
+    name: 'get_merkle_root',
+    outputs: [
+      {
+        name: 'merkle_root',
+        type: 'felt',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'get_ido_contract_class_hash',
+    outputs: [
+      {
+        name: 'class_hash',
+        type: 'felt',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: '_ido_contract_class_hash',
+        type: 'felt',
+      },
+      {
+        name: 'owner_',
+        type: 'felt',
+      },
+    ],
+    name: 'constructor',
+    outputs: [],
+    type: 'constructor',
+  },
+  {
+    inputs: [],
+    name: 'create_ido',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'rnd_nbr_gen_adr',
+        type: 'felt',
+      },
+    ],
+    name: 'set_random_number_generator_address',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'task_addr',
+        type: 'felt',
+      },
+    ],
+    name: 'set_task_address',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: '_lottery_ticket_contract_address',
+        type: 'felt',
+      },
+    ],
+    name: 'set_lottery_ticket_contract_address',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: '_pmt_tkn_addr',
+        type: 'felt',
+      },
+    ],
+    name: 'set_payment_token_address',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: '_merkle_root',
+        type: 'felt',
+      },
+      {
+        name: '_id',
+        type: 'felt',
+      },
+    ],
+    name: 'set_merkle_root',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'new_class_hash',
+        type: 'felt',
+      },
+    ],
+    name: 'set_ido_contract_class_hash',
+    outputs: [],
+    type: 'function',
+  },
+]
+
+export const IDO_CONTRACT_ABI = [
+  {
+    members: [
+      {
+        name: 'low',
+        offset: 0,
+        type: 'felt',
+      },
+      {
+        name: 'high',
+        offset: 1,
+        type: 'felt',
+      },
+    ],
+    name: 'Uint256',
+    size: 2,
+    type: 'struct',
+  },
+  {
+    members: [
+      {
+        name: 'token',
+        offset: 0,
+        type: 'felt',
+      },
+      {
+        name: 'is_created',
+        offset: 1,
+        type: 'felt',
+      },
+      {
+        name: 'raised_funds_withdrawn',
+        offset: 2,
+        type: 'felt',
+      },
+      {
+        name: 'leftover_withdrawn',
+        offset: 3,
+        type: 'felt',
+      },
+      {
+        name: 'tokens_deposited',
+        offset: 4,
+        type: 'felt',
+      },
+      {
+        name: 'sale_owner',
+        offset: 5,
+        type: 'felt',
+      },
+      {
+        name: 'token_price',
+        offset: 6,
+        type: 'Uint256',
+      },
+      {
+        name: 'amount_of_tokens_to_sell',
+        offset: 8,
+        type: 'Uint256',
+      },
+      {
+        name: 'total_tokens_sold',
+        offset: 10,
+        type: 'Uint256',
+      },
+      {
+        name: 'total_winning_tickets',
+        offset: 12,
+        type: 'Uint256',
+      },
+      {
+        name: 'total_raised',
+        offset: 14,
+        type: 'Uint256',
+      },
+      {
+        name: 'sale_end',
+        offset: 16,
+        type: 'felt',
+      },
+      {
+        name: 'tokens_unlock_time',
+        offset: 17,
+        type: 'felt',
+      },
+      {
+        name: 'lottery_tickets_burn_cap',
+        offset: 18,
+        type: 'Uint256',
+      },
+      {
+        name: 'number_of_participants',
+        offset: 20,
+        type: 'Uint256',
+      },
+    ],
+    name: 'Sale',
+    size: 22,
+    type: 'struct',
+  },
+  {
+    members: [
+      {
+        name: 'amount_bought',
+        offset: 0,
+        type: 'Uint256',
+      },
+      {
+        name: 'amount_paid',
+        offset: 2,
+        type: 'Uint256',
+      },
+      {
+        name: 'time_participated',
+        offset: 4,
+        type: 'felt',
+      },
+      {
+        name: 'last_portion_withdrawn',
+        offset: 5,
+        type: 'felt',
+      },
+    ],
+    name: 'Participation',
+    size: 6,
+    type: 'struct',
+  },
+  {
+    members: [
+      {
+        name: 'time_starts',
+        offset: 0,
+        type: 'felt',
+      },
+      {
+        name: 'time_ends',
+        offset: 1,
+        type: 'felt',
+      },
+      {
+        name: 'number_of_purchases',
+        offset: 2,
+        type: 'Uint256',
+      },
+    ],
+    name: 'Purchase_Round',
+    size: 4,
+    type: 'struct',
+  },
+  {
+    members: [
+      {
+        name: 'registration_time_starts',
+        offset: 0,
+        type: 'felt',
+      },
+      {
+        name: 'registration_time_ends',
+        offset: 1,
+        type: 'felt',
+      },
+      {
+        name: 'number_of_registrants',
+        offset: 2,
+        type: 'Uint256',
+      },
+    ],
+    name: 'Registration',
+    size: 4,
+    type: 'struct',
+  },
+  {
+    members: [
+      {
+        name: 'time_starts',
+        offset: 0,
+        type: 'felt',
+      },
+    ],
+    name: 'Distribution_Round',
+    size: 1,
+    type: 'struct',
+  },
+  {
+    data: [
+      {
+        name: 'user_address',
+        type: 'felt',
+      },
+      {
+        name: 'amount',
+        type: 'Uint256',
+      },
+    ],
+    keys: [],
+    name: 'tokens_sold',
+    type: 'event',
+  },
+  {
+    data: [
+      {
+        name: 'user_address',
+        type: 'felt',
+      },
+      {
+        name: 'winning_lottery_tickets',
+        type: 'Uint256',
+      },
+      {
+        name: 'amount_burnt',
+        type: 'Uint256',
+      },
+    ],
+    keys: [],
+    name: 'user_registered',
+    type: 'event',
+  },
+  {
+    data: [
+      {
+        name: 'new_price',
+        type: 'Uint256',
+      },
+    ],
+    keys: [],
+    name: 'token_price_set',
+    type: 'event',
+  },
+  {
+    data: [
+      {
+        name: 'allocation',
+        type: 'Uint256',
+      },
+      {
+        name: 'sold',
+        type: 'Uint256',
+      },
+    ],
+    keys: [],
+    name: 'allocation_computed',
+    type: 'event',
+  },
+  {
+    data: [
+      {
+        name: 'user_address',
+        type: 'felt',
+      },
+      {
+        name: 'amount',
+        type: 'Uint256',
+      },
+    ],
+    keys: [],
+    name: 'tokens_withdrawn',
+    type: 'event',
+  },
+  {
+    data: [
+      {
+        name: 'sale_owner_address',
+        type: 'felt',
+      },
+      {
+        name: 'token_price',
+        type: 'Uint256',
+      },
+      {
+        name: 'amount_of_tokens_to_sell',
+        type: 'Uint256',
+      },
+      {
+        name: 'sale_end',
+        type: 'felt',
+      },
+      {
+        name: 'tokens_unlock_time',
+        type: 'felt',
+      },
+    ],
+    keys: [],
+    name: 'sale_created',
+    type: 'event',
+  },
+  {
+    data: [
+      {
+        name: 'registration_time_starts',
+        type: 'felt',
+      },
+      {
+        name: 'registration_time_ends',
+        type: 'felt',
+      },
+    ],
+    keys: [],
+    name: 'registration_time_set',
+    type: 'event',
+  },
+  {
+    data: [
+      {
+        name: 'purchase_time_starts',
+        type: 'felt',
+      },
+      {
+        name: 'purchase_time_ends',
+        type: 'felt',
+      },
+    ],
+    keys: [],
+    name: 'purchase_round_time_set',
+    type: 'event',
+  },
+  {
+    data: [
+      {
+        name: 'dist_time_starts',
+        type: 'felt',
+      },
+    ],
+    keys: [],
+    name: 'distribtion_round_time_set',
+    type: 'event',
+  },
+  {
+    data: [
+      {
+        name: 'new_ido_contract_address',
+        type: 'felt',
+      },
+    ],
+    keys: [],
+    name: 'IDO_Created',
+    type: 'event',
+  },
+  {
+    inputs: [
+      {
+        name: '_admin_address',
+        type: 'felt',
+      },
+    ],
+    name: 'constructor',
+    outputs: [],
+    type: 'constructor',
+  },
+  {
+    inputs: [],
+    name: 'get_ido_launch_date',
+    outputs: [
+      {
+        name: 'res',
+        type: 'felt',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'get_current_sale',
+    outputs: [
+      {
+        name: 'res',
+        type: 'Sale',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'account',
+        type: 'felt',
+      },
+    ],
+    name: 'get_user_info',
+    outputs: [
+      {
+        name: 'participation',
+        type: 'Participation',
+      },
+      {
+        name: 'tickets',
+        type: 'Uint256',
+      },
+      {
+        name: 'allocations',
+        type: 'Uint256',
+      },
+      {
+        name: 'is_registered',
+        type: 'felt',
+      },
+      {
+        name: 'has_participated',
+        type: 'felt',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'get_purchase_round',
+    outputs: [
+      {
+        name: 'res',
+        type: 'Purchase_Round',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'get_registration',
+    outputs: [
+      {
+        name: 'res',
+        type: 'Registration',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'get_distribution_round',
+    outputs: [
+      {
+        name: 'res',
+        type: 'Distribution_Round',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'portion_id',
+        type: 'felt',
+      },
+    ],
+    name: 'get_vesting_portion_percent',
+    outputs: [
+      {
+        name: 'res',
+        type: 'Uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'portion_id',
+        type: 'felt',
+      },
+    ],
+    name: 'get_vestion_portion_unlock_time',
+    outputs: [
+      {
+        name: 'res',
+        type: 'felt',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'get_number_of_vesting_portions',
+    outputs: [
+      {
+        name: 'res',
+        type: 'felt',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: '_unlocking_times_len',
+        type: 'felt',
+      },
+      {
+        name: '_unlocking_times',
+        type: 'felt*',
+      },
+      {
+        name: '_percents_len',
+        type: 'felt',
+      },
+      {
+        name: '_percents',
+        type: 'Uint256*',
+      },
+      {
+        name: '_max_vesting_time_shift',
+        type: 'felt',
+      },
+    ],
+    name: 'set_vesting_params',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: '_token_address',
+        type: 'felt',
+      },
+      {
+        name: '_sale_owner_address',
+        type: 'felt',
+      },
+      {
+        name: '_token_price',
+        type: 'Uint256',
+      },
+      {
+        name: '_amount_of_tokens_to_sell',
+        type: 'Uint256',
+      },
+      {
+        name: '_sale_end_time',
+        type: 'felt',
+      },
+      {
+        name: '_tokens_unlock_time',
+        type: 'felt',
+      },
+      {
+        name: '_portion_vesting_precision',
+        type: 'Uint256',
+      },
+      {
+        name: '_lottery_tickets_burn_cap',
+        type: 'Uint256',
+      },
+    ],
+    name: 'set_sale_params',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: '_sale_token_address',
+        type: 'felt',
+      },
+    ],
+    name: 'set_sale_token',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: '_registration_time_starts',
+        type: 'felt',
+      },
+      {
+        name: '_registration_time_ends',
+        type: 'felt',
+      },
+    ],
+    name: 'set_registration_time',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: '_purchase_time_starts',
+        type: 'felt',
+      },
+      {
+        name: '_purchase_time_ends',
+        type: 'felt',
+      },
+    ],
+    name: 'set_purchase_round_params',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: '_dist_time_starts',
+        type: 'felt',
+      },
+    ],
+    name: 'set_dist_round_params',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'amount',
+        type: 'Uint256',
+      },
+      {
+        name: 'account',
+        type: 'felt',
+      },
+      {
+        name: 'nb_quest',
+        type: 'felt',
+      },
+    ],
+    name: 'register_user',
+    outputs: [
+      {
+        name: 'res',
+        type: 'felt',
+      },
+    ],
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'calculate_allocation',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'tickets_burnt',
+        type: 'Uint256',
+      },
+      {
+        name: 'nb_quest',
+        type: 'felt',
+      },
+    ],
+    name: 'draw_winning_tickets',
+    outputs: [
+      {
+        name: 'res',
+        type: 'Uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'amount_paid',
+        type: 'Uint256',
+      },
+    ],
+    name: 'participate',
+    outputs: [
+      {
+        name: 'res',
+        type: 'felt',
+      },
+    ],
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'deposit_tokens',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'portion_id',
+        type: 'felt',
+      },
+    ],
+    name: 'withdraw_tokens',
+    outputs: [],
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        name: 'portion_ids_len',
+        type: 'felt',
+      },
+      {
+        name: 'portion_ids',
+        type: 'felt*',
+      },
+    ],
+    name: 'withdraw_multiple_portions',
+    outputs: [],
+    type: 'function',
+  },
+]
+
+export default {
+  ZKP_TOKEN_ABI,
+  XZKP_TOKEN_ABI,
+  LOTTERY_TOKEN_ABI,
+  FAUCET_ABI,
+  IDO_CONTRACT_ABI,
+  IDO_FACTORY_ABI,
+}

@@ -12,11 +12,12 @@ import { useTokenContract } from 'contracts'
 import { useLotteryTokenContract } from 'contracts/lottery'
 import { RootState } from 'stores/reduxStore'
 import { useApi } from 'api'
-import { uint256 } from 'starknet'
+import { Result, uint256 } from 'starknet'
 import { Spinner } from '@chakra-ui/react'
 import { FireIcon } from 'components/ui/Icons/Icons'
 import ToastActions from 'actions/toast.actions'
 import { useAppDispatch } from 'hooks/hooks'
+import { useIDOContract } from 'contracts/ido'
 
 const BurnPage = () => {
   const router = useRouter()
@@ -24,6 +25,7 @@ const BurnPage = () => {
   const { pid } = router.query
   const [project, setProject] = useState<Project | undefined>(undefined)
   const [ticketsBalance, setTicketsBalance] = useState('0')
+  const [userInfo, setUserInfo] = useState<Result>({} as Result)
   const [amountToBurn, setAmountToBurn] = useState('0')
   const [burning, setBurning] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -34,6 +36,7 @@ const BurnPage = () => {
   const { user } = useSelector((state: RootState) => state.Auth)
 
   const { burn: burnTickets, getTicketsBalance, burnWithQuest } = useLotteryTokenContract()
+  const { getUserInfo } = useIDOContract()
 
   const { fetchProof } = useApi()
 
@@ -84,6 +87,10 @@ const BurnPage = () => {
       const _ticketsBalance = await getTicketsBalance(account?.address, project?.id.toString())
       // console.log(_ticketsBalance)
       setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString())
+
+      const _userInfo = await getUserInfo(account?.address, project?.id.toString())
+      setUserInfo(_userInfo)
+
       setLoading(false)
     } catch (e) {
       console.error(e)
@@ -121,12 +128,21 @@ const BurnPage = () => {
             <div className="block--contrast">
               <div className="title--medium mb-1">Lottery tickets to burn</div>
 
-              <div className="flex items-center">
+              <div className="flex items-center justify-between">
                 <div className="text-primaryClear font-bold transform translate-y-px">
                   Available
                 </div>
 
                 <div className="font-heading text-primary ml-6">{ticketsBalance}</div>
+                <div className="text-primaryClear font-bold transform translate-y-px">Winning</div>
+
+                <div className="font-heading text-primary ml-6">
+                  {userInfo?.tickets ? (
+                    uint256.uint256ToBN(userInfo.tickets).toString()
+                  ) : (
+                    <Spinner />
+                  )}
+                </div>
               </div>
             </div>
 

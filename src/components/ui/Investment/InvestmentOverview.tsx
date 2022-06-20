@@ -7,25 +7,33 @@ import { useStakingContract } from 'contracts/staking'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { ethers } from 'ethers'
 import { uint256 } from 'starknet'
+import { Contracts } from 'constants/networks'
 
 const InvestmentOverview = () => {
   const { account } = useStarknetReact()
 
   const [stats, setStats] = useState([['']])
-  const { getUserInfo } = useStakingContract()
+  const { getUserDeposit } = useStakingContract()
 
   const fetchInformation = async () => {
     try {
-      const _userInfo = await getUserInfo(account?.address)
+      const _userInfo = await getUserDeposit(account?.address, Contracts['SN_GOERLI'].token)
       // console.log(_userInfo)
       const _stakedZKP = ethers.utils.formatUnits(
-        uint256.uint256ToBN(_userInfo?.info?.amount).toString(),
+        uint256.uint256ToBN(_userInfo?.amount).toString(),
+        'ether'
+      )
+
+      const _userInfoLP = await getUserDeposit(account?.address, Contracts['SN_GOERLI'].lp_token)
+      // console.log(_userInfo)
+      const _stakedLP = ethers.utils.formatUnits(
+        uint256.uint256ToBN(_userInfoLP?.amount).toString(),
         'ether'
       )
 
       const stats = [
         ['$ASTR Staked', _stakedZKP],
-        ['ASTR-LP Staked', '0.0'],
+        ['ASTR-LP Staked', _stakedLP],
         ['Total $USD invested', '0.0'],
         ['IDO participations', '0'],
       ]
