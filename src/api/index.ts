@@ -1,69 +1,115 @@
-import axios from 'axios'
-import { AccountInterface } from 'starknet'
-
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET'
 
-const corsHeader = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-}
+// const corsHeader = {
+//   'Access-Control-Allow-Origin': '*',
+//   'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+// }
+
+import { ApolloClient, InMemoryCache, gql, ApolloLink, concat, HttpLink } from '@apollo/client'
 
 export const useApi = () => {
-  const apiUrl = isMainnet ? 'https://zkpad-api.herokuapp.com' : 'http://localhost:5001'
+  const apiUrl = isMainnet ? 'https://zkpad-api.herokuapp.com' : 'http://localhost:4004/api/graphql'
+
+  const httpLink = new HttpLink({ uri: apiUrl })
+
+  const authMiddleware = new ApolloLink((operation, forward) => {
+    // add the authorization to the headers
+    const token = localStorage.getItem('token')
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    })
+    return forward(operation)
+  })
+
+  const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    link: concat(authMiddleware, httpLink),
+  })
 
   const getAuthToken = async (address: string | null | undefined) => {
-    const result = await axios({
-      method: 'post',
-      url: `${apiUrl}/auth/getToken`,
-      data: { address: address },
-      // headers: {'Content-Type': 'application/json', ...corsHeader}
-    })
-    if (result.data.status === 'success') {
-      const token = result.data.token
-      return token
-    }
-    return null
+    console.log('getAuthToken', address)
+    return client
+      .query({
+        variables: {
+          address,
+        },
+        query: gql`
+          query getToken($address: String!) {
+            getToken(address: $address)
+          }
+        `,
+      })
+      .then(({ data }) => {
+        console.log({
+          data,
+        })
+        if (data.getToken) {
+          const token = data.getToken
+          localStorage.setItem('token', token)
+          return token
+        }
+
+        return null
+      })
   }
 
-  const getAccountDetails = async (authToken: string | null | undefined) => {
-    const res = await axios({
-      method: 'get',
-      url: `${apiUrl}/account/getaccountinfo`,
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-        // ...corsHeader
-      },
-    })
-
-    return res.data
+  const getAccountDetails = async () => {
+    return client
+      .query({
+        query: gql`
+          query me {
+            me {
+              _id
+              address
+              alias
+              bannerHash
+              bio
+              email
+              nonce
+              questCompleted {
+                _id
+                idoId
+              }
+            }
+          }
+        `,
+      })
+      .then(({ data }) => data.me)
   }
 
-  const validateQuest = async (authToken: string | null | undefined, questId: string) => {
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/quest/onQuestCompleted`,
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-        // ...corsHeader
-      },
-      data: { questId },
-    })
-
-    return res.data
+  const validateQuest = async (questId: string) => {
+    return client
+      .query({
+        variables: {
+          questId,
+        },
+        query: gql`
+          mutation completeQuest($questId: String!) {
+            completeQuest(questId: $questId) {
+              _id
+              idoId
+            }
+          }
+        `,
+      })
+      .then(({ data }) => data.completeQuest)
   }
 
-  const fetchProof = async (authToken: string | null | undefined, idoID: string) => {
-    const res = await axios({
-      method: 'post',
-      url: `${apiUrl}/quest/getMerkleProof`,
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-        // ...corsHeader
-      },
-      data: { idoID },
-    })
-
-    return res.data
+  const fetchProof = async (idoId: string) => {
+    return client
+      .query({
+        variables: {
+          idoId,
+        },
+        query: gql`
+          query getMerkleProof($idoId: String!) {
+            getMerkleProof(idoId: $idoId)
+          }
+        `,
+      })
+      .then(({ data }) => data.getMerkleProof)
   }
 
   return { getAuthToken, getAccountDetails, validateQuest, fetchProof }

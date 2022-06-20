@@ -1,56 +1,56 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Flex, Image, NumberInput, NumberInputField, Spinner, Text } from '@chakra-ui/react';
-import { useStarknetReact } from '@web3-starknet-react/core';
-import { ethers } from 'ethers';
-import { uint256 } from 'starknet';
-import { useTokenContract } from 'contracts';
-import { useLotteryTokenContract } from 'contracts/lottery';
-import { useSelector } from 'react-redux';
-import { RootState } from 'stores/reduxStore';
-import { useApi } from 'api';
+import React, { useEffect, useState } from 'react'
+import { Button, Flex, Image, NumberInput, NumberInputField, Spinner, Text } from '@chakra-ui/react'
+import { useStarknetReact } from '@web3-starknet-react/core'
+import { ethers } from 'ethers'
+import { uint256 } from 'starknet'
+import { useTokenContract } from 'contracts'
+import { useLotteryTokenContract } from 'contracts/lottery'
+import { useSelector } from 'react-redux'
+import { RootState } from 'stores/reduxStore'
+import { useApi } from 'api'
 
 const ClaimOrBurn = ({ burn, idoID }: any) => {
-  const { account } = useStarknetReact();
-  const [xzkpBalance, setXZkpBalance] = useState('0');
-  const [ticketsBalance, setTicketsBalance] = useState('0');
-  const [amountToBurn, setAmountToBurn] = useState('0');
-  const [loading, setLoading] = useState(false);
-  const [claiming, setClaiming] = useState(false);
-  const [burning, setBurning] = useState(false);
+  const { account } = useStarknetReact()
+  const [xzkpBalance, setXZkpBalance] = useState('0')
+  const [ticketsBalance, setTicketsBalance] = useState('0')
+  const [amountToBurn, setAmountToBurn] = useState('0')
+  const [loading, setLoading] = useState(false)
+  const [claiming, setClaiming] = useState(false)
+  const [burning, setBurning] = useState(false)
 
-  const [merkleProof, setMerkleProof] = useState<string[]>([]);
+  const [merkleProof, setMerkleProof] = useState<string[]>([])
 
-  const { authToken } = useSelector((state: RootState) => state.ConnectWallet);
-  const { user } = useSelector((state: RootState) => state.Auth);
+  const { authToken } = useSelector((state: RootState) => state.ConnectWallet)
+  const { user } = useSelector((state: RootState) => state.Auth)
 
-  const { getXZKPBalance } = useTokenContract();
+  const { getXZKPBalance } = useTokenContract()
   const {
     claimLotteryTickets,
     burn: burnTickets,
     getTicketsBalance,
-    burnWithQuest
-  } = useLotteryTokenContract();
+    burnWithQuest,
+  } = useLotteryTokenContract()
 
-  const { fetchProof } = useApi();
+  const { fetchProof } = useApi()
 
   const handleClaimTickets = async () => {
     try {
-      setClaiming(true);
-      const tx = await claimLotteryTickets(idoID);
-      console.log(tx);
-      setClaiming(false);
+      setClaiming(true)
+      const tx = await claimLotteryTickets(idoID)
+      console.log(tx)
+      setClaiming(false)
     } catch (e) {
-      console.error(e);
-      setClaiming(false);
+      console.error(e)
+      setClaiming(false)
     }
-  };
+  }
 
   const handleBurnTickets = async () => {
     try {
-      setBurning(true);
+      setBurning(true)
       if (user.questsCompleted.length === 0) {
-        const tx = await burnTickets(account, idoID, amountToBurn);
-        console.log(tx);
+        const tx = await burnTickets(account, idoID, amountToBurn)
+        console.log(tx)
       } else {
         const tx = await burnWithQuest(
           account,
@@ -58,56 +58,56 @@ const ClaimOrBurn = ({ burn, idoID }: any) => {
           amountToBurn,
           user.questsCompleted.length,
           merkleProof
-        );
-        console.log(tx);
+        )
+        console.log(tx)
       }
-      setBurning(false);
+      setBurning(false)
     } catch (e) {
-      console.error(e);
-      setBurning(false);
+      console.error(e)
+      setBurning(false)
     }
-  };
+  }
 
   const fetchBalances = async () => {
     try {
-      setLoading(true);
-      const _xbalance = await getXZKPBalance(account?.address);
+      setLoading(true)
+      const _xbalance = await getXZKPBalance(account?.address)
       const _xformattedBalance = ethers.utils.formatUnits(
         uint256.uint256ToBN(_xbalance.balance).toString(),
         'ether'
-      );
-      setXZkpBalance(_xformattedBalance);
+      )
+      setXZkpBalance(_xformattedBalance)
 
-      const _ticketsBalance = await getTicketsBalance(account?.address, idoID);
-      console.log(_ticketsBalance);
-      setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString());
-      setLoading(false);
+      const _ticketsBalance = await getTicketsBalance(account?.address, idoID)
+      console.log(_ticketsBalance)
+      setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString())
+      setLoading(false)
     } catch (e) {
-      console.error(e);
-      setLoading(false);
+      console.error(e)
+      setLoading(false)
     }
-  };
+  }
 
   const fetchQuestsInfo = async () => {
     try {
-      const proof = await fetchProof(authToken, idoID);
-      setMerkleProof(proof.data);
+      const proof = await fetchProof(idoID)
+      setMerkleProof(proof.data)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   useEffect(() => {
     if (account?.address) {
-      fetchBalances();
+      fetchBalances()
     }
-  }, [account]);
+  }, [account])
 
   useEffect(() => {
     if (authToken) {
-      fetchQuestsInfo();
+      fetchQuestsInfo()
     }
-  }, [authToken]);
+  }, [authToken])
 
   return (
     <Flex width={'100%'} bg="#fff" border={'2px #fff solid'} borderRadius="24px" flexDir={'column'}>
@@ -117,16 +117,14 @@ const ClaimOrBurn = ({ burn, idoID }: any) => {
         width={'100%'}
         padding="25px"
         gridGap={'8px'}
-        flexDir="column"
-      >
+        flexDir="column">
         {burn ? (
           <Text
             fontFamily="Druk Wide Web"
             fontWeight="700"
             fontSize="24px"
             lineHeight="31px"
-            color="#370063"
-          >
+            color="#370063">
             Lottery tickets to burn
           </Text>
         ) : (
@@ -135,8 +133,7 @@ const ClaimOrBurn = ({ burn, idoID }: any) => {
             fontWeight="700"
             fontSize="24px"
             lineHeight="31px"
-            color="#370063"
-          >
+            color="#370063">
             Total Claimable Tickets
           </Text>
         )}
@@ -149,15 +146,14 @@ const ClaimOrBurn = ({ burn, idoID }: any) => {
             fontWeight="700"
             fontSize="16px"
             lineHeight="21px"
-            color="#8F00FF"
-          >
+            color="#8F00FF">
             {burn
               ? loading
                 ? '...'
                 : Number(ticketsBalance)
               : loading
-                ? '...'
-                : Math.floor(Math.pow(Number(xzkpBalance), 0.6))}
+              ? '...'
+              : Math.floor(Math.pow(Number(xzkpBalance), 0.6))}
           </Text>
         </Flex>
       </Flex>
@@ -169,8 +165,7 @@ const ClaimOrBurn = ({ burn, idoID }: any) => {
             width="100%"
             onChange={(valueString: string) => setAmountToBurn(valueString)}
             value={amountToBurn}
-            position={'relative'}
-          >
+            position={'relative'}>
             <NumberInputField
               bg="#fff"
               textAlign="right"
@@ -189,8 +184,7 @@ const ClaimOrBurn = ({ burn, idoID }: any) => {
               fontWeight="700"
               fontSize="12px"
               color="#9D69DE"
-              zIndex={'10'}
-            >
+              zIndex={'10'}>
               Tickets
             </Text>
           </NumberInput>
@@ -205,8 +199,7 @@ const ClaimOrBurn = ({ burn, idoID }: any) => {
             py="25px"
             color="white"
             _hover={{ bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)' }}
-            onClick={handleBurnTickets}
-          >
+            onClick={handleBurnTickets}>
             {burning ? <Spinner /> : 'Burn Tickets'}
           </Button>
         </Flex>
@@ -222,8 +215,7 @@ const ClaimOrBurn = ({ burn, idoID }: any) => {
             py="25px"
             color="white"
             _hover={{ bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)' }}
-            onClick={handleClaimTickets}
-          >
+            onClick={handleClaimTickets}>
             {claiming ? <Spinner /> : 'Claim Tokens'}
           </Button>
           <Button
@@ -235,14 +227,13 @@ const ClaimOrBurn = ({ burn, idoID }: any) => {
             fontFamily="Druk Wide Web"
             py="25px"
             color="white"
-            _hover={{ bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)' }}
-          >
+            _hover={{ bg: 'linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%)' }}>
             Lock More ASTR
           </Button>
         </Flex>
       )}
     </Flex>
-  );
-};
+  )
+}
 
-export default ClaimOrBurn;
+export default ClaimOrBurn

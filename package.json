@@ -19,6 +19,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.6.8",
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.6",
     "@emotion/react": "^11",
@@ -36,6 +37,7 @@
     "ethers": "^5.6.8",
     "file-loader": "^6.2.0",
     "framer-motion": "^6",
+    "graphql": "^16.5.0",
     "lodash": "^4.17.21",
     "next": "12.1.0",
     "next-seo": "^5.1.0",

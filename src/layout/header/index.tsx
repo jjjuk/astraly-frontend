@@ -20,12 +20,13 @@ const Index = () => {
     try {
       setLoading(true)
       const token = await getAuthToken(account?.address)
+      console.warn({ token })
       // const isModerator = await getIsModerator(account);
 
       dispatch(WalletConnectActions.connectWallet(token, false))
       dispatch(AuthActions.fetchStart())
       try {
-        const { data } = await getAccountDetails(token)
+        const { data } = await getAccountDetails()
         console.log(data)
         dispatch(AuthActions.fetchSuccess(data))
       } catch {
