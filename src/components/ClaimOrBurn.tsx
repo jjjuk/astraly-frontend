@@ -79,7 +79,7 @@ const ClaimOrBurn = ({ burn, idoID }: any) => {
       setXZkpBalance(_xformattedBalance)
 
       const _ticketsBalance = await getTicketsBalance(account?.address, idoID)
-      console.log(_ticketsBalance)
+      // console.log(_ticketsBalance)
       setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString())
       setLoading(false)
     } catch (e) {

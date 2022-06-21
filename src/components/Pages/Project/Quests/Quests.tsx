@@ -20,8 +20,6 @@ const QuestBlocks = ({
 }) => {
   const { user } = useSelector((state: RootState) => state.Auth)
 
-  useEffect(() => console.log('u', user), [user])
-
   return (
     <div className="block mb-4">
       <div className="hidden lg:block bg-line bg-line--quests"></div>

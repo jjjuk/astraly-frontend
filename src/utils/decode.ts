@@ -19,8 +19,8 @@ const { validateQuest } = useApi()
 export const verifyQuest = async (
   txHash: string,
   quest: Quest,
-  account: AccountInterface,
-  authToken: string | null | undefined
+  account: AccountInterface
+  // authToken: string | null | undefined
 ) => {
   try {
     if (!quest.event || !quest._id) return false

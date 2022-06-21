@@ -31,7 +31,7 @@ export const useApi = () => {
   })
 
   const getAuthToken = async (address: string | null | undefined) => {
-    console.log('getAuthToken', address)
+    // console.log('getAuthToken', address)
     return client
       .query({
         variables: {

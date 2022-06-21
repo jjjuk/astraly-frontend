@@ -79,7 +79,7 @@ const ProjectClaimPage = () => {
         <div className="block mb-4">
           <div className="block--contrast">
             <div className="title--medium mb-1">Total Claimable Tickets</div>
-
+            <div className="title--small mb-5">YOU CAN ONLY CLAIM TICKETS ONCE PER IDO!</div>
             <div className="flex items-center">
               <div className="text-primaryClear font-bold transform translate-y-px">Available</div>
 

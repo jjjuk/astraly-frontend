@@ -121,7 +121,7 @@ export const useStakingContract = () => {
     } else {
       calls = [_approveTx, _depositTx]
     }
-    console.log(calls)
+    // console.log(calls)
 
     return await account.execute(calls)
   }

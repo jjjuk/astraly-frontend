@@ -33,9 +33,9 @@ const LockPage = () => {
     try {
       const apr = await getStakingAPY()
       const num_periods = 365 // Compound Daily
-      console.log(apr)
+      // console.log(apr)
       const apy = (1 + apr / num_periods) ** num_periods - 1
-      console.log(apy)
+      // console.log(apy)
       setCurrentAPY(apr)
     } catch (error) {
       console.error(error)

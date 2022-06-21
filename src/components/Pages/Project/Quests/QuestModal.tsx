@@ -30,13 +30,13 @@ const QuestModal = ({
   const [url, setUrl] = useState('')
   const { account } = useStarknetReact()
   const dispatch = useAppDispatch()
-  const { authToken } = useSelector((state: RootState) => state.ConnectWallet)
+  // const { authToken } = useSelector((state: RootState) => state.ConnectWallet)
   const { validateQuest } = useApi()
 
   const approve = async () => {
     if (!quest || !account) return
     if (quest.type === QuestType.PRODUCT) {
-      const valid = await verifyQuest(url, quest, account, authToken)
+      const valid = await verifyQuest(url, quest, account)
 
       if (valid) {
         validateQuest(String(quest._id))
