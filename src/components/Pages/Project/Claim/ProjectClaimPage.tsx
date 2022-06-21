@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Project } from '../../../../interfaces'
 import { projects } from '../../../../utils/data'
 import ProjectLayout from '../ProjectLayout'
@@ -17,18 +17,23 @@ import { uint256 } from 'starknet'
 import { Spinner } from '@chakra-ui/react'
 import { LockIcon, SendIcon } from '../../../ui/Icons/Icons'
 import Link from 'next/link'
+import { useTransactions } from 'context/TransactionsProvider'
 
 const ProjectClaimPage = () => {
   const router = useRouter()
   const { pid } = router.query
   const { account } = useStarknetReact()
+  const [ticketsBalance, setTicketsBalance] = useState(null)
   const [xzkpBalance, setXZkpBalance] = useState('0')
   const [project, setProject] = useState<Project | undefined>(undefined)
   const [claiming, setClaiming] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [hasClaimed, setHasClaimed] = useState(false)
 
   const { getXZKPBalance } = useTokenContract()
-  const { claimLotteryTickets } = useLotteryTokenContract()
+  const { claimLotteryTickets, getTicketsBalance } = useLotteryTokenContract()
+
+  const { addTransaction } = useTransactions()
 
   useEffect(() => {
     setProject(projects.find((p) => p.id === Number(pid)))
@@ -38,7 +43,12 @@ const ProjectClaimPage = () => {
     try {
       setClaiming(true)
       const tx = await claimLotteryTickets(project?.id.toString())
-      console.log(tx)
+      addTransaction(
+        tx,
+        'Claim Tickets',
+        () => fetchBalances(),
+        () => {}
+      )
       setClaiming(false)
     } catch (e) {
       console.error(e)
@@ -55,6 +65,9 @@ const ProjectClaimPage = () => {
         'ether'
       )
       setXZkpBalance(_xformattedBalance)
+
+      const _ticketsBalance = await getTicketsBalance(account?.address, project?.id.toString())
+      setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString())
 
       setLoading(false)
     } catch (e) {
@@ -81,17 +94,32 @@ const ProjectClaimPage = () => {
             <div className="title--medium mb-1">Total Claimable Tickets</div>
             <div className="title--small mb-5">YOU CAN ONLY CLAIM TICKETS ONCE PER IDO!</div>
             <div className="flex items-center">
-              <div className="text-primaryClear font-bold transform translate-y-px">Available</div>
-
-              <div className="font-heading text-primary ml-6">
-                {loading ? '...' : Math.floor(Math.pow(Number(xzkpBalance), 0.6))}
-              </div>
+              {/* TODO: CHANGE THIS TO CHECK WITH API */}
+              {loading ? (
+                <Spinner />
+              ) : Number(ticketsBalance) > 0 ? (
+                <div className="text-primaryClear font-bold transform translate-y-px">
+                  Tickets already claimed
+                </div>
+              ) : (
+                <>
+                  <div className="text-primaryClear font-bold transform translate-y-px">
+                    Available
+                  </div>
+                  <div className="font-heading text-primary ml-6">
+                    {Math.floor(Math.pow(Number(xzkpBalance), 0.6))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
           <div className="block__item">
             <div className="flex flex-col md:flex-row gap-4">
-              <BaseButton className="w-full" onClick={handleClaimTickets} disabled={claiming}>
+              <BaseButton
+                className="w-full"
+                onClick={handleClaimTickets}
+                disabled={claiming || Number(ticketsBalance) > 0}>
                 <SendIcon className={'mr-2'} />
                 {claiming ? <Spinner /> : 'Claim Tickets'}
               </BaseButton>
