@@ -97,11 +97,15 @@ const LockPage = () => {
     }
   }
 
+  const updateAll = () => {
+    fetchBalances()
+    fetchStakeInfo()
+    fetchAPYs()
+  }
+
   useEffect(() => {
     if (account?.address) {
-      fetchBalances()
-      fetchStakeInfo()
-      fetchAPYs()
+      updateAll()
     }
   }, [account])
 
@@ -121,6 +125,7 @@ const LockPage = () => {
                 xzkpBalance={xzkpBalance}
                 currentAPY={currentAPY}
                 unlockRemainingTime={unlockRemainingTime}
+                onSuccess={updateAll}
               />
             </div>
             {/* <div className="mb-10">
@@ -134,6 +139,7 @@ const LockPage = () => {
               userInfo={userInfo}
               lpStaked={lpStaked}
               zkpStaked={zkpStaked}
+              onSuccess={updateAll}
             />
           </div>
 

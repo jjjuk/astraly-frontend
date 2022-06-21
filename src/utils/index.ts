@@ -1,6 +1,6 @@
 import { encode, number, uint256 } from 'starknet'
 import { utils } from 'ethers'
-import { VoyagerLink } from 'constants'
+import { VoyagerLink } from 'constants/index'
 
 export const isValidAddress = (address: string): boolean => /^0x[0-9a-f]{1,64}$/.test(address)
 
