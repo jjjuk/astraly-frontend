@@ -12,11 +12,6 @@ const Toast = ({ toast }: { toast: ToastNotification }) => {
   const remove = () => {
     dispatch(ToastActions.removeToast(toast.id))
   }
-  useState(() => {
-    setTimeout(() => {
-      remove()
-    }, toast.delay)
-  })
 
   useEffect(() => {
     let id: any
