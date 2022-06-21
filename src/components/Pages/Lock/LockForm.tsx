@@ -13,6 +13,7 @@ import { uint256 } from 'starknet'
 import { Spinner } from '@chakra-ui/react'
 import { useAppDispatch } from 'hooks/hooks'
 import ToastActions from 'actions/toast.actions'
+import { useTransactions } from 'context/TransactionsProvider'
 
 const LockForm = ({
   zkpBalance,
@@ -20,12 +21,14 @@ const LockForm = ({
   xzkpBalance,
   currentAPY,
   unlockRemainingTime,
+  onSuccess,
 }: {
   zkpBalance: string
   lpBalance: string
   xzkpBalance: string
   currentAPY: number
   unlockRemainingTime: number
+  onSuccess: () => void
 }) => {
   const { account } = useStarknetReact()
 
@@ -49,6 +52,7 @@ const LockForm = ({
   )
 
   const dispatch = useAppDispatch()
+  const { addTransaction } = useTransactions()
 
   const handleLock = async () => {
     if (!account?.address) return
@@ -63,19 +67,7 @@ const LockForm = ({
         account,
         _daysPassed
       )
-      dispatch(
-        ToastActions.addToast({
-          title: 'Tokens Locked',
-          action: (
-            <a
-              className="font-heading text-12 text-primary"
-              href={`https://goerli.voyager.online/tx/${tx.transaction_hash}`}>
-              View on explorer
-            </a>
-          ),
-          isValid: true,
-        })
-      )
+      addTransaction(tx, 'Lock Tokens', onSuccess, () => {})
       setLocking(false)
     } catch (e) {
       console.error(e)

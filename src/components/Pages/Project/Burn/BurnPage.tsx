@@ -18,6 +18,7 @@ import { FireIcon } from 'components/ui/Icons/Icons'
 import ToastActions from 'actions/toast.actions'
 import { useAppDispatch } from 'hooks/hooks'
 import { useIDOContract } from 'contracts/ido'
+import { useTransactions } from 'context/TransactionsProvider'
 
 const BurnPage = () => {
   const router = useRouter()
@@ -42,6 +43,8 @@ const BurnPage = () => {
 
   const dispatch = useAppDispatch()
 
+  const { addTransaction } = useTransactions()
+
   useEffect(() => {
     setProject(projects.find((p) => p.id === Number(pid)))
   }, [pid])
@@ -61,19 +64,13 @@ const BurnPage = () => {
           merkleProof
         )
       }
-      dispatch(
-        ToastActions.addToast({
-          title: 'Claim made',
-          action: (
-            <a
-              className="font-heading text-12 text-primary"
-              href={`https://goerli.voyager.online/tx/${tx.transaction_hash}`}>
-              View on explorer
-            </a>
-          ),
-          isValid: true,
-        })
+      addTransaction(
+        tx,
+        'Burn Tickets',
+        () => fetchBalances(),
+        () => {}
       )
+
       setBurning(false)
     } catch (e) {
       console.error(e)

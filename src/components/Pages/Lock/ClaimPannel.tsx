@@ -10,6 +10,7 @@ import Hint from '../../ui/Hint/Hint'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { uint256 } from 'starknet'
 import { ethers } from 'ethers'
+import { useTransactions } from 'context/TransactionsProvider'
 
 const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
   const { account } = useStarknetReact()
@@ -19,6 +20,8 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
 
   const [harvesting, setHarvesting] = useState(false)
   const [pendingRewards, setPendingRewards] = useState('0')
+
+  const { addTransaction } = useTransactions()
 
   const Step = ({ children, index }: PropsWithChildren<{ index: number }>) => {
     return (
@@ -35,20 +38,13 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
     try {
       setHarvesting(true)
       const tx = await harvestRewards()
-      setHarvesting(false)
-      dispatch(
-        ToastActions.addToast({
-          title: 'Claim made',
-          action: (
-            <a
-              className="font-heading text-12 text-primary"
-              href={`https://goerli.voyager.online/tx/${tx.transaction_hash}`}>
-              View on explorer
-            </a>
-          ),
-          isValid: true,
-        })
+      addTransaction(
+        tx,
+        'Harvest Rewards',
+        () => updateRewards(),
+        () => {}
       )
+      setHarvesting(false)
     } catch (e) {
       console.error(e)
       setHarvesting(false)
@@ -83,7 +79,7 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
             <div className="ml-2">
               <Hint>
                 <div className="font-bold w-[260px] px-2 py-2">
-                  You can only get $ZKP or ZKP-LP from AlphaRoad for now
+                  You can only get $ASTR or ASTR-LP from AlphaRoad for now
                 </div>
               </Hint>
             </div>

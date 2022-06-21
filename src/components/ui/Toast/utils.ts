@@ -7,6 +7,7 @@ export type ToastNotification = {
   action: any
   postion: ToastPositions
   isValid: boolean
+  autoClose: boolean
 }
 
 export type ToastNotificationMessage = Partial<ToastNotification>

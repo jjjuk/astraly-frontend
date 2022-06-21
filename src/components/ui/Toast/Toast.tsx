@@ -1,5 +1,5 @@
 import { ToastNotification } from './utils'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch } from '../../../hooks/hooks'
 import ToastActions from '../../../actions/toast.actions'
 import styles from './Toast.module.scss'
@@ -17,6 +17,15 @@ const Toast = ({ toast }: { toast: ToastNotification }) => {
       remove()
     }, toast.delay)
   })
+
+  useEffect(() => {
+    let id: any
+    if (toast.autoClose) {
+      id = setTimeout(() => remove(), toast.delay)
+    }
+
+    return () => clearTimeout(id)
+  }, [toast])
 
   return (
     <div className={styles.toastNotificationContainer}>

@@ -8,6 +8,7 @@ import { number, Result, uint256 } from 'starknet'
 import { ethers } from 'ethers'
 import { Spinner } from '@chakra-ui/react'
 import { Contracts } from 'constants/networks'
+import { useTransactions } from 'context/TransactionsProvider'
 
 const Withdraw = ({
   xzkpBalance,
@@ -16,6 +17,7 @@ const Withdraw = ({
   userInfo,
   lpStaked,
   zkpStaked,
+  onSuccess,
 }: {
   xzkpBalance: string
   unlockRemainingTime: number
@@ -23,10 +25,12 @@ const Withdraw = ({
   userInfo: Result
   lpStaked: string | null
   zkpStaked: string | null
+  onSuccess: () => void
 }) => {
   const { account } = useStarknetReact()
   const [withdrawing, setWithdrawing] = useState(false)
   const { redeem } = useStakingContract()
+  const { addTransaction } = useTransactions()
 
   const handleWithdraw = async () => {
     if (!account?.address) return
@@ -34,7 +38,8 @@ const Withdraw = ({
     try {
       setWithdrawing(true)
       const tx = await redeem(xzkpBalance, account)
-      console.log(tx)
+      addTransaction(tx, 'Withdraw Tokens', onSuccess, () => {})
+
       setWithdrawing(false)
     } catch (e) {
       console.error(e)

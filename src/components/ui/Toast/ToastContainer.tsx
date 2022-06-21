@@ -11,7 +11,7 @@ const ToastContainer = () => {
   return (
     <div className={styles.toastContainer}>
       <TransitionGroup>
-        {toasts.map((toast: ToastNotification) => (
+        {toasts?.map((toast: ToastNotification) => (
           <CSSTransition key={toast.id} timeout={600} classNames="from-right">
             <Toast toast={toast} />
           </CSSTransition>

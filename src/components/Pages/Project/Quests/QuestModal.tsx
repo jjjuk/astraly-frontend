@@ -50,6 +50,7 @@ const QuestModal = ({
               </div>
             ),
             isValid: true,
+            autoClose: true,
           })
         )
         close()
@@ -59,6 +60,7 @@ const QuestModal = ({
             title: 'Transaction hash not valid',
             action: <div className="font-heading text-12 text-primary">Try again</div>,
             isValid: false,
+            autoClose: true,
           })
         )
       }
@@ -71,6 +73,7 @@ const QuestModal = ({
             <div className="font-heading text-12 text-primary">Your chances are now increased</div>
           ),
           isValid: true,
+          autoClose: true,
         })
       )
       close()

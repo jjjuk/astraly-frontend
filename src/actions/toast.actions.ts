@@ -13,7 +13,7 @@ const ToastActions = {
       return dispatch({
         type: ToastConstants.ADD_TOAST,
         toast: {
-          id: getUID(),
+          id: toast.id ?? getUID(),
           delay: DEFAULT_DELAY,
           position: ToastPositions.CENTER_LEFT,
           ...toast,
@@ -26,6 +26,19 @@ const ToastActions = {
       return dispatch({
         type: ToastConstants.REMOVE_TOAST,
         id: typeof toast === 'string' ? toast : toast.id,
+      })
+    }
+  },
+  updateToast(toast: ToastNotificationMessage) {
+    return (dispatch: any) => {
+      return dispatch({
+        type: ToastConstants.UPDATE_TOAST,
+        toast: {
+          id: toast.id,
+          delay: DEFAULT_DELAY,
+          position: ToastPositions.CENTER_LEFT,
+          ...toast,
+        },
       })
     }
   },

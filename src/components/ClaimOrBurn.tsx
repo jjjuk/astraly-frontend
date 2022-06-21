@@ -8,6 +8,7 @@ import { useLotteryTokenContract } from 'contracts/lottery'
 import { useSelector } from 'react-redux'
 import { RootState } from 'stores/reduxStore'
 import { useApi } from 'api'
+import { useTransactions } from 'context/TransactionsProvider'
 
 const ClaimOrBurn = ({ burn, idoID }: any) => {
   const { account } = useStarknetReact()
@@ -31,13 +32,20 @@ const ClaimOrBurn = ({ burn, idoID }: any) => {
     burnWithQuest,
   } = useLotteryTokenContract()
 
+  const { addTransaction } = useTransactions()
+
   const { fetchProof } = useApi()
 
   const handleClaimTickets = async () => {
     try {
       setClaiming(true)
       const tx = await claimLotteryTickets(idoID)
-      console.log(tx)
+      addTransaction(
+        tx,
+        'Claim Tickets',
+        () => fetchBalances(),
+        () => {}
+      )
       setClaiming(false)
     } catch (e) {
       console.error(e)

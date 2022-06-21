@@ -1,5 +1,6 @@
 import { encode, number, uint256 } from 'starknet'
 import { utils } from 'ethers'
+import { VoyagerLink } from 'constants'
 
 export const isValidAddress = (address: string): boolean => /^0x[0-9a-f]{1,64}$/.test(address)
 
@@ -29,3 +30,7 @@ export function parseInputAmountToUint256ExecuteCall(input: string, decimals = 1
 }
 
 export const getUID = () => '_' + (Math.random() * Math.random()).toString(36).substring(2, 9)
+
+export const getVoyagerLink = (txHash: string): string => {
+  return `${VoyagerLink}/tx/${txHash}`
+}

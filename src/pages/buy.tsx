@@ -14,6 +14,7 @@ import BuyPage from 'components/Pages/Buy/BuyPage'
 import BaseButton from 'components/ui/buttons/BaseButton'
 import { WalletIcon } from 'components/ui/Icons/Icons'
 import Chevron from 'assets/icons/Chevron.svg?inline'
+import { useTransactions } from 'context/TransactionsProvider'
 
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET'
 const CHAIN = isMainnet ? 'SN_MAIN' : 'SN_GOERLI'
@@ -30,10 +31,11 @@ const BuyPageContainer = () => {
     useFaucetContract()
 
   const { authToken } = useSelector((state: RootState) => state.ConnectWallet)
-
+  const { addTransaction } = useTransactions()
   const handleTransfer = async () => {
     try {
-      await faucetTransfer()
+      const tx = await faucetTransfer()
+      addTransaction(tx, 'Mint Tokens', fetchInfo, () => {})
     } catch (error) {
       console.error(error)
     }
