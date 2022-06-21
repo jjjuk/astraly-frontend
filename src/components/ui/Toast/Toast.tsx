@@ -5,7 +5,7 @@ import ToastActions from '../../../actions/toast.actions'
 import styles from './Toast.module.scss'
 import BaseButton from '../buttons/BaseButton'
 import CheckIcon from 'assets/icons/solid/Check.svg'
-import CrossIcon from 'assets/icons/solid/Cross.svg'
+import CrossIcon from 'assets/icons/solid/Cross_purple.svg'
 
 const Toast = ({ toast }: { toast: ToastNotification }) => {
   const dispatch = useAppDispatch()
