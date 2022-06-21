@@ -88,7 +88,11 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps): JSX.Elem
             id: hash,
             title: `${description} | Transmitted to network`,
             action: (
-              <a className="font-heading text-12 text-primary" href={voyagerLink}>
+              <a
+                className="font-heading text-12 text-primary"
+                href={voyagerLink}
+                target="_blank"
+                rel="noreferrer">
                 {linkLabel}
               </a>
             ),
@@ -106,7 +110,11 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps): JSX.Elem
             id: hash,
             title: `${description} | Success`,
             action: (
-              <a className="font-heading text-12 text-primary" href={getVoyagerLink(hash)}>
+              <a
+                className="font-heading text-12 text-primary"
+                href={voyagerLink}
+                target="_blank"
+                rel="noreferrer">
                 View on explorer
               </a>
             ),
@@ -124,7 +132,11 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps): JSX.Elem
             id: hash,
             title: `${description} | Confirmed`,
             action: (
-              <a className="font-heading text-12 text-primary" href={getVoyagerLink(hash)}>
+              <a
+                className="font-heading text-12 text-primary"
+                href={voyagerLink}
+                target="_blank"
+                rel="noreferrer">
                 View on explorer
               </a>
             ),
@@ -140,7 +152,11 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps): JSX.Elem
             id: hash,
             title: `${description} | Rejected`,
             action: (
-              <a className="font-heading text-12 text-primary" href={getVoyagerLink(hash)}>
+              <a
+                className="font-heading text-12 text-primary"
+                href={voyagerLink}
+                target="_blank"
+                rel="noreferrer">
                 View on explorer
               </a>
             ),
