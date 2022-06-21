@@ -8,20 +8,20 @@ export const rounds: Round[] = [
   {
     title: 'Ticket Claim',
     description: 'You can claim your ticket.',
-    startDate: new Date(1655481600 * 1000),
-    endDate: new Date(1655827200 * 1000),
+    startDate: new Date(1655913600 * 1000),
+    endDate: new Date(1656086400 * 1000),
   },
   {
     title: 'Allocation',
     description: 'You can burn your ticket for allocations.',
-    startDate: new Date(1655827200 * 1000),
-    endDate: new Date(1656000000 * 1000),
+    startDate: new Date(1656086400 * 1000),
+    endDate: new Date(1656259200 * 1000),
   },
   {
     title: 'Purchase',
     description: 'You can invest in the IDO.',
-    startDate: new Date(1656000000 * 1000),
-    endDate: new Date(1656345600 * 1000),
+    startDate: new Date(1656259200 * 1000),
+    endDate: new Date(1656359200 * 1000),
   },
   {
     title: 'Distribution',
