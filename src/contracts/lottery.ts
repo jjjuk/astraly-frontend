@@ -34,7 +34,7 @@ export const useLotteryTokenContract = () => {
 
     return await contract.invoke('burn', [
       account?.address,
-      parseInputAmountToUint256(id.toString()),
+      parseInputAmountToUint256(id.toString(), 0),
       parseInputAmountToUint256(amount, 0),
     ])
   }

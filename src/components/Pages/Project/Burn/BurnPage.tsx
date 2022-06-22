@@ -12,7 +12,7 @@ import { useTokenContract } from 'contracts'
 import { useLotteryTokenContract } from 'contracts/lottery'
 import { RootState } from 'stores/reduxStore'
 import { useApi } from 'api'
-import { Result, uint256 } from 'starknet'
+import { Result, uint256, hash } from 'starknet'
 import { Spinner } from '@chakra-ui/react'
 import { FireIcon } from 'components/ui/Icons/Icons'
 import ToastActions from 'actions/toast.actions'
@@ -51,18 +51,19 @@ const BurnPage = () => {
   const handleBurnTickets = async () => {
     try {
       setBurning(true)
-      let tx
-      if (!user.questsCompleted || user.questsCompleted.length === 0) {
-        tx = await burnTickets(account, pid, amountToBurn)
-      } else {
-        tx = await burnWithQuest(
-          account,
-          pid,
-          amountToBurn,
-          user.questsCompleted?.length,
-          merkleProof
-        )
-      }
+      const tx = await burnTickets(account, pid, amountToBurn)
+      // let tx
+      // if (!user.questsCompleted || user.questsCompleted.length === 0) {
+      //   tx = await burnTickets(account, pid, amountToBurn)
+      // } else {
+      //   tx = await burnWithQuest(
+      //     account,
+      //     pid,
+      //     amountToBurn,
+      //     user.questsCompleted?.length,
+      //     merkleProof
+      //   )
+      // }
       addTransaction(
         tx,
         'Burn Tickets',
@@ -94,21 +95,24 @@ const BurnPage = () => {
     }
   }
 
-  const fetchQuestsInfo = async () => {
-    if (!project || !account?.address) return
-    try {
-      const proof = await fetchProof(project.id.toString())
-      console.log('proof', proof)
-      setMerkleProof(proof.data)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  // const fetchQuestsInfo = async () => {
+  //   if (!project || !account?.address) return
+  //   try {
+  //     // const proof = await fetchProof(project.id.toString())
+  //     console.log('aaa')
+  //     const index = recipients.findIndex((a: string) => a === account.address)
+  //     const proof = generate_merkle_proof(leaves, index)
+  //     console.log(proof)
+  //     setMerkleProof(proof)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   useEffect(() => {
     if (account?.address && project) {
       fetchBalances()
-      fetchQuestsInfo()
+      // fetchQuestsInfo()
     }
   }, [account, project])
 

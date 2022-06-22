@@ -5,6 +5,7 @@ import { Quest, QuestType } from '../../../../interfaces'
 export const socialQuests: Quest[] = [
   {
     idoId: 3,
+    _id: '62b0d1587b8d23057e2e1440',
     icon: 'twitter',
     name: 'Follow Astraly on Twitter',
     description: 'Rewards: increase your chances to win the lottery',
@@ -14,6 +15,7 @@ export const socialQuests: Quest[] = [
   },
   {
     idoId: 3,
+    _id: '62b0d1687b8d23057e2e1441',
     icon: 'discord',
     name: 'Join Astraly Discord',
     description: 'Rewards: increase your chances to win the lottery',
