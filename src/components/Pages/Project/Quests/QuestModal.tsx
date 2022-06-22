@@ -17,6 +17,7 @@ import { useStarknetReact } from '@web3-starknet-react/core'
 import { useSelector } from 'react-redux'
 import { RootState } from 'stores/reduxStore'
 import { useApi } from 'api'
+import { ToastState } from 'components/ui/Toast/utils'
 
 const QuestModal = ({
   quest,
@@ -49,7 +50,7 @@ const QuestModal = ({
                 Your chances are now increased
               </div>
             ),
-            isValid: true,
+            state: ToastState.VALID,
             autoClose: true,
           })
         )
@@ -59,7 +60,7 @@ const QuestModal = ({
           ToastActions.addToast({
             title: 'Transaction hash not valid',
             action: <div className="font-heading text-12 text-primary">Try again</div>,
-            isValid: false,
+            state: ToastState.ERROR,
             autoClose: true,
           })
         )
@@ -72,7 +73,7 @@ const QuestModal = ({
           action: (
             <div className="font-heading text-12 text-primary">Your chances are now increased</div>
           ),
-          isValid: true,
+          state: ToastState.VALID,
           autoClose: true,
         })
       )

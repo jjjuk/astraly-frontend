@@ -1,5 +1,6 @@
 import { useStarknetReact } from '@web3-starknet-react/core'
 import ToastActions from 'actions/toast.actions'
+import { ToastState } from 'components/ui/Toast/utils'
 import { useAppDispatch } from 'hooks/hooks'
 import React, { useEffect } from 'react'
 import type { AddTransactionResponse } from 'starknet'
@@ -89,14 +90,14 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps): JSX.Elem
             title: `${description} | Transmitted to network`,
             action: (
               <a
-                className="font-heading text-12 text-primary"
+                className="text-12 text-primaryClear"
                 href={voyagerLink}
                 target="_blank"
                 rel="noreferrer">
                 {linkLabel}
               </a>
             ),
-            isValid: true,
+            state: ToastState.LOADING,
             autoClose: false,
           })
         )
@@ -108,17 +109,17 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps): JSX.Elem
         appDispatch(
           ToastActions.addToast({
             id: hash,
-            title: `${description} | Success`,
+            title: `${description} | Received`,
             action: (
               <a
-                className="font-heading text-12 text-primary"
+                className="text-12 text-primaryClear"
                 href={voyagerLink}
                 target="_blank"
                 rel="noreferrer">
                 View on explorer
               </a>
             ),
-            isValid: true,
+            state: ToastState.LOADING,
             autoClose: false,
           })
         )
@@ -133,14 +134,14 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps): JSX.Elem
             title: `${description} | Confirmed`,
             action: (
               <a
-                className="font-heading text-12 text-primary"
+                className="text-12 text-primaryClear"
                 href={voyagerLink}
                 target="_blank"
                 rel="noreferrer">
                 View on explorer
               </a>
             ),
-            isValid: true,
+            state: ToastState.VALID,
           })
         )
         break
@@ -153,14 +154,14 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps): JSX.Elem
             title: `${description} | Rejected`,
             action: (
               <a
-                className="font-heading text-12 text-primary"
+                className="text-12 text-primaryClear"
                 href={voyagerLink}
                 target="_blank"
                 rel="noreferrer">
                 View on explorer
               </a>
             ),
-            isValid: false,
+            state: ToastState.ERROR,
           })
         )
         break

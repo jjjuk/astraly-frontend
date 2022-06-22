@@ -1,12 +1,18 @@
 export const DEFAULT_DELAY = 5 * 1000
 
+export enum ToastState {
+  VALID,
+  ERROR,
+  LOADING,
+}
+
 export type ToastNotification = {
   id: string
   delay: number
   title: string
   action: any
   postion: ToastPositions
-  isValid: boolean
+  state: ToastState
   autoClose: boolean
 }
 
