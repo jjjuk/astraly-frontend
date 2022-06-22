@@ -8,8 +8,8 @@ export const rounds: Round[] = [
   {
     title: 'Ticket Claim',
     description: 'You can claim your ticket.',
-    startDate: new Date(1655913600 * 1000),
-    endDate: new Date(1656086400 * 1000),
+    startDate: new Date(1655740800 * 1000),
+    endDate: new Date(1655913600 * 1000),
   },
   {
     title: 'Allocation',
