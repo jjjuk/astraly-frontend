@@ -33,7 +33,6 @@ const BurnPage = () => {
 
   const [merkleProof, setMerkleProof] = useState<string[]>([])
 
-  const { authToken } = useSelector((state: RootState) => state.ConnectWallet)
   const { user } = useSelector((state: RootState) => state.Auth)
 
   const { burn: burnTickets, getTicketsBalance, burnWithQuest } = useLotteryTokenContract()
@@ -96,9 +95,10 @@ const BurnPage = () => {
   }
 
   const fetchQuestsInfo = async () => {
-    if (!project) return
+    if (!project || !account?.address) return
     try {
       const proof = await fetchProof(project.id.toString())
+      console.log('proof', proof)
       setMerkleProof(proof.data)
     } catch (error) {
       console.error(error)
@@ -108,14 +108,9 @@ const BurnPage = () => {
   useEffect(() => {
     if (account?.address && project) {
       fetchBalances()
-    }
-  }, [account, project])
-
-  useEffect(() => {
-    if (authToken && project) {
       fetchQuestsInfo()
     }
-  }, [authToken, project])
+  }, [account, project])
 
   return (
     <>

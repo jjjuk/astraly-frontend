@@ -86,3 +86,10 @@ import FireSolid from 'assets/icons/currentColor/Fire.svg?inline'
 export const FireIcon = (props: any) => {
   return <IconTemplate outline={<Fire />} solid={<FireSolid />} {...props} />
 }
+
+import Swap from 'assets/icons/currentColor/Swap.svg?inline'
+// import SwapSolid from 'assets/icons/currentColor/Swap.svg?inline'
+
+export const SwapIcon = (props: any) => {
+  return <IconTemplate outline={<Swap />} solid={<Swap />} {...props} />
+}
