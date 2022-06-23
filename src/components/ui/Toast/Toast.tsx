@@ -14,14 +14,14 @@ const getStateIcon = (state: ToastState) => {
       return <Spinner color="#8F00FF" />
       break
     case ToastState.ERROR:
-      return <CrossIcon />
+      return <img src={CrossIcon} alt="check-icon" />
       break
     case ToastState.VALID:
-      return <CheckIcon />
+      return <img src={CheckIcon} alt="check-icon" />
       break
 
     default:
-      return <CheckIcon />
+      return <img src={CheckIcon} alt="check-icon" />
       break
   }
 }

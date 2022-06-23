@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'stores/reduxStore'
 import { useApi } from 'api'
 import { ToastState } from 'components/ui/Toast/utils'
+import AuthActions from 'actions/auth.actions'
 
 const QuestModal = ({
   quest,
@@ -32,7 +33,18 @@ const QuestModal = ({
   const { account } = useStarknetReact()
   const dispatch = useAppDispatch()
   // const { authToken } = useSelector((state: RootState) => state.ConnectWallet)
-  const { validateQuest } = useApi()
+  const { validateQuest, getAccountDetails } = useApi()
+
+  const fetchAccountDetails = async () => {
+    dispatch(AuthActions.fetchStart())
+    try {
+      const data = await getAccountDetails()
+      // console.log('data', data)
+      dispatch(AuthActions.fetchSuccess(data))
+    } catch {
+      dispatch(AuthActions.fetchFailed())
+    }
+  }
 
   const approve = async () => {
     if (!quest || !account) return
@@ -41,7 +53,6 @@ const QuestModal = ({
 
       if (valid) {
         validateQuest(String(quest._id))
-
         dispatch(
           ToastActions.addToast({
             title: 'Successful quest',
@@ -54,6 +65,7 @@ const QuestModal = ({
             autoClose: true,
           })
         )
+        fetchAccountDetails()
         close()
       } else {
         dispatch(
@@ -77,6 +89,7 @@ const QuestModal = ({
           autoClose: true,
         })
       )
+      fetchAccountDetails()
       close()
     }
   }

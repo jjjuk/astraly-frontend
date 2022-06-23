@@ -58,26 +58,26 @@ export const productQuests: Quest[] = [
       }
     },
   },
-  {
-    _id: '62b0d14b7b8d23057e2e143f',
-    idoId: 3,
-    name: 'Lock your ASTR!',
-    description: 'Lock at least 100 ASTR tokens on Astraly.',
-    icon: 'lock',
-    link: '/stake',
-    type: QuestType.PRODUCT,
-    event: (account?: AccountInterface) => {
-      return {
-        name: 'Deposit',
-        transmitterContract: '0x005ef67d8c38b82ba699f206bf0db59f1828087a710bad48cc4d51a2b0da4c29',
-        calldata: [
-          {
-            name: 'assets',
-            type: 'Uint256',
-            value: { low: parseUnits('100.0', 'ether').toString(), high: 0 },
-          },
-        ],
-      }
-    },
-  },
+  // {
+  //   _id: '62b0d14b7b8d23057e2e143f',
+  //   idoId: 3,
+  //   name: 'Lock your ASTR!',
+  //   description: 'Lock at least 100 ASTR tokens on Astraly.',
+  //   icon: 'lock',
+  //   link: '/stake',
+  //   type: QuestType.PRODUCT,
+  //   event: (account?: AccountInterface) => {
+  //     return {
+  //       name: 'Deposit',
+  //       transmitterContract: '0x005ef67d8c38b82ba699f206bf0db59f1828087a710bad48cc4d51a2b0da4c29',
+  //       calldata: [
+  //         {
+  //           name: 'assets',
+  //           type: 'Uint256',
+  //           value: { low: parseUnits('100.0', 'ether').toString(), high: 0 },
+  //         },
+  //       ],
+  //     }
+  //   },
+  // },
 ]
