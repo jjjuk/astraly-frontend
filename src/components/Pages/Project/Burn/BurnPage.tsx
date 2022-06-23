@@ -51,19 +51,19 @@ const BurnPage = () => {
   const handleBurnTickets = async () => {
     try {
       setBurning(true)
-      // const tx = await burnTickets(account, pid, amountToBurn)
-      let tx
-      if (!user.questCompleted || user.questCompleted.length === 0 || merkleProof.length === 0) {
-        tx = await burnTickets(account, pid, amountToBurn)
-      } else {
-        tx = await burnWithQuest(
-          account,
-          pid,
-          amountToBurn,
-          user.questCompleted?.length,
-          merkleProof
-        )
-      }
+      const tx = await burnTickets(account, pid, amountToBurn)
+      // let tx
+      // if (!user.questsCompleted || user.questsCompleted.length === 0) {
+      //   tx = await burnTickets(account, pid, amountToBurn)
+      // } else {
+      //   tx = await burnWithQuest(
+      //     account,
+      //     pid,
+      //     amountToBurn,
+      //     user.questsCompleted?.length,
+      //     merkleProof
+      //   )
+      // }
       addTransaction(
         tx,
         'Burn Tickets',
@@ -95,21 +95,24 @@ const BurnPage = () => {
     }
   }
 
-  const fetchQuestsInfo = async () => {
-    if (!project || !account?.address) return
-    try {
-      const proof = await fetchProof(project.id.toString())
-      console.log('proof', proof)
-      setMerkleProof(proof)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  // const fetchQuestsInfo = async () => {
+  //   if (!project || !account?.address) return
+  //   try {
+  //     // const proof = await fetchProof(project.id.toString())
+  //     console.log('aaa')
+  //     const index = recipients.findIndex((a: string) => a === account.address)
+  //     const proof = generate_merkle_proof(leaves, index)
+  //     console.log(proof)
+  //     setMerkleProof(proof)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   useEffect(() => {
     if (account?.address && project) {
       fetchBalances()
-      fetchQuestsInfo()
+      // fetchQuestsInfo()
     }
   }, [account, project])
 
