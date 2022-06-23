@@ -101,7 +101,9 @@ const BuyPageContainer = () => {
       <div className="flex flex-col gap-10">
         <div className="block h-fit">
           <div className="block--contrast">
-            <Heading size="sm">Mint Amount: {mintAmount} ASTR</Heading>
+            <Heading size="sm" pb={5}>
+              Mint Amount: {mintAmount} ASTR
+            </Heading>
 
             <BaseButton
               onClick={handleTransfer}
