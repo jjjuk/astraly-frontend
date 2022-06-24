@@ -6,7 +6,6 @@ import BlockLabel from '../../ui/BlockLabel'
 import PlusIcon from 'assets/icons/Plus.svg'
 import { LockIcon } from 'components/ui/Icons/Icons'
 import { useStarknetReact } from '@web3-starknet-react/core'
-import { useStakingContract } from 'contracts/staking'
 import { Contracts } from 'constants/networks'
 import { ethers } from 'ethers'
 import { uint256 } from 'starknet'
@@ -14,6 +13,7 @@ import { Spinner } from '@chakra-ui/react'
 import { useAppDispatch } from 'hooks/hooks'
 import ToastActions from 'actions/toast.actions'
 import { useTransactions } from 'context/TransactionsProvider'
+import { useStakingContract } from 'contracts'
 
 const LockForm = ({
   zkpBalance,
@@ -42,9 +42,7 @@ const LockForm = ({
 
   const [startDate, setStartDate] = useState<Date | null>(null)
 
-  const { depositAll } = useStakingContract()
-
-  const { previewDeposit, previewDepositLP } = useStakingContract()
+  const { previewDeposit, previewDepositLP, depositAll } = useStakingContract()
 
   const lockTime = useMemo(
     () => (startDate ? startDate.getTime() - new Date().getTime() : 0),

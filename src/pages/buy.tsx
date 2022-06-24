@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
 import { useStarknetReact } from '@web3-starknet-react/core'
-import { useFaucetContract } from 'contracts/faucet'
+import { useFaucetContract } from 'contracts'
 import { ethers } from 'ethers'
 import Layout from 'layout'
 import React, { useEffect, useMemo, useState } from 'react'

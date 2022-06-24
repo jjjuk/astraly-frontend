@@ -1,5 +1,4 @@
 import BaseButton from 'components/ui/buttons/BaseButton'
-import { useStakingContract } from '../../../contracts/staking'
 import UploadIcon from 'assets/icons/outline/Upload.svg'
 import { PropsWithChildren, useEffect, useState } from 'react'
 import Star from 'assets/images/star--current.svg?inline'
@@ -11,6 +10,7 @@ import { useStarknetReact } from '@web3-starknet-react/core'
 import { uint256 } from 'starknet'
 import { ethers } from 'ethers'
 import { useTransactions } from 'context/TransactionsProvider'
+import { useStakingContract } from 'contracts'
 
 const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
   const { account } = useStarknetReact()

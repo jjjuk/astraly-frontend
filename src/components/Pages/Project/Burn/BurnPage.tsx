@@ -8,8 +8,7 @@ import BaseInput from '../../../ui/inputs/BaseInput'
 import BaseButton from '../../../ui/buttons/BaseButton'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { useSelector } from 'react-redux'
-import { useTokenContract } from 'contracts'
-import { useLotteryTokenContract } from 'contracts/lottery'
+import { useTokenContract, useIDOContract, useLotteryTokenContract } from 'contracts'
 import { RootState } from 'stores/reduxStore'
 import { useApi } from 'api'
 import { Result, uint256, hash } from 'starknet'
@@ -17,8 +16,8 @@ import { Spinner } from '@chakra-ui/react'
 import { FireIcon } from 'components/ui/Icons/Icons'
 import ToastActions from 'actions/toast.actions'
 import { useAppDispatch } from 'hooks/hooks'
-import { useIDOContract } from 'contracts/ido'
 import { useTransactions } from 'context/TransactionsProvider'
+import { ToastState } from 'components/ui/Toast/utils'
 
 const BurnPage = () => {
   const router = useRouter()
@@ -53,14 +52,14 @@ const BurnPage = () => {
       setBurning(true)
       const tx = await burnTickets(account, pid, amountToBurn)
       // let tx
-      // if (!user.questsCompleted || user.questsCompleted.length === 0) {
+      // if (!user.questCompleted || user.questCompleted.length === 0) {
       //   tx = await burnTickets(account, pid, amountToBurn)
       // } else {
       //   tx = await burnWithQuest(
       //     account,
       //     pid,
       //     amountToBurn,
-      //     user.questsCompleted?.length,
+      //     user.questCompleted?.length,
       //     merkleProof
       //   )
       // }
@@ -73,6 +72,14 @@ const BurnPage = () => {
 
       setBurning(false)
     } catch (e) {
+      dispatch(
+        ToastActions.addToast({
+          title: String(e),
+          action: <div className="font-heading text-12 text-primary">Try again</div>,
+          state: ToastState.ERROR,
+          autoClose: true,
+        })
+      )
       console.error(e)
       setBurning(false)
     }
@@ -98,10 +105,7 @@ const BurnPage = () => {
   // const fetchQuestsInfo = async () => {
   //   if (!project || !account?.address) return
   //   try {
-  //     // const proof = await fetchProof(project.id.toString())
-  //     console.log('aaa')
-  //     const index = recipients.findIndex((a: string) => a === account.address)
-  //     const proof = generate_merkle_proof(leaves, index)
+  //     const proof = await fetchProof(project.id.toString())
   //     console.log(proof)
   //     setMerkleProof(proof)
   //   } catch (error) {

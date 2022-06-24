@@ -1,6 +1,6 @@
 import { Flex, position, Text } from '@chakra-ui/react'
 import { useStarknetReact } from '@web3-starknet-react/core'
-import { useStakingContract } from 'contracts/staking'
+import { useStakingContract } from 'contracts'
 import React, { useEffect, useState } from 'react'
 import Marquee from 'react-fast-marquee'
 

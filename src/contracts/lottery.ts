@@ -1,6 +1,6 @@
 import { Contracts } from 'constants/networks'
 import useContract from 'hooks/useContract'
-import { AccountInterface, Call, number } from 'starknet'
+import { AccountInterface, Call, number, validateAndParseAddress } from 'starknet'
 import { toFelt } from 'starknet/dist/utils/number'
 import { parseInputAmountToUint256, parseInputAmountToUint256ExecuteCall } from 'utils'
 
@@ -49,8 +49,8 @@ export const useLotteryTokenContract = () => {
     const contract = await getLotteryTokenContract()
 
     return await contract.invoke('burn_with_quest', [
-      account?.address,
-      parseInputAmountToUint256(id.toString()),
+      validateAndParseAddress(account?.address),
+      parseInputAmountToUint256(id.toString(), 0),
       parseInputAmountToUint256(amount, 0),
       nbQuest,
       merkleProof,
