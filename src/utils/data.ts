@@ -43,7 +43,7 @@ export const projects: Project[] = [
     totalRaise: 1000,
     tokenPrice: 0.1,
     maxAllocation: 500,
-    currentRoundId: 1,
+    currentRoundId: 2,
     type: 'IDO',
     categories: ['DeFi', 'DEX'],
     rounds,
