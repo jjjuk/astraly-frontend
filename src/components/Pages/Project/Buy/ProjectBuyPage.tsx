@@ -146,7 +146,7 @@ const ProjectBuyPage = () => {
             </div>
 
             <div className="block__item">
-              <div className="ml-4 text-primaryClear">You receive</div>
+              <div className="text-primaryClear">You receive</div>
               <BaseInput
                 label={'ASTR'}
                 value={zkpValue}
