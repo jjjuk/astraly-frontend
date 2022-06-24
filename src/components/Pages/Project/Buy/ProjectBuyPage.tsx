@@ -96,6 +96,20 @@ const ProjectBuyPage = () => {
     }
   }
 
+  const updateValuesETH = (ethValue: string) => {
+    if (!project) return
+    setEthValue(ethValue)
+    const _zkpValue = Number(ethValue) / project.tokenPrice
+    setZkpValue(_zkpValue.toString())
+  }
+
+  const updateValuesOther = (otherValue: string) => {
+    if (!project) return
+    const _ethValue = Number(otherValue) * project.tokenPrice
+    setEthValue(_ethValue.toString())
+    setZkpValue(otherValue)
+  }
+
   useEffect(() => {
     if (account?.address && project?.id) {
       updateBalance()
@@ -119,12 +133,12 @@ const ProjectBuyPage = () => {
               <BlockLabel
                 label={'You pay'}
                 value={Number(ethBalance).toFixed(3)}
-                onClick={() => setEthValue(ethBalance.toString())}
+                onClick={() => updateValuesETH(ethBalance.toString())}
               />
               <BaseInput
                 label={'ETH'}
                 value={ethValue}
-                onChange={(e) => setEthValue(e.target.value)}
+                onChange={(e) => updateValuesETH(e.target.value)}
               />
             </div>
             <div className="flex items-center justify-center -my-3 text-primaryClear">
@@ -136,7 +150,7 @@ const ProjectBuyPage = () => {
               <BaseInput
                 label={'ASTR'}
                 value={zkpValue}
-                onChange={(e) => setZkpValue(e.target.value)}
+                onChange={(e) => updateValuesOther(e.target.value)}
               />
             </div>
           </div>

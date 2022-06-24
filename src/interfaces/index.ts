@@ -18,7 +18,7 @@ export interface Project {
   logo?: string
   cover?: string
   totalRaise?: number
-  tokenPrice?: number
+  tokenPrice: number
   maxAllocation?: number
   currentRoundId: number
   type?: ProjectType
