@@ -26,17 +26,17 @@ const RoadmapItem = ({
   index: number
 }) => {
   const [isActive, setIsActive] = useState(false)
-  const isPast = index < project.currentRoundId
-  const isFuture = index > project.currentRoundId
+  const isPast = index < project.currentRoundIndex
+  const isFuture = index > project.currentRoundIndex
 
   const stepText = stepsText[step.title]
 
   useEffect(() => {
-    setIsActive(index === project.currentRoundId)
-  }, [project.currentRoundId])
+    setIsActive(index === project.currentRoundIndex)
+  }, [project.currentRoundIndex])
 
   const ButtonText = isFuture ? 'Not available yet' : stepText[isPast ? 1 : 0]
-  const href = `/project/${project.id}/${stepText[2]}`
+  const href = `/project/${project.idoId}/${stepText[2]}`
 
   return (
     <div
@@ -55,7 +55,7 @@ const RoadmapItem = ({
       <div className="font-heading mb-2 text-12 xl:text-16">{step.title}</div>
       <div className="text-12 xl:text-16"> {step.description}</div>
       <div className="text-12 xl:text-16  mt-auto mb-2 pt-4">
-        {format(step.startDate, 'yyyy-MM-dd')}
+        {format(new Date(step.startDate), 'yyyy-MM-dd')}
       </div>
       {isActive ? (
         <Link href={href}>

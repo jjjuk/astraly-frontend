@@ -1,10 +1,16 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import styles from './Search.module.scss'
-import React, { useRef, useState } from 'react'
+import React, { ChangeEventHandler, useState } from 'react'
 import SearchIcon from 'assets/icons/currentColor/Search.svg?inline'
 
-const SearchInput = () => {
+const SearchInput = ({
+  value,
+  onChange,
+}: {
+  value: string
+  onChange: ChangeEventHandler<HTMLInputElement>
+}) => {
   const [hasFocus, setFocus] = useState(false)
   const inputRef = React.useRef() as React.MutableRefObject<HTMLInputElement>
 
@@ -19,7 +25,13 @@ const SearchInput = () => {
       </div>
       <div className="text font-heading">Search</div>
       <div className="input">
-        <input ref={inputRef} onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} />
+        <input
+          ref={inputRef}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
+          value={value}
+          onChange={onChange}
+        />
       </div>
     </div>
   )

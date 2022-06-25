@@ -4,8 +4,28 @@ import ProjectsSlider from '../components/ui/Slider/ProjectsSlider'
 import Container from '../components/ui/Container'
 import SearchInput from '../components/ui/inputs/SearchInput'
 import Filter from 'components/ui/inputs/Filter'
+import { useQuery } from '@apollo/client'
+import { SEARCH_PROJECTS } from 'api/gql/querries'
 
 const launchpad: NextPage = () => {
+  const {
+    loading,
+    error,
+    data: unfinishedProjects,
+  } = useQuery(SEARCH_PROJECTS, {
+    variables: {
+      finished: false,
+    },
+  })
+  const {
+    loading: loading_,
+    error: error_,
+    data: finishedProjects,
+  } = useQuery(SEARCH_PROJECTS, {
+    variables: {
+      finished: true,
+    },
+  })
   return (
     <div className="launchpad">
       <div className={'bg-gradient-to-t from-bgPurple to-transparent'}>
@@ -16,9 +36,7 @@ const launchpad: NextPage = () => {
             </h1>
 
             <div className="filter ml-auto flex items-center">
-              <div className="mr-4">
-                <SearchInput />
-              </div>
+              <div className="mr-4"></div>
 
               <Filter />
             </div>
@@ -27,7 +45,7 @@ const launchpad: NextPage = () => {
           <h2 className="text-24 text-primaryClear font-heading mb-6">ONGOING PROJECTS</h2>
         </Container>
 
-        <ProjectsSlider />
+        {unfinishedProjects && <ProjectsSlider projects={unfinishedProjects.searchProjects} />}
       </div>
 
       {/*<div className="relative">*/}
@@ -37,7 +55,9 @@ const launchpad: NextPage = () => {
       <Container>
         <h2 className="text-24 text-primaryClear font-heading mb-6 mt-8">FINISHED LAUNCHPADS</h2>
       </Container>
-      {/* <ProjectsSlider /> */}
+      {finishedProjects?.searchProjects.length > 0 && (
+        <ProjectsSlider projects={finishedProjects.searchProjects} />
+      )}
     </div>
   )
 }

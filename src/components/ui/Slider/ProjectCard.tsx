@@ -22,15 +22,15 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
   const [currentRound, setCurrentRound] = useState<Round>()
 
   const updateRoundTimer = () => {
-    const _roundId = project?.currentRoundId
+    const _roundId = project?.currentRoundIndex
     const roundInfo = project?.rounds[_roundId]
 
-    if (!roundInfo || roundInfo.endDate.getTime() < new Date().getTime()) {
+    if (!roundInfo || new Date(roundInfo.endDate).getTime() < new Date().getTime()) {
       setRoundTimer(`0d0h0m0s`)
       return
     }
 
-    const _remainingTime = roundInfo.endDate.getTime() - new Date().getTime()
+    const _remainingTime = new Date(roundInfo.endDate).getTime() - new Date().getTime()
     const days = Math.floor(_remainingTime / (1000 * 60 * 60 * 24))
     const hours = Math.floor((_remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
     const minutes = Math.floor((_remainingTime % (1000 * 60 * 60)) / (1000 * 60))
@@ -38,7 +38,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
     setRoundTimer(`${days}d${hours}h${minutes}m${seconds}s`)
   }
   useEffect(() => {
-    const _roundId = project?.currentRoundId
+    const _roundId = project?.currentRoundIndex
     const roundInfo = project?.rounds[_roundId]
     setCurrentRound(roundInfo)
     const interval = setInterval(() => updateRoundTimer(), 1000)
@@ -49,7 +49,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
   }, [])
 
   return (
-    <Link href={`/project/${project.id}`}>
+    <Link href={`/project/${project.idoId}`}>
       <div
         className="ProjectCard bg-white rounded-3xl w-90 shrink-0 relative hover:shadow-purpleDark transition-all cursor-pointer hover:border-primary"
         data-index={index}>

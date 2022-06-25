@@ -1,0 +1,12 @@
+.pin {
+  @apply bg-white border border-2 border-white rounded-3xl bg-primaryClearBg rounded-3xl px-4 py-2 transition-opacity text-12 text-primaryClear font-sans;
+  padding: 24px;
+  cursor: pointer;
+  z-index: 100;
+  position: absolute;
+  opacity: 1;
+
+  &--hidden {
+    opacity: 0;
+  }
+}

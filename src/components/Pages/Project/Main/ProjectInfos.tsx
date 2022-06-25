@@ -44,7 +44,7 @@ const ProjectInfos = ({ project }: { project: Project }) => {
                 Apply now
               </BaseButton>
             </Link>
-            <Link href={`/project/${project.id}/quests`}>
+            <Link href={`/project/${project.idoId}/quests`}>
               <a className="cursor-pointer w-full">
                 <BaseButton className={'w-full px-4 whitespace-nowrap'}>
                   <BoltIcon className={'mr-1'} />

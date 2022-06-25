@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useState } from 'react'
 import { Project } from '../../../../interfaces'
-import { projects } from '../../../../utils/data'
 import ProjectLayout from '../ProjectLayout'
 import AllocationInfo from '../Main/AllocationInfo'
 import BlockLabel from '../../../ui/BlockLabel'
@@ -17,17 +16,24 @@ import { Spinner } from '@chakra-ui/react'
 import { useAppDispatch } from 'hooks/hooks'
 import ToastActions from 'actions/toast.actions'
 import { ToastState } from 'components/ui/Toast/utils'
+import { useQuery } from '@apollo/client'
+import { PROJECT } from '../../../../api/gql/querries'
 
 const ProjectBuyPage = () => {
   const router = useRouter()
   const { account } = useStarknetReact()
   const { pid } = router.query
   const [project, setProject] = useState<Project | undefined>(undefined)
+  const { data } = useQuery(PROJECT, {
+    variables: {
+      idoId: pid,
+    },
+  })
 
   const [ethValue, setEthValue] = useState('0')
   const [ethBalance, setETHBalance] = useState('0')
   const [zkpValue, setZkpValue] = useState('0')
-  const [userInfo, setUserInfo] = useState<Result>({} as Result)
+  const [userInfo, setUserInfo] = useState<Result | null>(null)
   const [currentSale, setCurrentSale] = useState<Result | null>(null)
   // const [allocation, setAllocation] = useState(0)
   const [purchasing, setPurchasing] = useState(false)
@@ -57,7 +63,7 @@ const ProjectBuyPage = () => {
 
     try {
       setPurchasing(true)
-      const tx = await participate(ethValue, project?.id.toString(), account)
+      const tx = await participate(ethValue, project?.idoId.toString(), account)
       addTransaction(tx, 'Participate', updateBalance, () => {})
       setPurchasing(false)
     } catch (error) {
@@ -84,11 +90,12 @@ const ProjectBuyPage = () => {
       )
       setETHBalance(_formattedBalance)
 
-      const _userInfo = await getUserInfo(account?.address, project?.id.toString())
+      const _userInfo = await getUserInfo(account?.address, project?.idoId.toString())
       setUserInfo(_userInfo)
 
-      const _currentSale = await getCurrentSale(project?.id.toString())
+      const _currentSale = await getCurrentSale(project?.idoId.toString())
       setCurrentSale(_currentSale)
+
       setLoading(false)
     } catch (error) {
       setLoading(false)
@@ -111,14 +118,14 @@ const ProjectBuyPage = () => {
   }
 
   useEffect(() => {
-    if (account?.address && project?.id) {
+    if (account?.address && project) {
       updateBalance()
     }
   }, [account, project])
 
   useEffect(() => {
-    setProject(projects.find((p) => p.id === Number(pid)))
-  }, [pid])
+    data && setProject(data.project)
+  }, [data])
 
   if (!project) {
     return <></>
@@ -167,8 +174,19 @@ const ProjectBuyPage = () => {
                 <div className="text-primaryClear">Your allocation</div>
                 <div className="font-heading text-primary">
                   ${project.ticker}{' '}
-                  {allocation ? (
+                  {allocation && userInfo ? (
                     uint256.uint256ToBN(userInfo.tickets).toNumber() * allocation
+                  ) : (
+                    <Spinner />
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center justify-between text-16">
+                <div className="text-primaryClear">Your amount bought</div>
+                <div className="font-heading text-primary">
+                  ${project.ticker}{' '}
+                  {userInfo ? (
+                    uint256.uint256ToBN(userInfo.participation.amount_bought).toString()
                   ) : (
                     <Spinner />
                   )}
@@ -177,7 +195,14 @@ const ProjectBuyPage = () => {
             </div>
 
             <div className="block__item">
-              <BaseButton onClick={handleParticipate} disabled={purchasing}>
+              <BaseButton
+                onClick={handleParticipate}
+                disabled={
+                  purchasing ||
+                  (userInfo
+                    ? uint256.uint256ToBN(userInfo?.participation?.amount_bought).toNumber() > 0
+                    : false)
+                }>
                 {purchasing ? <Spinner /> : 'Participate'}
               </BaseButton>
             </div>

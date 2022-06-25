@@ -1,0 +1,65 @@
+.copyAction {
+  cursor: pointer;
+  @apply text-primaryClear;
+
+  $container: &;
+
+  &__container {
+    position: relative;
+  }
+
+  &__icon {
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    position: relative;
+
+    &__outline {
+      @apply transition-all;
+      opacity: 1;
+      position: abolute;
+      top: 0;
+      left: 0;
+    }
+
+    &__filled {
+      @apply transition-all;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  &:hover {
+    #{$container}__address {
+      animation-name: ping;
+      animation-iteration-count: 1;
+      animation-duration: .2s;
+    }
+
+    @apply text-primary;
+    #{$container}__icon {
+      &__outline {
+        opacity: 0;
+      }
+
+      &__filled {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__pin {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    column-gap: 15px;
+  }
+}
+
+@keyframes ping {
+  50% {
+    transform: translateY(1px);
+  }
+}

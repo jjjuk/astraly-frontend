@@ -23,6 +23,8 @@ import { PAGES } from '../constants/ui.constants'
 import { useAppDispatch } from '../hooks/hooks'
 import { BlockHashProvider } from 'context/BlockProvider'
 import { TransactionsProvider } from 'context/TransactionsProvider'
+import { ApolloProvider } from '@apollo/client'
+import { useApollo } from '../utils/apollo'
 
 function getLibrary(provider, connector) {
   return new Provider(provider)
@@ -41,26 +43,35 @@ function MyApp({ Component, pageProps }) {
     })
   }, [])
 
+  const getToken = () => {
+    return typeof window !== 'undefined' && localStorage.getItem('token')
+  }
+  const apolloClient = useApollo(pageProps.initialApolloState, {
+    getToken,
+  })
+
   const store = useStore(pageProps.initialReduxState)
 
   return (
     <ReduxProvider store={store}>
-      <ChakraProvider theme={customTheme}>
-        <StarknetReactProvider getLibrary={getLibrary}>
-          <BlockHashProvider>
-            <TransactionsProvider>
-              <Web3ReactProviderDefault getLibrary={getLibrary}>
-                <Web3ReactManager>
-                  <NextSeo {...defaultSEOConfig} />
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
-                </Web3ReactManager>
-              </Web3ReactProviderDefault>
-            </TransactionsProvider>
-          </BlockHashProvider>
-        </StarknetReactProvider>
-      </ChakraProvider>
+      <ApolloProvider client={apolloClient}>
+        <ChakraProvider theme={customTheme}>
+          <StarknetReactProvider getLibrary={getLibrary}>
+            <BlockHashProvider>
+              <TransactionsProvider>
+                <Web3ReactProviderDefault getLibrary={getLibrary}>
+                  <Web3ReactManager>
+                    <NextSeo {...defaultSEOConfig} />
+                    <Layout>
+                      <Component {...pageProps} />
+                    </Layout>
+                  </Web3ReactManager>
+                </Web3ReactProviderDefault>
+              </TransactionsProvider>
+            </BlockHashProvider>
+          </StarknetReactProvider>
+        </ChakraProvider>
+      </ApolloProvider>
     </ReduxProvider>
   )
 }

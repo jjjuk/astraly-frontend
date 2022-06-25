@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useState } from 'react'
 import { Project } from '../../../../interfaces'
-import { projects } from '../../../../utils/data'
 import ProjectLayout from '../ProjectLayout'
 import AllocationInfo from '../Main/AllocationInfo'
 import BaseButton from '../../../ui/buttons/BaseButton'
@@ -17,6 +16,8 @@ import { Spinner } from '@chakra-ui/react'
 import { LockIcon, SendIcon } from '../../../ui/Icons/Icons'
 import Link from 'next/link'
 import { useTransactions } from 'context/TransactionsProvider'
+import { useQuery } from '@apollo/client'
+import { PROJECT } from '../../../../api/gql/querries'
 
 const ProjectClaimPage = () => {
   const router = useRouter()
@@ -34,14 +35,20 @@ const ProjectClaimPage = () => {
 
   const { addTransaction } = useTransactions()
 
+  const { data } = useQuery(PROJECT, {
+    variables: {
+      idoId: pid,
+    },
+  })
+
   useEffect(() => {
-    setProject(projects.find((p) => p.id === Number(pid)))
-  }, [pid])
+    data && setProject(data.project)
+  }, [data])
 
   const handleClaimTickets = async () => {
     try {
       setClaiming(true)
-      const tx = await claimLotteryTickets(project?.id.toString())
+      const tx = await claimLotteryTickets(project?.idoId.toString())
       addTransaction(
         tx,
         'Claim Tickets',
@@ -65,7 +72,7 @@ const ProjectClaimPage = () => {
       )
       setXZkpBalance(_xformattedBalance)
 
-      const _ticketsBalance = await getTicketsBalance(account?.address, project?.id.toString())
+      const _ticketsBalance = await getTicketsBalance(account?.address, project?.idoId.toString())
       setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString())
 
       setLoading(false)

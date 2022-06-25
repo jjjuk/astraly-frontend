@@ -4,7 +4,7 @@ import Solid from 'assets/icons/solid/Filter.svg'
 
 const Filter = () => {
   return (
-    <div className={`${styles.baseButton} w-14`}>
+    <div className={`${styles.baseButton} ${styles.baseButtonMedium} w-12`}>
       <img
         src={Outline}
         alt={''}

@@ -2,20 +2,26 @@ import ProjectHeader from './ProjectHeader'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Project } from '../../../interfaces'
-import { projects } from '../../../utils/data'
 import ProjectLayout from './ProjectLayout'
 import Roadmap from './Main/Roadmap'
 import ProjectCover from './Main/ProjectCover'
 import DueDiligence from './Main/DueDiligence/DueDiligence'
+import { useQuery } from '@apollo/client'
+import { PROJECT } from '../../../api/gql/querries'
 
 const ProjectPage = () => {
   const router = useRouter()
   const { pid } = router.query
   const [project, setProject] = useState<Project | undefined>(undefined)
+  const { loading, error, data } = useQuery(PROJECT, {
+    variables: {
+      idoId: pid,
+    },
+  })
 
   useEffect(() => {
-    setProject(projects.find((p) => p.id === Number(pid)))
-  }, [pid])
+    data && setProject(data.project)
+  }, [data])
 
   if (!project) {
     return <></>

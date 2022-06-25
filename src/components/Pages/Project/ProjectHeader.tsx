@@ -31,7 +31,7 @@ const ProjectHeader = ({ project }: { project?: Project }) => {
   const router = useRouter()
   const [steps, setSteps] = useState([
     { href: '/launchpad', label: 'Launchpad' },
-    { href: `/project/${project?.id}`, label: project?.name },
+    { href: `/project/${project?.idoId}`, label: project?.name },
   ])
   const [title, setTitle] = useState<string | ReactNode>('')
   const [isQuests, setIsQuests] = useState(false)
@@ -39,14 +39,14 @@ const ProjectHeader = ({ project }: { project?: Project }) => {
   useEffect(() => {
     const steps = [
       { href: '/launchpad', label: 'Launchpad' },
-      { href: `/project/${project?.id}`, label: project?.name },
+      { href: `/project/${project?.idoId}`, label: project?.name },
     ]
     let title: string | ReactNode = project?.name || ''
     let isQuests = false
 
     Object.entries(routes).map(([key, value]) => {
       if (router.route.endsWith(key)) {
-        steps.push({ href: `/project/${project?.id}/${key}`, label: value })
+        steps.push({ href: `/project/${project?.idoId}/${key}`, label: value })
         title = titles[key]
         isQuests = key === 'quests'
       }
