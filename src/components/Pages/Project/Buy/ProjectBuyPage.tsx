@@ -199,8 +199,9 @@ const ProjectBuyPage = () => {
                 onClick={handleParticipate}
                 disabled={
                   purchasing ||
-                  (userInfo
-                    ? uint256.uint256ToBN(userInfo?.participation?.amount_bought).toNumber() > 0
+                  (userInfo && allocation
+                    ? uint256.uint256ToBN(userInfo?.participation?.amount_bought).toNumber() > 0 ||
+                      uint256.uint256ToBN(userInfo.tickets).toNumber() * allocation === 0
                     : false)
                 }>
                 {purchasing ? <Spinner /> : 'Participate'}
