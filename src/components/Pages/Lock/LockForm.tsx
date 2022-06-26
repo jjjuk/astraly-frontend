@@ -10,8 +10,6 @@ import { Contracts } from 'constants/networks'
 import { ethers } from 'ethers'
 import { uint256 } from 'starknet'
 import { Spinner } from '@chakra-ui/react'
-import { useAppDispatch } from 'hooks/hooks'
-import ToastActions from 'actions/toast.actions'
 import { useTransactions } from 'context/TransactionsProvider'
 import { useStakingContract } from 'contracts'
 
@@ -49,7 +47,6 @@ const LockForm = ({
     [startDate]
   )
 
-  const dispatch = useAppDispatch()
   const { addTransaction } = useTransactions()
 
   const handleLock = async () => {
@@ -115,7 +112,7 @@ const LockForm = ({
           <div className="token block--contrast">
             <BlockLabel
               label={'Tokens'}
-              value={Number(zkpBalance).toFixed(3)}
+              value={zkpBalance ? Number(zkpBalance).toFixed(3) : <Spinner size="xs" />}
               onClick={() => setZKPAmount(zkpBalance)}
             />
             <BaseInput
@@ -132,7 +129,7 @@ const LockForm = ({
           <div className="pools px-8 py-7 ">
             <BlockLabel
               label={'Liquid Pools'}
-              value={Number(lpBalance).toFixed(3)}
+              value={lpBalance ? Number(lpBalance).toFixed(3) : <Spinner size="xs" />}
               onClick={() => setZKPLPAmount(lpBalance)}
             />
             <BaseInput
@@ -171,7 +168,7 @@ const LockForm = ({
           <div className="flex items-center justify-between">
             <p className="text-primaryClear">Estimated number of lottery tickets earned per IDO</p>
             <div className="ml-4 bg-white text-24 font-heading px-5 pt-2 pb-1.5 text-primaryClear rounded-xl flex items-center justify-center shadow-purpleLight">
-              {updatingPreview ? (
+              {updatingPreview || !xzkpBalance ? (
                 <Spinner />
               ) : (
                 Math.floor(Math.pow(Number(xzkpBalance) + Number(previewXZKP), 0.6))

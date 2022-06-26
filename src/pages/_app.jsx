@@ -25,6 +25,7 @@ import { BlockHashProvider } from 'context/BlockProvider'
 import { TransactionsProvider } from 'context/TransactionsProvider'
 import { ApolloProvider } from '@apollo/client'
 import { useApollo } from '../utils/apollo'
+import { WalletProvider } from 'context/WalletProvider'
 
 function getLibrary(provider, connector) {
   return new Provider(provider)
@@ -57,18 +58,20 @@ function MyApp({ Component, pageProps }) {
       <ApolloProvider client={apolloClient}>
         <ChakraProvider theme={customTheme}>
           <StarknetReactProvider getLibrary={getLibrary}>
-            <BlockHashProvider>
-              <TransactionsProvider>
-                <Web3ReactProviderDefault getLibrary={getLibrary}>
-                  <Web3ReactManager>
-                    <NextSeo {...defaultSEOConfig} />
-                    <Layout>
-                      <Component {...pageProps} />
-                    </Layout>
-                  </Web3ReactManager>
-                </Web3ReactProviderDefault>
-              </TransactionsProvider>
-            </BlockHashProvider>
+            <Web3ReactProviderDefault getLibrary={getLibrary}>
+              <Web3ReactManager>
+                <BlockHashProvider>
+                  <TransactionsProvider>
+                    <WalletProvider>
+                      <NextSeo {...defaultSEOConfig} />
+                      <Layout>
+                        <Component {...pageProps} />
+                      </Layout>
+                    </WalletProvider>
+                  </TransactionsProvider>
+                </BlockHashProvider>
+              </Web3ReactManager>
+            </Web3ReactProviderDefault>
           </StarknetReactProvider>
         </ChakraProvider>
       </ApolloProvider>

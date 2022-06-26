@@ -3801,6 +3801,38 @@ export const IDO_CONTRACT_ABI = [
   },
 ]
 
+export const MULTICALL_ABI = [
+  {
+    inputs: [
+      {
+        name: 'calls_len',
+        type: 'felt',
+      },
+      {
+        name: 'calls',
+        type: 'felt*',
+      },
+    ],
+    name: 'aggregate',
+    outputs: [
+      {
+        name: 'block_number',
+        type: 'felt',
+      },
+      {
+        name: 'result_len',
+        type: 'felt',
+      },
+      {
+        name: 'result',
+        type: 'felt*',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+]
+
 export default {
   ZKP_TOKEN_ABI,
   XZKP_TOKEN_ABI,
@@ -3808,4 +3840,5 @@ export default {
   FAUCET_ABI,
   IDO_CONTRACT_ABI,
   IDO_FACTORY_ABI,
+  MULTICALL_ABI,
 }

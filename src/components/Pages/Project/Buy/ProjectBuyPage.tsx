@@ -18,6 +18,8 @@ import ToastActions from 'actions/toast.actions'
 import { ToastState } from 'components/ui/Toast/utils'
 import { useQuery } from '@apollo/client'
 import { PROJECT } from '../../../../api/gql/querries'
+import { useWallet } from 'context/WalletProvider'
+import { Contracts } from 'constants/networks'
 
 const ProjectBuyPage = () => {
   const router = useRouter()
@@ -29,19 +31,19 @@ const ProjectBuyPage = () => {
       idoId: pid,
     },
   })
-
-  const [ethValue, setEthValue] = useState('0')
   const [ethBalance, setETHBalance] = useState('0')
+  const [ethValue, setEthValue] = useState('0')
   const [zkpValue, setZkpValue] = useState('0')
   const [userInfo, setUserInfo] = useState<Result | null>(null)
   const [currentSale, setCurrentSale] = useState<Result | null>(null)
   // const [allocation, setAllocation] = useState(0)
   const [purchasing, setPurchasing] = useState(false)
   const [loading, setLoading] = useState(false)
-  const { getETHBalance } = useTokenContract()
   const { participate, getCurrentSale, getUserInfo } = useIDOContract()
 
   const { addTransaction } = useTransactions()
+
+  const { balances, updateUserData } = useWallet()
 
   const allocation = useMemo(() => {
     if (!currentSale) return null
@@ -64,7 +66,15 @@ const ProjectBuyPage = () => {
     try {
       setPurchasing(true)
       const tx = await participate(ethValue, project?.idoId.toString(), account)
-      addTransaction(tx, 'Participate', updateBalance, () => {})
+      addTransaction(
+        tx,
+        'Participate',
+        () => {
+          updateUserData()
+          updateBalance()
+        },
+        () => {}
+      )
       setPurchasing(false)
     } catch (error) {
       dispatch(
@@ -83,12 +93,6 @@ const ProjectBuyPage = () => {
   const updateBalance = async () => {
     try {
       setLoading(true)
-      const _balance = await getETHBalance(account?.address)
-      const _formattedBalance = ethers.utils.formatUnits(
-        uint256.uint256ToBN(_balance.balance).toString(),
-        'ether'
-      )
-      setETHBalance(_formattedBalance)
 
       const _userInfo = await getUserInfo(account?.address, project?.idoId.toString())
       setUserInfo(_userInfo)
@@ -126,6 +130,10 @@ const ProjectBuyPage = () => {
   useEffect(() => {
     data && setProject(data.project)
   }, [data])
+
+  useEffect(() => {
+    setETHBalance(balances[Contracts['SN_GOERLI'].eth]?.normalized)
+  }, [balances])
 
   if (!project) {
     return <></>

@@ -14,7 +14,6 @@ const Withdraw = ({
   xzkpBalance,
   unlockRemainingTime,
   stakeInfo,
-  userInfo,
   lpStaked,
   zkpStaked,
   onSuccess,
@@ -22,7 +21,6 @@ const Withdraw = ({
   xzkpBalance: string
   unlockRemainingTime: number
   stakeInfo: Result
-  userInfo: Result
   lpStaked: string | null
   zkpStaked: string | null
   onSuccess: () => void
