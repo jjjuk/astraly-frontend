@@ -223,6 +223,18 @@ const ProjectPortfolioPage = () => {
                   : '0%'}
               </div>
             </div>
+            <div className="flex items-center justify-between text-16 mb-0.5">
+              <div className="text-primaryClear">Tokens bought</div>
+              <div className="font-heading text-primary">
+                {userInfo?.participation ? (
+                  `${uint256ToBN(userInfo.participation.amount_bought).toString()} $${
+                    project.ticker
+                  }`
+                ) : (
+                  <Spinner />
+                )}
+              </div>
+            </div>
           </div>
           <div className="block__item">
             <BaseButton onClick={handleWithdraw} disabled={withdrawing || currentPortion === 0}>
