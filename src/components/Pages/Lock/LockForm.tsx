@@ -12,6 +12,9 @@ import { uint256 } from 'starknet'
 import { Spinner } from '@chakra-ui/react'
 import { useTransactions } from 'context/TransactionsProvider'
 import { useStakingContract } from 'contracts'
+import { useAppDispatch } from 'hooks/hooks'
+import ToastActions from 'actions/toast.actions'
+import { ToastState } from 'components/ui/Toast/utils'
 
 const LockForm = ({
   zkpBalance,
@@ -48,6 +51,7 @@ const LockForm = ({
   )
 
   const { addTransaction } = useTransactions()
+  const dispatch = useAppDispatch()
 
   const handleLock = async () => {
     if (!account?.address) return
@@ -65,6 +69,14 @@ const LockForm = ({
       addTransaction(tx, 'Lock Tokens', onSuccess, () => {})
       setLocking(false)
     } catch (e) {
+      dispatch(
+        ToastActions.addToast({
+          title: String(e),
+          action: <div className="font-heading text-12 text-primary">Try again</div>,
+          state: ToastState.ERROR,
+          autoClose: true,
+        })
+      )
       console.error(e)
       setLocking(false)
     }

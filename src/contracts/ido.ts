@@ -31,6 +31,36 @@ export const useIDOContract = () => {
     return await contract.call('get_user_info', [address])
   }
 
+  const getNumberVestingPortions = async (id: number.BigNumberish) => {
+    const contract = await getIDOContract(id)
+
+    return await contract.call('get_number_of_vesting_portions', [])
+  }
+
+  const getVestingPercent = async (id: number.BigNumberish, portionId: number.BigNumberish) => {
+    const contract = await getIDOContract(id)
+
+    return await contract.call('get_vesting_portion_percent', [portionId])
+  }
+
+  const getVestingUnlockTime = async (id: number.BigNumberish, portionId: number.BigNumberish) => {
+    const contract = await getIDOContract(id)
+
+    return await contract.call('get_vestion_portion_unlock_time', [portionId])
+  }
+
+  const withdrawTokens = async (id: number.BigNumberish, portionIds: number.BigNumberish[]) => {
+    const contract = await getIDOContract(id)
+
+    if (portionIds.length === 1) {
+      return await contract.invoke('withdraw_tokens', [toFelt(portionIds[0])])
+    } else {
+      return await contract.invoke('withdraw_multiple_portions', [
+        ...portionIds.map((i) => toFelt(i)),
+      ])
+    }
+  }
+
   const getCurrentSale = async (id: number.BigNumberish) => {
     const contract = await getIDOContract(id)
 
@@ -63,5 +93,9 @@ export const useIDOContract = () => {
     getUserInfo,
     participate,
     getCurrentSale,
+    withdrawTokens,
+    getNumberVestingPortions,
+    getVestingPercent,
+    getVestingUnlockTime,
   }
 }

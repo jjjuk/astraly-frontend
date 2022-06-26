@@ -9,6 +9,9 @@ import { ethers } from 'ethers'
 import { Spinner } from '@chakra-ui/react'
 import { Contracts } from 'constants/networks'
 import { useTransactions } from 'context/TransactionsProvider'
+import { useAppDispatch } from 'hooks/hooks'
+import ToastActions from 'actions/toast.actions'
+import { ToastState } from 'components/ui/Toast/utils'
 
 const Withdraw = ({
   xzkpBalance,
@@ -29,6 +32,7 @@ const Withdraw = ({
   const [withdrawing, setWithdrawing] = useState(false)
   const { redeem } = useStakingContract()
   const { addTransaction } = useTransactions()
+  const dispatch = useAppDispatch()
 
   const handleWithdraw = async () => {
     if (!account?.address) return
@@ -40,6 +44,14 @@ const Withdraw = ({
 
       setWithdrawing(false)
     } catch (e) {
+      dispatch(
+        ToastActions.addToast({
+          title: String(e),
+          action: <div className="font-heading text-12 text-primary">Try again</div>,
+          state: ToastState.ERROR,
+          autoClose: true,
+        })
+      )
       console.error(e)
       setWithdrawing(false)
     }
@@ -74,7 +86,7 @@ const Withdraw = ({
       <div className="block__item">
         <BaseButton onClick={handleWithdraw} disabled={withdrawing || unlockRemainingTime > 0}>
           <SendIcon className={'mr-2'} />
-          Withdraw
+          {withdrawing ? <Spinner /> : 'Withdraw'}
         </BaseButton>
       </div>
     </div>
