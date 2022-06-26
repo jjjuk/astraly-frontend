@@ -67,6 +67,8 @@ const ProjectPortfolioPage = () => {
 
   const [userInfo, setUserInfo] = useState<Result>({} as Result)
 
+  const [roundTimer, setRoundTimer] = useState('...')
+
   const currentPortion = useMemo(
     () =>
       unlockTimes.reduce(
@@ -170,6 +172,21 @@ const ProjectPortfolioPage = () => {
     }
   }, [project])
 
+  useEffect(() => {
+    if (unlockTimes.length === 0) return
+
+    const _interval = setInterval(() => {
+      const _remainingTime = unlockTimes[currentPortion].getTime() - new Date().getTime()
+      // const days = Math.floor(_remainingTime / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((_remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((_remainingTime % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((_remainingTime % (1000 * 60)) / 1000)
+      setRoundTimer(`${hours}h${minutes}m${seconds}s`)
+    }, 1000)
+
+    return () => clearInterval(_interval)
+  }, [unlockTimes, currentPortion])
+
   if (!project) {
     return <></>
   }
@@ -248,6 +265,10 @@ const ProjectPortfolioPage = () => {
                   <Spinner />
                 )}
               </div>
+            </div>
+            <div className="flex items-center justify-between text-16 mb-0.5">
+              <div className="text-primaryClear">Time until next release</div>
+              <div className="font-heading text-primary">{roundTimer}</div>
             </div>
           </div>
           <div className="block__item">
