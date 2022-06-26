@@ -142,6 +142,7 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps): JSX.Elem
               </a>
             ),
             state: ToastState.VALID,
+            autoClose: false,
           })
         )
         break
@@ -162,6 +163,7 @@ const TransactionsProvider = ({ children }: TransactionsProviderProps): JSX.Elem
               </a>
             ),
             state: ToastState.ERROR,
+            autoClose: false,
           })
         )
         break
