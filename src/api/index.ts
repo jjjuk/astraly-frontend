@@ -12,7 +12,7 @@ import { ApolloClient, InMemoryCache, gql, ApolloLink, concat, HttpLink } from '
 export const useApi = () => {
   const apiUrl = isMainnet
     ? 'https://zkpad-api.herokuapp.com/api/graphql'
-    : 'http://localhost:4004/api/graphql'
+    : 'https://zkpad-api.herokuapp.com/api/graphql'
 
   const httpLink = new HttpLink({ uri: apiUrl })
 
