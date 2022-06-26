@@ -6,12 +6,22 @@ import IconCheck from 'assets/icons/solid/Check.svg'
 
 import ProjectLogo from '../../ui/ProjectLogo'
 import Pin from 'components/ui/Pin/Pin'
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect, FormEvent } from 'react'
 import { truncateAddress } from 'utils'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { copyToClipboard } from 'utils/clipboard'
 
 import styles from './Profile.module.scss'
+import { useApi } from '../../../api'
+import { useFileChange } from '../../../utils/fileChange'
+import { uploadToS3 } from '../../../utils/upload-file'
+import { useMutation } from '@apollo/client'
+import { UPDATE_PROFILE } from '../../../api/gql/mutations'
+import AuthActions from '../../../actions/auth.actions'
+import { useAppDispatch } from '../../../hooks/hooks'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../stores/reduxStore'
+import CoverImage from './CoverImage'
 
 let timeoutEvent: number | undefined
 
@@ -42,15 +52,11 @@ const ProfileCover = () => {
       {account && (
         <div className="ProfileCover mb-6">
           <div className="block">
-            <div className="block--contrast h-50 flex items-center justify-center">
-              <div className="border-2 border-primaryClear text-primaryClear font-heading text-12 px-4 rounded-xl py-1 bg-white">
-                Add cover image
-              </div>
-            </div>
-
+            <CoverImage />
             <div className={classnames(styles.copyAction__container, 'block__item')}>
               <div className="-mt-20"></div>
               <ProjectLogo />
+
               <div
                 role="button"
                 tabIndex={0}

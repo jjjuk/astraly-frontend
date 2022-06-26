@@ -24,3 +24,20 @@ export const ProjectFragment = gql`
     isFinished
   }
 `
+
+export const UserFragment = gql`
+  fragment User on Account {
+    _id
+    address
+    alias
+    avatar
+    bannerHash
+    bio
+    cover
+    email
+    nonce
+    questCompleted {
+      _id
+    }
+  }
+`

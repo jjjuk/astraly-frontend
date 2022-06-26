@@ -1,3 +1,5 @@
+import { UserFragment } from './gql/fragments'
+
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET'
 
 // const corsHeader = {
@@ -10,7 +12,7 @@ import { ApolloClient, InMemoryCache, gql, ApolloLink, concat, HttpLink } from '
 export const useApi = () => {
   const apiUrl = isMainnet
     ? 'https://zkpad-api.herokuapp.com/api/graphql'
-    : 'https://zkpad-api.herokuapp.com/api/graphql'
+    : 'http://localhost:4004/api/graphql'
 
   const httpLink = new HttpLink({ uri: apiUrl })
 
@@ -61,19 +63,10 @@ export const useApi = () => {
     return client
       .query({
         query: gql`
+          ${UserFragment}
           query me {
             me {
-              _id
-              address
-              alias
-              bannerHash
-              bio
-              email
-              nonce
-              questCompleted {
-                _id
-                idoId
-              }
+              ...User
             }
           }
         `,
@@ -114,40 +107,20 @@ export const useApi = () => {
       .then(({ data }) => data.getMerkleProof)
   }
 
-  const searchProjects = async (finished?: boolean, search?: string) => {
+  const getUploadUrl = async (file: string) => {
     return client
       .query({
         variables: {
-          finished,
-          search,
+          fileType: file,
         },
         query: gql`
-          query SearchProjects($finished: Boolean, $search: String) {
-            searchProjects(finished: $finished, search: $search) {
-              _id
-              name
-              description
-              ticker
-              logo
-              cover
-              totalRaise
-              maxAllocation
-              currentRoundIndex
-              type
-              categories
-              rounds {
-                title
-                description
-                startDate
-                endDate
-              }
-              idoId
-              isFinished
-            }
+          query GetUploadUrl($fileType: String!) {
+            getUploadUrl(fileType: $fileType)
           }
         `,
       })
-      .then(({ data }) => data.searchProjects)
+      .then(({ data }) => data.getUploadUrl)
   }
-  return { getAuthToken, getAccountDetails, validateQuest, fetchProof, searchProjects }
+
+  return { getAuthToken, getAccountDetails, validateQuest, fetchProof, getUploadUrl }
 }

@@ -17,3 +17,4 @@ export const VoyagerLink = 'https://goerli.voyager.online'
 
 export const REWARDS_PER_BLOCK = 10
 export const BLOCKS_PER_YEAR = 429240
+export const MAX_FILE_SIZE_BYTES = 1000000
