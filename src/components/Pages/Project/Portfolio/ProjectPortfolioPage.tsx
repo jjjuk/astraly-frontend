@@ -18,6 +18,7 @@ import { Area, AreaChart, ComposedChart, Legend, Line, Tooltip, XAxis, YAxis } f
 import { add, differenceInCalendarDays, format } from 'date-fns'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { Result } from 'starknet'
+import { formatUnits } from 'ethers/lib/utils'
 
 const dateFormatter = (date: number) => {
   return format(new Date(date), 'dd/MMM')
@@ -224,6 +225,19 @@ const ProjectPortfolioPage = () => {
               </div>
             </div>
             <div className="flex items-center justify-between text-16 mb-0.5">
+              <div className="text-primaryClear">Amount paid</div>
+              <div className="font-heading text-primary">
+                {userInfo?.participation ? (
+                  `${formatUnits(
+                    uint256ToBN(userInfo.participation.amount_paid).toString(),
+                    'ether'
+                  )} ETH`
+                ) : (
+                  <Spinner />
+                )}
+              </div>
+            </div>
+            <div className="flex items-center justify-between text-16 mb-0.5">
               <div className="text-primaryClear">Tokens bought</div>
               <div className="font-heading text-primary">
                 {userInfo?.participation ? (
@@ -237,7 +251,13 @@ const ProjectPortfolioPage = () => {
             </div>
           </div>
           <div className="block__item">
-            <BaseButton onClick={handleWithdraw} disabled={withdrawing || currentPortion === 0}>
+            <BaseButton
+              onClick={handleWithdraw}
+              disabled={
+                withdrawing ||
+                currentPortion === 0 ||
+                (userInfo ? !userInfo.has_participated : true)
+              }>
               <SendIcon className={'mr-2'} />
               {withdrawing ? <Spinner /> : 'Withdraw'}
             </BaseButton>
