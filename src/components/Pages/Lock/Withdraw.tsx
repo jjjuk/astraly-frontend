@@ -63,9 +63,13 @@ const Withdraw = ({
         <div className="title--medium mb-6">Withdraw Liquid Pool</div>
         <div className="flex items-center justify-between text-16 mb-2">
           <div className="text-primaryClear">ASTR Staked</div>
-          <div className="font-heading text-primary">{zkpStaked ? zkpStaked : <Spinner />}</div>
+          <div className="font-heading text-primary">
+            {Number(zkpStaked).toFixed(3) ? zkpStaked : <Spinner />}
+          </div>
           <div className="text-primaryClear">ASTR-LP Staked</div>
-          <div className="font-heading text-primary">{lpStaked ? lpStaked : <Spinner />}</div>
+          <div className="font-heading text-primary">
+            {Number(lpStaked).toFixed(3) ? lpStaked : <Spinner />}
+          </div>
         </div>
         <div className="flex items-center justify-between text-16">
           <div className="text-primaryClear">Time left to unlock</div>
