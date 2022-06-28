@@ -22,6 +22,7 @@ import { useAppDispatch } from '../../../hooks/hooks'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../stores/reduxStore'
 import CoverImage from './CoverImage'
+import AvatarUpload from './AvatarUpload'
 
 let timeoutEvent: number | undefined
 
@@ -55,8 +56,8 @@ const ProfileCover = () => {
             <CoverImage />
             <div className={classnames(styles.copyAction__container, 'block__item')}>
               <div className="-mt-20"></div>
-              <ProjectLogo />
-
+              <AvatarUpload />
+              <div className="mb-4"></div>
               <div
                 role="button"
                 tabIndex={0}

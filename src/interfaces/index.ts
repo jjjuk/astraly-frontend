@@ -25,18 +25,20 @@ export interface Project {
   type?: ProjectType
   categories?: string[]
   rounds: Round[]
+  quests?: Quest[]
 }
 
 export enum QuestType {
   SOCIAL = 'SOCIAL',
   PRODUCT = 'PRODUCT',
 }
+
 export interface Quest {
   _id?: string
   idoId: number
   name?: string
   description?: string
-  event?: (account: AccountInterface) => OrganizedEvent
+  event?: OrganizedEvent
   icon: string
   quest?: string
   reward?: string

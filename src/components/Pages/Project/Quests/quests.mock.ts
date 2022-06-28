@@ -34,28 +34,26 @@ export const productQuests: Quest[] = [
     icon: 'send',
     link: '/buy',
     type: QuestType.PRODUCT,
-    event: (account: AccountInterface) => {
-      return {
-        name: 'Transfer',
-        transmitterContract: '0x05a6b68181bb48501a7a447a3f99936827e41d77114728960f22892f02e24928',
-        calldata: [
-          {
-            name: 'from_',
-            type: 'felt',
-            value: '0x02810b322f1709382244cebec85e47098d2b913e910ae5d3650aaa46ba6526fe',
-          },
-          {
-            name: 'to',
-            type: 'felt',
-            value: account.address,
-          },
-          {
-            name: 'value',
-            type: 'Uint256',
-            value: { low: parseUnits('100.0', 'ether').toString(), high: 0 },
-          },
-        ],
-      }
+    event: {
+      name: 'Transfer',
+      transmitterContract: '0x05a6b68181bb48501a7a447a3f99936827e41d77114728960f22892f02e24928',
+      callData: [
+        {
+          name: 'from_',
+          type: 'felt',
+          value: '0x02810b322f1709382244cebec85e47098d2b913e910ae5d3650aaa46ba6526fe',
+        },
+        {
+          name: 'to',
+          type: 'felt',
+          value: '{account}',
+        },
+        {
+          name: 'value',
+          type: 'Uint256',
+          value: { low: parseUnits('100.0', 'ether').toString(), high: 0 },
+        },
+      ],
     },
   },
   // {

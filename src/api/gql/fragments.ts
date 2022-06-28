@@ -41,3 +41,27 @@ export const UserFragment = gql`
     }
   }
 `
+
+export const QuestFragment = gql`
+  fragment Quest on Quest {
+    _id
+    description
+    idoId
+    isClaimed
+    link
+    name
+    type
+    event {
+      callData {
+        name
+        type
+        value {
+          high
+          low
+        }
+      }
+      name
+      transmitterContract
+    }
+  }
+`

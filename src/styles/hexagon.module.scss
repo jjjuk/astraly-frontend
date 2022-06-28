@@ -9,7 +9,7 @@
     left: -3px;
     --link-logo: url("https://www.pierre-giraud.com/html-css/cours-complet/imgs/logo-html5-css3.png")
   }
-  
+
   .hex::before {
     content: "";
     background: var(--link-logo);
@@ -18,7 +18,7 @@
     background-size: cover;
     background-position: center;
     padding-top: 115%; /* 100%/cos(30)  */
-    clip-path: polygon(0% 25%,0% 75%,50% 100%,100% 75%,100% 25%,50% 0%);
+    clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
   }
 
   .hexBis {
@@ -29,7 +29,7 @@
     color: #9D69DE;
     position: relative;
   }
-  
+
   .hexBis::before {
     content: "";
     background-color: #9D69DE;

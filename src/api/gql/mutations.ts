@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
-import { UserFragment } from './fragments'
+import { QuestFragment, UserFragment } from './fragments'
+
 
 export const UPDATE_PROFILE = gql`
   ${UserFragment}
@@ -9,3 +10,13 @@ export const UPDATE_PROFILE = gql`
     }
   }
 `
+
+export const UPDATE_QUEST = gql`
+  ${QuestFragment}
+  mutation UpdateQuest($data: QuestInput!) {
+    updateQuest(data: $data) {
+      ...Quest
+    }
+  }
+`
+

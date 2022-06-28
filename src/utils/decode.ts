@@ -24,7 +24,7 @@ export const verifyQuest = async (
 ) => {
   try {
     if (!quest.event || !quest._id) return false
-    const accountEvent = quest.event(account)
+    const accountEvent = quest.event
 
     if (!accountEvent.transmitterContract) return
 
@@ -67,7 +67,7 @@ export const verifyQuest = async (
         e.name === accountEvent.name &&
         validateAndParseAddress(e.transmitterContract) ===
           validateAndParseAddress(accountEvent.transmitterContract) &&
-        isValidEvent(e, accountEvent)
+        isValidEvent(e, accountEvent, account)
     )
     // console.log(_events)
     if (_events !== undefined) {
@@ -83,10 +83,14 @@ export const verifyQuest = async (
   }
 }
 
-const isValidEvent = (event: OrganizedEvent, accountEvent: OrganizedEvent) => {
+const isValidEvent = (
+  event: OrganizedEvent,
+  accountEvent: OrganizedEvent,
+  account: AccountInterface
+) => {
   // Returns true if the event matches the quest criteria
-  const _allQuestCalldata = accountEvent.calldata
-  const _allCalldata = event.calldata
+  const _allQuestCalldata = accountEvent.callData
+  const _allCalldata = event.callData
 
   for (let index = 0; index < _allCalldata.length; index++) {
     const _calldata = _allCalldata[index]
@@ -100,6 +104,11 @@ const isValidEvent = (event: OrganizedEvent, accountEvent: OrganizedEvent) => {
       const _bn2: BigNumber = uint256ToBN(_questCalldata.value)
       // User's value should be greater than quest's value
       if (_bn1.lt(_bn2)) return false
+    } else {
+      if (_questCalldata.value === '{account}') {
+        _questCalldata.value = validateAndParseAddress(account.address)
+      }
+      if (_questCalldata.value !== _calldata.value) return false
     }
   }
 

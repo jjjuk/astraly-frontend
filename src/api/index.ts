@@ -8,11 +8,12 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET'
 // }
 
 import { ApolloClient, InMemoryCache, gql, ApolloLink, concat, HttpLink } from '@apollo/client'
+import getConfig from 'next/config'
 
 export const useApi = () => {
-  const apiUrl = isMainnet
-    ? 'https://zkpad-api.herokuapp.com/api/graphql'
-    : 'https://zkpad-api.herokuapp.com/api/graphql'
+  const { publicRuntimeConfig } = getConfig()
+
+  const apiUrl = publicRuntimeConfig?.NEXT_PUBLIC_API_URL ?? 'http://localhost:4004/api/graphql'
 
   const httpLink = new HttpLink({ uri: apiUrl })
 
