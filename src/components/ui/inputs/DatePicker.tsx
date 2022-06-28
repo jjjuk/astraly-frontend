@@ -20,7 +20,7 @@ const DatePicker = ({ value, onInput }: { value: Date | null; onInput: (date: Da
   const inputRef = useRef<ReactDatePicker>(null)
 
   return (
-    <div className="DatePicker">
+    <div className="DatePicker" style={{ zIndex: 10000 }}>
       <InputGroup
         left={<span>Date</span>}
         onClick={() => {
