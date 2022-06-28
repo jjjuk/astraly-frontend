@@ -125,7 +125,10 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
             </div>
           </div>
           <div className="block__item">
-            <BaseButton onClick={handleHarvest} disabled={harvesting} small>
+            <BaseButton
+              onClick={handleHarvest}
+              disabled={harvesting || Number(pendingRewards) === 0}
+              small>
               <SendIcon className={'mr-2'} />
               Claim {Number(pendingRewards).toFixed(3)} ASTR
             </BaseButton>
