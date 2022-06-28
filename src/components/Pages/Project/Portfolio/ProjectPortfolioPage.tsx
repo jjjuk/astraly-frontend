@@ -177,11 +177,11 @@ const ProjectPortfolioPage = () => {
 
     const _interval = setInterval(() => {
       const _remainingTime = unlockTimes[currentPortion].getTime() - new Date().getTime()
-      // const days = Math.floor(_remainingTime / (1000 * 60 * 60 * 24))
+      const days = Math.floor(_remainingTime / (1000 * 60 * 60 * 24))
       const hours = Math.floor((_remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
       const minutes = Math.floor((_remainingTime % (1000 * 60 * 60)) / (1000 * 60))
       const seconds = Math.floor((_remainingTime % (1000 * 60)) / 1000)
-      setRoundTimer(`${hours}h${minutes}m${seconds}s`)
+      setRoundTimer(`${days}d${hours}h${minutes}m${seconds}s`)
     }, 1000)
 
     return () => clearInterval(_interval)
@@ -277,7 +277,10 @@ const ProjectPortfolioPage = () => {
               disabled={
                 withdrawing ||
                 currentPortion === 0 ||
-                (userInfo ? !userInfo.has_participated : true)
+                (userInfo
+                  ? !userInfo.has_participated ||
+                    Number(uint256ToBN(userInfo.participation.amount_bought)) === 0
+                  : true)
               }>
               <SendIcon className={'mr-2'} />
               {withdrawing ? <Spinner /> : 'Withdraw'}
