@@ -17,8 +17,8 @@ const InvestmentOverview = () => {
   const fetchInformation = async () => {
     try {
       const stats = [
-        ['$ASTR Staked', deposits[Contracts['SN_GOERLI'].token].normalized],
-        ['ASTR-LP Staked', deposits[Contracts['SN_GOERLI'].lp_token].normalized],
+        ['$ASTR Staked', Number(deposits[Contracts['SN_GOERLI'].token].normalized).toFixed(2)],
+        ['ASTR-LP Staked', Number(deposits[Contracts['SN_GOERLI'].lp_token].normalized).toFixed(2)],
         ['Total $USD invested', '0.0'],
         ['IDO participations', '0'],
       ]
