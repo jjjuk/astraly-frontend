@@ -31,7 +31,7 @@ const Withdraw = ({
   const { account } = useStarknetReact()
   const [withdrawing, setWithdrawing] = useState(false)
   const [withdrawingLP, setWithdrawingLP] = useState(false)
-  const { withdraw, withdrawLP } = useStakingContract()
+  const { withdraw, withdrawLP, redeem } = useStakingContract()
   const { addTransaction } = useTransactions()
   const dispatch = useAppDispatch()
 
@@ -40,7 +40,7 @@ const Withdraw = ({
 
     try {
       setWithdrawing(true)
-      const tx = await withdraw(zkpStaked, account)
+      const tx = await redeem(zkpStaked, account)
       addTransaction(tx, 'Withdraw Tokens', onSuccess, () => {})
 
       setWithdrawing(false)
@@ -118,13 +118,13 @@ const Withdraw = ({
           <SendIcon className={'mr-2'} />
           {withdrawing ? <Spinner /> : 'Withdraw'}
         </BaseButton>
-        <BaseButton
+        {/* <BaseButton
           onClick={handleWithdrawLP}
           disabled={withdrawingLP || unlockRemainingTime > 0 || Number(lpStaked) === 0}
           className="mt-5">
           <SendIcon className={'mr-2'} />
           {withdrawingLP ? <Spinner /> : 'Withdraw LP'}
-        </BaseButton>
+        </BaseButton> */}
       </div>
     </div>
   )
