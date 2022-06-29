@@ -143,6 +143,33 @@ export const useStakingContract = () => {
 
     return await account.execute([_approveTx, _redeemTx])
   }
+  const withdraw = async (assets: string, account: AccountInterface) => {
+    const contract = await getXZKPContract()
+
+    const _withdrawTx: Call = {
+      contractAddress: contract.address,
+      entrypoint: 'withdraw',
+      calldata: [...parseInputAmountToUint256ExecuteCall(assets), account.address, account.address],
+    }
+
+    return await account.execute([_withdrawTx])
+  }
+  const withdrawLP = async (assets: string, account: AccountInterface, lpToken: string) => {
+    const contract = await getXZKPContract()
+
+    const _withdrawLPTx: Call = {
+      contractAddress: contract.address,
+      entrypoint: 'withdrawLP',
+      calldata: [
+        lpToken,
+        ...parseInputAmountToUint256ExecuteCall(assets),
+        account.address,
+        account.address,
+      ],
+    }
+
+    return await account.execute([_withdrawLPTx])
+  }
 
   const harvestRewards = async () => {
     const contract = await getXZKPContract()
@@ -255,5 +282,7 @@ export const useStakingContract = () => {
     getPendingRewards,
     getZKPStaked,
     getZKPLPStaked,
+    withdrawLP,
+    withdraw
   }
 }
