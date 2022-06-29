@@ -1,8 +1,11 @@
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+
 import { ToastNotification } from './utils'
 import Toast from './Toast'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { useSelector } from 'react-redux'
 import { RootState } from '../../../stores/reduxStore'
+
 import styles from './Toast.module.scss'
 
 const ToastContainer = () => {

@@ -1,14 +1,16 @@
-import { Project } from '../../interfaces'
-import styles from '../../styles/hexagon.module.scss'
 import React from 'react'
 
-const ProjectLogo = ({ project }: { project?: Project }) => {
+import { Project } from '../../interfaces'
+
+import styles from '../../styles/hexagon.module.scss'
+
+const ProjectLogo: React.FC<{ project?: Project }> = ({ project }) => {
   return (
     <div className="logo">
       <div className={styles.hexBis}>
         <div
           className={styles.hex}
-          style={{ ['--link-logo' as any]: `url(${project?.logo})` }}></div>
+          style={{ ['--link-logo' as string]: `url(${project?.logo})` }}></div>
       </div>
       <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
         <defs>

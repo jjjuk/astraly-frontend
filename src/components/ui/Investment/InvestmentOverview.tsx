@@ -1,16 +1,17 @@
+import React, { useEffect, useState } from 'react'
+
 import { transactions } from './transactions'
 import { format } from 'date-fns'
 import Link from 'next/link'
 import Exclamation from 'assets/icons/Exclamation.svg'
-import { useEffect, useState } from 'react'
-import { useStakingContract } from 'contracts'
-import { useStarknetReact } from '@web3-starknet-react/core'
-import { ethers } from 'ethers'
-import { uint256 } from 'starknet'
+// import { useStakingContract } from 'contracts'
+// import { useStarknetReact } from '@web3-starknet-react/core'
+// import { ethers } from 'ethers'
+// import { uint256 } from 'starknet'
 import { Contracts } from 'constants/networks'
 import { useWallet } from 'context/WalletProvider'
 
-const InvestmentOverview = () => {
+const InvestmentOverview: React.FC = () => {
   const [stats, setStats] = useState([['']])
   const { deposits } = useWallet()
 
@@ -52,8 +53,8 @@ const InvestmentOverview = () => {
           />
 
           <div className="grid grid-cols-2 xl:grid-cols-4 w-full gap-3">
-            {stats.map(([label, value], index) => (
-              <div key={index}>
+            {stats.map(([label, value]) => (
+              <div key={`${label}-${value}`}>
                 <div className="text-primaryClear">{label}</div>
                 <div className="font-heading text-primaryDark text-[18px] md:text-24">{value}</div>
               </div>
@@ -72,12 +73,12 @@ const InvestmentOverview = () => {
         </div>
 
         {transactions &&
-          transactions.map((transaction: any, index) => (
+          transactions.map((transaction) => (
             <div
               className="grid grid-cols-3 font-heading text-primaryClear bg-primaryClearBg rounded-3xl  px-4 md:px-8 py-6 text-[10px] md:text-12 mb-2"
-              key={index}>
+              key={transaction.transactionId}>
               <div>{transaction?.action}</div>
-              <div>{format(transaction?.date, 'dd MMMM yyyy')}</div>
+              <div>{format(transaction.date, 'dd MMMM yyyy')}</div>
               <div className="text-right text-primary">
                 <Link href={'/'}>
                   <a className="cursor-pointer">View on Voyager</a>

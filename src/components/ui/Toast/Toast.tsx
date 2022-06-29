@@ -1,12 +1,17 @@
+import React, { useEffect, useCallback } from 'react'
+
+import { Spinner } from '@chakra-ui/react'
+
 import { ToastNotification, ToastState } from './utils'
-import { useEffect, useState } from 'react'
 import { useAppDispatch } from '../../../hooks/hooks'
 import ToastActions from '../../../actions/toast.actions'
-import styles from './Toast.module.scss'
+
 import BaseButton from '../buttons/BaseButton'
+
 import CheckIcon from 'assets/icons/solid/Check.svg'
 import CrossIcon from 'assets/icons/solid/Cross_purple.svg'
-import { Spinner } from '@chakra-ui/react'
+
+import styles from './Toast.module.scss'
 
 const getStateIcon = (state: ToastState) => {
   switch (state) {
@@ -26,14 +31,15 @@ const getStateIcon = (state: ToastState) => {
   }
 }
 
-const Toast = ({ toast }: { toast: ToastNotification }) => {
+const Toast: React.FC<{ toast: ToastNotification }> = ({ toast }) => {
   const dispatch = useAppDispatch()
-  const remove = () => {
+
+  const remove = useCallback(() => {
     dispatch(ToastActions.removeToast(toast.id))
-  }
+  }, [dispatch, toast.id])
 
   useEffect(() => {
-    let id: any
+    let id: ReturnType<typeof setTimeout>
     if (toast.autoClose) {
       id = setTimeout(() => remove(), toast.delay)
     }

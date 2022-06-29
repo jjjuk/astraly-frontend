@@ -1,14 +1,11 @@
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 
-const Container = ({
-  children,
-  classes,
-  className
-}: PropsWithChildren<{
-  classes?: string
-  className?: string
-}>) => {
-  return <div className={`g-container ${classes} ${className}`}>{children}</div>
+const Container: React.FC<
+  React.PropsWithChildren<{
+    className?: string
+  }>
+> = ({ children, className }) => {
+  return <div className={`g-container ${className}`}>{children}</div>
 }
 
 export default Container

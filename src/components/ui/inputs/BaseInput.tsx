@@ -1,27 +1,28 @@
-import InputGroup from './InputGroup'
-import { ChangeEventHandler, useRef } from 'react'
+import React, { useRef, useCallback } from 'react'
 
-const BaseInput = ({
-  label,
-  value,
-  onChange,
-  max,
-}: {
+import InputGroup from './InputGroup'
+
+const BaseInput: React.FC<{
   label: string
   value: string
-  onChange: ChangeEventHandler<HTMLInputElement>
+  onChange: React.ChangeEventHandler<HTMLInputElement>
   max?: number
-}) => {
-  const input = useRef<HTMLInputElement | null>(null)
+}> = ({ label, value, onChange, max }) => {
+  const input = useRef<HTMLInputElement>(null)
+
+  const handleClick = useCallback(() => {
+    input.current?.focus()
+  }, [input.current])
+
   return (
-    <InputGroup left={<span>{label}</span>} onClick={() => input.current?.focus()}>
+    <InputGroup left={<span>{label}</span>} onClick={handleClick}>
       <div className="input">
         <input
           ref={input}
           max={max}
           value={value}
           onChange={onChange}
-          className={'outline-0 w-full text-right'}
+          className="outline-0 w-full text-right"
         />
       </div>
     </InputGroup>

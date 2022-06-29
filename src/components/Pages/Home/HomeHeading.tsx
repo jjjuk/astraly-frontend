@@ -1,25 +1,30 @@
+import React, { useEffect, useState } from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+
+import Link from 'next/link'
 import BaseButton from 'components/ui/buttons/BaseButton'
-import Wallet from 'assets/icons/outline/Wallet.svg?inline'
+
+// import Wallet from 'assets/icons/outline/Wallet.svg?inline'
 import Chevron from 'assets/icons/Chevron.svg?inline'
 import StarkNetLogo from 'assets/images/Starknet-logo-dark1.svg'
 import Planets from 'assets/animations/planet.svg?inline'
-import Line from 'assets/images/bg-line.svg'
+// import Line from 'assets/images/bg-line.svg'
 import ShoppingCart from 'assets/icons/currentColor/Shopping-cart.svg?inline'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
 
 const HomeHeading = () => {
   const TitleSpans = ['Curated', 'Excellent', 'Audited']
   const [currentTitle, setCurrentTitle] = useState(TitleSpans[0])
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutHandler = setTimeout(() => {
       const index = TitleSpans.indexOf(currentTitle)
       const title = index === TitleSpans.length - 1 ? TitleSpans[0] : TitleSpans[index + 1]
 
       setCurrentTitle(title)
     }, 3000)
+    return () => {
+      clearTimeout(timeoutHandler)
+    }
   }, [currentTitle])
 
   return (

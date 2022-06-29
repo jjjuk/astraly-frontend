@@ -1,7 +1,11 @@
-import { PropsWithChildren, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import styles from './Modal.module.scss'
 
-const BaseModal = ({ children, isOpen, close }: PropsWithChildren<any>) => {
+const BaseModal: React.FC<React.PropsWithChildren<{ isOpen: boolean; onClose: () => void }>> = ({
+  children,
+  isOpen,
+  onClose,
+}) => {
   useEffect(() => {
     isOpen
       ? document.body.classList.add('modal-open')
@@ -9,11 +13,18 @@ const BaseModal = ({ children, isOpen, close }: PropsWithChildren<any>) => {
   }, [isOpen])
 
   if (!isOpen) {
-    return <></>
+    return null
   }
+
   return (
     <div className="BaseModal">
-      <div className={styles.modalBackground} onClick={close}></div>
+      <div
+        className={styles.modalBackground}
+        onClick={onClose}
+        role="button"
+        tabIndex={0}
+        onKeyUp={() => {}}
+      />
       <div className={styles.modalContent}>{children}</div>
     </div>
   )

@@ -103,7 +103,7 @@ const QuestModal = ({
   }
 
   return (
-    <BaseModal isOpen={isOpen} close={close}>
+    <BaseModal isOpen={isOpen} onClose={close}>
       <div className={`block ${styles.questModal}`}>
         <div
           className="absolute top-4 right-4  hover:shadow-purpleLight rounded-full transition-all hover:transform  hover:scale-110 hover:-translate-y-px rounded-full cursor-pointer"

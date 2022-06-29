@@ -1,11 +1,7 @@
-import { ReactNode } from 'react'
+import React from 'react'
 
-export const ConditionalWrapper = ({
-  condition,
-  wrapper,
-  children,
-}: {
+export const ConditionalWrapper: React.FC<{
   condition: boolean
   wrapper: any
-  children: ReactNode
-}) => (condition ? wrapper(children) : children)
+  children: React.ReactNode
+}> = ({ condition, wrapper, children }) => (condition ? wrapper(children) : children)

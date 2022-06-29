@@ -1,4 +1,5 @@
-import { MouseEventHandler, PropsWithChildren } from 'react'
+import React from 'react'
+import classnames from 'classnames'
 import styles from './Buttons.module.scss'
 
 const BaseButton = ({
@@ -11,7 +12,7 @@ const BaseButton = ({
   inline,
   onClick,
   white,
-}: PropsWithChildren<{
+}: React.PropsWithChildren<{
   className?: string
   small?: boolean
   xSmall?: boolean
@@ -19,21 +20,19 @@ const BaseButton = ({
   disabled?: boolean
   inline?: boolean
   white?: boolean
-  onClick?: MouseEventHandler<HTMLDivElement | undefined>
+  onClick?: React.MouseEventHandler<HTMLDivElement>
 }>) => {
-  const classes = Object.values({
-    small: small ? styles.baseButtonSmall : undefined,
-    xSmall: xSmall ? styles.baseButtonXSmall : undefined,
-    disabled: disabled ? styles.baseButtonDisabled : undefined,
-    inline: inline ? styles.baseButtonInline : undefined,
-    white: white ? styles.baseButtonWhite : undefined,
-    medium: medium ? styles.baseButtonMedium : undefined,
+  const classes = classnames('BaseButton', className, styles.baseButton, {
+    [styles.baseButtonSmall]: small,
+    [styles.baseButtonXSmall]: xSmall,
+    [styles.baseButtonDisabled]: disabled,
+    [styles.baseButtonInline]: inline,
+    [styles.baseButtonWhite]: white,
+    [styles.baseButtonMedium]: medium,
   })
-    .filter((x) => x)
-    .join(' ')
 
   return (
-    <div className={`BaseButton ${className} ${styles.baseButton} ${classes}`} onClick={onClick}>
+    <div className={classes} onClick={onClick} role="button" tabIndex={0} onKeyUp={() => {}}>
       <span>{children}</span>
     </div>
   )

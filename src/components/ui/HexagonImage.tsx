@@ -1,13 +1,14 @@
-import { Project } from '../../interfaces'
-import styles from '../../styles/hex.module.scss'
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 
-const HexagonImage = ({ url, children }: PropsWithChildren<{ url?: string }>) => {
+// import { Project } from '../../interfaces'
+import styles from '../../styles/hex.module.scss'
+
+const HexagonImage: React.FC<React.PropsWithChildren<{ url?: string }>> = ({ url, children }) => {
   return (
     <>
       <div
         className={`${styles.hex} h-20 w-20 cursor-pointer`}
-        style={{ ['--link-logo' as any]: `url(${url})` }}>
+        style={{ ['--link-logo' as string]: `url(${url})` }}>
         {children}
       </div>
 

@@ -1,38 +1,39 @@
-import ProjectCard from './ProjectCard'
-import { useEffect, useRef, useState } from 'react'
-import VueScrollTo from 'vue-scrollto'
+import React, { useEffect, useRef, useState } from 'react'
+import classnames from 'classnames'
 import _ from 'lodash'
+import VueScrollTo from 'vue-scrollto'
+
+import ProjectCard from './ProjectCard'
 import Container from '../Container'
+
 import Chevron from 'assets/icons/Chevron.svg?inline'
+
 import { Project } from '../../../interfaces'
 
 const itemClass = 'ProjectCard'
 
-const ArrowButton = ({
-  onClick,
-  left,
-  isActive,
-}: {
+const ArrowButton: React.FC<{
   onClick?: any
   left?: boolean
   isActive?: boolean
-}) => {
+}> = ({ onClick, left, isActive }) => {
   return (
-    <>
-      <div
-        className={`h-14 w-14 bg-primaryClearBg border-2 border-white shadow-purpleDark text-primaryDark flex items-center justify-center rounded-2xl transition-all ${
-          !isActive ? 'opacity-0' : 'cursor-pointer '
-        }`}
-        onClick={onClick}>
-        <div className={`${left ? 'transform rotate-180' : ''}`}>
-          <Chevron />
-        </div>
+    <div
+      className={`h-14 w-14 bg-primaryClearBg border-2 border-white shadow-purpleDark text-primaryDark flex items-center justify-center rounded-2xl transition-all ${
+        !isActive ? 'opacity-0' : 'cursor-pointer '
+      }`}
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyUp={() => {}}>
+      <div className={classnames({ 'transform rotate-180': left })}>
+        <Chevron />
       </div>
-    </>
+    </div>
   )
 }
 
-const ProjectsSlider = ({ projects }: { projects?: Project[] }) => {
+const ProjectsSlider: React.FC<{ projects?: Project[] }> = ({ projects }) => {
   const [current, setCurrent] = useState(0)
   const container = useRef<HTMLDivElement>(null)
   const refContainer = useRef(null)
@@ -124,21 +125,19 @@ const ProjectsSlider = ({ projects }: { projects?: Project[] }) => {
       setCurrent(projects.length - 1)
       return
     }
-    // @ts-ignore
-    const element = container.current.querySelector(`.${itemClass}[data-index="${current}"]`)
+
+    const element = container?.current?.querySelector(`.${itemClass}[data-index="${current}"]`)
 
     const offset = (refContainer.current as unknown as HTMLElement).offsetLeft * -1
+
     // @ts-ignore
     scroll && scroll()
 
     window.requestAnimationFrame =
       window.requestAnimationFrame ||
-      // @ts-ignore
-      window.mozRequestAnimationFrame ||
-      // @ts-ignore
-      window.webkitRequestAnimationFrame ||
-      // @ts-ignore
-      window.msRequestAnimationFrame
+      (window as any).mozRequestAnimationFrame ||
+      (window as any).webkitRequestAnimationFrame ||
+      (window as any).msRequestAnimationFrame
     VueScrollTo.scrollTo(element, 200, {
       container: container.current,
       offset,

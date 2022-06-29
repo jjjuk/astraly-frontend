@@ -1,25 +1,29 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import styles from './Search.module.scss'
-import React, { ChangeEventHandler, useState } from 'react'
+import React, { useState, useRef } from 'react'
+import classnames from 'classnames'
+
 import SearchIcon from 'assets/icons/currentColor/Search.svg?inline'
 
-const SearchInput = ({
-  value,
-  onChange,
-}: {
+import styles from './Search.module.scss'
+
+const SearchInput: React.FC<{
   value: string
-  onChange: ChangeEventHandler<HTMLInputElement>
-}) => {
+  onChange: React.ChangeEventHandler<HTMLInputElement>
+}> = ({ value, onChange }) => {
   const [hasFocus, setFocus] = useState(false)
-  const inputRef = React.useRef() as React.MutableRefObject<HTMLInputElement>
+
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const handleClick = () => {
+    if (!hasFocus) inputRef.current?.focus()
+  }
 
   return (
     <div
-      className={`${styles.search} ${hasFocus && styles.searchActive}`}
-      onClick={() => {
-        !hasFocus && inputRef.current?.focus()
-      }}>
+      className={classnames(styles.search, { [styles.searchActive]: hasFocus })}
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={handleClick}>
       <div className={`icon mr-2 ${!hasFocus && '-ml-4'}`}>
         <SearchIcon />
       </div>

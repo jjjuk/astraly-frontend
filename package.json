@@ -16,7 +16,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint & tsc --noemit"
   },
   "dependencies": {
     "@apollo/client": "^3.6.8",
@@ -64,6 +64,7 @@
     "@types/react": "17.0.40",
     "@types/react-datepicker": "^4.4.1",
     "@types/react-transition-group": "^4.4.4",
+    "@types/recharts": "^1.8.23",
     "@types/redux-logger": "^3.0.9",
     "autoprefixer": "^10.4.7",
     "eslint": "^8.16.0",
