@@ -284,7 +284,7 @@ const ProjectPortfolioPage = () => {
                 (userInfo
                   ? !userInfo.has_participated ||
                     Number(uint256ToBN(userInfo.participation.amount_bought)) === 0 ||
-                    userInfo.participation.last_portion_withdrawn === currentPortion
+                    Number(userInfo.participation.last_portion_withdrawn) === currentPortion
                   : true)
               }>
               <SendIcon className={'mr-2'} />
