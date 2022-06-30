@@ -55,9 +55,7 @@ export const useIDOContract = () => {
     if (portionIds.length === 1) {
       return await contract.invoke('withdraw_tokens', [toFelt(portionIds[0])])
     } else {
-      return await contract.invoke('withdraw_multiple_portions', [
-        ...portionIds.map((i) => toFelt(i)),
-      ])
+      return await contract.invoke('withdraw_multiple_portions', [portionIds.map((i) => toFelt(i))])
     }
   }
 

@@ -105,7 +105,7 @@ const ProjectPortfolioPage = () => {
         _percents.push(Number(uint256ToBN(_percent.res)) + _prevPercent)
         _unlockTimes.push(new Date(Number(_unlockTime.res) * 1000))
       }
-      console.log(_percents, _unlockTimes)
+      // console.log(_percents, _unlockTimes)
       setVestingPercents(_percents)
       setUnlockTimes(_unlockTimes)
 
@@ -138,7 +138,11 @@ const ProjectPortfolioPage = () => {
       setWithdrawing(true)
       const tx = await withdrawTokens(
         project?.idoId.toString(),
-        Array.from({ length: currentPortion }, (v, i) => i + 1)
+        Array.from(
+          { length: currentPortion - userInfo.participation.last_portion_withdrawn },
+          (v: number, i) =>
+            i === 0 ? Number(userInfo.participation.last_portion_withdrawn) + 1 : v + 1
+        )
       )
       addTransaction(
         tx,
