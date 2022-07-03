@@ -136,14 +136,12 @@ const ProjectPortfolioPage = () => {
   const handleWithdraw = async () => {
     try {
       setWithdrawing(true)
-      const tx = await withdrawTokens(
-        project?.idoId.toString(),
-        Array.from(
-          { length: currentPortion - userInfo.participation.last_portion_withdrawn },
-          (v: number, i) =>
-            i === 0 ? Number(userInfo.participation.last_portion_withdrawn) + 1 : v + 1
-        )
+      const _portionIds = Array.from(
+        { length: currentPortion - Number(userInfo.participation.last_portion_withdrawn) },
+        (v: number, i) => i + Number(userInfo.participation.last_portion_withdrawn) + 1
       )
+      console.log(_portionIds)
+      const tx = await withdrawTokens(project?.idoId.toString(), _portionIds)
       addTransaction(
         tx,
         'Withdraw Tokens',
