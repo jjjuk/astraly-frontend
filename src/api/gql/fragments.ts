@@ -56,8 +56,13 @@ export const QuestFragment = gql`
         name
         type
         value {
-          high
-          low
+          ... on Felt {
+            value
+          }
+          ... on Uint256 {
+            low
+            high
+          }
         }
       }
       name

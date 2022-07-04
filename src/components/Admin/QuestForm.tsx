@@ -10,6 +10,7 @@ import { ToastState } from '../ui/Toast/utils'
 import { useAppDispatch } from '../../hooks/hooks'
 import BaseButtonsGroup from '../ui/inputs/BaseButtonsGroup'
 import AdminInputGroup from '../ui/inputs/AdminInputGroup'
+import _ from 'lodash'
 
 const QuestForm = ({ quest }: { quest: Quest }) => {
   const [questForm, setQuestForm] = useState({} as Quest)
@@ -19,9 +20,7 @@ const QuestForm = ({ quest }: { quest: Quest }) => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    setQuestForm({
-      ...quest,
-    })
+    setQuestForm(_.cloneDeep(quest))
   }, [quest])
 
   useEffect(() => {
@@ -46,10 +45,18 @@ const QuestForm = ({ quest }: { quest: Quest }) => {
               ? questForm.event?.callData.map((x) => ({
                   name: x.name,
                   type: x.type,
-                  value: {
-                    low: Number(x.value.low),
-                    high: Number(x.value.high),
-                  },
+                  ...(x.type === 'Uint256'
+                    ? {
+                        value: {
+                          low: Number(x.value.low),
+                          high: Number(x.value.high),
+                        },
+                      }
+                    : {
+                        value: {
+                          value: x.value.value,
+                        },
+                      }),
                 }))
               : [],
           },
@@ -224,23 +231,53 @@ const QuestForm = ({ quest }: { quest: Quest }) => {
                 onChange={setField('name', 'event', 'callData', index)}
               />
 
-              <BaseAdminInput
-                label={'type'}
-                value={callData.type || ''}
-                onChange={setField('type', 'event', 'callData', index)}
-              />
+              <AdminInputGroup left={'Type'} onClick={() => {}}>
+                <BaseButtonsGroup
+                  options={[
+                    { label: 'Uint256', value: 'Uint256' },
+                    { label: 'Felt', value: 'Felt' },
+                  ]}
+                  value={callData.type}
+                  onInput={(value) =>
+                    setField(
+                      'type',
+                      'event',
+                      'callData',
+                      index
+                    )({
+                      target: {
+                        value,
+                      },
+                    })
+                  }
+                />
+              </AdminInputGroup>
 
-              <BaseAdminInput
-                label={'low'}
-                value={callData.value.low || ''}
-                onChange={setField('low', 'event', 'callData', index, 'value')}
-              />
+              {callData.type === 'Uint256' && (
+                <>
+                  <BaseAdminInput
+                    label={'low'}
+                    value={callData.value.low || ''}
+                    onChange={setField('low', 'event', 'callData', index, 'value')}
+                  />
 
-              <BaseAdminInput
-                label={'high'}
-                value={callData.value.high || ''}
-                onChange={setField('high', 'event', 'callData', index, 'value')}
-              />
+                  <BaseAdminInput
+                    label={'high'}
+                    value={callData.value.high || ''}
+                    onChange={setField('high', 'event', 'callData', index, 'value')}
+                  />
+                </>
+              )}
+
+              {callData.type !== 'Uint256' && (
+                <>
+                  <BaseAdminInput
+                    label={'value'}
+                    value={callData.value.value || ''}
+                    onChange={setField('value', 'event', 'callData', index, 'value')}
+                  />
+                </>
+              )}
             </div>
           ))}
         </div>
