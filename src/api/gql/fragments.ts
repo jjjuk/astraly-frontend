@@ -34,11 +34,27 @@ export const UserFragment = gql`
     bannerHash
     bio
     cover
+    transactions {
+      _id
+      contractAddress
+      hash
+      name
+      timestamp
+    }
     email
-    nonce
     questCompleted {
       _id
     }
+  }
+`
+
+export const TransactionFragment = gql`
+  fragment Transaction on Transaction {
+    _id
+    contractAddress
+    hash
+    name
+    timestamp
   }
 `
 

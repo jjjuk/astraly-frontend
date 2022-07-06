@@ -10,10 +10,15 @@ import Exclamation from 'assets/icons/Exclamation.svg'
 // import { uint256 } from 'starknet'
 import { Contracts } from 'constants/networks'
 import { useWallet } from 'context/WalletProvider'
+import { useSelector } from 'react-redux'
+import { RootState } from 'stores/reduxStore'
+import { getVoyagerLink } from 'utils'
 
 const InvestmentOverview: React.FC = () => {
   const [stats, setStats] = useState([['']])
   const { deposits } = useWallet()
+
+  const { user } = useSelector((state: RootState) => state.Auth)
 
   const fetchInformation = async () => {
     try {
@@ -72,15 +77,15 @@ const InvestmentOverview: React.FC = () => {
           <div className="text-right">Transaction</div>
         </div>
 
-        {transactions &&
-          transactions.map((transaction) => (
+        {user.transactions &&
+          user.transactions.map((transaction: any) => (
             <div
               className="grid grid-cols-3 font-heading text-primaryClear bg-primaryClearBg rounded-3xl  px-4 md:px-8 py-6 text-[10px] md:text-12 mb-2"
-              key={transaction.transactionId}>
-              <div>{transaction?.action}</div>
-              <div>{format(transaction.date, 'dd MMMM yyyy')}</div>
+              key={transaction?._id}>
+              <div>{transaction?.name}</div>
+              <div>{format(new Date(transaction?.timestamp), 'dd MMMM yyyy')}</div>
               <div className="text-right text-primary">
-                <Link href={'/'}>
+                <Link href={getVoyagerLink(transaction?.hash)}>
                   <a className="cursor-pointer">View on Voyager</a>
                 </Link>
               </div>
