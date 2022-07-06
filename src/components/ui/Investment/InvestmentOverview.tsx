@@ -85,9 +85,13 @@ const InvestmentOverview: React.FC = () => {
               <div>{transaction?.name}</div>
               <div>{format(new Date(transaction?.timestamp), 'dd MMMM yyyy')}</div>
               <div className="text-right text-primary">
-                <Link href={getVoyagerLink(transaction?.hash)}>
-                  <a className="cursor-pointer">View on Voyager</a>
-                </Link>
+                <a
+                  className="cursor-pointer"
+                  href={getVoyagerLink(transaction?.hash)}
+                  target="_blank"
+                  rel="noreferrer">
+                  View on Voyager
+                </a>
               </div>
             </div>
           ))}
