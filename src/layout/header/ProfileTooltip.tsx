@@ -29,6 +29,14 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
     }
   }
 
+  const updateWalletCache = (wallet: any) => {
+    const _walletKey = Object.keys(SUPPORTED_WALLETS).find(
+      (key) => SUPPORTED_WALLETS[key].connector === wallet
+    )
+    if (!_walletKey) return
+    localStorage.setItem('astraly__wallet', SUPPORTED_WALLETS[_walletKey].name)
+  }
+
   const tryActivation = async (connector: any) => {
     const conn = typeof connector === 'function' ? await connector() : connector
 
@@ -40,12 +48,14 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
     })
 
     conn &&
-      activate(conn, undefined, true).catch((error) => {
-        console.log(error)
-        if (error instanceof UnsupportedChainIdError) {
-          activate(conn) // a little janky...can't use setError because the connector isn't set
-        }
-      })
+      activate(conn, undefined, true)
+        .then(() => updateWalletCache(conn))
+        .catch((error) => {
+          console.log(error)
+          if (error instanceof UnsupportedChainIdError) {
+            activate(conn) // a little janky...can't use setError because the connector isn't set
+          }
+        })
   }
 
   const getContent = () => {

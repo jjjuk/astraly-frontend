@@ -1,30 +1,37 @@
-import {useStarknetReact} from '@web3-starknet-react/core';
-import {useEffect, useState} from 'react';
-import {argentXConnector} from '../connectors';
+import { useStarknetReact } from '@web3-starknet-react/core'
+import { SUPPORTED_WALLETS } from 'constants/wallet'
+import { useEffect, useMemo, useState } from 'react'
+import { argentXConnector } from '../connectors'
 
 export default function useEagerConnect() {
-  const {activate, active} = useStarknetReact();
+  const { activate, active } = useStarknetReact()
 
-  const [tried, setTried] = useState(false);
+  const [tried, setTried] = useState(false)
 
   useEffect(() => {
-    argentXConnector.isAuthorized().then(isAuthorized => {
+    const _walletName = localStorage.getItem('astraly__wallet')
+    const _connector = Object.keys(SUPPORTED_WALLETS).find(
+      (key) => _walletName === SUPPORTED_WALLETS[key].name
+    )
+    const __connector = _connector ? SUPPORTED_WALLETS[_connector].connector : argentXConnector
+    if (!_connector) localStorage.setItem('astraly__wallet', 'Argent X')
+    __connector?.isAuthorized().then((isAuthorized) => {
       if (isAuthorized) {
-        activate(argentXConnector, undefined, true).catch(() => {
-          setTried(true);
-        });
+        activate(__connector, undefined, true).catch(() => {
+          setTried(true)
+        })
       } else {
-        setTried(true);
+        setTried(true)
       }
-    });
-  }, [activate]);
+    })
+  }, [activate])
 
   // if the connection worked, wait until we get confirmation of that to flip the flag
   useEffect(() => {
     if (!tried && active) {
-      setTried(true);
+      setTried(true)
     }
-  }, [tried, active]);
+  }, [tried, active])
 
-  return tried;
+  return tried
 }
