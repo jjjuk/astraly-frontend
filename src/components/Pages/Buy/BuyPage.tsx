@@ -7,7 +7,7 @@ const BuyPage = () => {
   return (
     <div className="BuyPage">
       <div className="g-container mb-20">
-        <h1 className="page-title mb-16">Buy $ASTR</h1>
+        <h1 className="page-title mb-8">Buy $ASTR</h1>
 
         <div className="lg:flex gap-6">
           <div className={'col-end-3 col-start-1'}>

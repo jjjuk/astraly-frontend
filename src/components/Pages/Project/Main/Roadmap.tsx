@@ -52,21 +52,21 @@ const RoadmapItem = ({
         {isActive && stepText[3]}
       </div>
 
-      <div className="font-heading mb-2 text-12 xl:text-16">{step.title}</div>
-      <div className="text-12 xl:text-16"> {step.description}</div>
-      <div className="text-12 xl:text-16  mt-auto mb-2 pt-4">
+      <div className="font-heading mb-2 text-12">{step.title}</div>
+      <div className="text-16 font-bold">{step.description}</div>
+      <div className="text-16 mt-auto mb-2 pt-4">
         {format(new Date(step.startDate), 'yyyy-MM-dd')}
       </div>
       {isActive ? (
         <Link href={href}>
           <a>
-            <BaseButton small={true} disabled={!isActive} className={'text-center px-1'}>
+            <BaseButton xSmall disabled={!isActive} className={'text-center px-1'}>
               {ButtonText}
             </BaseButton>
           </a>
         </Link>
       ) : (
-        <BaseButton small={true} disabled={!isActive} className={'text-center px-1'}>
+        <BaseButton xSmall disabled={!isActive} className={'text-center px-1'}>
           {ButtonText}
         </BaseButton>
       )}

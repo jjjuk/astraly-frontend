@@ -1,16 +1,40 @@
-const AllocationInfo = () => {
+import React from 'react'
+
+const AllocationBurnInfo = () => {
+  return (
+    <div className="block--contrast">
+      <div className="title--medium mb-6">Burn tickets</div>
+
+      <p className="text-primaryClear leading-138">
+        We are excited to launch our IDO on Astraly. For a chance to win an allocation, please fill
+        out the form below and perform all tasks accordingly.
+      </p>
+
+      <p className="text-primaryClear mt-6 uppercase">Good Luck! 🚀</p>
+    </div>
+  )
+}
+
+const AllocationClaimInfo = () => {
+  return (
+    <div className="block--contrast">
+      <div className="title--medium mb-6">Claim your tickets</div>
+
+      <p className="text-primaryClear leading-138">
+        We are excited to launch our IDO on Astraly. For a chance to win an allocation, please fill
+        out the form below and perform all tasks accordingly.
+      </p>
+
+      <p className="text-primaryClear mt-6 uppercase">Good Luck! 🚀</p>
+    </div>
+  )
+}
+
+const AllocationInfo: React.FC<{ type?: 'claim' | 'burn' }> = ({ type = 'claim' }) => {
   return (
     <div className="AllocationInfo block">
-      <div className="block--contrast">
-        <div className="title--medium mb-6">Get your allocation</div>
-
-        <p className="text-primaryClear leading-138">
-          We are excited to launch our IDO on Astraly. For a chance to win an allocation, please
-          fill out the form below and perform all tasks accordingly.
-        </p>
-
-        <p className="text-primaryClear mt-6 uppercase">Good Luck! 🚀</p>
-      </div>
+      {type === 'claim' && <AllocationClaimInfo />}
+      {type === 'burn' && <AllocationBurnInfo />}
 
       <div className="block__item">
         <div className="title--small mb-4">Conditions of entry</div>

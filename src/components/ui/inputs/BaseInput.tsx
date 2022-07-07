@@ -7,7 +7,8 @@ const BaseInput: React.FC<{
   value: string
   onChange: React.ChangeEventHandler<HTMLInputElement>
   max?: number
-}> = ({ label, value, onChange, max }) => {
+  size?: 'md' | 'xl'
+}> = ({ label, value, onChange, max, size = 'md' }) => {
   const input = useRef<HTMLInputElement>(null)
 
   const handleClick = useCallback(() => {
@@ -15,7 +16,7 @@ const BaseInput: React.FC<{
   }, [input.current])
 
   return (
-    <InputGroup left={<span>{label}</span>} onClick={handleClick}>
+    <InputGroup left={<span>{label}</span>} onClick={handleClick} size={size}>
       <div className="input">
         <input
           ref={input}

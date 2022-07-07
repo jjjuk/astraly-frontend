@@ -26,7 +26,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
     const roundInfo = project.rounds[roundId]
 
     if (!roundInfo || new Date(roundInfo.endDate).getTime() < new Date().getTime()) {
-      setRoundTimer(`0d0h0m0s`)
+      setRoundTimer(`0d 0h 0m 0s`)
       return
     }
 
@@ -35,7 +35,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
     const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
     const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60))
     const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000)
-    setRoundTimer(`${days}d${hours}h${minutes}m${seconds}s`)
+    setRoundTimer(`${days}d ${hours}h ${minutes}m ${seconds}s`)
   }
 
   useEffect(() => {
@@ -84,16 +84,17 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                 </defs>
               </svg>
             </div>
-            <div className="type bg-primary font-bold text-white rounded-md w-16 text-center pt-0.5">
+            <div className="type border border-whitePurple bg-white font-bold text-primary rounded-md w-16 text-center pt-0.5">
               {project.type}
             </div>
           </div>
-
-          <div className="name font-bold text-24 leading-12">{project.name}</div>
-          <div className="ticker font-heading text-primary text-12 mb-6">${project.ticker}</div>
-          <Item label={'Total raise'}>ETH {project.totalRaise}</Item>
-          <Item label={'Token price'}>ETH {project.tokenPrice}</Item>
-          <Item label={'Round closes in'}>{roundTimer}</Item>
+          <div className="mb-6 gap-3 flex items-end">
+            <div className="name font-bold text-24 leading-12">{project.name}</div>
+            <div className="ticker font-bold text-primary text-12 pb-1">${project.ticker}</div>
+          </div>
+          <Item label="Total raise">ETH {project.totalRaise}</Item>
+          <Item label="Token price">ETH {project.tokenPrice}</Item>
+          <Item label="Round closes in">{roundTimer}</Item>
         </div>
       </div>
     </Link>

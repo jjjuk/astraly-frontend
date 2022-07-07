@@ -1,5 +1,6 @@
-import { useStarknetReact } from '@web3-starknet-react/core'
 import React, { useEffect, useState } from 'react'
+
+import { useStarknetReact } from '@web3-starknet-react/core'
 
 import Link from 'next/link'
 import { useApi } from 'api'
@@ -8,9 +9,10 @@ import WalletConnectActions from 'actions/walletconnect.actions'
 import AuthActions from 'actions/auth.actions'
 import HeaderMenu from './menu'
 import ProfileButton from './ProfileButton'
+
 import Logo from 'assets/images/logo.svg'
 
-const Index = () => {
+const Header: React.FC = () => {
   const { account, deactivate, chainId } = useStarknetReact()
   const [loading, setLoading] = useState(false)
   const { getAuthToken, getAccountDetails } = useApi()
@@ -20,7 +22,7 @@ const Index = () => {
     try {
       setLoading(true)
       const token = await getAuthToken(account?.address)
-      console.warn({ token })
+      // console.warn({ token })
       // const isModerator = await getIsModerator(account);
 
       dispatch(WalletConnectActions.connectWallet(token, false))
@@ -55,7 +57,7 @@ const Index = () => {
   return (
     <div className="header">
       <div className="g-container flex justify-between w-full py-22 items-center">
-        <Link href={'/'}>
+        <Link href="/">
           <div className="logo flex items-center cursor-pointer">
             <img src={Logo} height="80" width="80" alt="Astraly logo" />
             <div className="text-24 font-bold ml-4 font-heading text-primaryDark hidden md:inline-block">
@@ -72,4 +74,4 @@ const Index = () => {
   )
 }
 
-export default Index
+export default Header

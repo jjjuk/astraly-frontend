@@ -5,10 +5,11 @@ import Outline from 'assets/icons/outline/Filter.svg'
 import Solid from 'assets/icons/solid/Filter.svg'
 
 import styles from '../buttons/Buttons.module.scss'
+import filterStyles from './Filter.module.scss'
 
 const Filter = () => {
   return (
-    <div className={classnames(styles.baseButton, styles.baseButtonMedium, 'w-12')}>
+    <div className={classnames(styles.baseButton, styles.baseButtonMedium, filterStyles.filter)}>
       <img
         src={Outline}
         alt=""

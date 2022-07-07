@@ -156,10 +156,11 @@ const BurnPage = () => {
             <div className="block__item">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                 <BaseInput
-                  label={'Tickets'}
+                  label="Tickets"
                   value={amountToBurn}
                   max={Number(ticketsBalance)}
                   onChange={(e) => setAmountToBurn(e.target.value)}
+                  size="xl"
                 />
 
                 <BaseButton onClick={handleBurnTickets} disabled={burning}>
@@ -169,7 +170,7 @@ const BurnPage = () => {
               </div>
             </div>
           </div>
-          <AllocationInfo />
+          <AllocationInfo type="burn" />
         </ProjectLayout>
       )}
     </>

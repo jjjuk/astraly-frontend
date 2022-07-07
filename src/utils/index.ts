@@ -34,3 +34,11 @@ export const getUID = () => '_' + (Math.random() * Math.random()).toString(36).s
 export const getVoyagerLink = (txHash: string): string => {
   return `${VoyagerLink}/tx/${txHash}`
 }
+
+export const wait = (timeout = 1000) => {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve(true)
+    }, timeout)
+  )
+}

@@ -36,7 +36,11 @@ const BuyForm = () => {
 
         <div className="block__item">
           <div className="ml-4 text-primaryClear">You receive</div>
-          <BaseInput label={'ZKP'} value={zkpValue} onChange={(e) => setZkpValue(e.target.value)} />
+          <BaseInput
+            label={'ASTR'}
+            value={zkpValue}
+            onChange={(e) => setZkpValue(e.target.value)}
+          />
         </div>
       </div>
 

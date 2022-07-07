@@ -39,7 +39,7 @@ const DueDiligence = ({ project }: { project: Project }) => {
             For each project featured on Astraly, we create a Due Diligence report with our team of
             internal experts and advisors. You can read the full document here:
           </p>
-          <BaseButton inline={true} className={'px-6'}>
+          <BaseButton inline type="secondary" className={'px-6'}>
             Read the report
           </BaseButton>
 

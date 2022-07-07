@@ -86,7 +86,7 @@ const LockPage = () => {
   return (
     <div className="LockPage mb-10">
       <div className="g-container">
-        <h1 className="page-title font-heading uppercase mb-8 lg:mb-16 text-primaryDark text-shadow">
+        <h1 className="page-title font-heading uppercase mb-8 lg:mb-8 text-primaryDark text-shadow">
           Lock $ASTR
         </h1>
 

@@ -14,6 +14,7 @@ type Account {
   email: String
   nonce: Float
   questCompleted: [Quest!]
+  socialLinks: [SocialLink!]
 }
 
 type CallData {
@@ -53,6 +54,7 @@ scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/fi
 type Mutation {
   addContact(email: String!): Boolean!
   completeQuest(questId: String!): Quest
+  linkSocial(id: String, type: String!): Account!
   updateAccount(data: UpdateAccountInputType!): Account!
   updateProject(data: ProjectInput!): Project
   updateQuest(data: QuestInput!): Quest!
@@ -124,6 +126,7 @@ type Query {
   getAccount(address: String!): Account!
   getMerkleProof(idoId: String!): [String!]!
   getToken(address: String!): String!
+  getTwitterAuthUrl: String!
   getUploadUrl(fileType: String!): JSON!
   hello: String!
   isAdmin: Boolean!
@@ -178,6 +181,18 @@ input RoundInput {
   endDate: DateTime
   startDate: DateTime
   title: String
+}
+
+type SocialLink {
+  id: String
+  type: SocialLinkType
+}
+
+enum SocialLinkType {
+  DISCORD
+  FACEBOOK
+  TELEGRAM
+  TWITTER
 }
 
 type Uint256 {
