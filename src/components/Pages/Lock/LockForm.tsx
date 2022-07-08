@@ -58,7 +58,7 @@ const LockForm = ({
 
     try {
       setLocking(true)
-      const _daysPassed = lockTime / (3600 * 24 * 1000)
+      const _daysPassed = Math.floor(lockTime / (3600 * 24 * 1000))
       const tx = await depositAll(
         Contracts['SN_GOERLI'].lp_token,
         zkpLPAmount,
