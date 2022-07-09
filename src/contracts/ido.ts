@@ -59,6 +59,12 @@ export const useIDOContract = () => {
     }
   }
 
+  const claimNFTs = async (id: number.BigNumberish) => {
+    const contract = await getIDOContract(id)
+
+    return await contract.invoke('withdraw_tokens', [])
+  }
+
   const getCurrentSale = async (id: number.BigNumberish) => {
     const contract = await getIDOContract(id)
 
@@ -95,5 +101,6 @@ export const useIDOContract = () => {
     getNumberVestingPortions,
     getVestingPercent,
     getVestingUnlockTime,
+    claimNFTs,
   }
 }

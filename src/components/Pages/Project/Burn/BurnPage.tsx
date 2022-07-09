@@ -170,7 +170,7 @@ const BurnPage = () => {
               </div>
             </div>
           </div>
-          <AllocationInfo type="burn" />
+          <AllocationInfo type="burn" projectType={project.type} />
         </ProjectLayout>
       )}
     </>

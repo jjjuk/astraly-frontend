@@ -50,7 +50,7 @@ const ProjectQuestsPage = () => {
 
         <Quests />
 
-        <AllocationInfo />
+        <AllocationInfo projectType={project.type} />
       </ProjectLayout>
     </>
   )

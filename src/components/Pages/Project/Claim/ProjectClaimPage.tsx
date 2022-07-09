@@ -138,7 +138,7 @@ const ProjectClaimPage = () => {
             </div>
           </div>
         </div>
-        <AllocationInfo />
+        <AllocationInfo projectType={project.type} />
       </ProjectLayout>
     </>
   )

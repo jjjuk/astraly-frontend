@@ -41,7 +41,7 @@ const RoadmapItem = ({
   return (
     <div
       className={`${
-        isActive ? 'bg-white rounded-3xl text-primary' : 'text-primaryClear'
+        isActive ? 'bg-white rounded-3xl text-primary shadow-sm' : 'text-primaryClear'
       } p-3 xl:py-8 xl:px-4 2xl:px-6 flex flex-col`}>
       <div className="flex justify-between">
         <div className="flex items-center text-12 xl:text-16">

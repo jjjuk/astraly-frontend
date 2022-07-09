@@ -29,7 +29,7 @@ const DatePicker: React.FC<{
 
   return (
     <div className="DatePicker" style={{ zIndex: 10000 }}>
-      <InputGroup left={<span>Date</span>} onClick={handleClick}>
+      <InputGroup left={<span>Date</span>} onClick={handleClick} size="xl">
         <ReactDatePicker
           ref={inputRef}
           selected={value}

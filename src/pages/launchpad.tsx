@@ -45,7 +45,9 @@ const launchpad: NextPage = () => {
           <h2 className="text-24 text-primaryClear font-heading mb-6">ONGOING PROJECTS</h2>
         </Container>
 
-        {unfinishedProjects && <ProjectsSlider projects={unfinishedProjects.searchProjects} />}
+        {unfinishedProjects?.searchProjects.length > 0 && (
+          <ProjectsSlider projects={unfinishedProjects.searchProjects} />
+        )}
       </div>
 
       {/*<div className="relative">*/}
@@ -53,7 +55,7 @@ const launchpad: NextPage = () => {
       {/*</div>*/}
 
       <Container>
-        <h2 className="text-24 text-primaryClear font-heading mb-6 mt-8">FINISHED LAUNCHPADS</h2>
+        <h2 className="text-24 text-primaryClear font-heading mb-6 mt-8">FINISHED PROJECTS</h2>
       </Container>
       {finishedProjects?.searchProjects.length > 0 && (
         <ProjectsSlider projects={finishedProjects.searchProjects} />

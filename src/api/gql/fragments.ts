@@ -9,7 +9,7 @@ export const ProjectFragment = gql`
     logo
     cover
     totalRaise
-    maxAllocation
+    tokenAddress
     currentRoundIndex
     tokenPrice
     type

@@ -32,7 +32,7 @@ const Home = () => {
         </div>
       </Container>
 
-      {data && <ProjectsSlider projects={data.searchProjects} />}
+      {data && data.searchProjects.length > 0 && <ProjectsSlider projects={data.searchProjects} />}
     </div>
   )
 }

@@ -8,7 +8,8 @@ const BaseInput: React.FC<{
   onChange: React.ChangeEventHandler<HTMLInputElement>
   max?: number
   size?: 'md' | 'xl'
-}> = ({ label, value, onChange, max, size = 'md' }) => {
+  step?: number
+}> = ({ label, value, onChange, max, size = 'md', step }) => {
   const input = useRef<HTMLInputElement>(null)
 
   const handleClick = useCallback(() => {
@@ -22,8 +23,11 @@ const BaseInput: React.FC<{
           ref={input}
           max={max}
           value={value}
+          min={0}
           onChange={onChange}
-          className="outline-0 w-full text-right"
+          step={step}
+          className="outline-0 w-full text-right invalid:border-red-500 focus:invalid:border-red-500"
+          type="number"
         />
       </div>
     </InputGroup>

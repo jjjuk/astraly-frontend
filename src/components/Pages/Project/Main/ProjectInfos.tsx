@@ -41,12 +41,6 @@ const ProjectInfos: React.FC<{ project: Project }> = ({ project }) => {
 
         <div className="block__item">
           <div className="flex-col 2xl:flex-row flex gap-3 w-full">
-            <Link href="/">
-              <BaseButton className="w-full px-1">
-                <RocketIcon className="mr-1" />
-                Apply now
-              </BaseButton>
-            </Link>
             <Link href={`/project/${project.idoId}/quests`}>
               <a className="cursor-pointer w-full">
                 <BaseButton className="w-full px-4 whitespace-nowrap">

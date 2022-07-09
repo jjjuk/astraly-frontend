@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   publicRuntimeConfig: {
     NEXT_PUBLIC_API_URL: 'https://zkpad-api.herokuapp.com/api/graphql',
   },

@@ -72,7 +72,12 @@ const ProjectHeader = ({ project }: { project?: Project }) => {
             </div>
           </a>
         </Link>
-        <h1 className="page-title leading-[54px]">{title}</h1>
+        <div className="flex items-center">
+          <h1 className="page-title leading-[54px]">{title}</h1>
+          <div className="type bg-primary font-bold text-white rounded-md w-16 text-center pt-0.5 ml-5">
+            {project?.type}
+          </div>
+        </div>
 
         {isQuests && (
           <Lightning className={'hidden lg:block lightning_svg absolute right-28 -top-[140px]'} />

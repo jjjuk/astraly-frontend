@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Project } from '../../../../interfaces'
+import { Project, ProjectType } from '../../../../interfaces'
 import ProjectLayout from '../ProjectLayout'
 import InvestmentOverview from '../../../ui/Investment/InvestmentOverview'
 import { useQuery } from '@apollo/client'
@@ -19,6 +19,7 @@ import { add, differenceInCalendarDays, format } from 'date-fns'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { Result } from 'starknet'
 import { formatUnits } from 'ethers/lib/utils'
+import axios from 'axios'
 
 const dateFormatter = (date: number) => {
   return format(new Date(date), 'dd/MMM')
@@ -55,6 +56,7 @@ const ProjectPortfolioPage = () => {
     withdrawTokens,
     getUserInfo,
     getVestingUnlockTime,
+    claimNFTs,
   } = useIDOContract()
   const { addTransaction } = useTransactions()
 
@@ -64,8 +66,11 @@ const ProjectPortfolioPage = () => {
 
   const [withdrawing, setWithdrawing] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [loadingNFTs, setLoadingNFTs] = useState(false)
 
   const [userInfo, setUserInfo] = useState<Result>({} as Result)
+
+  const [userNFTs, setUserNFTs] = useState<any[]>([])
 
   const [roundTimer, setRoundTimer] = useState('...')
 
@@ -122,7 +127,7 @@ const ProjectPortfolioPage = () => {
       )
       setLoading(false)
     }
-  }, [getNumberVestingPortions, getVestingPercent, getVestingUnlockTime])
+  }, [getNumberVestingPortions, getVestingPercent, getVestingUnlockTime, project])
 
   const updateUserInfo = useCallback(async () => {
     try {
@@ -130,8 +135,42 @@ const ProjectPortfolioPage = () => {
       setUserInfo(_userInfo)
     } catch (e) {
       console.error(e)
+      dispatch(
+        ToastActions.addToast({
+          title: String(e),
+          action: <div className="font-heading text-12 text-primary">Try again</div>,
+          state: ToastState.ERROR,
+          autoClose: true,
+        })
+      )
     }
-  }, [getUserInfo])
+  }, [getUserInfo, account, project])
+
+  const loadUserNFTs = useCallback(async () => {
+    if (!account || !project) return
+    try {
+      setLoadingNFTs(true)
+      const _url = `https://api-testnet.aspect.co/api/v0/assets`
+      const params = new URLSearchParams()
+      params.append('contract_address', project.tokenAddress)
+      params.append('owner_address', account?.address)
+      params.append('limit', '50')
+      const { data } = await axios.get(_url, { headers: { Accept: 'application/json' }, params })
+      setUserNFTs(data.assets.map((asset: any) => asset.image_uri))
+      setLoadingNFTs(false)
+    } catch (error) {
+      console.error(error)
+      dispatch(
+        ToastActions.addToast({
+          title: String(error),
+          action: <div className="font-heading text-12 text-primary">Try again</div>,
+          state: ToastState.ERROR,
+          autoClose: true,
+        })
+      )
+      setLoadingNFTs(false)
+    }
+  }, [account, project])
 
   const handleWithdraw = async () => {
     try {
@@ -140,11 +179,36 @@ const ProjectPortfolioPage = () => {
         { length: currentPortion - Number(userInfo.participation.last_portion_withdrawn) },
         (v: number, i) => i + Number(userInfo.participation.last_portion_withdrawn) + 1
       )
-      console.log(_portionIds)
+      // console.log(_portionIds)
       const tx = await withdrawTokens(project?.idoId.toString(), _portionIds)
       addTransaction(
         tx,
         'Withdraw Tokens',
+        () => updateUserInfo(),
+        () => undefined
+      )
+      setWithdrawing(false)
+    } catch (error) {
+      console.error(error)
+      dispatch(
+        ToastActions.addToast({
+          title: String(error),
+          action: <div className="font-heading text-12 text-primary">Try again</div>,
+          state: ToastState.ERROR,
+          autoClose: true,
+        })
+      )
+      setWithdrawing(false)
+    }
+  }
+
+  const handleClaimNFTs = async () => {
+    try {
+      setWithdrawing(true)
+      const tx = await claimNFTs(project?.idoId.toString())
+      addTransaction(
+        tx,
+        'Claim NFTs',
         () => updateUserInfo(),
         () => undefined
       )
@@ -169,13 +233,14 @@ const ProjectPortfolioPage = () => {
 
   useEffect(() => {
     if (project) {
-      updateVestingInfo()
+      if (project.type === ProjectType.IDO) updateVestingInfo()
+      if (project.type === ProjectType.INO) loadUserNFTs()
       updateUserInfo()
     }
   }, [project])
 
   useEffect(() => {
-    if (unlockTimes.length === 0) return
+    if (unlockTimes.length === 0 || !unlockTimes[currentPortion]) return
 
     const _interval = setInterval(() => {
       const _remainingTime = unlockTimes[currentPortion].getTime() - new Date().getTime()
@@ -196,100 +261,169 @@ const ProjectPortfolioPage = () => {
   return (
     <>
       <ProjectLayout project={project}>
-        <div className="block">
-          <div className="block--contrast">
-            {/* <div className="title--medium mb-6">Distribution Info</div> */}
-            <div>
-              {loading || graphData.length === 0 ? (
-                <Spinner color="#8F00FF" />
-              ) : (
-                <AreaChart
-                  width={730}
-                  height={250}
-                  data={graphData}
-                  margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#8F00FF" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#8F00FF" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <XAxis dataKey="date" tickFormatter={dateFormatter} />
-                  <YAxis tickFormatter={toPercent} />
-                  {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                  <Tooltip content={<CustomTooltip />} />
-                  <Area
-                    type="monotone"
-                    dataKey="vestingPercent"
-                    stroke="#8F00FF"
-                    fillOpacity={1}
-                    fill="url(#colorUv)"
-                  />
-                </AreaChart>
-              )}
-            </div>
-            <div className="title--medium mb-6 mt-6">Information</div>
-            <div className="flex items-center justify-between text-16 mb-0.5">
-              <div className="text-primaryClear">Currently released</div>
-              <div className="font-heading text-primary">
-                {currentPortion > 0 ? toPercent(vestingPercents[currentPortion - 1]) : '0%'}
-              </div>
-            </div>
-            <div className="flex items-center justify-between text-16 mb-0.5">
-              <div className="text-primaryClear">Last withdrawn</div>
-              <div className="font-heading text-primary">
-                {userInfo?.participation?.last_portion_withdrawn > 0
-                  ? toPercent(vestingPercents[userInfo.participation.last_portion_withdrawn - 1])
-                  : '0%'}
-              </div>
-            </div>
-            <div className="flex items-center justify-between text-16 mb-0.5">
-              <div className="text-primaryClear">Amount paid</div>
-              <div className="font-heading text-primary">
-                {userInfo?.participation ? (
-                  `${formatUnits(
-                    uint256ToBN(userInfo.participation.amount_paid).toString(),
-                    'ether'
-                  )} ETH`
+        {project.type === ProjectType.IDO ? (
+          <div className="block">
+            <div className="block--contrast">
+              {/* <div className="title--medium mb-6">Distribution Info</div> */}
+              <div>
+                {loading || graphData.length === 0 ? (
+                  <Spinner color="#8F00FF" />
                 ) : (
-                  <Spinner />
+                  <AreaChart
+                    width={730}
+                    height={250}
+                    data={graphData}
+                    margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#8F00FF" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#8F00FF" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="date" tickFormatter={dateFormatter} />
+                    <YAxis tickFormatter={toPercent} />
+                    {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                    <Tooltip content={<CustomTooltip />} />
+                    <Area
+                      type="monotone"
+                      dataKey="vestingPercent"
+                      stroke="#8F00FF"
+                      fillOpacity={1}
+                      fill="url(#colorUv)"
+                    />
+                  </AreaChart>
+                )}
+              </div>
+              <div className="title--medium mb-6 mt-6">Information</div>
+              <div className="flex items-center justify-between text-16 mb-0.5">
+                <div className="text-primaryClear">Currently released</div>
+                <div className="font-heading text-primary">
+                  {currentPortion > 0 ? toPercent(vestingPercents[currentPortion - 1]) : '0%'}
+                </div>
+              </div>
+              <div className="flex items-center justify-between text-16 mb-0.5">
+                <div className="text-primaryClear">Last withdrawn</div>
+                <div className="font-heading text-primary">
+                  {userInfo?.participation?.last_portion_withdrawn > 0
+                    ? toPercent(vestingPercents[userInfo.participation.last_portion_withdrawn - 1])
+                    : '0%'}
+                </div>
+              </div>
+              <div className="flex items-center justify-between text-16 mb-0.5">
+                <div className="text-primaryClear">Amount paid</div>
+                <div className="font-heading text-primary">
+                  {userInfo?.participation ? (
+                    `${formatUnits(
+                      uint256ToBN(userInfo.participation.amount_paid).toString(),
+                      'ether'
+                    )} ETH`
+                  ) : (
+                    <Spinner />
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center justify-between text-16 mb-0.5">
+                <div className="text-primaryClear">Tokens bought</div>
+                <div className="font-heading text-primary">
+                  {userInfo?.participation ? (
+                    `${uint256ToBN(userInfo.participation.amount_bought).toString()} $${
+                      project.ticker
+                    }`
+                  ) : (
+                    <Spinner />
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center justify-between text-16 mb-0.5">
+                {currentPortion < unlockTimes.length && (
+                  <>
+                    <div className="text-primaryClear">Time until next release</div>
+                    <div className="font-heading text-primary">{roundTimer}</div>{' '}
+                  </>
                 )}
               </div>
             </div>
-            <div className="flex items-center justify-between text-16 mb-0.5">
-              <div className="text-primaryClear">Tokens bought</div>
-              <div className="font-heading text-primary">
-                {userInfo?.participation ? (
-                  `${uint256ToBN(userInfo.participation.amount_bought).toString()} $${
-                    project.ticker
-                  }`
-                ) : (
+            <div className="block__item">
+              <BaseButton
+                onClick={handleWithdraw}
+                disabled={
+                  withdrawing ||
+                  currentPortion === 0 ||
+                  (userInfo
+                    ? !userInfo.has_participated ||
+                      Number(uint256ToBN(userInfo.participation.amount_bought)) === 0 ||
+                      Number(userInfo.participation.last_portion_withdrawn) === currentPortion
+                    : true)
+                }>
+                <SendIcon className={'mr-2'} />
+                {withdrawing ? <Spinner /> : 'Withdraw'}
+              </BaseButton>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="block mb-5">
+              <div className="block--contrast">
+                <div className="title--medium mb-6">Claim information</div>
+                <div className="flex items-center gap-[100px]">
+                  <div className="flex flex-col">
+                    <div className="text-primaryClear">Total NFTs Minted</div>
+                    <div className="font-heading text-primary">
+                      {userInfo?.participation ? (
+                        `${uint256ToBN(userInfo.participation.amount_bought).toString()}`
+                      ) : (
+                        <Spinner />
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="text-primaryClear">Total Invested</div>
+                    <div className="font-heading text-primary">
+                      {userInfo?.participation ? (
+                        `${formatUnits(
+                          uint256ToBN(userInfo.participation.amount_paid).toString(),
+                          'ether'
+                        )} ETH`
+                      ) : (
+                        <Spinner />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="block__item">
+                <BaseButton
+                  onClick={handleClaimNFTs}
+                  disabled={
+                    withdrawing ||
+                    (userInfo
+                      ? !userInfo.has_participated ||
+                        Number(uint256ToBN(userInfo.participation.amount_bought)) === 0
+                      : true)
+                  }>
+                  <SendIcon className={'mr-2'} />
+                  {withdrawing ? <Spinner /> : 'Claim NFTs'}
+                </BaseButton>
+              </div>
+            </div>
+
+            <div className="block">
+              <div className="block--contrast">
+                {loadingNFTs ? (
                   <Spinner />
+                ) : (
+                  <div className="flex">
+                    {userNFTs.map((_uri, index) => (
+                      <div className="block w-50" key={index}>
+                        <img src={_uri} alt={`minted nft ${index}`} className="rounded-3xl" />
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
             </div>
-            <div className="flex items-center justify-between text-16 mb-0.5">
-              <div className="text-primaryClear">Time until next release</div>
-              <div className="font-heading text-primary">{roundTimer}</div>
-            </div>
-          </div>
-          <div className="block__item">
-            <BaseButton
-              onClick={handleWithdraw}
-              disabled={
-                withdrawing ||
-                currentPortion === 0 ||
-                (userInfo
-                  ? !userInfo.has_participated ||
-                    Number(uint256ToBN(userInfo.participation.amount_bought)) === 0 ||
-                    Number(userInfo.participation.last_portion_withdrawn) === currentPortion
-                  : true)
-              }>
-              <SendIcon className={'mr-2'} />
-              {withdrawing ? <Spinner /> : 'Withdraw'}
-            </BaseButton>
-          </div>
-        </div>
+          </>
+        )}
       </ProjectLayout>
     </>
   )

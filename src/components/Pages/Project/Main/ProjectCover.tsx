@@ -14,13 +14,13 @@ const ProjectCover = ({ project }: { project: Project }) => {
         <ProjectLogo project={project} />
 
         <div className="font-heading text-primary text-24">{project.name}</div>
-        <div className="ticker text-primaryClear">${project.ticker}</div>
+        <div className="ticker text-primaryClear font-heading">${project.ticker}</div>
         <div className="flex flex gap-2 mt-8">
           {project.categories &&
             project.categories.map((x, i) => (
               <div
                 className={
-                  'w-24 flex items-center justify-center border border-primary text-primary text-12 pt-1 font-bold rounded-md'
+                  'w-24 flex items-center justify-center font-heading text-white bg-primary text-12 pt-1 rounded-md'
                 }
                 key={i}>
                 {x}

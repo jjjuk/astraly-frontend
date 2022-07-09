@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useState } from 'react'
-import { Project } from '../../../../interfaces'
+import { Project, ProjectType } from '../../../../interfaces'
 import ProjectLayout from '../ProjectLayout'
 import AllocationInfo from '../Main/AllocationInfo'
 import BlockLabel from '../../../ui/BlockLabel'
@@ -33,6 +33,8 @@ const ProjectBuyPage = () => {
   })
   const [ethBalance, setETHBalance] = useState('0')
   const [ethValue, setEthValue] = useState('0')
+  const [mintPriceValue, setMintPriceValue] = useState('0')
+  const [mintAmountValue, setMintAmountValue] = useState('0')
   const [zkpValue, setZkpValue] = useState('0')
   const [userInfo, setUserInfo] = useState<Result | null>(null)
   const [currentSale, setCurrentSale] = useState<Result | null>(null)
@@ -65,7 +67,8 @@ const ProjectBuyPage = () => {
 
     try {
       setPurchasing(true)
-      const tx = await participate(ethValue, project?.idoId.toString(), account)
+      const _price = project?.type === ProjectType.IDO ? ethValue : mintPriceValue
+      const tx = await participate(_price, project?.idoId.toString(), account)
       addTransaction(
         tx,
         'Participate',
@@ -114,6 +117,13 @@ const ProjectBuyPage = () => {
     setZkpValue(_zkpValue.toString())
   }
 
+  const updateMintPriceValue = (mintAmount: string) => {
+    if (!project) return
+    const _mintPriceValue = Number(mintAmount) * project.tokenPrice
+    setMintAmountValue(mintAmount)
+    setMintPriceValue(_mintPriceValue.toString())
+  }
+
   const updateValuesOther = (otherValue: string) => {
     if (!project) return
     const _ethValue = Number(otherValue) * project.tokenPrice
@@ -143,39 +153,82 @@ const ProjectBuyPage = () => {
     <>
       <ProjectLayout project={project}>
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4">
-          <div className="block">
-            <div className="block--contrast">
-              <BlockLabel
-                label={'You pay'}
-                value={Number(ethBalance).toFixed(3)}
-                onClick={() => updateValuesETH(ethBalance.toString())}
-              />
-              <BaseInput
-                label={'ETH'}
-                value={ethValue}
-                onChange={(e) => updateValuesETH(e.target.value)}
-              />
-            </div>
-            <div className="flex items-center justify-center -my-3 text-primaryClear">
-              <ArrowDown />
-            </div>
+          {project.type === ProjectType.IDO ? (
+            <div className="block">
+              <div className="block--contrast">
+                <BlockLabel
+                  label={'You pay'}
+                  value={Number(ethBalance).toFixed(3)}
+                  onClick={() => updateValuesETH(ethBalance.toString())}
+                />
+                <BaseInput
+                  label={'ETH'}
+                  value={ethValue}
+                  onChange={(e) => updateValuesETH(e.target.value)}
+                />
+              </div>
+              <div className="flex items-center justify-center -my-3 text-primaryClear">
+                <ArrowDown />
+              </div>
 
-            <div className="block__item">
-              <div className="text-primaryClear">You receive</div>
-              <BaseInput
-                label={'ASTR'}
-                value={zkpValue}
-                onChange={(e) => updateValuesOther(e.target.value)}
-              />
+              <div className="block__item">
+                <div className="text-primaryClear">You receive</div>
+                <BaseInput
+                  label={'ASTR'}
+                  value={Number(zkpValue).toFixed(3)}
+                  onChange={(e) => updateValuesOther(e.target.value)}
+                />
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="block">
+              <div className="block--contrast">
+                <BlockLabel
+                  label={'You buy'}
+                  value={
+                    userInfo &&
+                    (
+                      uint256.uint256ToBN(userInfo?.tickets).toNumber() * Number(allocation)
+                    ).toFixed(0)
+                  }
+                  onClick={() =>
+                    updateMintPriceValue(
+                      (
+                        uint256.uint256ToBN(userInfo?.tickets).toNumber() * Number(allocation)
+                      ).toString()
+                    )
+                  }
+                />
+                <BaseInput
+                  label={String(project.ticker)}
+                  value={mintAmountValue}
+                  onChange={(e) => updateMintPriceValue(e.target.value)}
+                  step={1}
+                />
+              </div>
+              <div className="flex items-center justify-center -my-3 text-primaryClear">
+                <ArrowDown />
+              </div>
+
+              <div className="block__item">
+                <div className="text-primaryClear">You pay</div>
+                <BaseInput
+                  label={'ETH'}
+                  value={Number(mintPriceValue).toFixed(3)}
+                  onChange={() => null}
+                />
+              </div>
+            </div>
+          )}
 
           <div className="block xl:col-span-2">
             <div className="block--contrast">
               <div className="font-bold mb-2 text-primaryClear">Buy information</div>
 
               <div className="flex items-center justify-between text-16 mb-0.5">
-                <div className="text-primaryClear">Token price</div>
+                <div className="text-primaryClear">
+                  {project.type === ProjectType.INO ? 'Mint price' : 'Token price'}
+                </div>
                 <div className="font-heading text-primary">ETH {project.tokenPrice}</div>
               </div>
               <div className="flex items-center justify-between text-16">
@@ -217,7 +270,7 @@ const ProjectBuyPage = () => {
             </div>
           </div>
         </div>
-        <AllocationInfo />
+        <AllocationInfo projectType={project.type} type="purchase" />
       </ProjectLayout>
     </>
   )
