@@ -15,6 +15,7 @@ import { useStakingContract } from 'contracts'
 import { useAppDispatch } from 'hooks/hooks'
 import ToastActions from 'actions/toast.actions'
 import { ToastState } from 'components/ui/Toast/utils'
+import { differenceInDays } from 'date-fns'
 
 const LockForm = ({
   zkpBalance,
@@ -54,11 +55,11 @@ const LockForm = ({
   const dispatch = useAppDispatch()
 
   const handleLock = async () => {
-    if (!account?.address) return
+    if (!account?.address || !startDate) return
 
     try {
       setLocking(true)
-      const _daysPassed = Math.floor(lockTime / (3600 * 24 * 1000))
+      const _daysPassed = Math.min(differenceInDays(startDate, new Date()), 730)
       const tx = await depositAll(
         Contracts['SN_GOERLI'].lp_token,
         zkpLPAmount,
