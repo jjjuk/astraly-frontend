@@ -33,7 +33,7 @@ const InputGroup: React.FC<
       role="button"
       tabIndex={0}
       onKeyUp={() => {}}>
-      <div className="left whitespace-nowrap">{left}</div>
+      <div className="left whitespace-nowrap mr-2">{left}</div>
       <div className="input">{children}</div>
     </div>
   )
