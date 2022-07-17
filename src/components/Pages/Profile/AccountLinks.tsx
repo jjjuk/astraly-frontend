@@ -114,7 +114,7 @@ const AccountLinks = () => {
 
     return (
       <div className="pl-2 flex items-center">
-        <BaseInput label={''} value={id} onChange={(e) => setId(e.target.value)} />
+        <BaseInput type="text" label={''} value={id} onChange={(e) => setId(e.target.value)} />
         <BaseButton className={'ml-2 px-2'} small={true} onClick={() => linkFn(id)}>
           Save
         </BaseButton>

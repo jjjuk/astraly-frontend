@@ -9,7 +9,8 @@ const BaseInput: React.FC<{
   max?: number
   size?: 'md' | 'xl'
   step?: number
-}> = ({ label, value, onChange, max, size = 'md', step }) => {
+  type?: string
+}> = ({ label, value, onChange, max, size = 'md', step, type = 'number' }) => {
   const input = useRef<HTMLInputElement>(null)
 
   const handleClick = useCallback(() => {
@@ -27,7 +28,7 @@ const BaseInput: React.FC<{
           onChange={onChange}
           step={step}
           className="outline-0 w-full text-right invalid:border-red-500 focus:invalid:border-red-500"
-          type="number"
+          type={type}
         />
       </div>
     </InputGroup>
