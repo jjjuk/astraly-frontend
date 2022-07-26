@@ -14,6 +14,6 @@ const AuthMessages = {
   UPDATEUSERFAILED: 'cannot update a user',
   USERFOUND: 'user found',
   USERNOTFOUND: 'cannot find a user',
-};
+}
 
-export default AuthMessages;
+export default AuthMessages

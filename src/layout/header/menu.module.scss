@@ -65,7 +65,7 @@
 .underline {
   display: flex;
   align-items: center;
-  transition: all .2s ease-in;
+  transition: all 0.2s ease-in;
   position: absolute;
   bottom: -12px;
   left: 0;
@@ -73,7 +73,7 @@
     content: '';
     height: 3px;
     width: 100%;
-    background: linear-gradient(360deg, #7E1AFF 0%, #9F24FF 50%);
+    background: linear-gradient(360deg, #7e1aff 0%, #9f24ff 50%);
     border-radius: 2px;
   }
 

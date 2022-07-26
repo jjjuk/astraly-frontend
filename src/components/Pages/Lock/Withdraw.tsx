@@ -1,17 +1,15 @@
 import BaseButton from 'components/ui/buttons/BaseButton'
-import UploadIcon from 'assets/icons/outline/Upload.svg'
 import { SendIcon } from '../../ui/Icons/Icons'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { useState } from 'react'
 import { useStakingContract } from 'contracts'
-import { number, Result, uint256 } from 'starknet'
-import { ethers } from 'ethers'
-import { Spinner } from '@chakra-ui/react'
+import { Result } from 'starknet'
 import { Contracts } from 'constants/networks'
 import { useTransactions } from 'context/TransactionsProvider'
 import { useAppDispatch } from 'hooks/hooks'
 import ToastActions from 'actions/toast.actions'
 import { ToastState } from 'components/ui/Toast/utils'
+import Spinner from '../../ui/Spinner/Spinner'
 
 const Withdraw = ({
   xzkpBalance,

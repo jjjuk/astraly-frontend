@@ -1,5 +1,3 @@
-import { Flex, position, Text } from '@chakra-ui/react'
-import { useStarknetReact } from '@web3-starknet-react/core'
 import { useStakingContract } from 'contracts'
 import React, { useEffect, useState } from 'react'
 import Marquee from 'react-fast-marquee'
@@ -11,14 +9,10 @@ interface Stat {
 
 const Stat = ({ title, value }: Stat) => {
   return (
-    <Flex gap="8px" margin="0 12px" padding="2px 0 0 0">
-      <Text color="black" fontWeight="black" fontSize="12px">
-        {title}
-      </Text>
-      <Text color="#8F00FF" fontWeight="black" fontSize="12px">
-        {value}
-      </Text>
-    </Flex>
+    <div className="flex items-center gap-2 mx-3 mt-0.5">
+      <p className="text-black text-12">{title}</p>
+      <div className="text-primary text-12">{value}</div>
+    </div>
   )
 }
 

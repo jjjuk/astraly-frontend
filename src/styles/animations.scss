@@ -1,4 +1,5 @@
-.planet_svg__star, .lightning_svg__star {
+.planet_svg__star,
+.lightning_svg__star {
   animation-iteration-count: infinite;
   animation-duration: 20s;
 
@@ -39,11 +40,13 @@
   animation-name: 'planet-big';
 }
 
-.planet_svg__planet, .lightning_svg__planet {
+.planet_svg__planet,
+.lightning_svg__planet {
   animation-iteration-count: infinite;
   animation-duration: 20s;
 
-  &__big, .lightning_svg {
+  &__big,
+  .lightning_svg {
     animation-name: 'planet-big';
   }
 
@@ -64,7 +67,6 @@
   }
 }
 
-
 .BaseButton {
   .icon-right {
     @apply transition-all;
@@ -76,7 +78,8 @@
   }
 
   .animatedIcon {
-    .animatedIconOutline, .animatedIconSolid {
+    .animatedIconOutline,
+    .animatedIconSolid {
       @apply transition-all;
     }
     .animatedIconSolid {
@@ -94,7 +97,6 @@
   }
 }
 
-
 .from-right {
   &-enter {
     transform: translateX(100%);
@@ -102,28 +104,31 @@
 
   &-enter-active {
     transform: translateX(0);
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
   }
 
   &-exit-active {
     transform: translateX(200%);
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     height: 0 !important;
   }
 }
 
 .home-heading__animation {
   &-exit-active {
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     height: 0 !important;
 
-    p, .buttons, h1 {
+    p,
+    .buttons,
+    h1 {
       transition: all 0s ease-in-out;
       opacity: 0;
     }
 
-    .planets, .bg-line{
-      transition: all .3s ease-in-out;
+    .planets,
+    .bg-line {
+      transition: all 0.3s ease-in-out;
       transform: translateY(400px);
     }
   }
@@ -138,13 +143,13 @@
   &-enter-active {
     opacity: 1;
     transform: translateY(0);
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
   }
 
   &-exit-active {
     transform: translateY(-100%);
     opacity: 0;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     position: absolute;
     left: 0;
   }

@@ -1,4 +1,3 @@
-import { Flex, Heading, Text } from '@chakra-ui/react'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { useFaucetContract } from 'contracts'
 import { ethers } from 'ethers'
@@ -17,7 +16,6 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET'
 const CHAIN = isMainnet ? 'SN_MAIN' : 'SN_GOERLI'
 
 const BuyPageContainer = () => {
-  // return <BuyPage />
   const { account, connector } = useStarknetReact()
   const [mintAmount, setMintAmount] = useState('0')
   const [roundTimer, setRoundTimer] = useState('...')
@@ -92,14 +90,11 @@ const BuyPageContainer = () => {
   }, [unlockTime])
 
   return (
-    // <Layout>
-    <Flex w="100vw" flexDir={['column', 'row']} gap="20px" justifyContent={'center'}>
+    <div className={'g-container gap-5 justify-center flex flex-col md:flex-row'}>
       <div className="flex flex-col gap-10">
         <div className="block h-fit">
           <div className="block--contrast">
-            <Heading size="sm" pb={5}>
-              Mint Amount: {mintAmount} ASTR
-            </Heading>
+            <h3 className={'small-title'}>Mint Amount: {mintAmount} ASTR</h3>
 
             <BaseButton
               onClick={handleTransfer}
@@ -107,7 +102,7 @@ const BuyPageContainer = () => {
               className={'px-3 lg:px-12 group'}>
               Mint
             </BaseButton>
-            {!allowed && <Text>You will be able to mint again in {roundTimer}</Text>}
+            {!allowed && <p>You will be able to mint again in {roundTimer}</p>}
           </div>
           <div className="block__item">
             <BaseButton
@@ -154,9 +149,7 @@ const BuyPageContainer = () => {
           </a>
         </div>
       </div>
-    </Flex>
-
-    // </Layout>
+    </div>
   )
 }
 

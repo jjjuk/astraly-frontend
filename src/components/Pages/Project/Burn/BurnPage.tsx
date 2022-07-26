@@ -11,7 +11,6 @@ import { useTokenContract, useIDOContract, useLotteryTokenContract } from 'contr
 import { RootState } from 'stores/reduxStore'
 import { useApi } from 'api'
 import { Result, uint256, hash } from 'starknet'
-import { Spinner } from '@chakra-ui/react'
 import { FireIcon } from 'components/ui/Icons/Icons'
 import ToastActions from 'actions/toast.actions'
 import { useAppDispatch } from 'hooks/hooks'
@@ -19,6 +18,7 @@ import { useTransactions } from 'context/TransactionsProvider'
 import { ToastState } from 'components/ui/Toast/utils'
 import { useQuery } from '@apollo/client'
 import { PROJECT } from '../../../../api/gql/querries'
+import Spinner from '../../../ui/Spinner/Spinner'
 
 const BurnPage = () => {
   const router = useRouter()

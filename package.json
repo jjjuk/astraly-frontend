@@ -16,12 +16,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint & tsc --noemit"
+    "lint": "eslint --fix .",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@apollo/client": "^3.6.8",
-    "@chakra-ui/icons": "^1.1.7",
-    "@chakra-ui/react": "^1.8.6",
     "@emotion/react": "^11",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11",
@@ -55,11 +54,12 @@
     "redux-thunk": "^2.4.1",
     "starknet": "^3.10.2",
     "starknet-analyzer": "^1.0.22",
-    "swiper": "^8.1.4",
+    "tiny-invariant": "^1.2.0",
     "tiny-warning": "^1.0.3",
     "vue-scrollto": "^2.20.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.182",
     "@types/node": "17.0.21",
     "@types/react": "17.0.40",
     "@types/react-datepicker": "^4.4.1",

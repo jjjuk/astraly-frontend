@@ -9,13 +9,13 @@ import { useStarknetReact } from '@web3-starknet-react/core'
 import { Contracts } from 'constants/networks'
 import { ethers } from 'ethers'
 import { uint256 } from 'starknet'
-import { Spinner } from '@chakra-ui/react'
 import { useTransactions } from 'context/TransactionsProvider'
 import { useStakingContract } from 'contracts'
 import { useAppDispatch } from 'hooks/hooks'
 import ToastActions from 'actions/toast.actions'
 import { ToastState } from 'components/ui/Toast/utils'
 import { differenceInDays } from 'date-fns'
+import Spinner from 'components/ui/Spinner/Spinner'
 
 const LockForm = ({
   zkpBalance,

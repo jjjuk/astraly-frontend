@@ -26,7 +26,7 @@
 
   &--big {
     @apply text-54 font-heading uppercase text-primaryDark text-shadow;
-    text-shadow: #8F00FF -2px 2px 0;
+    text-shadow: #8f00ff -2px 2px 0;
   }
 
   &--small {
@@ -44,7 +44,6 @@
     @apply font-heading text-12 text-primaryClear;
   }
 }
-
 
 .react-datepicker {
   @apply base-text block font-sans shadow-purpleLight px-3 py-3 grid grid-cols-2;
@@ -70,7 +69,7 @@
   }
 
   &__month-container {
-    @apply col-span-2
+    @apply col-span-2;
   }
 
   &__current-month {
@@ -125,11 +124,11 @@
 
   .react-datepicker__year-read-view--down-arrow {
     position: absolute;
-    transform: translateX(8px) translateY(2px) rotate(135deg) ;
-    border-color: #9D69DE;
+    transform: translateX(8px) translateY(2px) rotate(135deg);
+    border-color: #9d69de;
     border-style: solid;
     border-width: 3px 3px 0 0;
-    content: "";
+    content: '';
     display: block;
     height: 9px;
     width: 9px;

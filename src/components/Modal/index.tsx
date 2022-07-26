@@ -1,10 +1,7 @@
-import React from 'react';
-import cx from 'classnames';
+import React from 'react'
+import cx from 'classnames'
 
-import closeIcon from 'assets/svgs/close.svg';
-
-import styles from './styles.module.scss';
-import {Image} from '@chakra-ui/react';
+import styles from './styles.module.scss'
 
 const Modal = ({
   visible,
@@ -16,12 +13,12 @@ const Modal = ({
   onSubmit,
   small,
   secondTitle,
-  desc
+  desc,
 }: any) => {
   const handleClick = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
+    e.preventDefault()
+    e.stopPropagation()
+  }
 
   return (
     <div className={cx(styles.container, visible ? styles.visible : null)}>
@@ -29,7 +26,7 @@ const Modal = ({
         <div className={styles.header}>
           <div className={styles.title}>{title}</div>
           <div className={styles.closeButton} onClick={onClose}>
-            <img src="/assets/imgs/cross.png" />
+            <img src="/assets/imgs/cross.png" alt={''} />
           </div>
         </div>
         <div className={styles.textContainer}>
@@ -41,15 +38,14 @@ const Modal = ({
           <div className={styles.footer}>
             <div
               className={cx(styles.submitButton, submitDisabled && styles.disabled)}
-              onClick={onSubmit}
-            >
+              onClick={onSubmit}>
               {submitLabel}
             </div>
           </div>
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

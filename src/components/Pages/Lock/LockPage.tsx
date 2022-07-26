@@ -1,13 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import LockForm from './LockForm'
-import Simulator from './Simulator'
 import Withdraw from './Withdraw'
 import ClaimPannel from './ClaimPannel'
 import Vertical from '../../ui/Separator/Vertical'
-import { useTokenContract, useStakingContract } from 'contracts'
+import { useStakingContract } from 'contracts'
 import { useStarknetReact } from '@web3-starknet-react/core'
-import { Result, uint256 } from 'starknet'
-import { ethers } from 'ethers'
+import { Result } from 'starknet'
 import { Contracts } from 'constants/networks'
 import { useWallet } from 'context/WalletProvider'
 
@@ -19,8 +17,6 @@ const LockPage = () => {
   const [xzkpBalance, setXZkpBalance] = useState('0')
 
   const { balances, deposits, updateUserData } = useWallet()
-
-  // const [userInfo, setUserInfo] = useState<Result>({} as Result)
 
   // Stake Info
   const [stakeInfo, setStakeInfo] = useState<Result>({} as Result)

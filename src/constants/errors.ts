@@ -12,11 +12,10 @@ const errors = {
   '-32004': 'Method not supported!',
   '-32005': 'Request limit exceeded!',
   '4001': 'User rejected the request!',
-  '4100':
-    'The requested account and/or method has not been authorized by the user!',
+  '4100': 'The requested account and/or method has not been authorized by the user!',
   '4200': 'The requested method is not supported by this Ethereum provider!',
   '4900': 'The provider is disconnected from all chains!',
   '4901': 'The provider is disconnected from the specified chain!',
-};
+}
 
-export default errors;
+export default errors

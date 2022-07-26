@@ -283,6 +283,6 @@ export const useStakingContract = () => {
     getZKPStaked,
     getZKPLPStaked,
     withdrawLP,
-    withdraw
+    withdraw,
   }
 }

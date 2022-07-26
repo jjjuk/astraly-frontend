@@ -1,7 +1,5 @@
 import React, { useEffect, useCallback } from 'react'
 
-import { Spinner } from '@chakra-ui/react'
-
 import { ToastNotification, ToastState } from './utils'
 import { useAppDispatch } from '../../../hooks/hooks'
 import ToastActions from '../../../actions/toast.actions'
@@ -12,6 +10,7 @@ import CheckIcon from 'assets/icons/solid/Check.svg'
 import CrossIcon from 'assets/icons/solid/Cross_purple.svg'
 
 import styles from './Toast.module.scss'
+import Spinner from '../Spinner/Spinner'
 
 const getStateIcon = (state: ToastState) => {
   switch (state) {
