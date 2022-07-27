@@ -4692,10 +4692,10 @@ stable@^0.1.8:
   resolved "https://registry.npmjs.org/stable/-/stable-0.1.8.tgz"
   integrity sha512-ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==
 
-starknet-analyzer@^1.0.22:
-  version "1.0.22"
-  resolved "https://registry.npmjs.org/starknet-analyzer/-/starknet-analyzer-1.0.22.tgz"
-  integrity sha512-R8s9/jK2VUL61CPqUP2hkFFZLwLV4o/Mu3OwTP3ubmwe6k1PSl2CMCe/s/14PWDS/c123kNbBB2IHRsDhFDoeg==
+starknet-analyzer@1.0.41:
+  version "1.0.41"
+  resolved "https://registry.yarnpkg.com/starknet-analyzer/-/starknet-analyzer-1.0.41.tgz#4fa175ade530b1176141d82f3a538b777ea8ee05"
+  integrity sha512-h5TnCyOkj4IF2NlhWtqk8DMx1b5mLVAwboBD/RqYr0EnljCP5twafsLLOu4UUPY77FUU+XNiD0zJH5skYTBiqA==
 
 starknet@^3.10.2:
   version "3.11.0"
