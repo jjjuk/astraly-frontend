@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { Project, Round } from 'interfaces'
+import { Project, ProjectType, Round } from 'interfaces'
 import Link from 'next/link'
 import styles from '../../../styles/hexagon.module.scss'
 
@@ -95,7 +95,9 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
           </div>
           <div className="mb-6 gap-3 flex items-end">
             <div className="name font-bold text-24 leading-12">{project.name}</div>
-            <div className="ticker font-bold text-primary text-12 pb-1">${project.ticker}</div>
+            {project.type !== ProjectType.INO && (
+              <div className="ticker font-bold text-primary text-12 pb-1">${project.ticker}</div>
+            )}
           </div>
           <Item label="Total raise">ETH {project.totalRaise}</Item>
           <Item label="Token price">ETH {project.tokenPrice}</Item>
