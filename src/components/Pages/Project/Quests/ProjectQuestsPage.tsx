@@ -1,20 +1,28 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { Project } from '../../../../interfaces'
+import { Project, Quest, QuestType } from '../../../../interfaces'
 import ProjectLayout from '../ProjectLayout'
 import AllocationInfo from '../Main/AllocationInfo'
 import QuestRequirements from './QuestRequirements'
 import Quests from './Quests'
 import Lightning from 'assets/icons/solid/Lightning-alt.svg'
 import { useQuery } from '@apollo/client'
-import { PROJECT } from '../../../../api/gql/querries'
+import { PROJECT, QUESTS } from '../../../../api/gql/querries'
 
 const ProjectQuestsPage = () => {
   const router = useRouter()
   const { pid } = router.query
   const [project, setProject] = useState<Project | undefined>(undefined)
+  const [socialQuests, setSocialQuests] = useState<Quest[] | undefined>(undefined)
+  const [productQuests, setProductQuests] = useState<Quest[] | undefined>(undefined)
 
   const { data } = useQuery(PROJECT, {
+    variables: {
+      idoId: pid,
+    },
+  })
+
+  const { data: quests } = useQuery(QUESTS, {
     variables: {
       idoId: pid,
     },
@@ -23,6 +31,12 @@ const ProjectQuestsPage = () => {
   useEffect(() => {
     data && setProject(data.project)
   }, [data])
+  useEffect(() => {
+    if (quests) {
+      setProductQuests(quests.quests.filter((q: Quest) => q.type === QuestType.PRODUCT))
+      setSocialQuests(quests.quests.filter((q: Quest) => q.type === QuestType.SOCIAL))
+    }
+  }, [quests])
 
   if (!project) {
     return <></>
@@ -48,7 +62,7 @@ const ProjectQuestsPage = () => {
           </div>
         </div>
 
-        <Quests />
+        <Quests socialQuests={socialQuests} productQuests={productQuests} />
 
         <AllocationInfo projectType={project.type} />
       </ProjectLayout>
