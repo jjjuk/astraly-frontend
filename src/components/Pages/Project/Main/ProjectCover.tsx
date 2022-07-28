@@ -1,4 +1,4 @@
-import { Project } from '../../../../interfaces'
+import { Project, ProjectType } from '../../../../interfaces'
 import React from 'react'
 import ProjectLogo from '../../../ui/ProjectLogo'
 import ReactPlayer from 'react-player'
@@ -27,7 +27,9 @@ const ProjectCover = ({ project }: { project: Project }) => {
         <ProjectLogo project={project} />
 
         <div className="font-heading text-primary text-24">{project.name}</div>
-        <div className="ticker text-primaryClear font-heading">${project.ticker}</div>
+        {project.type !== ProjectType.INO && (
+          <div className="ticker text-primaryClear font-heading">${project.ticker}</div>
+        )}
         <div className="flex flex gap-2 mt-8">
           {project.categories &&
             project.categories.map((x, i) => (
