@@ -20,7 +20,7 @@ const ProjectCover = ({ project }: { project: Project }) => {
             project.categories.map((x, i) => (
               <div
                 className={
-                  'w-24 flex items-center justify-center font-heading text-white bg-primary text-12 pt-1 rounded-md'
+                  'w-auto px-2 flex items-center justify-center font-heading text-white bg-primary text-12 pt-1 rounded-md'
                 }
                 key={i}>
                 {x}

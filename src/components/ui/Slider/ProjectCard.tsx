@@ -23,14 +23,19 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
 
   const updateRoundTimer = () => {
     const roundId = project.currentRoundIndex
-    const roundInfo = project.rounds[roundId]
+    let _date
+    if (roundId === -1) {
+      _date = project.rounds[0].startDate
+    } else {
+      _date = project.rounds[roundId].endDate
+    }
 
-    if (!roundInfo || new Date(roundInfo.endDate).getTime() < new Date().getTime()) {
+    if (!_date || new Date(_date).getTime() < new Date().getTime()) {
       setRoundTimer(`0d 0h 0m 0s`)
       return
     }
 
-    const remainingTime = new Date(roundInfo.endDate).getTime() - new Date().getTime()
+    const remainingTime = new Date(_date).getTime() - new Date().getTime()
     const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24))
     const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
     const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60))
@@ -55,7 +60,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
         className="ProjectCard bg-white rounded-3xl w-90 shrink-0 relative hover:shadow-purpleDark transition-all cursor-pointer hover:border-primary"
         data-index={index}>
         <div className="claim absolute top-3 right-3 bg-white border border-whitePurple font-heading text-12 py-0.5 px-3 rounded-md text-primaryClear">
-          {currentRound?.title || ''} Open
+          {project.currentRoundIndex === -1 ? 'Upcoming' : `${currentRound?.title || ''} Open`}
         </div>
         <div className="cover w-full overflow-hidden h-82 rounded-t-3xl">
           <img src={project.cover} alt="" className="w-full h-full object-cover" />
@@ -94,7 +99,9 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
           </div>
           <Item label="Total raise">ETH {project.totalRaise}</Item>
           <Item label="Token price">ETH {project.tokenPrice}</Item>
-          <Item label="Round closes in">{roundTimer}</Item>
+          <Item label={project.currentRoundIndex === -1 ? 'Round starts in' : 'Round closes in'}>
+            {roundTimer}
+          </Item>
         </div>
       </div>
     </Link>
