@@ -71,8 +71,6 @@ const ProjectInfos: React.FC<{ project: Project }> = ({ project }) => {
           <p className="text-primaryClear">
             <ol>
               <li>Have locked $ASTR tokens</li>
-              <li>5 transactions on Uniswap in the last 6 month</li>
-              <li>Have at least 2500$ of tokens on your wallet</li>
             </ol>
           </p>
         </div>
