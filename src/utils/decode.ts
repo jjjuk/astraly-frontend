@@ -30,7 +30,7 @@ export const verifyQuest = async (
 
     const receipt = await provider.getTransactionReceipt(txHash)
     const trace = await provider.getTransactionTrace(txHash)
-    // console.log(trace);
+    // console.log(trace)
     // console.log(receipt)
 
     // Check if it comes from the right account
@@ -83,32 +83,31 @@ export const verifyQuest = async (
   }
 }
 
-const isValidEvent = (
-  event: OrganizedEvent,
-  accountEvent: OrganizedEvent,
-  account: AccountInterface
-) => {
+const isValidEvent = (event: any, accountEvent: OrganizedEvent, account: AccountInterface) => {
   // Returns true if the event matches the quest criteria
   const _allQuestCalldata = accountEvent.callData
-  const _allCalldata = event.callData
+  const _allCalldata = event.calldata
 
   for (let index = 0; index < _allCalldata.length; index++) {
     const _calldata = _allCalldata[index]
-    const _questCalldata = _allQuestCalldata[index]
-    // console.log(_calldata, _questCalldata)
-    const _match = _questCalldata.name === _calldata.name && _questCalldata.type === _calldata.type
+    const _questCalldata = { ..._allQuestCalldata[index] }
+    console.log(_calldata, _questCalldata)
+    const _match =
+      _questCalldata.name === _calldata.name &&
+      _questCalldata.type.toLowerCase() === _calldata.type.toLowerCase()
     if (!_match) return false
 
     if (_calldata.type === 'Uint256') {
       const _bn1: BigNumber = uint256ToBN(_calldata.value)
-      const _bn2: BigNumber = uint256ToBN(_questCalldata.value)
+      const _bn2: BigNumber = uint256ToBN(_questCalldata.value.value)
       // User's value should be greater than quest's value
       if (_bn1.lt(_bn2)) return false
     } else {
-      if (_questCalldata.value === '{account}') {
-        _questCalldata.value = validateAndParseAddress(account.address)
+      let _newValue = _questCalldata.value.value
+      if (_questCalldata.value.value === '{account}') {
+        _newValue = validateAndParseAddress(account.address)
       }
-      if (_questCalldata.value !== _calldata.value) return false
+      if (!BigNumber.from(_newValue).eq(BigNumber.from(_calldata.value))) return false
     }
   }
 
