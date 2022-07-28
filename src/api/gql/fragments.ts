@@ -8,6 +8,7 @@ export const ProjectFragment = gql`
     ticker
     logo
     cover
+    coverVideo
     totalRaise
     tokenAddress
     currentRoundIndex

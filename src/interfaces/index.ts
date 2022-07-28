@@ -23,6 +23,7 @@ export interface Project {
   ticker?: string
   logo?: string
   cover?: string
+  coverVideo?: string
   totalRaise?: number
   tokenAddress: string
   tokenPrice: number

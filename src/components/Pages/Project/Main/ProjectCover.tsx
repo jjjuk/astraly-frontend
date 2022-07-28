@@ -1,12 +1,25 @@
 import { Project } from '../../../../interfaces'
 import React from 'react'
 import ProjectLogo from '../../../ui/ProjectLogo'
+import ReactPlayer from 'react-player'
 
 const ProjectCover = ({ project }: { project: Project }) => {
   return (
     <div className="block">
       <div className="cover w-full overflow-hidden video-format rounded-3xl">
-        <img src={project.cover} alt={''} className={'w-full h-full object-cover'} />
+        {project.coverVideo ? (
+          <ReactPlayer
+            className={'w-full h-full object-cover'}
+            url={project.coverVideo}
+            controls={true}
+            width="100%"
+            height="100%"
+            playing={true}
+            loop={true}
+          />
+        ) : (
+          <img src={project.cover} alt={''} className={'w-full h-full object-cover'} />
+        )}
       </div>
 
       <div className="block__item">
