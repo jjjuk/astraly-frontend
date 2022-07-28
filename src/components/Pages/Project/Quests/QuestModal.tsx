@@ -65,7 +65,7 @@ const QuestModal = ({
             autoClose: true,
           })
         )
-        fetchAccountDetails()
+        await fetchAccountDetails()
         close()
       } else {
         dispatch(
@@ -89,7 +89,7 @@ const QuestModal = ({
           autoClose: true,
         })
       )
-      fetchAccountDetails()
+      await fetchAccountDetails()
       close()
     }
   }

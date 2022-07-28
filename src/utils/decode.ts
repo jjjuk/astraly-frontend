@@ -14,7 +14,7 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET'
 const networkName = isMainnet ? 'mainnet-alpha' : 'goerli-alpha'
 const provider = new Provider({ network: networkName })
 
-const { validateQuest } = useApi()
+// const { validateQuest } = useApi()
 
 export const verifyQuest = async (
   txHash: string,
@@ -59,8 +59,7 @@ export const verifyQuest = async (
         // console.error(e)
       }
     }
-    // console.log(events)
-    // console.log(accountEvent)
+
     // Check if events match quest criteria
     const _events = events.find(
       (e: OrganizedEvent) =>
@@ -88,7 +87,7 @@ const isValidEvent = (event: any, accountEvent: OrganizedEvent, account: Account
   const _allQuestCalldata = accountEvent.callData
   const _allCalldata = event.calldata
 
-  for (let index = 0; index < _allCalldata.length; index++) {
+  for (let index = 0; index < _allQuestCalldata.length; index++) {
     const _calldata = _allCalldata[index]
     const _questCalldata = { ..._allQuestCalldata[index] }
     console.log(_calldata, _questCalldata)
