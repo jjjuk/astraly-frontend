@@ -74,8 +74,8 @@ const Quests = ({
   socialQuests,
   productQuests,
 }: {
-  socialQuests: Quest[]
-  productQuests: Quest[]
+  socialQuests: Quest[] | undefined
+  productQuests: Quest[] | undefined
 }) => {
   const [doShowModal, setDoShowModal] = useState(true)
   const [quest, setQuest] = useState<Quest | null>(null)
@@ -87,8 +87,12 @@ const Quests = ({
   return (
     <div className="Quests">
       <QuestModal quest={quest} isOpen={doShowModal} close={() => setDoShowModal(false)} />
-      <QuestBlocks quests={socialQuests} title={'Social Quests'} showQuest={showQuest} />
-      <QuestBlocks quests={productQuests} title={'Product Quests'} showQuest={showQuest} />
+      {socialQuests && (
+        <QuestBlocks quests={socialQuests} title={'Social Quests'} showQuest={showQuest} />
+      )}
+      {productQuests && (
+        <QuestBlocks quests={productQuests} title={'Product Quests'} showQuest={showQuest} />
+      )}
     </div>
   )
 }
