@@ -1,0 +1,11 @@
+.FloatingMenu {
+  @apply px-3 py-2 z-50;
+  position: fixed;
+  right: 0;
+  top: 30%;
+  background: #FAF3FF;
+  border: 2px solid #FFFFFF;
+  border-right: 0;
+  box-shadow: 0px 32px 48px rgba(55, 0, 99, 0.1);
+  border-radius: 16px 0px 0px 16px;
+}

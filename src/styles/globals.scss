@@ -69,7 +69,7 @@ body {
 }
 
 .main-background {
-  background: #faf3ff;
+  @apply bg-primaryClearBg dark:bg-primaryClearBgDark;
   position: fixed;
   z-index: -100;
   top: 0;
@@ -78,6 +78,7 @@ body {
   height: 100%;
   overflow: hidden;
   &.absolute {
+    @apply dark:hidden;
     position: absolute;
     width: 100%;
     height: 100vh;
@@ -85,6 +86,7 @@ body {
     background: linear-gradient(180deg, #ffffff 0%, #faf3ff 100%);
   }
   &::after {
+    @apply dark:hidden;
     content: '';
     position: absolute;
     width: 1920px;
@@ -125,6 +127,7 @@ body {
   }
 
   &::before {
+    @apply dark:hidden;
     content: '';
     position: absolute;
     width: 1920px;
@@ -161,10 +164,10 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
+.block-no-bg,
 .block {
   box-shadow: 0px 16px 24px rgba(55, 0, 99, 0.1);
-  @apply bg-white border border-2 border-white
-    rounded-3xl;
+  @apply border border-2 rounded-3xl border-transparent;
   &--contrast {
     @apply bg-primaryClearBg rounded-3xl px-8 py-7;
 
@@ -182,7 +185,17 @@ body {
     background: #faf3ff;
   }
 
+  &.hover {
+    @apply transition-transform;
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
   // filter: drop-shadow(0px 16px 24px rgba(55, 0, 99, 0.1));
+}
+
+.block {
+  @apply bg-white border-white;
 }
 
 .title {
@@ -227,3 +240,4 @@ body {
 
 @import 'animations';
 @import 'ui';
+@import 'ui-utils';

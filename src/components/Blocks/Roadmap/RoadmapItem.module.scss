@@ -1,0 +1,15 @@
+.RoadmapItem {
+  h4 {
+    @apply font-heading text-12 font-bold mb-4 flex items-center text-whitePurple;
+    &:global(.text-white) {
+      color: white;
+    }
+
+    &:global(.ui-t-primary) {
+      color: #8F00FF;
+    }
+  }
+  ul {
+    @apply list-disc ml-5 font-bold;
+  }
+}

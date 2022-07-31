@@ -60,6 +60,8 @@ const launchpad: NextPage = () => {
       {finishedProjects?.searchProjects.length > 0 && (
         <ProjectsSlider projects={finishedProjects.searchProjects} />
       )}
+
+      <div className="h-20"></div>
     </div>
   )
 }

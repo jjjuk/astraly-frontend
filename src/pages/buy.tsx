@@ -90,66 +90,69 @@ const BuyPageContainer = () => {
   }, [unlockTime])
 
   return (
-    <div className={'g-container gap-5 justify-center flex flex-col md:flex-row'}>
-      <div className="flex flex-col gap-10">
-        <div className="block h-fit">
-          <div className="block--contrast">
-            <h3 className={'small-title'}>Mint Amount: {mintAmount} ASTR</h3>
+    <>
+      <div className={'g-container gap-5 justify-center flex flex-col md:flex-row'}>
+        <div className="flex flex-col gap-10">
+          <div className="block h-fit">
+            <div className="block--contrast">
+              <h3 className={'small-title'}>Mint Amount: {mintAmount} ASTR</h3>
 
-            <BaseButton
-              onClick={handleTransfer}
-              disabled={!allowed}
-              className={'px-3 lg:px-12 group'}>
-              Mint
-            </BaseButton>
-            {!allowed && <p>You will be able to mint again in {roundTimer}</p>}
+              <BaseButton
+                onClick={handleTransfer}
+                disabled={!allowed}
+                className={'px-3 lg:px-12 group'}>
+                Mint
+              </BaseButton>
+              {!allowed && <p>You will be able to mint again in {roundTimer}</p>}
+            </div>
+            <div className="block__item">
+              <BaseButton
+                onClick={handleToWallet}
+                className={'px-3 lg:px-12 group'}
+                medium={true}
+                small>
+                <WalletIcon className={'mr-3'} />
+                Add ASTR to Wallet
+                <Chevron className={'ml-3 icon-right'} />
+              </BaseButton>
+            </div>
           </div>
-          <div className="block__item">
-            <BaseButton
-              onClick={handleToWallet}
-              className={'px-3 lg:px-12 group'}
-              medium={true}
-              small>
-              <WalletIcon className={'mr-3'} />
-              Add ASTR to Wallet
-              <Chevron className={'ml-3 icon-right'} />
-            </BaseButton>
+          <div className="block h-fit">
+            <div className="block--contrast">
+              <div className="title--medium mt-1">Trade $ASTR on other DEXs</div>
+            </div>
+            <div className="block__item">
+              <a href="https://testnet.app.alpharoad.fi/" target="_blank" rel="noreferrer">
+                <BaseButton>
+                  <SwapIcon className={'mr-3'} />
+                  AlphaRoad
+                </BaseButton>
+              </a>
+            </div>
           </div>
         </div>
-        <div className="block h-fit">
-          <div className="block--contrast">
-            <div className="title--medium mt-1">Trade $ASTR on other DEXs</div>
+
+        <div className="block">
+          <div className="block--contrast flex flex-col items-center">
+            <div className="title--medium mt-1">Trade NFT Lottery!</div>
+            <div className="title--small mt-1">You can buy and sell NFT lottery tickets!</div>
+            <img src={LotteryTicket.src} alt="lottery-ticket" width="250" />
           </div>
           <div className="block__item">
-            <a href="https://testnet.app.alpharoad.fi/" target="_blank" rel="noreferrer">
+            <a
+              href={`https://testnet.aspect.co/collection/${Contracts['SN_GOERLI'].lottery_token}`}
+              target="_blank"
+              rel="noreferrer">
               <BaseButton>
                 <SwapIcon className={'mr-3'} />
-                AlphaRoad
+                Trade NFT tickets
               </BaseButton>
             </a>
           </div>
         </div>
       </div>
-
-      <div className="block">
-        <div className="block--contrast flex flex-col items-center">
-          <div className="title--medium mt-1">Trade NFT Lottery!</div>
-          <div className="title--small mt-1">You can buy and sell NFT lottery tickets!</div>
-          <img src={LotteryTicket.src} alt="lottery-ticket" width="250" />
-        </div>
-        <div className="block__item">
-          <a
-            href={`https://testnet.aspect.co/collection/${Contracts['SN_GOERLI'].lottery_token}`}
-            target="_blank"
-            rel="noreferrer">
-            <BaseButton>
-              <SwapIcon className={'mr-3'} />
-              Trade NFT tickets
-            </BaseButton>
-          </a>
-        </div>
-      </div>
-    </div>
+      <div className="h-40"></div>
+    </>
   )
 }
 

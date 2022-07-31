@@ -38,6 +38,7 @@ const ProfilePage = () => {
       </div>
 
       <ProjectsSlider />
+      <div className="h-20"></div>
     </>
   )
 }

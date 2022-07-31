@@ -1,0 +1,51 @@
+.StatsGrid {
+  @apply md:grid-cols-2;
+  @screen lg {
+    grid-template-columns: 190px 1fr 1fr 1fr 190px;
+  }
+}
+
+.StatSale {
+  @apply grid;
+  grid-template-columns: 1fr 1fr;
+  > div {
+    &:nth-child(n + 2) {
+      display: none;
+    }
+    &:last-child {
+      display: block;
+    }
+  }
+  @screen md {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    > div {
+      &:nth-child(n + 2) {
+        display: block;
+      }
+      &:nth-child(n + 4) {
+        display: none;
+      }
+
+      &:last-child {
+        display: block;
+      }
+    }
+  }
+  @screen lg {
+    grid-template-columns: 160px 130px 80px 80px 80px 120px 120px 120px 1fr;
+    > div {
+      &:nth-child(n + 4) {
+        display: block;
+      }
+
+      &:last-child {
+        display: block;
+      }
+    }
+  }
+
+  @screen xl {
+    grid-template-columns: 180px 160px 140px 90px 165px 130px 130px 130px 1fr;
+    max-width: 1340px;
+  }
+}

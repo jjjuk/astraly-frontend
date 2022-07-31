@@ -12,9 +12,10 @@ type Account {
   bio: String
   cover: String
   email: String
-  nonce: Float
+  hasClaimedTickets: Boolean
   questCompleted: [Quest!]
   socialLinks: [SocialLink!]
+  transactions: [Transaction!]
 }
 
 type CallData {
@@ -49,13 +50,13 @@ type Felt {
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
-scalar JSON
-  @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
 type Mutation {
   addContact(email: String!): Boolean!
   completeQuest(questId: String!): Quest
   linkSocial(id: String, type: String!): Account!
+  newsletter(email: String!, form: String = "footer"): Boolean!
   updateAccount(data: UpdateAccountInputType!): Account!
   updateProject(data: ProjectInput!): Project
   updateQuest(data: QuestInput!): Quest!
@@ -77,23 +78,23 @@ type Project {
   _id: ID!
   categories: [String!]
   cover: String
+  coverVideo: String
   created: DateTime
   currentRoundIndex: Float
   description: String
   idoId: String
   isFinished: Boolean
   logo: String
-  maxAllocation: Float
   name: String
   quests: [Quest!]
   rounds: [Round!]
   ticker: String
   tokenAddress: String
   tokenPrice: Float
+  totalClaimedTickets: Float
   totalRaise: Float
   tx: String
   type: ProjectType
-  voteCount: Float
 }
 
 input ProjectInput {
@@ -120,6 +121,7 @@ input ProjectInput {
 enum ProjectType {
   GDA
   IDO
+  INO
   LBP
 }
 
@@ -132,12 +134,12 @@ type Query {
   hello: String!
   isAdmin: Boolean!
   me: Account!
-  nonce: Float!
   project(idoId: String!): Project!
   projects: [Project!]!
   quest(_id: String!): Quest!
   quests(idoId: String): [Quest!]!
   searchProjects(finished: Boolean, search: String): [Project!]!
+  total: Float!
 }
 
 type Quest {
@@ -194,6 +196,15 @@ enum SocialLinkType {
   FACEBOOK
   TELEGRAM
   TWITTER
+}
+
+type Transaction {
+  _id: ID!
+  callerAddress: String
+  contractAddress: String
+  hash: String
+  name: String
+  timestamp: DateTime
 }
 
 type Uint256 {

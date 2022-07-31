@@ -26,3 +26,9 @@ export const LINK_SOCIAL = gql`
     }
   }
 `
+
+export const NEWSLETTER = gql`
+  mutation newsletter($email: String!) {
+    newsletter(email: $email)
+  }
+`

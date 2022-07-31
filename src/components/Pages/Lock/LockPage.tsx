@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import LockForm from './LockForm'
 import Withdraw from './Withdraw'
 import ClaimPannel from './ClaimPannel'
@@ -123,6 +123,7 @@ const LockPage = () => {
           </div>
         </div>
       </div>
+      <div className="h-40"></div>
     </div>
   )
 }

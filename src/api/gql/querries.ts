@@ -55,3 +55,9 @@ export const IS_ADMIN = gql`
     isAdmin
   }
 `
+
+export const TOTAL_ACCOUNTS = gql`
+  query Accounts {
+    total
+  }
+`

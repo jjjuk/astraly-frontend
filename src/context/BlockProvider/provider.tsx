@@ -1,4 +1,5 @@
 import { useStarknetReact } from '@web3-starknet-react/core'
+import axios from 'axios'
 import React from 'react'
 import type { GetBlockResponse } from 'starknet'
 
@@ -13,6 +14,7 @@ export function BlockHashProvider({ interval, children }: BlockHashProviderProps
   const { library } = useStarknetReact()
   const [blockHash, setBlockHash] = React.useState<string | undefined>(undefined)
   const [blockNumber, setBlockNumber] = React.useState<number | undefined>(undefined)
+  const [ethPrice, setEthPrice] = React.useState<number | undefined>(undefined)
 
   const fetchBlockHash = React.useCallback(() => {
     library
@@ -25,15 +27,46 @@ export function BlockHashProvider({ interval, children }: BlockHashProviderProps
       .catch(console.log)
   }, [library])
 
+  const fetchETHPrice = React.useCallback(async () => {
+    try {
+      // let proxy = chainLinkContracts.get(token.address);
+      // if (proxy) {
+      // } else {
+      //   proxy = new ethers.Contract(
+      //     token.chainlinkProxyAddress,
+      //     ChainLinkFeedABI,
+      //     provider
+      //   );
+      //   chainLinkContracts.set(token, proxy);
+      // }
+      // let priceFeed = await proxy.latestRoundData();
+      // priceFeed =
+      //   ethers.utils.formatEther(priceFeed.answer) *
+      //   10 ** (18 - token.decimals);
+
+      const response = await axios.get(
+        `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=USD`
+      )
+      const price = parseFloat(response.data['ethereum']['usd'])
+      setEthPrice(price)
+    } catch (error) {
+      console.error(error)
+    }
+  }, [library])
+
   React.useEffect(() => {
     fetchBlockHash()
+    fetchETHPrice()
     const intervalId = setInterval(() => {
       fetchBlockHash()
+      fetchETHPrice()
     }, interval ?? 5000)
     return () => clearInterval(intervalId)
-  }, [interval, fetchBlockHash])
+  }, [interval, fetchBlockHash, fetchETHPrice])
 
   return (
-    <BlockContext.Provider value={{ blockHash, blockNumber }}>{children}</BlockContext.Provider>
+    <BlockContext.Provider value={{ blockHash, blockNumber, ethPrice }}>
+      {children}
+    </BlockContext.Provider>
   )
 }

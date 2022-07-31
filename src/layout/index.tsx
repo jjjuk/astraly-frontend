@@ -1,5 +1,4 @@
 import Header from './header/index'
-import Footer from './footer'
 import { PropsWithChildren, useEffect } from 'react'
 import ToastContainer from '../components/ui/Toast/ToastContainer'
 import Heading from './header/Heading'
@@ -9,6 +8,8 @@ import UiActions from '../actions/ui.actions'
 import { PAGES } from '../constants/ui.constants'
 import Marquee from 'react-fast-marquee'
 import Warning from 'assets/icons/currentColor/warning.svg?inline'
+import FooterIndex from './footer/FooterIndex'
+import Noise from 'assets/images/Noise.png'
 
 export default function Layout({ children }: PropsWithChildren<any>) {
   const router = useRouter()
@@ -24,7 +25,12 @@ export default function Layout({ children }: PropsWithChildren<any>) {
   }, [router.route])
   return (
     <>
-      <div className="default-layout flex flex-col min-h-full">
+      <div className="default-layout flex flex-col min-h-full relative">
+        <div
+          className="noise absolute h-full w-full z-50 pointer-events-none"
+          style={{
+            backgroundImage: `url(${Noise.src})`,
+          }}></div>
         <div className="w-full overflow-hidden">
           <Marquee
             style={{
@@ -53,8 +59,9 @@ export default function Layout({ children }: PropsWithChildren<any>) {
 
         <>{children}</>
 
+        <div className="h-20"></div>
         <div className="mt-auto">
-          <Footer />
+          <FooterIndex />
         </div>
       </div>
     </>
