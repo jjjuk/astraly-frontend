@@ -55,21 +55,22 @@ const BurnPage = () => {
   }, [data])
 
   const handleBurnTickets = async () => {
+    if (!pid) return
     try {
       setBurning(true)
-      const tx = await burnTickets(account, pid, amountToBurn)
-      // let tx
-      // if (!user.questCompleted || user.questCompleted.length === 0) {
-      //   tx = await burnTickets(account, pid, amountToBurn)
-      // } else {
-      //   tx = await burnWithQuest(
-      //     account,
-      //     pid,
-      //     amountToBurn,
-      //     user.questCompleted?.length,
-      //     merkleProof
-      //   )
-      // }
+      // const tx = await burnTickets(account, pid, amountToBurn)
+      let tx
+      if (!user.questCompleted || user.questCompleted.length === 0) {
+        tx = await burnTickets(account, pid?.toString(), amountToBurn)
+      } else {
+        tx = await burnWithQuest(
+          account,
+          pid?.toString(),
+          amountToBurn,
+          user.questCompleted?.length,
+          merkleProof
+        )
+      }
       addTransaction(
         tx,
         'Burn Tickets',
@@ -93,13 +94,14 @@ const BurnPage = () => {
   }
 
   const fetchBalances = async () => {
+    if (!project) return
     try {
       setLoading(true)
-      const _ticketsBalance = await getTicketsBalance(account?.address, project?.idoId.toString())
+      const _ticketsBalance = await getTicketsBalance(account?.address, project.idoId.toString())
       // console.log(_ticketsBalance)
       setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString())
 
-      const _userInfo = await getUserInfo(account?.address, project?.idoId.toString())
+      const _userInfo = await getUserInfo(account?.address, project.idoId.toString())
       setUserInfo(_userInfo)
 
       setLoading(false)
@@ -109,21 +111,21 @@ const BurnPage = () => {
     }
   }
 
-  // const fetchQuestsInfo = async () => {
-  //   if (!project || !account?.address) return
-  //   try {
-  //     const proof = await fetchProof(project._id.toString())
-  //     console.log(proof)
-  //     setMerkleProof(proof)
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
+  const fetchQuestsInfo = async () => {
+    if (!project || !account?.address) return
+    try {
+      const proof = await fetchProof(project._id.toString())
+      console.log(proof)
+      setMerkleProof(proof)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   useEffect(() => {
     if (account?.address && project) {
       fetchBalances()
-      // fetchQuestsInfo()
+      fetchQuestsInfo()
     }
   }, [account, project])
 
