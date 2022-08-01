@@ -1,7 +1,7 @@
 import { useStarknetReact } from '@web3-starknet-react/core'
 import axios from 'axios'
 import React from 'react'
-import type { GetBlockResponse } from 'starknet'
+import { GetBlockResponse, Provider } from 'starknet'
 
 import { BlockContext } from './context'
 
@@ -11,13 +11,17 @@ export interface BlockHashProviderProps {
 }
 
 export function BlockHashProvider({ interval, children }: BlockHashProviderProps): JSX.Element {
-  const { library } = useStarknetReact()
+  const { library, account, chainId } = useStarknetReact()
   const [blockHash, setBlockHash] = React.useState<string | undefined>(undefined)
   const [blockNumber, setBlockNumber] = React.useState<number | undefined>(undefined)
   const [ethPrice, setEthPrice] = React.useState<number | undefined>(undefined)
 
+  const provider = account
+    ? library
+    : new Provider({ network: chainId === 1 ? 'mainnet-alpha' : 'goerli-alpha' })
+
   const fetchBlockHash = React.useCallback(() => {
-    library
+    provider
       ?.getBlock()
       .then((block: GetBlockResponse) => {
         setBlockHash(block.block_hash)
@@ -25,25 +29,10 @@ export function BlockHashProvider({ interval, children }: BlockHashProviderProps
         setBlockNumber(block.block_number)
       })
       .catch(console.log)
-  }, [library])
+  }, [provider])
 
   const fetchETHPrice = React.useCallback(async () => {
     try {
-      // let proxy = chainLinkContracts.get(token.address);
-      // if (proxy) {
-      // } else {
-      //   proxy = new ethers.Contract(
-      //     token.chainlinkProxyAddress,
-      //     ChainLinkFeedABI,
-      //     provider
-      //   );
-      //   chainLinkContracts.set(token, proxy);
-      // }
-      // let priceFeed = await proxy.latestRoundData();
-      // priceFeed =
-      //   ethers.utils.formatEther(priceFeed.answer) *
-      //   10 ** (18 - token.decimals);
-
       const response = await axios.get(
         `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=USD`
       )
@@ -52,7 +41,7 @@ export function BlockHashProvider({ interval, children }: BlockHashProviderProps
     } catch (error) {
       console.error(error)
     }
-  }, [library])
+  }, [])
 
   React.useEffect(() => {
     fetchBlockHash()

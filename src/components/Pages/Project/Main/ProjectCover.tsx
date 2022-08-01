@@ -16,6 +16,7 @@ const ProjectCover = ({ project }: { project: Project }) => {
             height="100%"
             playing={true}
             loop={true}
+            volume={0}
           />
         ) : (
           <img src={project.cover} alt={''} className={'w-full h-full object-cover'} />
