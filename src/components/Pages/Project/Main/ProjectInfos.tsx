@@ -10,6 +10,10 @@ import Hint from 'components/ui/Hint/Hint'
 
 import Award from 'assets/icons/solid/Award.svg'
 import Shield from 'assets/icons/solid/Shield.svg'
+import Hexagon from '../../../ui/Hexagon'
+import TwitterIcon from 'assets/icons/currentColor/Twitter.svg?inline'
+import DiscordIcon from 'assets/icons/currentColor/Discord.svg?inline'
+import SiteIcon from 'assets/icons/currentColor/Explore.svg?inline'
 
 const ProjectInfos: React.FC<{ project: Project }> = ({ project }) => {
   return (
@@ -59,6 +63,29 @@ const ProjectInfos: React.FC<{ project: Project }> = ({ project }) => {
       <div className="block">
         <div className="block__item">
           <div className="title--small">Links</div>
+          <div className="flex gap-2">
+            <Link href={'https://briq.construction/'}>
+              <a target="_blank" className="hover:scale-110 transition transform">
+                <Hexagon>
+                  <SiteIcon width="28" height="" viewBox="0 0 24 24" />
+                </Hexagon>
+              </a>
+            </Link>
+            <Link href={'https://twitter.com/briqnft'}>
+              <a target="_blank" className="hover:scale-110 transition transform">
+                <Hexagon>
+                  <TwitterIcon />
+                </Hexagon>
+              </a>
+            </Link>
+            <Link href={'https://discord.com/invite/kpvbDCw5pr'}>
+              <a target="_blank" className="hover:scale-110 transition transform">
+                <Hexagon>
+                  <DiscordIcon />
+                </Hexagon>
+              </a>
+            </Link>
+          </div>
         </div>
 
         <div className="block--contrast">

@@ -1,9 +1,24 @@
 .dueDiligence {
+  @apply leading-128 text-primaryClear;
   h3 {
-    @apply text-16 font-heading text-primary mb-2;
+    @apply text-16 font-heading text-primary mb-4;
+  }
+
+  h4 {
+    @apply text-14 font-heading text-primary mb-4;
   }
 
   p {
-    @apply leading-128 text-primaryClear;
+     @apply mb-4 max-w-[700px];
+  }
+
+  ul {
+    @apply list-disc ml-4 max-w-[600px];
+    li {
+      @apply mb-2;
+    }
+  }
+  &Image {
+    @apply w-full max-w-[700px] mb-4;
   }
 }

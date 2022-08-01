@@ -8,6 +8,7 @@ const ProjectCover = ({ project }: { project: Project }) => {
     <div className="block">
       <div className="cover w-full overflow-hidden video-format rounded-3xl">
         {project.coverVideo ? (
+          // @ts-ignore
           <ReactPlayer
             className={'w-full h-full object-cover'}
             url={project.coverVideo}
