@@ -34,7 +34,7 @@ const InputGroup: React.FC<
       tabIndex={0}
       onKeyUp={() => {}}>
       <div className="left whitespace-nowrap mr-2">{left}</div>
-      <div className="input">{children}</div>
+      <div className="input w-full">{children}</div>
     </div>
   )
 }
