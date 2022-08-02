@@ -53,7 +53,7 @@ const UrlInput: React.FC<{
 
         <Hint>
           {questType === 'PRODUCT'
-            ? 'You can find the transaction hash on voyager or on your Argent X wallet.'
+            ? 'You can find the transaction hash on voyager or in your wallet.'
             : 'Find the link on social media'}
         </Hint>
       </div>
