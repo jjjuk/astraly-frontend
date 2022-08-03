@@ -1,28 +1,29 @@
-import { BigNumberish } from 'starknet/utils/number'
+import { Result } from 'starknet'
+// import { BigNumberish } from 'starknet/utils/number'
 
 export type TBalances = {
   [address: string]: {
-    raw: BigNumberish
+    raw: Result
     normalized: string
   }
 }
 
 export type TDeposits = {
   [address: string]: {
-    raw: BigNumberish
+    raw: Result
     normalized: string
   }
 }
 
 export type TAllowances = {
   [address: string]: {
-    raw: BigNumberish
+    raw: Result
     normalized?: number
   }
 }
 export type TPrices = {
   [address: string]: {
-    raw: BigNumberish
+    raw: Result
     normalized?: number
   }
 }
