@@ -86,11 +86,11 @@ const Withdraw = ({
         <div className="flex items-center justify-between text-16 mb-2">
           <div className="text-primaryClear">ASTR Staked</div>
           <div className="font-heading text-primary">
-            {Number(zkpStaked).toFixed(3) ? zkpStaked : <Spinner />}
+            {zkpStaked ? Number(zkpStaked).toFixed(3) : <Spinner />}
           </div>
           <div className="text-primaryClear">ETH-ASTR LP Staked</div>
           <div className="font-heading text-primary">
-            {Number(lpStaked).toFixed(3) ? lpStaked : <Spinner />}
+            {lpStaked ? Number(lpStaked).toFixed(3) : <Spinner />}
           </div>
         </div>
         <div className="flex items-center justify-between text-16">
