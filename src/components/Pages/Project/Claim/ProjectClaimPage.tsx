@@ -19,7 +19,7 @@ const ProjectClaimPage = () => {
   const router = useRouter()
   const { pid } = router.query
   const { account } = useStarknetReact()
-  const [ticketsBalance, setTicketsBalance] = useState(null)
+  const [ticketsBalance, setTicketsBalance] = useState<string | null>(null)
   const [xzkpBalance, setXZkpBalance] = useState('0')
   const [project, setProject] = useState<Project | undefined>(undefined)
   const [claiming, setClaiming] = useState(false)
@@ -42,9 +42,10 @@ const ProjectClaimPage = () => {
   }, [data])
 
   const handleClaimTickets = async () => {
+    if (!project) return
     try {
       setClaiming(true)
-      const tx = await claimLotteryTickets(project?.idoId.toString())
+      const tx = await claimLotteryTickets(project.idoId.toString())
       addTransaction(
         tx,
         'Claim Tickets',
@@ -59,6 +60,7 @@ const ProjectClaimPage = () => {
   }
 
   const fetchBalances = async () => {
+    if (!project) return
     try {
       setLoading(true)
       const _xbalance = await getXZKPBalance(account?.address)
@@ -68,8 +70,9 @@ const ProjectClaimPage = () => {
       )
       setXZkpBalance(_xformattedBalance)
 
-      const _ticketsBalance = await getTicketsBalance(account?.address, project?.idoId.toString())
+      const _ticketsBalance = await getTicketsBalance(account?.address, project.idoId.toString())
       setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString())
+      console.log(uint256.uint256ToBN(_ticketsBalance.balance).toString())
 
       setLoading(false)
     } catch (e) {
@@ -79,10 +82,10 @@ const ProjectClaimPage = () => {
   }
 
   useEffect(() => {
-    if (account?.address) {
+    if (account?.address && project) {
       fetchBalances()
     }
-  }, [account])
+  }, [account, project])
 
   if (!project) {
     return <></>

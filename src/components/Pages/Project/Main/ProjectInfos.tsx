@@ -67,7 +67,7 @@ const ProjectInfos: React.FC<{ project: Project }> = ({ project }) => {
             <Link href={'https://briq.construction/'}>
               <a target="_blank" className="hover:scale-110 transition transform">
                 <Hexagon>
-                  <SiteIcon width="28" height="" viewBox="0 0 24 24" />
+                  <SiteIcon width="28" height="28" viewBox="0 0 24 24" />
                 </Hexagon>
               </a>
             </Link>
