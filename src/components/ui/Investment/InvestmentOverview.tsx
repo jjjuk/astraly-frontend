@@ -24,7 +24,10 @@ const InvestmentOverview: React.FC = () => {
     try {
       const stats = [
         ['$ASTR Staked', Number(deposits[Contracts['SN_GOERLI'].token].normalized).toFixed(2)],
-        ['ASTR-LP Staked', Number(deposits[Contracts['SN_GOERLI'].lp_token].normalized).toFixed(2)],
+        [
+          'ETH-ASTR LP Staked',
+          Number(deposits[Contracts['SN_GOERLI'].lp_token].normalized).toFixed(2),
+        ],
         ['Total $USD invested', '0.0'],
         ['IDO participations', '0'],
       ]
@@ -33,7 +36,7 @@ const InvestmentOverview: React.FC = () => {
       console.error(e)
       const stats = [
         ['$ASTR Staked', '-'],
-        ['ASTR-LP Staked', '-'],
+        ['ETH-ASTR LP Staked', '-'],
         ['Total $USD invested', '-'],
         ['IDO participations', '-'],
       ]

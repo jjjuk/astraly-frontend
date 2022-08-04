@@ -146,7 +146,7 @@ const LockForm = ({
               onClick={() => setZKPLPAmount(lpBalance)}
             />
             <BaseInput
-              label={'ASTR-LP'}
+              label={'ETH-ASTR LP'}
               max={lpBalance ? Number(lpBalance) : 0}
               value={zkpLPAmount}
               onChange={(event) => setZKPLPAmount(event.target.value)}

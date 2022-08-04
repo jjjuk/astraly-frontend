@@ -88,7 +88,7 @@ const Withdraw = ({
           <div className="font-heading text-primary">
             {Number(zkpStaked).toFixed(3) ? zkpStaked : <Spinner />}
           </div>
-          <div className="text-primaryClear">ASTR-LP Staked</div>
+          <div className="text-primaryClear">ETH-ASTR LP Staked</div>
           <div className="font-heading text-primary">
             {Number(lpStaked).toFixed(3) ? lpStaked : <Spinner />}
           </div>

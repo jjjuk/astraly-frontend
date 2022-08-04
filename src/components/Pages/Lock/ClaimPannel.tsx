@@ -88,14 +88,15 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
             <div className="ml-2">
               <Hint>
                 <div className="font-bold w-[260px] px-2 py-2">
-                  You can only get $ASTR or ASTR-LP from AlphaRoad for now
+                  You can only get $ASTR or ETH-ASTR LP from AlphaRoad for now
                 </div>
               </Hint>
             </div>
           </div>
 
           <p>
-            Owning ASTR tokens or ASTR-LP is requirement in order to participate in IDOs on Astraly.
+            Owning ASTR tokens or ETH-ASTR LP is requirement in order to participate in IDOs on
+            Astraly.
             <br />
             <br />
             You can lock your tokens and receive lottery tickets to invest in the listed projects.
