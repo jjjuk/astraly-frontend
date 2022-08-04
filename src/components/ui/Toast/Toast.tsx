@@ -15,7 +15,7 @@ import Spinner from '../Spinner/Spinner'
 const getStateIcon = (state: ToastState) => {
   switch (state) {
     case ToastState.LOADING:
-      return <Spinner color="#8F00FF" />
+      return <Spinner />
       break
     case ToastState.ERROR:
       return <img src={CrossIcon} alt="check-icon" />

@@ -96,6 +96,7 @@ const ProjectPortfolioPage = () => {
   const dispatch = useAppDispatch()
 
   const updateVestingInfo = useCallback(async () => {
+    if (!project) return
     try {
       setLoading(true)
       const _numberVestingPortions = await getNumberVestingPortions(project?.idoId.toString())
@@ -129,6 +130,7 @@ const ProjectPortfolioPage = () => {
   }, [getNumberVestingPortions, getVestingPercent, getVestingUnlockTime, project])
 
   const updateUserInfo = useCallback(async () => {
+    if (!project) return
     try {
       const _userInfo = await getUserInfo(account?.address, project?.idoId.toString())
       setUserInfo(_userInfo)
@@ -172,6 +174,7 @@ const ProjectPortfolioPage = () => {
   }, [account, project])
 
   const handleWithdraw = async () => {
+    if (!project) return
     try {
       setWithdrawing(true)
       const _portionIds = Array.from(
@@ -202,6 +205,7 @@ const ProjectPortfolioPage = () => {
   }
 
   const handleClaimNFTs = async () => {
+    if (!project) return
     try {
       setWithdrawing(true)
       const tx = await claimNFTs(project?.idoId.toString())
@@ -266,7 +270,7 @@ const ProjectPortfolioPage = () => {
               {/* <div className="title--medium mb-6">Distribution Info</div> */}
               <div>
                 {loading || graphData.length === 0 ? (
-                  <Spinner color="#8F00FF" />
+                  <Spinner />
                 ) : (
                   <AreaChart
                     width={730}

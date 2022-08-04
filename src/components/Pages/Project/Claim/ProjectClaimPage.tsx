@@ -72,7 +72,6 @@ const ProjectClaimPage = () => {
 
       const _ticketsBalance = await getTicketsBalance(account?.address, project.idoId.toString())
       setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString())
-      console.log(uint256.uint256ToBN(_ticketsBalance.balance).toString())
 
       setLoading(false)
     } catch (e) {
