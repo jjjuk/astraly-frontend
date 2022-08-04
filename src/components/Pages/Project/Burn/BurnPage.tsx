@@ -160,7 +160,7 @@ const BurnPage = () => {
                 <BaseInput
                   label="Tickets"
                   value={amountToBurn}
-                  max={Number(ticketsBalance)}
+                  max={ticketsBalance ? Number(ticketsBalance) : 0}
                   onChange={(e) => setAmountToBurn(e.target.value)}
                   size="xl"
                 />

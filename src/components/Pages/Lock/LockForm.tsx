@@ -129,7 +129,7 @@ const LockForm = ({
               onClick={() => setZKPAmount(zkpBalance)}
             />
             <BaseInput
-              max={Number(zkpBalance)}
+              max={zkpBalance ? Number(zkpBalance) : 0}
               label={'ASTR'}
               value={zkpAmount}
               onChange={(event) => setZKPAmount(event.target.value)}
@@ -147,7 +147,7 @@ const LockForm = ({
             />
             <BaseInput
               label={'ASTR-LP'}
-              max={Number(lpBalance)}
+              max={lpBalance ? Number(lpBalance) : 0}
               value={zkpLPAmount}
               onChange={(event) => setZKPLPAmount(event.target.value)}
             />

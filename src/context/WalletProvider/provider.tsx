@@ -3,7 +3,7 @@ import { Contracts } from 'constants/networks'
 import { useStakingContract, useTokenContract } from 'contracts'
 import { formatUnits } from 'ethers/lib/utils'
 import React from 'react'
-import { Provider, Result } from 'starknet'
+import { defaultProvider, Result } from 'starknet'
 import { uint256ToBN } from 'starknet/dist/utils/uint256'
 
 import { WalletContext } from './context'
@@ -28,9 +28,7 @@ const WalletProvider = ({ children }: WalletProviderProps): JSX.Element => {
   const { getUserDeposit } = useStakingContract()
   // const { aggregateCalls } = useMulticallContract()
 
-  const provider = account
-    ? library
-    : new Provider({ network: chainId === 1 ? 'mainnet-alpha' : 'goerli-alpha' })
+  const provider = account ? library : defaultProvider
 
   React.useEffect((): void => {
     if (!account) {

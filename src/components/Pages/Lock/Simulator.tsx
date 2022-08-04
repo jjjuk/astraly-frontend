@@ -45,7 +45,7 @@ const Simulator = ({ currentAPY, zkpBalance }: { currentAPY?: number; zkpBalance
                 </div>
                 <div className="md:col-span-2">
                   <BaseInput
-                    max={Number(zkpBalance)}
+                    max={zkpBalance ? Number(zkpBalance) : 0}
                     label={'Total'}
                     value={zkpAmount}
                     onChange={(e) => setZKPAmount(e.target.value)}
