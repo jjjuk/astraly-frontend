@@ -145,7 +145,16 @@ const BuyPageContainer = () => {
               rel="noreferrer">
               <BaseButton>
                 <SwapIcon className={'mr-3'} />
-                Trade NFT tickets
+                Trade on Aspect
+              </BaseButton>
+            </a>
+            <a
+              href={`https://mintsquare.io/collection/starknet-testnet/${Contracts['SN_GOERLI'].lottery_token}/nfts`}
+              target="_blank"
+              rel="noreferrer">
+              <BaseButton>
+                <SwapIcon className={'mr-3'} />
+                Trade on MintSquare
               </BaseButton>
             </a>
           </div>
