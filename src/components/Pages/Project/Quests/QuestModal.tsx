@@ -19,6 +19,7 @@ import { RootState } from 'stores/reduxStore'
 import { useApi } from 'api'
 import { ToastState } from 'components/ui/Toast/utils'
 import AuthActions from 'actions/auth.actions'
+import Spinner from 'components/ui/Spinner/Spinner'
 
 const QuestModal = ({
   quest,
@@ -34,6 +35,7 @@ const QuestModal = ({
   const dispatch = useAppDispatch()
   // const { authToken } = useSelector((state: RootState) => state.ConnectWallet)
   const { validateQuest, getAccountDetails } = useApi()
+  const [approving, setApproving] = useState(false)
 
   const fetchAccountDetails = async () => {
     dispatch(AuthActions.fetchStart())
@@ -48,6 +50,7 @@ const QuestModal = ({
 
   const approve = async () => {
     if (!quest || !account) return
+    setApproving(true)
     if (quest.type === QuestType.PRODUCT) {
       const valid = await verifyQuest(url, quest, account)
 
@@ -66,6 +69,7 @@ const QuestModal = ({
           })
         )
         await fetchAccountDetails()
+        setApproving(false)
         close()
       } else {
         dispatch(
@@ -76,6 +80,7 @@ const QuestModal = ({
             autoClose: true,
           })
         )
+        setApproving(false)
       }
     } else {
       validateQuest(String(quest._id))
@@ -90,6 +95,8 @@ const QuestModal = ({
         })
       )
       await fetchAccountDetails()
+      setApproving(false)
+
       close()
     }
   }
@@ -154,7 +161,6 @@ const QuestModal = ({
               </BaseButton>
             </a>
           </div>
-
           {quest.type === QuestType.PRODUCT && (
             <div className="block--contrast py-3 mb-6">
               <div className="titleXs mb-2">Steps</div>
@@ -178,15 +184,21 @@ const QuestModal = ({
             setValue={(value) => setUrl(value)}
           />
           <div className="h-8"></div>
-          <BaseButton
-            className={`${!url && 'opacity-50 pointer-events-none'} `}
-            onClick={() => approve()}>
-            {!url && <img src={SandWatch} alt={''} className={'mr-2'} />}
-            {!url && (quest.type === QuestType.PRODUCT ? 'Waiting Hash' : 'Waiting Url')}
+          {!approving ? (
+            <BaseButton
+              className={`${!url && 'opacity-50 pointer-events-none'} `}
+              onClick={() => approve()}>
+              {!url && <img src={SandWatch} alt={''} className={'mr-2'} />}
+              {!url && (quest.type === QuestType.PRODUCT ? 'Waiting Hash' : 'Waiting Url')}
 
-            {url && <LikeIcon className={'mr-2'} />}
-            {url && 'Approve Quest'}
-          </BaseButton>
+              {url && <LikeIcon className={'mr-2'} />}
+              {url && 'Approve Quest'}
+            </BaseButton>
+          ) : (
+            <BaseButton className={`${'opacity-50 pointer-events-none'} `}>
+              <Spinner /> Approving...
+            </BaseButton>
+          )}
         </div>
       </div>
     </BaseModal>
