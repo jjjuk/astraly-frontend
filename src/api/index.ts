@@ -71,6 +71,7 @@ export const useApi = () => {
             }
           }
         `,
+        fetchPolicy: 'network-only',
       })
       .then(({ data }) => data.me)
   }

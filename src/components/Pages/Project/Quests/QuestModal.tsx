@@ -41,7 +41,6 @@ const QuestModal = ({
     dispatch(AuthActions.fetchStart())
     try {
       const data = await getAccountDetails()
-      // console.log('data', data)
       dispatch(AuthActions.fetchSuccess(data))
     } catch {
       dispatch(AuthActions.fetchFailed())
@@ -55,7 +54,6 @@ const QuestModal = ({
       const valid = await verifyQuest(url, quest, account)
 
       if (valid) {
-        validateQuest(String(quest._id))
         dispatch(
           ToastActions.addToast({
             title: 'Successful quest',
@@ -68,6 +66,7 @@ const QuestModal = ({
             autoClose: true,
           })
         )
+        await validateQuest(String(quest._id))
         await fetchAccountDetails()
         setApproving(false)
         close()
@@ -83,7 +82,6 @@ const QuestModal = ({
         setApproving(false)
       }
     } else {
-      validateQuest(String(quest._id))
       dispatch(
         ToastActions.addToast({
           title: 'Successful quest',
@@ -94,6 +92,7 @@ const QuestModal = ({
           autoClose: true,
         })
       )
+      await validateQuest(String(quest._id))
       await fetchAccountDetails()
       setApproving(false)
 
