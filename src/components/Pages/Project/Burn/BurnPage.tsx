@@ -102,7 +102,7 @@ const BurnPage = () => {
       // console.log(_ticketsBalance)
       setTicketsBalance(uint256.uint256ToBN(_ticketsBalance.balance).toString())
 
-      const _userInfo = await getUserInfo(account?.address, project.idoId.toString())
+      const _userInfo = await getUserInfo(account?.address, project.idoId.toString(), project.type)
       setUserInfo(_userInfo)
 
       setLoading(false)
