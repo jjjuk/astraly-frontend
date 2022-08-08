@@ -72,6 +72,7 @@ const BurnPage = () => {
           merkleProof
         )
       }
+      if (!tx) throw Error('no tx')
       addTransaction(
         tx,
         'Burn Tickets',

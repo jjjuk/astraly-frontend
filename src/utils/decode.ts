@@ -97,8 +97,8 @@ const isValidEvent = (event: any, accountEvent: OrganizedEvent, account: Account
     if (!_match) return false
 
     if (_calldata.type === 'Uint256') {
-      const _bn1: BigNumber = uint256ToBN(_calldata.value)
-      const _bn2: BigNumber = uint256ToBN(_questCalldata.value.value)
+      const _bn1: any = uint256ToBN(_calldata.value)
+      const _bn2: any = uint256ToBN(_questCalldata.value.value)
       // User's value should be greater than quest's value
       if (_bn1.lt(_bn2)) return false
     } else {

@@ -63,7 +63,7 @@ const ProjectBuyPage = () => {
   const dispatch = useAppDispatch()
 
   const handleParticipate = async () => {
-    if (!account?.address) return
+    if (!account?.address || !project) return
 
     try {
       setPurchasing(true)
@@ -94,10 +94,15 @@ const ProjectBuyPage = () => {
   }
 
   const updateBalance = async () => {
+    if (!project) return
     try {
       setLoading(true)
 
-      const _userInfo = await getUserInfo(account?.address, project?.idoId.toString())
+      const _userInfo = await getUserInfo(
+        account?.address,
+        project?.idoId.toString(),
+        project?.type
+      )
       setUserInfo(_userInfo)
 
       const _currentSale = await getCurrentSale(project?.idoId.toString())

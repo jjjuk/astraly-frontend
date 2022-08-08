@@ -132,7 +132,7 @@ const ProjectPortfolioPage = () => {
   const updateUserInfo = useCallback(async () => {
     if (!project) return
     try {
-      const _userInfo = await getUserInfo(account?.address, project?.idoId.toString())
+      const _userInfo = await getUserInfo(account?.address, project?.idoId.toString(), project.type)
       setUserInfo(_userInfo)
     } catch (e) {
       console.error(e)

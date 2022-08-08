@@ -46,10 +46,11 @@ export const useLotteryTokenContract = () => {
     nbQuest: number,
     merkleProof: string[]
   ) => {
+    if (!account) return
     const contract = await getLotteryTokenContract()
 
     return await contract.invoke('burn_with_quest', [
-      validateAndParseAddress(account?.address),
+      validateAndParseAddress(account.address),
       parseInputAmountToUint256(id.toString(), 0),
       parseInputAmountToUint256(amount, 0),
       nbQuest,
