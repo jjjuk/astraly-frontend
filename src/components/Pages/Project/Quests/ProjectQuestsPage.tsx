@@ -38,7 +38,7 @@ const ProjectQuestsPage = () => {
     }
   }, [quests])
 
-  if (!project) {
+  if (!project || project.currentRoundId === 1) {
     return <></>
   }
 
