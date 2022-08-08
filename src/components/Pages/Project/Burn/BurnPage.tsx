@@ -114,8 +114,8 @@ const BurnPage = () => {
   const fetchQuestsInfo = async () => {
     if (!project || !account?.address) return
     try {
-      const proof = await fetchProof(project._id.toString())
-      console.log(proof)
+      const proof = await fetchProof(project.idoId.toString())
+      console.log('proof', proof)
       setMerkleProof(proof)
     } catch (error) {
       console.error(error)
