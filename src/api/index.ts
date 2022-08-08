@@ -109,6 +109,21 @@ export const useApi = () => {
       .then(({ data }) => data.getMerkleProof)
   }
 
+  const getNumberQuestsCompleted = async (idoId: string) => {
+    return client
+      .query({
+        variables: {
+          idoId,
+        },
+        query: gql`
+          query getNumberQuestsCompleted($idoId: String!) {
+            getNumberQuestsCompleted(idoId: $idoId)
+          }
+        `,
+      })
+      .then(({ data }) => data.getNumberQuestsCompleted)
+  }
+
   const getUploadUrl = async (file: string) => {
     return client
       .query({
@@ -124,5 +139,5 @@ export const useApi = () => {
       .then(({ data }) => data.getUploadUrl)
   }
 
-  return { getAuthToken, getAccountDetails, validateQuest, fetchProof, getUploadUrl }
+  return { getAuthToken, getAccountDetails, validateQuest, fetchProof, getUploadUrl, getNumberQuestsCompleted }
 }

@@ -28,6 +28,7 @@ const BurnPage = () => {
   const [ticketsBalance, setTicketsBalance] = useState('0')
   const [userInfo, setUserInfo] = useState<Result>({} as Result)
   const [amountToBurn, setAmountToBurn] = useState('0')
+  const [nbQuestsCompleted, setNbQuestsCompleted] = useState(0)
   const [burning, setBurning] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -38,7 +39,7 @@ const BurnPage = () => {
   const { burn: burnTickets, getTicketsBalance, burnWithQuest } = useLotteryTokenContract()
   const { getUserInfo } = useIDOContract()
 
-  const { fetchProof } = useApi()
+  const { fetchProof, getNumberQuestsCompleted } = useApi()
 
   const dispatch = useAppDispatch()
 
@@ -60,14 +61,14 @@ const BurnPage = () => {
       setBurning(true)
       // const tx = await burnTickets(account, pid, amountToBurn)
       let tx
-      if (!user.questCompleted || user.questCompleted.length === 0) {
+      if (!nbQuestsCompleted) {
         tx = await burnTickets(account, pid?.toString(), amountToBurn)
       } else {
         tx = await burnWithQuest(
           account,
           pid?.toString(),
           amountToBurn,
-          user.questCompleted?.length,
+          nbQuestsCompleted,
           merkleProof
         )
       }
@@ -114,8 +115,10 @@ const BurnPage = () => {
   const fetchQuestsInfo = async () => {
     if (!project || !account?.address) return
     try {
+      const nbQuestsCompleted = await getNumberQuestsCompleted(project.idoId.toString())
+      setNbQuestsCompleted(nbQuestsCompleted)
       const proof = await fetchProof(project.idoId.toString())
-      console.log('proof', proof)
+      console.log('proof', proof, nbQuestsCompleted)
       setMerkleProof(proof)
     } catch (error) {
       console.error(error)
