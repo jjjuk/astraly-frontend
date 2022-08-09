@@ -26,7 +26,7 @@ const ProfilePage = () => {
   return (
     <>
       <div className="ProfilePage g-container mb-10">
-        <div className="page-title mb-14">Profile {JSON.stringify(isSelf)}</div>
+        <div className="page-title mb-14">Profile</div>
         <Planets className={'lightning_svg absolute right-40 top-20 -z-10'} />
         <div className="lg:flex gap-6 mb-10">
           <div className="w-full">
