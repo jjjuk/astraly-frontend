@@ -63,11 +63,13 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
       return (
         <>
           <Link href={'/profile'}>
-            <BaseButton onClick={() => close()} white={true} className={'mb-2'}>
-              <User className={'mr-1'} />
-              Your Profile
-              <Chevron className={'ml-1 icon-right'} />
-            </BaseButton>
+            <div>
+              <BaseButton onClick={() => close()} white={true} className={'mb-2'}>
+                <User className={'mr-1'} />
+                Your Profile
+                <Chevron className={'ml-1 icon-right'} />
+              </BaseButton>
+            </div>
           </Link>
           <div
             className="font-heading text-12 text-center text-white cursor-pointer hover:bg-white hover:text-primary rounded-md transition-all"
@@ -106,14 +108,15 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
 
       <div className="mb-6">{getContent()}</div>
 
-      <a
-        className="text-12 text-center text-white flex items-center justify-center font-bold"
-        href="https://wp.astraly.xyz/step-by-step-guide/connecting-your-staknet-wallet"
-        target={'_blank'}
-        rel="noreferrer">
-        <img src={Book} alt={''} className="mr-2" />
-        How to get a Starknet Wallet?
-      </a>
+      <Link href="https://wp.astraly.xyz/step-by-step-guide/connecting-your-staknet-wallet">
+        <a
+          className="text-12 text-center text-white flex items-center justify-center font-bold"
+          target={'_blank'}
+          rel="noreferrer">
+          <img src={Book} alt={''} className="mr-2" />
+          How to get a Starknet Wallet?
+        </a>
+      </Link>
     </div>
   )
 }

@@ -7,7 +7,7 @@ const BaseInput: React.FC<{
   value: string
   onChange: React.ChangeEventHandler<HTMLInputElement>
   max?: number
-  size?: 'md' | 'xl'
+  size?: 'sm' | 'md' | 'xl'
   step?: number
   type?: string
   placeholder?: string

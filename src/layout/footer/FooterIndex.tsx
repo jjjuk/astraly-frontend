@@ -32,15 +32,15 @@ const Links = [
 
 const Item = ({ icon, label, href }: { icon: React.ReactNode; label: string; href: string }) => {
   return (
-    <>
-      <a href={href} target="__blank">
+    <Link href={href}>
+      <a target="__blank">
         <div className="flex items-center ui-t-primaryClear cursor-pointer">
           <div className="icon mr-2 transform -translate-y-0.5">{icon}</div>
 
           <div className="text">{label}</div>
         </div>
       </a>
-    </>
+    </Link>
   )
 }
 
@@ -84,11 +84,15 @@ const FooterIndex = () => {
             </div>
 
             <Link href={'/buy'}>
-              <BaseButton className={'px-3 lg:px-12 group whitespace-nowrap w-auto'} medium={true}>
-                <ShoppingCart className={'mr-3'} />
-                Buy $ASTR
-                <Chevron className={'ml-3 icon-right'} />
-              </BaseButton>
+              <div>
+                <BaseButton
+                  className={'px-3 lg:px-12 group whitespace-nowrap w-auto'}
+                  medium={true}>
+                  <ShoppingCart className={'mr-3'} />
+                  Buy $ASTR
+                  <Chevron className={'ml-3 icon-right'} />
+                </BaseButton>
+              </div>
             </Link>
           </div>
         </div>

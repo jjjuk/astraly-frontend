@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-import { ProjectFragment, QuestFragment } from './fragments'
+import { ProjectFragment, PublicUserFragment, QuestFragment } from './fragments'
 
 export const SEARCH_PROJECTS = gql`
   ${ProjectFragment}
@@ -59,5 +59,14 @@ export const IS_ADMIN = gql`
 export const TOTAL_ACCOUNTS = gql`
   query Accounts {
     total
+  }
+`
+
+export const USER = gql`
+  ${PublicUserFragment}
+  query Account($address: String!) {
+    getAccount(address: $address) {
+      ...PublicUser
+    }
   }
 `

@@ -4,42 +4,31 @@ import IconCopy from 'assets/icons/outline/Copy.svg'
 import IconCopyFull from 'assets/icons/solid/Copy.svg'
 import IconCheck from 'assets/icons/solid/Check.svg'
 
-import ProjectLogo from '../../ui/ProjectLogo'
 import Pin from 'components/ui/Pin/Pin'
-import React, { useCallback, useState, useEffect, FormEvent } from 'react'
+import React, { useCallback, useState, useEffect, FC } from 'react'
 import { truncateAddress } from 'utils'
-import { useStarknetReact } from '@web3-starknet-react/core'
 import { copyToClipboard } from 'utils/clipboard'
 
 import styles from './Profile.module.scss'
-import { useApi } from '../../../api'
-import { useFileChange } from '../../../utils/fileChange'
-import { uploadToS3 } from '../../../utils/upload-file'
-import { useMutation } from '@apollo/client'
-import { UPDATE_PROFILE } from '../../../api/gql/mutations'
-import AuthActions from '../../../actions/auth.actions'
-import { useAppDispatch } from '../../../hooks/hooks'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../stores/reduxStore'
 import CoverImage from './CoverImage'
 import AvatarUpload from './AvatarUpload'
+import AliasInput from './AliasInput'
 
 let timeoutEvent: number | undefined
 
-const ProfileCover = () => {
-  const { account } = useStarknetReact()
+const ProfileCover: FC<{ user?: any }> = ({ user }) => {
   const [showPin, setShowPin] = useState(false)
 
   const handleCopyToClipboard = useCallback(() => {
-    if (account?.address) {
-      copyToClipboard(account?.address).then(() => {
+    if (user?.address) {
+      copyToClipboard(user?.address).then(() => {
         setShowPin(true)
         timeoutEvent = window?.setTimeout(() => {
           setShowPin(false)
         }, 1000)
       })
     }
-  }, [account?.address])
+  }, [user?.address])
 
   useEffect(
     () => () => {
@@ -50,34 +39,38 @@ const ProfileCover = () => {
 
   return (
     <>
-      {account && (
+      {user && (
         <div className="ProfileCover mb-6">
           <div className="block">
-            <CoverImage />
+            <CoverImage user={user} />
             <div className={classnames(styles.copyAction__container, 'block__item')}>
               <div className="-mt-20"></div>
-              <AvatarUpload />
+              <AvatarUpload user={user} />
               <div className="mb-4"></div>
-              <div
-                role="button"
-                tabIndex={0}
-                className={styles.copyAction}
-                onClick={handleCopyToClipboard}
-                onKeyDown={handleCopyToClipboard}>
+              <div>
                 <div>Address</div>
 
                 <div className="flex items-center">
-                  <div className={classnames(styles.copyAction__address, 'font-heading')}>
-                    {truncateAddress(account.address)}
+                  <div
+                    className="flex items-center"
+                    role="button"
+                    tabIndex={0}
+                    onClick={handleCopyToClipboard}
+                    onKeyDown={handleCopyToClipboard}>
+                    <div className={classnames(styles.copyAction__address, 'font-heading')}>
+                      {truncateAddress(user.address)}
+                    </div>
+                    <div className={`${styles.copyAction__icon} ml-4`}>
+                      <img src={IconCopy} alt="Copy" className={styles.copyAction__icon__outline} />
+                      <img
+                        src={IconCopyFull}
+                        alt="Copy"
+                        className={styles.copyAction__icon__filled}
+                      />
+                    </div>
                   </div>
-                  <div className={`${styles.copyAction__icon} ml-4`}>
-                    <img src={IconCopy} alt="Copy" className={styles.copyAction__icon__outline} />
-                    <img
-                      src={IconCopyFull}
-                      alt="Copy"
-                      className={styles.copyAction__icon__filled}
-                    />
-                  </div>
+
+                  <AliasInput user={user} />
                 </div>
               </div>
               <Pin

@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import { uploadToS3 } from '../../../utils/upload-file'
 import AuthActions from '../../../actions/auth.actions'
 import { useFileChange } from '../../../utils/fileChange'
 import { useMutation } from '@apollo/client'
 import { UPDATE_PROFILE } from '../../../api/gql/mutations'
 import { useAppDispatch } from '../../../hooks/hooks'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../stores/reduxStore'
 import HexagonImage from '../../ui/HexagonImage'
+import { useStarknetReact } from '@web3-starknet-react/core'
+import { isSameAddress } from '../../../utils'
 
-const AvatarUpload = () => {
+const AvatarUpload: FC<{ user?: any }> = ({ user }) => {
   const { fileName, fileContents, fileType, fileDispatch, handleFileChange } = useFileChange()
+  const { account } = useStarknetReact()
+  const isSelf = isSameAddress(account?.address, user?.address)
   const [mutateFunction] = useMutation(UPDATE_PROFILE)
   const dispatch = useAppDispatch()
-
-  const { user } = useSelector((state: RootState) => state.Auth)
 
   const handleUpload = async () => {
     if (!fileName) {
@@ -53,14 +53,16 @@ const AvatarUpload = () => {
   return (
     <label htmlFor={'avatarUpload'} className="inline-block relative group">
       <HexagonImage url={user.avatar}>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-          <div
-            className={`text-center pt-4 font-bold text-12 text-white ${
-              user?.avatar ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'
-            }`}>
-            {user?.avatar ? 'Change image' : 'Add Profile Image'}
+        {isSelf && (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+            <div
+              className={`text-center pt-4 font-bold text-12 text-white ${
+                user?.avatar ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'
+              }`}>
+              {user?.avatar ? 'Change image' : 'Add Profile Image'}
+            </div>
           </div>
-        </div>
+        )}
       </HexagonImage>
       <input
         type="file"

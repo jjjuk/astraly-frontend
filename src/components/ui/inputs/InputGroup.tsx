@@ -5,7 +5,7 @@ const InputGroup: React.FC<
   React.PropsWithChildren<{
     left: React.ReactNode
     onClick: React.MouseEventHandler<HTMLDivElement>
-    size?: 'md' | 'xl'
+    size?: 'sm' | 'md' | 'xl'
   }>
 > = ({ children, left, onClick, size }) => {
   return (
@@ -18,6 +18,7 @@ const InputGroup: React.FC<
         'flex',
         'items-center',
         'px-4',
+        { 'h-8': size === 'sm' },
         { 'h-12': size === 'md' },
         { 'h-14': size === 'xl' },
         'justify-between',

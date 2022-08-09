@@ -42,3 +42,13 @@ export const wait = (timeout = 1000) => {
     }, timeout)
   )
 }
+
+export const isSameAddress = (a1?: string, a2?: string): boolean => {
+  if (!a1 || !a2) return false
+
+  const address1 = !isValidAddress(a1) ? a1 : formatAddress(a1)
+  const address2 = !isValidAddress(a2) ? a2 : formatAddress(a2)
+
+  if (!isValidAddress(address1) || !isValidAddress(address2)) return false
+  return address1 === address2
+}

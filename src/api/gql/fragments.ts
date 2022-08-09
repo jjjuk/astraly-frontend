@@ -53,6 +53,28 @@ export const UserFragment = gql`
   }
 `
 
+export const PublicUserFragment = gql`
+  fragment PublicUser on Account {
+    _id
+    address
+    alias
+    avatar
+    bannerHash
+    bio
+    cover
+    transactions {
+      _id
+      contractAddress
+      hash
+      name
+      timestamp
+    }
+    socialLinks {
+      type
+    }
+  }
+`
+
 export const TransactionFragment = gql`
   fragment Transaction on Transaction {
     _id

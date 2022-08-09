@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-import { transactions } from './transactions'
 import { format } from 'date-fns'
-import Link from 'next/link'
 import Exclamation from 'assets/icons/Exclamation.svg'
-// import { useStakingContract } from 'contracts'
-// import { useStarknetReact } from '@web3-starknet-react/core'
-// import { ethers } from 'ethers'
-// import { uint256 } from 'starknet'
 import { Contracts } from 'constants/networks'
 import { useWallet } from 'context/WalletProvider'
 import { useSelector } from 'react-redux'

@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import { uploadToS3 } from '../../../utils/upload-file'
 import AuthActions from '../../../actions/auth.actions'
 import { useFileChange } from '../../../utils/fileChange'
 import { useMutation } from '@apollo/client'
 import { UPDATE_PROFILE } from '../../../api/gql/mutations'
 import { useAppDispatch } from '../../../hooks/hooks'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../stores/reduxStore'
+import { useStarknetReact } from '@web3-starknet-react/core'
+import { isSameAddress } from '../../../utils'
 
-const CoverImage = () => {
+const CoverImage: FC<{ user?: any }> = ({ user }) => {
+  const { account } = useStarknetReact()
+  const isSelf = isSameAddress(account?.address, user?.address)
   const { fileName, fileContents, fileType, fileDispatch, handleFileChange } = useFileChange()
   const [mutateFunction] = useMutation(UPDATE_PROFILE)
   const dispatch = useAppDispatch()
 
-  const { user } = useSelector((state: RootState) => state.Auth)
   const handleUpload = async () => {
     if (!fileName) {
       return
@@ -52,12 +53,14 @@ const CoverImage = () => {
     <label
       htmlFor={'picture'}
       className="border border-2 border-white bg-primaryClearBg rounded-3xl h-50 flex items-center justify-center overflow-hidden cursor-pointer group">
-      <div
-        className={`border-2 border-primaryClear text-primaryClear font-heading text-12 px-4 rounded-xl py-1 bg-white absolute transition-all ${
-          user?.cover ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'
-        }`}>
-        {user?.cover ? 'Change cover' : 'Add cover image'}
-      </div>
+      {isSelf && (
+        <div
+          className={`border-2 border-primaryClear text-primaryClear font-heading text-12 px-4 rounded-xl py-1 bg-white absolute transition-all ${
+            user?.cover ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'
+          }`}>
+          {user?.cover ? 'Change cover' : 'Add cover image'}
+        </div>
+      )}
 
       <input
         type="file"
