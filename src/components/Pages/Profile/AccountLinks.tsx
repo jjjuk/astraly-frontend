@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { LINK_SOCIAL } from '../../../api/gql/mutations'
 import { useAppDispatch } from '../../../hooks/hooks'
 import AuthActions from 'actions/auth.actions'
-import { FC, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 import BaseInput from '../../ui/inputs/BaseInput'
 import TwitterIcon from 'assets/icons/currentColor/Twitter.svg?inline'
 import DiscordIcon from 'assets/icons/currentColor/Discord.svg?inline'
@@ -125,12 +125,15 @@ const AccountLinks: FC<{ user: any }> = ({ user }) => {
 
   const linked = user?.socialLinks?.map((x: any) => x.type) || []
 
-  const ids =
-    user?.socialLinks?.reduce((acc: any, x: any) => {
-      acc[x.type] = x.id
-
-      return acc
-    }, {}) || {}
+  const ids = useMemo(
+    () =>
+      user?.socialLinks?.reduce((acc: any, x: any) => {
+        acc[x.type] = x.id
+        console.log(acc, x)
+        return acc
+      }, {}) || {},
+    [user]
+  )
 
   return (
     <div className="AccountLinks block">

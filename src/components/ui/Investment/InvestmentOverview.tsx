@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import { format } from 'date-fns'
 import Exclamation from 'assets/icons/Exclamation.svg'
@@ -42,6 +42,14 @@ const InvestmentOverview: React.FC = () => {
     fetchInformation()
   }, [deposits])
 
+  const sortedTransactions = useMemo(() => {
+    if (user?.transactions) {
+      return [...user.transactions].sort(
+        (a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+      )
+    }
+  }, [user])
+
   return (
     <div className="block">
       <div className="block--contrast">
@@ -74,24 +82,23 @@ const InvestmentOverview: React.FC = () => {
           <div className="text-right">Transaction</div>
         </div>
 
-        {user.transactions &&
-          user.transactions.map((transaction: any) => (
-            <div
-              className="grid grid-cols-3 font-heading text-primaryClear bg-primaryClearBg rounded-3xl  px-4 md:px-8 py-6 text-[10px] md:text-12 mb-2"
-              key={transaction?._id}>
-              <div>{transaction?.name}</div>
-              <div>{format(new Date(transaction?.timestamp), 'dd MMMM yyyy')}</div>
-              <div className="text-right text-primary">
-                <a
-                  className="cursor-pointer"
-                  href={getVoyagerLink(transaction?.hash)}
-                  target="_blank"
-                  rel="noreferrer">
-                  View on Voyager
-                </a>
-              </div>
+        {sortedTransactions?.map((transaction: any) => (
+          <div
+            className="grid grid-cols-3 font-heading text-primaryClear bg-primaryClearBg rounded-3xl  px-4 md:px-8 py-6 text-[10px] md:text-12 mb-2"
+            key={transaction?._id}>
+            <div>{transaction?.name}</div>
+            <div>{format(new Date(transaction?.timestamp), 'dd MMMM yyyy')}</div>
+            <div className="text-right text-primary">
+              <a
+                className="cursor-pointer"
+                href={getVoyagerLink(transaction?.hash)}
+                target="_blank"
+                rel="noreferrer">
+                View on Voyager
+              </a>
             </div>
-          ))}
+          </div>
+        ))}
       </div>
     </div>
   )

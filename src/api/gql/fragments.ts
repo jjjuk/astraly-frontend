@@ -71,6 +71,7 @@ export const PublicUserFragment = gql`
     }
     socialLinks {
       type
+      id
     }
   }
 `
