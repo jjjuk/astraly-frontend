@@ -79,8 +79,8 @@ export const useIDOContract = () => {
     return await contract.invoke('withdraw_tokens', [])
   }
 
-  const getCurrentSale = async (id: number.BigNumberish) => {
-    const contract = await getIDOContract(id)
+  const getCurrentSale = async (id: number.BigNumberish, type: ProjectType) => {
+    const contract = type === ProjectType.IDO ? await getIDOContract(id) : await getINOContract(id)
 
     return await contract.call('get_current_sale', [])
   }
@@ -88,9 +88,10 @@ export const useIDOContract = () => {
   const participate = async (
     amount: string,
     id: number.BigNumberish,
-    account: AccountInterface
+    account: AccountInterface,
+    type: ProjectType
   ) => {
-    const contract = await getIDOContract(id)
+    const contract = type === ProjectType.IDO ? await getIDOContract(id) : await getINOContract(id)
 
     const _approveTx: Call = {
       contractAddress: Contracts[CHAIN].eth,

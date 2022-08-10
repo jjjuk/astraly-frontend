@@ -50,12 +50,16 @@ const ProjectBuyPage = () => {
   const allocation = useMemo(() => {
     if (!currentSale) return null
     const _totalWinningTickets = Number(uint256.uint256ToBN(currentSale.res.total_winning_tickets))
-    const _amountToSell = Number(
-      ethers.utils.formatUnits(
-        uint256.uint256ToBN(currentSale.res.amount_of_tokens_to_sell).toString(),
-        'ether'
-      )
-    )
+    const _amountToSell =
+      project?.type === ProjectType.IDO
+        ? Number(
+            ethers.utils.formatUnits(
+              uint256.uint256ToBN(currentSale.res.amount_of_tokens_to_sell).toString(),
+              'ether'
+            )
+          )
+        : Number(uint256.uint256ToBN(currentSale.res.amount_of_tokens_to_sell).toString())
+
     const _allocation = Math.floor(_amountToSell / _totalWinningTickets)
     return _allocation
   }, [currentSale])
@@ -68,7 +72,7 @@ const ProjectBuyPage = () => {
     try {
       setPurchasing(true)
       const _price = project?.type === ProjectType.IDO ? ethValue : mintPriceValue
-      const tx = await participate(_price, project?.idoId.toString(), account)
+      const tx = await participate(_price, project?.idoId.toString(), account, project.type)
       addTransaction(
         tx,
         'Participate',
@@ -105,7 +109,7 @@ const ProjectBuyPage = () => {
       )
       setUserInfo(_userInfo)
 
-      const _currentSale = await getCurrentSale(project?.idoId.toString())
+      const _currentSale = await getCurrentSale(project?.idoId.toString(), project.type)
       setCurrentSale(_currentSale)
 
       setLoading(false)
