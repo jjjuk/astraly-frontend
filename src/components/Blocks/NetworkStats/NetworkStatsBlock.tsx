@@ -45,7 +45,7 @@ const NetworkStatsBlock = () => {
     if (!finishedProjects) return [0, 0]
     const _salesInfo = await finishedProjects.searchProjects.reduce(
       async (acc: number[], cur: Project) => {
-        const _sale = await getCurrentSale(cur.idoId)
+        const _sale = await getCurrentSale(cur.idoId, cur.type)
         return [
           acc[0] +
             Number(
