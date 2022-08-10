@@ -61,7 +61,6 @@ const ProjectBuyPage = () => {
         : Number(uint256.uint256ToBN(currentSale.res.amount_of_tokens_to_sell).toString())
 
     const _allocation = Math.floor(_amountToSell / _totalWinningTickets)
-    console.log('allocation', _allocation)
     return _allocation
   }, [currentSale])
 
@@ -131,7 +130,7 @@ const ProjectBuyPage = () => {
     if (!project) return
     const _mintPriceValue = Number(mintAmount) * project.tokenPrice
     setMintAmountValue(mintAmount)
-    setMintPriceValue(_mintPriceValue.toString())
+    setMintPriceValue(_mintPriceValue.toFixed(5).toString())
   }
 
   const updateValuesOther = (otherValue: string) => {
