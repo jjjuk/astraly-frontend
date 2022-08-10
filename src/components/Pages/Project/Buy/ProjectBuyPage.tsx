@@ -270,8 +270,7 @@ const ProjectBuyPage = () => {
                 disabled={
                   purchasing ||
                   (userInfo && allocation
-                    ? uint256.uint256ToBN(userInfo?.participation?.amount_bought).toNumber() > 0 ||
-                      uint256.uint256ToBN(userInfo.tickets).toNumber() * allocation === 0
+                    ? uint256.uint256ToBN(userInfo.tickets).toNumber() * allocation === 0
                     : false)
                 }>
                 {purchasing ? <Spinner /> : 'Participate'}
