@@ -61,6 +61,7 @@ const ProjectBuyPage = () => {
         : Number(uint256.uint256ToBN(currentSale.res.amount_of_tokens_to_sell).toString())
 
     const _allocation = Math.floor(_amountToSell / _totalWinningTickets)
+    console.log('allocation', _allocation)
     return _allocation
   }, [currentSale])
 
@@ -167,7 +168,7 @@ const ProjectBuyPage = () => {
               <div className="block--contrast">
                 <BlockLabel
                   label={'You pay'}
-                  value={Number(ethBalance).toFixed(3)}
+                  value={Number(ethBalance).toFixed(4)}
                   onClick={() => updateValuesETH(ethBalance.toString())}
                 />
                 <BaseInput
@@ -223,7 +224,7 @@ const ProjectBuyPage = () => {
                 <div className="text-primaryClear">You pay</div>
                 <BaseInput
                   label={'ETH'}
-                  value={Number(mintPriceValue).toFixed(3)}
+                  value={Number(mintPriceValue).toFixed(4)}
                   onChange={() => null}
                 />
               </div>
