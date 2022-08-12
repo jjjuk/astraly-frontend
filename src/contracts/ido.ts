@@ -74,7 +74,7 @@ export const useIDOContract = () => {
   }
 
   const claimNFTs = async (id: number.BigNumberish) => {
-    const contract = await getIDOContract(id)
+    const contract = await getINOContract(id)
 
     return await contract.invoke('withdraw_tokens', [])
   }
