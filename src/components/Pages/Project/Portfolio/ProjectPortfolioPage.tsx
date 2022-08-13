@@ -419,7 +419,7 @@ const ProjectPortfolioPage = () => {
                   <div className="flex">
                     {userNFTs.map((_uri, index) => (
                       <div className="block w-50" key={index}>
-                        {_uri.includes('animation') ? (
+                        {_uri?.includes('animation') ? (
                           // eslint-disable-next-line jsx-a11y/media-has-caption
                           <video controls autoPlay loop className="rounded-3xl">
                             <source src={_uri} type="video/mp4" />
