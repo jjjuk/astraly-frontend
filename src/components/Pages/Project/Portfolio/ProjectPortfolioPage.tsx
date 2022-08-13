@@ -154,10 +154,7 @@ const ProjectPortfolioPage = () => {
       const _url = `https://api-testnet.aspect.co/api/v0/assets`
       const params = new URLSearchParams()
       params.append('contract_address', project.tokenAddress)
-      params.append(
-        'owner_address',
-        '0x04fa2776c1fe10018354d1bf9ff3aa496751837166f0c9ff392b51d1ba353c37'
-      )
+      params.append('owner_address', account.address)
       params.append('limit', '50')
       const { data } = await axios.get(_url, { headers: { Accept: 'application/json' }, params })
       setUserNFTs(data.assets.map((asset: any) => asset.animation_url_copy || asset.image_url_copy))
