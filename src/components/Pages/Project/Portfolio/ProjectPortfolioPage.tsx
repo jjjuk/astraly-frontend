@@ -154,10 +154,13 @@ const ProjectPortfolioPage = () => {
       const _url = `https://api-testnet.aspect.co/api/v0/assets`
       const params = new URLSearchParams()
       params.append('contract_address', project.tokenAddress)
-      params.append('owner_address', account?.address)
+      params.append(
+        'owner_address',
+        '0x04fa2776c1fe10018354d1bf9ff3aa496751837166f0c9ff392b51d1ba353c37'
+      )
       params.append('limit', '50')
       const { data } = await axios.get(_url, { headers: { Accept: 'application/json' }, params })
-      setUserNFTs(data.assets.map((asset: any) => asset.image_uri))
+      setUserNFTs(data.assets.map((asset: any) => asset.animation_url_copy || asset.image_url_copy))
       setLoadingNFTs(false)
     } catch (error) {
       console.error(error)
@@ -419,7 +422,14 @@ const ProjectPortfolioPage = () => {
                   <div className="flex">
                     {userNFTs.map((_uri, index) => (
                       <div className="block w-50" key={index}>
-                        <img src={_uri} alt={`minted nft ${index}`} className="rounded-3xl" />
+                        {_uri.includes('animation') ? (
+                          // eslint-disable-next-line jsx-a11y/media-has-caption
+                          <video controls autoPlay loop className="rounded-3xl">
+                            <source src={_uri} type="video/mp4" />
+                          </video>
+                        ) : (
+                          <img src={_uri} alt={`minted nft ${index}`} className="rounded-3xl" />
+                        )}
                       </div>
                     ))}
                   </div>
