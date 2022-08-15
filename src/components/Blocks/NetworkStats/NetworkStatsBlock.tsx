@@ -44,21 +44,23 @@ const NetworkStatsBlock = () => {
   const updateSalesInfos = useCallback(async () => {
     if (!finishedProjects) return [0, 0]
     const _salesInfo = await finishedProjects.searchProjects.reduce(
-      async (acc: number[], cur: Project) => {
+      async (acc: Promise<number[]>, cur: Project) => {
         const _sale = await getCurrentSale(cur.idoId, cur.type)
+        const _acc = await acc
         return [
-          acc[0] +
+          _acc[0] +
             Number(
               ethers.utils.formatUnits(
                 uint256.uint256ToBN(_sale.res.total_raised).toString(),
                 'ether'
               )
             ),
-          acc[1] + Number(uint256.uint256ToBN(_sale.res.number_of_participants).toString()),
+          _acc[1] + Number(uint256.uint256ToBN(_sale.res.number_of_participants).toString()),
         ]
       },
-      [0, 0]
+      Promise.resolve([0, 0])
     )
+
     setTotalSalesInfo(_salesInfo)
   }, [getCurrentSale, finishedProjects])
 
