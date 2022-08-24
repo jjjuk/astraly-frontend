@@ -16,7 +16,7 @@ const FooterCol: FC<{
   icon: React.ReactNode
 }> = ({ title, icon, children }) => {
   return (
-    <div className="FooterCol flex flex-col gap-2">
+    <div className="FooterCol flex flex-col gap-2 ui-t-primaryClear">
       <div className="title mb-2 flex items-center gap-2 justify-center md:justify-start">
         <div className="icon transform -translate-y-0.5"> {icon}</div>
         {title}

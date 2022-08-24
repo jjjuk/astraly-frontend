@@ -52,7 +52,7 @@ const TeamBlock = () => {
   return (
     <div className="ui-page-block" id="team">
       <div className="g-container">
-        <h2 className="t-block-title t-dark">Team</h2>
+        <h2 className="t-block-title ui-t-dark">Team</h2>
         <div className="ml-10">
           <div className="grid lg:grid-cols-2 gap-x-16 gap-y-14 mb-14">
             {team.map((x, i) => (

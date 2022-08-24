@@ -1,4 +1,5 @@
 .planet_svg__star,
+.planet-dark_svg__star,
 .lightning_svg__star {
   animation-iteration-count: infinite;
   animation-duration: 20s;
@@ -41,6 +42,7 @@
 }
 
 .planet_svg__planet,
+.planet-dark_svg__planet,
 .lightning_svg__planet {
   animation-iteration-count: infinite;
   animation-duration: 20s;

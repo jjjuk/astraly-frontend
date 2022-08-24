@@ -100,7 +100,7 @@ const NetworkStatsBlock = () => {
   return (
     <div className="ui-page-block" id="network">
       <div className="g-container">
-        <h2 className="t-block-title t-dark">Network Stats</h2>
+        <h2 className="t-block-title ui-t-dark">Network Stats</h2>
         <div className="ml-10">
           <div className={classnames(styles.StatsGrid, 'grid gap-6 mb-16 max-w-[1340px]')}>
             {stats.map((x, index) => (

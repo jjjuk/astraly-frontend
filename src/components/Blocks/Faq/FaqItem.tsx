@@ -23,7 +23,11 @@ const FaqItem: React.FC<PropsWithChildren<{ question: string }>> = ({ question, 
             />
           </Hexagon>
         </div>
-        {isOpen && <div className="response text-black font-bold leading-138">{children}</div>}
+        {isOpen && (
+          <div className="response text-black dark:text-white font-bold leading-138">
+            {children}
+          </div>
+        )}
       </div>
     </div>
   )

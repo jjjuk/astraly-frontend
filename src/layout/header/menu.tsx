@@ -40,18 +40,18 @@ const MenuItem = ({
   )
 }
 
-import Star from 'assets/images/star.svg'
+import Star from 'assets/icons/currentColor/star.svg?inline'
 import Home from 'assets/icons/outline/Home.svg?inline'
-import HomeFull from 'assets/icons/solid/Home.svg?inline'
+import HomeFull from 'assets/icons/currentColor/Home--solid.svg?inline'
 
-import Launchpad from 'assets/icons/outline/Rocket.svg?inline'
-import LaunchpadFull from 'assets/icons/solid/Rocket.svg?inline'
+import Launchpad from 'assets/icons/currentColor/Rocket.svg?inline'
+import LaunchpadFull from 'assets/icons/currentColor/RocketSolid.svg?inline'
 
-import Lock from 'assets/icons/outline/Unlock.svg?inline'
-import LockFull from 'assets/icons/solid/Lock.svg?inline'
+import Lock from 'assets/icons/currentColor/Unlock.svg?inline'
+import LockFull from 'assets/icons/currentColor/Lock.svg?inline'
 
-import Buy from 'assets/icons/outline/Shopping-cart.svg?inline'
-import BuyFull from 'assets/icons/solid/Shopping-cart.svg?inline'
+import Buy from 'assets/icons/currentColor/Shopping-cart-outline.svg?inline'
+import BuyFull from 'assets/icons/currentColor/Shopping-cart.svg?inline'
 
 const Links = [
   {
@@ -75,7 +75,7 @@ const Links = [
   {
     text: 'Buy $ASTR',
     iconOutline: <Buy />,
-    iconSolid: <BuyFull />,
+    iconSolid: <BuyFull className="transform -translate-y-0.5" />,
     href: '/buy',
   },
 ]
@@ -123,7 +123,7 @@ const HeaderMenu = () => {
   }, [router.route, container.current])
   return (
     <div
-      className={`headerMenu flex text-20 leading-6 text-primaryClear ${styles.menu}`}
+      className={`headerMenu flex text-20 leading-6 ui-t-primaryClear ${styles.menu}`}
       ref={container}>
       {Links.map((x) => (
         <MenuItem link={x} key={x.href}>
@@ -132,7 +132,7 @@ const HeaderMenu = () => {
       ))}
 
       <div className={styles.underline} style={underlineStyle}>
-        <img src={Star} alt={''} />
+        <Star />
       </div>
     </div>
   )

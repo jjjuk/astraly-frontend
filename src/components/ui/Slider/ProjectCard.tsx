@@ -12,7 +12,7 @@ const Item: React.FC<
   return (
     <div className="raise flex items-center justify-between mb-2">
       <div className="text-gray">{label}</div>
-      <div className="text-primaryClear font-bold">{children}</div>
+      <div className="ui-t-primaryClear font-bold">{children}</div>
     </div>
   )
 }
@@ -57,7 +57,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
   return (
     <Link href={`/project/${project.idoId}`}>
       <div
-        className="ProjectCard bg-white rounded-3xl w-90 shrink-0 relative hover:shadow-purpleDark transition-all cursor-pointer hover:border-primary"
+        className="ProjectCard bg-white dark:bg-gray3 rounded-3xl w-[744px] max-w-full shrink-0 relative hover:shadow-purpleDark transition-all cursor-pointer hover:border-primary"
         data-index={index}>
         <div className="claim absolute top-3 right-3 bg-white border border-whitePurple font-heading text-12 py-0.5 px-3 rounded-md text-primaryClear">
           {project.currentRoundIndex === -1 ? 'Upcoming' : `${currentRound?.title || ''} Open`}
@@ -94,7 +94,9 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
             </div>
           </div>
           <div className="mb-6 gap-3 flex items-end">
-            <div className="name font-bold text-24 leading-12">{project.name}</div>
+            <div className="ui-t-primaryClear name font-bold text-24 leading-12">
+              {project.name}
+            </div>
             {project.type !== ProjectType.INO && (
               <div className="ticker font-bold text-primary text-12 pb-1">${project.ticker}</div>
             )}

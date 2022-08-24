@@ -13,3 +13,11 @@
     @apply list-disc ml-5 font-bold;
   }
 }
+
+:global(.dark) {
+  .RoadmapItem {
+    ul {
+      color: white
+    }
+  }
+}

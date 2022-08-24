@@ -19,10 +19,13 @@ import ShoppingCart from 'assets/icons/currentColor/Shopping-cart.svg?inline'
 import Chevron from 'assets/icons/Chevron.svg?inline'
 import Link from 'next/link'
 import Logo from '../../assets/images/logo.svg'
+import LogoDark from 'assets/images/logo--dark.svg'
 import LogoOutline from 'assets/icons/currentColor/Logo--outline.svg?inline'
 import UniversityOutline from 'assets/icons/currentColor/University--outiline.svg?inline'
 import HeartOutline from 'assets/icons/currentColor/Heart--outline.svg?inline'
 import Horizontal from '../../components/ui/Separator/Horizontal'
+import StarkNetLogoDark from '../../assets/images/Starknet-logo-white.svg'
+import ThemeSwitcher from '../../components/ui/ThemeSwitcher'
 
 const Links = [
   [<TwitterIcon key="1" />, 'Twitter', TwitterLink],
@@ -55,7 +58,14 @@ const FooterIndex = () => {
           <div className="logo md:col-span-4 lg:col-span-1 flex justify-center lg:block">
             <Link href="/">
               <div className="logo flex items-center cursor-pointer">
-                <img src={Logo} height="54" width="54" alt="Astraly logo" />
+                <img src={Logo} height="54" width="54" alt="Astraly logo" className="dark:hidden" />
+                <img
+                  src={LogoDark}
+                  height="54"
+                  width="54"
+                  alt="Astraly logo"
+                  className="hidden dark:inline-block"
+                />
               </div>
             </Link>
           </div>
@@ -77,10 +87,15 @@ const FooterIndex = () => {
           </FooterCol>
           <div className="buy">
             <div className="flex items-center justify-center mb-6">
-              <div className="text-16 text-primaryClear leading-138 pt-0.5 whitespace-nowrap">
+              <div className="text-16 ui-t-primaryClear leading-138 pt-0.5 whitespace-nowrap">
                 Powered by
               </div>
-              <img src={StarkNetLogo} alt={'StarkNet Logo'} className={'ml-2'} />
+              <img src={StarkNetLogo} alt={'StarkNet Logo'} className={'ml-2 dark:hidden'} />
+              <img
+                src={StarkNetLogoDark}
+                alt={'StarkNet Logo'}
+                className={'ml-2 hidden dark:inline-block'}
+              />
             </div>
 
             <Link href={'/buy'}>
@@ -102,8 +117,10 @@ const FooterIndex = () => {
         </div>
 
         <div className="footer py-8 flex items-center flex-col md:flex-row gap-y-10">
-          <div className="theme-switcher"></div>
-          <div className="copyright md:mr-auto">© {year} Astraly Labs, Inc.</div>
+          <div className="theme-switcher mr-8">
+            <ThemeSwitcher />
+          </div>
+          <div className="copyright md:mr-auto ui-t-primaryClear">© {year} Astraly Labs, Inc.</div>
 
           <div className="social flex gap-8 md:gap-14 flex-wrap">
             {Links.map(([icon, label, href]) => (

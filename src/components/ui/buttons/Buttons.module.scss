@@ -146,3 +146,9 @@
     }
   }
 }
+
+:global(.dark) {
+  .baseButton {
+    background: #2C2A30;
+  }
+}

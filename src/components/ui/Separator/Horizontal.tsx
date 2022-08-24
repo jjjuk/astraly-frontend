@@ -2,10 +2,10 @@ import Star from 'assets/images/star--current.svg?inline'
 
 const Horizontal = () => {
   return (
-    <div className="Horizontal flex w-full gap-4 items-center">
-      <div className="line flex-grow h-0.5 bg-white rounded-full"></div>
+    <div className="Horizontal flex w-full gap-4 items-center ui-t-primaryClear">
+      <div className="line flex-grow h-0.5 bg-white dark:bg-gray3 rounded-full"></div>
       <Star />
-      <div className="line flex-grow h-0.5 bg-white rounded-full"></div>
+      <div className="line flex-grow h-0.5 bg-white dark:bg-gray3 rounded-full"></div>
     </div>
   )
 }

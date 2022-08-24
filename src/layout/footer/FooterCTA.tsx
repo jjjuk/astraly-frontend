@@ -38,7 +38,7 @@ const FooterCTA = () => {
   }, [isSubmitting])
   return (
     <div className="-mt-20 flex justify-center">
-      <div className="FooterCTA bg-primaryClearBg block-no-bg col-span-3 py-6 px-8 max-w-[800px] w-full">
+      <div className="FooterCTA bg-primaryClearBg dark:bg-gray3 block-no-bg col-span-3 py-6 px-8 max-w-[800px] w-full">
         <div className="title font-heading ui-t-primary text-center text-24 h-[60px] flex items-center justify-center mb-4">
           <ForwardSolid className="mr-2 w-9 h-9 hidden md:inline-block" viewBox="0 0 25 24" />
           Get alerts for new sales!

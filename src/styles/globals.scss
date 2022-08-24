@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import 'ui-utils';
 
 .g-container {
   @apply mx-auto px-4 md:px-4 lg:px-10 xl:px-20 w-full;
@@ -120,6 +121,12 @@ body {
     z-index: -1;
   }
 
+  html.dark & {
+    &::after {
+      opacity: .3;
+    }
+  }
+
   &--quests {
     &::after {
       top: 280px;
@@ -195,7 +202,7 @@ body {
 }
 
 .block {
-  @apply bg-white border-white;
+  @apply bg-white dark:bg-gray3 border-white dark:border-gray3;
 }
 
 .title {
@@ -240,4 +247,3 @@ body {
 
 @import 'animations';
 @import 'ui';
-@import 'ui-utils';

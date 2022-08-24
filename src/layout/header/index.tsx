@@ -11,6 +11,7 @@ import HeaderMenu from './menu'
 import ProfileButton from './ProfileButton'
 
 import Logo from 'assets/images/logo.svg'
+import LogoDark from 'assets/images/logo--dark.svg'
 
 const Header: React.FC = () => {
   const { account, deactivate, chainId } = useStarknetReact()
@@ -59,8 +60,15 @@ const Header: React.FC = () => {
       <div className="g-container flex justify-between w-full py-22 items-center">
         <Link href="/">
           <div className="logo flex items-center cursor-pointer">
-            <img src={Logo} height="80" width="80" alt="Astraly logo" />
-            <div className="text-24 font-bold ml-4 font-heading text-primaryDark hidden md:inline-block">
+            <img src={Logo} height="80" width="80" alt="Astraly logo" className="dark:hidden" />
+            <img
+              src={LogoDark}
+              height="80"
+              width="80"
+              alt="Astraly logo"
+              className="hidden dark:inline-block"
+            />
+            <div className="text-24 font-bold ml-4 font-heading text-primaryDark hidden md:inline-block uppercase dark:text-whitePurple">
               Astraly
             </div>
           </div>

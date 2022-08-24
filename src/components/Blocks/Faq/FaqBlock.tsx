@@ -4,7 +4,7 @@ const FaqBlock = () => {
   return (
     <div className="ui-page-block" id="faq">
       <div className="g-container">
-        <h2 className="t-block-title t-dark">FAQ</h2>
+        <h2 className="t-block-title ui-t-dark">FAQ</h2>
         <div className="ml-10">
           <FaqItem question="What is StarkNet and how to set up a wallet ? ">
             StarkNet is a L2 scaling solution of Ethereum. It allows users to benefit from lower gas

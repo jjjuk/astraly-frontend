@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 
+// http://localhost:4004/api/graphql
 const nextConfig = {
   reactStrictMode: false,
   publicRuntimeConfig: {
