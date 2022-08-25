@@ -1,14 +1,17 @@
 import axios from 'axios'
 import { useApi } from '../api'
 
-export async function uploadToS3({
-  fileType,
-  fileContents,
-}: {
-  fileType: string
-  fileContents: File
-}) {
-  const presignedPostUrl = await getPresignedPostUrl(fileType)
+export async function uploadToS3(
+  {
+    fileType,
+    fileContents,
+  }: {
+    fileType: string
+    fileContents: File
+  },
+  type = 'image'
+) {
+  const presignedPostUrl = await getPresignedPostUrl(fileType, type)
 
   const formData = new FormData()
   formData.append('Content-Type', fileType)
@@ -36,8 +39,8 @@ type PresignedPostUrlResponse = {
 
 const GET_PRESIGNED_URL_API_PATH = 'get-presigned-url-s3'
 
-async function getPresignedPostUrl(fileType: string) {
+async function getPresignedPostUrl(file: string, fileType = 'image') {
   const { getUploadUrl } = useApi()
 
-  return getUploadUrl(fileType)
+  return getUploadUrl(file, fileType)
 }

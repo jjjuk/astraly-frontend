@@ -7,7 +7,7 @@ const BaseInput: React.FC<{
   value: string
   onChange: React.ChangeEventHandler<HTMLInputElement>
   max?: number
-}> = ({ label, value, onChange, max }) => {
+}> = ({ label, value, onChange, max, children }) => {
   const input = useRef<HTMLInputElement>(null)
 
   const handleClick = useCallback(() => {

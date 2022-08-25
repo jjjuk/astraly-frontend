@@ -23,6 +23,14 @@ export const ProjectFragment = gql`
     }
     idoId
     isFinished
+    links {
+      key
+      value
+    }
+    projectDescription {
+      key
+      value
+    }
   }
 `
 

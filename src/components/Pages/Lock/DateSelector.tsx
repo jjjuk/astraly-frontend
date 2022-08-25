@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Dispatch, SetStateAction, useState } from 'react'
 import DatePicker from 'components/ui/inputs/DatePicker'
+import { addYears } from 'date-fns'
 
 const DateSelector = ({
   startDate,
@@ -37,7 +38,12 @@ const DateSelector = ({
           ))}
         </div>
         <div className="date w-full">
-          <DatePicker value={startDate} onInput={(date: Date) => setStartDate(date)} />
+          <DatePicker
+            value={startDate}
+            onInput={(date: Date) => setStartDate(date)}
+            max={addYears(new Date(), 10)}
+            min={new Date()}
+          />
         </div>
       </div>
     </div>

@@ -15,6 +15,11 @@ export enum ProjectType {
   GDA = 'GDA',
 }
 
+export interface ProjectItem {
+  key: string
+  value: string
+}
+
 export interface Project {
   _id: number
   idoId: number
@@ -33,6 +38,8 @@ export interface Project {
   categories?: string[]
   rounds: Round[]
   quests?: Quest[]
+  links?: ProjectItem[]
+  projectDescription?: ProjectItem[]
 }
 
 export enum QuestType {

@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-import { QuestFragment, UserFragment } from './fragments'
+import { ProjectFragment, QuestFragment, UserFragment } from './fragments'
 
 export const UPDATE_PROFILE = gql`
   ${UserFragment}
@@ -30,5 +30,14 @@ export const LINK_SOCIAL = gql`
 export const NEWSLETTER = gql`
   mutation newsletter($email: String!) {
     newsletter(email: $email)
+  }
+`
+
+export const UPDATE_PROJECT = gql`
+  ${ProjectFragment}
+  mutation UpdateProject($data: ProjectInput!) {
+    updateProject(data: $data) {
+      ...Project
+    }
   }
 `

@@ -15,7 +15,7 @@ function bytesToMb(bytes: number) {
   return mb
 }
 
-export function useFileChange() {
+export function useFileChange(acceptedType = 'image', maxSize = MAX_FILE_SIZE_BYTES) {
   const [{ fileError, fileContents, fileName, fileSize, fileType }, fileDispatch] = useReducer(
     fileChangeReducer,
     initialFileState
@@ -30,7 +30,8 @@ export function useFileChange() {
     console.log('fileObj is', fileObj)
 
     const [type] = fileObj.type.split('/')
-    if (!type || type !== 'image') {
+    if (!type || type !== acceptedType) {
+      console.error('wrong type')
       fileDispatch({
         type: 'FILE_CHANGE_FAILURE',
         fileError: 'You can only upload image files.',
@@ -38,7 +39,8 @@ export function useFileChange() {
       return
     }
 
-    if (fileObj.size > MAX_FILE_SIZE_BYTES) {
+    if (fileObj.size > maxSize) {
+      console.error('to big')
       fileDispatch({
         type: 'FILE_CHANGE_FAILURE',
         fileError: `File is too large, file size is ${bytesToMb(fileObj.size).toFixed(

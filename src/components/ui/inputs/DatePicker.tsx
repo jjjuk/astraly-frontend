@@ -20,7 +20,9 @@ CustomDatePicker.displayName = 'CustomDatePicker'
 const DatePicker: React.FC<{
   value: Date | null
   onInput: (date: Date) => void
-}> = ({ value, onInput }) => {
+  min?: Date
+  max?: Date
+}> = ({ value, onInput, min, max }) => {
   const inputRef = useRef<ReactDatePicker>(null)
 
   const handleClick = useCallback(() => {
@@ -28,15 +30,15 @@ const DatePicker: React.FC<{
   }, [inputRef.current])
 
   return (
-    <div className="DatePicker" style={{ zIndex: 10000 }}>
+    <div className="DatePicker">
       <InputGroup left={<span>Date</span>} onClick={handleClick} size="xl">
         <ReactDatePicker
           ref={inputRef}
           selected={value}
           onChange={onInput}
           placeholderText="mm/dd/year"
-          minDate={new Date()}
-          maxDate={addYears(new Date(), 10)}
+          minDate={min}
+          maxDate={max}
           showYearDropdown
           customInput={<CustomDatePicker />}
         />

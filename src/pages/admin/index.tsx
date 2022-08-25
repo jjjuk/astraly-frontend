@@ -3,6 +3,7 @@ import { PROJECTS } from '../../api/gql/querries'
 import { Project } from '../../interfaces'
 import Link from 'next/link'
 import Router from 'next/router'
+import BaseButton from '../../components/ui/buttons/BaseButton'
 
 const index = () => {
   const { data, error } = useQuery(PROJECTS)
@@ -15,7 +16,14 @@ const index = () => {
   const Project = ({ project }: { project: Project }) => {
     return (
       <div className={'mb-10'}>
-        <div className="text-24 font-heading">{project.name}</div>
+        <div className="text-24 font-heading flex items-center">
+          {project.name}
+          <Link href={`/admin/project/${project.idoId}`}>
+            <a className="inline-block ml-10">
+              <BaseButton xSmall={true}>Edit project</BaseButton>
+            </a>
+          </Link>
+        </div>
         <div className="text-18 font-bold">Quests: </div>
         {project.quests &&
           project.quests.map((quest) => (
@@ -30,10 +38,16 @@ const index = () => {
     )
   }
   return (
-    <div className="index g-container grid grid-cols-3">
-      {data &&
-        data.projects &&
-        data.projects.map((project: Project) => <Project project={project} key={project._id} />)}
+    <div className="g-container">
+      <div className="w-80">
+        <BaseButton className="mb-10">New project</BaseButton>
+      </div>
+
+      <div className="index grid grid-cols-3">
+        {data &&
+          data.projects &&
+          data.projects.map((project: Project) => <Project project={project} key={project._id} />)}
+      </div>
     </div>
   )
 }

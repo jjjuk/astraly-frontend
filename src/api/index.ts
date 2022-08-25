@@ -124,20 +124,34 @@ export const useApi = () => {
       .then(({ data }) => data.getNumberQuestsCompleted)
   }
 
-  const getUploadUrl = async (file: string) => {
+  const getUploadUrl = async (file: string, fileType: string) => {
     return client
       .query({
         variables: {
           fileType: file,
         },
-        query: gql`
-          query GetUploadUrl($fileType: String!) {
-            getUploadUrl(fileType: $fileType)
-          }
-        `,
+        query:
+          fileType === 'image'
+            ? gql`
+                query GetUploadUrl($fileType: String!) {
+                  getUploadUrl(fileType: $fileType)
+                }
+              `
+            : gql`
+                query GetUploadUrl($fileType: String!) {
+                  getUploadUrlAdmin(fileType: $fileType)
+                }
+              `,
       })
-      .then(({ data }) => data.getUploadUrl)
+      .then(({ data }) => data.getUploadUrl ?? data.getUploadUrlAdmin)
   }
 
-  return { getAuthToken, getAccountDetails, validateQuest, fetchProof, getUploadUrl, getNumberQuestsCompleted }
+  return {
+    getAuthToken,
+    getAccountDetails,
+    validateQuest,
+    fetchProof,
+    getUploadUrl,
+    getNumberQuestsCompleted,
+  }
 }
