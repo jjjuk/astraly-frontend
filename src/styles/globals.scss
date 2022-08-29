@@ -176,7 +176,7 @@ body {
   box-shadow: 0px 16px 24px rgba(55, 0, 99, 0.1);
   @apply border border-2 rounded-3xl border-transparent;
   &--contrast {
-    @apply bg-primaryClearBg rounded-3xl px-8 py-7;
+    @apply bg-primaryClearBg rounded-3xl px-8 py-7 dark:bg-primaryClearBgDark;
 
     &.py-3 {
       padding-top: 12px;
@@ -207,7 +207,7 @@ body {
 
 .title {
   &--medium {
-    @apply font-heading text-primaryDark text-24;
+    @apply font-heading ui-t-dark text-24;
   }
   &--big {
     @apply text-54 font-heading uppercase text-primaryDark text-shadow;
@@ -215,7 +215,7 @@ body {
   }
 
   &--small {
-    @apply font-heading text-primaryClear mb-1;
+    @apply font-heading ui-t-primaryClear mb-1;
     &.mb-4 {
       margin-bottom: 16px;
     }
@@ -226,7 +226,7 @@ body {
 }
 
 .page-title {
-  @apply text-[32px] lg:text-40 xl:text-[44px]  font-heading uppercase text-primaryDark text-shadow;
+  @apply text-[32px] lg:text-40 xl:text-[44px]  font-heading uppercase ui-t-dark text-shadow;
   text-shadow: #8f00ff -2px 2px 0;
 }
 

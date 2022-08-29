@@ -40,6 +40,7 @@ export interface Project {
   quests?: Quest[]
   links?: ProjectItem[]
   projectDescription?: ProjectItem[]
+  admission?: string
 }
 
 export enum QuestType {

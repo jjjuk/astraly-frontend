@@ -155,7 +155,7 @@ const LockForm = ({
         </div>
 
         <div className="date grid xl:col-start-2 xl:col-end-4 block">
-          <div className="date-input bg-primaryClearBg rounded-3xl px-8 py-7 ">
+          <div className="date-input bg-primaryClearBg dark:bg-primaryClearBgDark rounded-3xl px-8 py-7 ">
             <DateSelector startDate={startDate} setStartDate={setStartDate} />
           </div>
 

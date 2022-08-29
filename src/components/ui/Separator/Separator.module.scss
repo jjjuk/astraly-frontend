@@ -5,9 +5,15 @@
   gap: 32px;
   align-items: center;
   &Line {
-    @apply bg-primaryClearBg;
+    @apply bg-primaryClearBg dark:bg-primaryClearBgDark;
     height: 200px;
     border-radius: 3px;
     width: 4px;
+  }
+}
+
+:global(.dark) {
+  .verticalLine {
+    @apply bg-gray3;
   }
 }

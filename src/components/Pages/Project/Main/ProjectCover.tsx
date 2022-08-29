@@ -28,9 +28,9 @@ const ProjectCover = ({ project }: { project: Project }) => {
         <div className="-mt-20"></div>
         <ProjectLogo project={project} />
 
-        <div className="font-heading text-primary text-24">{project.name}</div>
+        <div className="font-heading ui-t-primary text-24">{project.name}</div>
         {project.type !== ProjectType.INO && (
-          <div className="ticker text-primaryClear font-heading">${project.ticker}</div>
+          <div className="ticker ui-t-primaryClear font-heading">${project.ticker}</div>
         )}
         <div className="flex flex gap-2 mt-8">
           {project.categories &&

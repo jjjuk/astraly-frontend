@@ -15,6 +15,8 @@ export const ProjectFragment = gql`
     tokenPrice
     type
     categories
+    admission
+    maxAllocation
     rounds {
       title
       description

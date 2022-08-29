@@ -22,3 +22,11 @@
     @apply w-full max-w-[700px] mb-4;
   }
 }
+
+:global(.dark) {
+  .dueDiligence {
+    h3, h4 {
+      @apply text-white;
+    }
+  }
+}

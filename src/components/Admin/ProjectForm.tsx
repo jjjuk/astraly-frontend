@@ -16,6 +16,7 @@ const ProjectForm: FC<{ project: Project }> = ({ project }) => {
   const [projectForm, setProjectForm] = useState({} as Project)
   const [title, setTitle] = useState('New project')
   const [saveMutation] = useMutation(UPDATE_PROJECT)
+  const [mediaUrl, setMediaUrl] = useState('')
 
   const saveProject = async () => {
     saveMutation({
@@ -43,6 +44,12 @@ const ProjectForm: FC<{ project: Project }> = ({ project }) => {
           links: projectForm.links?.map((x) => ({ key: x.key, value: x.value })) ?? [],
           projectDescription:
             projectForm.projectDescription?.map((x) => ({ key: x.key, value: x.value })) ?? [],
+          admission: projectForm.admission,
+          totalRaise: projectForm.totalRaise != null ? Number(projectForm.totalRaise) : undefined,
+          tokenAddress: projectForm.tokenAddress,
+          tokenPrice: projectForm.tokenPrice != null ? Number(projectForm.tokenPrice) : undefined,
+          maxAllocation:
+            projectForm.maxAllocation != null ? Number(projectForm.maxAllocation) : undefined,
         },
       },
     })
@@ -118,7 +125,10 @@ const ProjectForm: FC<{ project: Project }> = ({ project }) => {
     const index = projectForm.projectDescription?.findIndex((x) => x.key === key)
 
     // @ts-ignore
-    return projectForm.projectDescription ? projectForm.projectDescription[index]['value'] : ''
+    return projectForm.projectDescription && projectForm.projectDescription[index]
+      ? // @ts-ignore
+        projectForm.projectDescription[index]['value']
+      : ''
   }
 
   const addLink = () => {
@@ -195,6 +205,39 @@ const ProjectForm: FC<{ project: Project }> = ({ project }) => {
           value={projectForm.description || ''}
           onChange={setField('description')}
         />
+
+        <BaseAdminInput
+          label={'Admission'}
+          value={projectForm.admission || ''}
+          onChange={setField('admission')}
+        />
+
+        <div className="grid grid-cols-4 gap-4 my-10">
+          <BaseAdminInput
+            label={'Total raise'}
+            value={String(projectForm.totalRaise) || ''}
+            onChange={setField('totalRaise')}
+          />
+
+          <BaseAdminInput
+            label={'token Address'}
+            value={projectForm.tokenAddress || ''}
+            onChange={setField('tokenAddress')}
+          />
+
+          <BaseAdminInput
+            label={'Token Price'}
+            value={String(projectForm.tokenPrice) || ''}
+            onChange={setField('tokenPrice')}
+          />
+
+          <BaseAdminInput
+            label={'Max Allocation'}
+            value={String(projectForm.maxAllocation) || ''}
+            onChange={setField('maxAllocation')}
+          />
+        </div>
+
         <AdminInputGroup left={<span>Logo</span>} onClick={() => {}}>
           <ImageUpload
             src={projectForm.logo}
@@ -258,6 +301,13 @@ const ProjectForm: FC<{ project: Project }> = ({ project }) => {
           </div>
         ))}
         <h3>Content</h3>
+        <ImageUpload
+          src={mediaUrl}
+          onChange={({ filePath }) => {
+            setMediaUrl(filePath)
+          }}
+        />
+        {mediaUrl}
         <AdminInputGroup left={<span>Highlights</span>} onClick={() => {}}>
           <textarea onChange={setDescription('Highlights')} value={getDescription('Highlights')} />
         </AdminInputGroup>
