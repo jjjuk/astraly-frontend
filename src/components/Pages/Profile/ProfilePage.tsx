@@ -42,18 +42,18 @@ const ProfilePage = () => {
     if (!autoBurn) {
       try {
         const tx = await setApprovalForAll(moderator, 1)
+        await mutateFunction({
+          variables: {
+            data: {
+              autoBurn: true,
+            },
+          },
+        })
         addTransaction(
           tx,
           'Turn ON AutoBurn',
-          async () => {
+          () => {
             fetchApprovalToModerator()
-            const { data } = await mutateFunction({
-              variables: {
-                data: {
-                  autoBurn: true,
-                },
-              },
-            })
           },
           () => {}
         )
@@ -63,18 +63,18 @@ const ProfilePage = () => {
     } else {
       try {
         const tx = await setApprovalForAll(moderator, 0)
+        await mutateFunction({
+          variables: {
+            data: {
+              autoBurn: false,
+            },
+          },
+        })
         addTransaction(
           tx,
           'Turn OFF AutoBurn',
-          async () => {
+          () => {
             fetchApprovalToModerator()
-            const { data } = await mutateFunction({
-              variables: {
-                data: {
-                  autoBurn: false,
-                },
-              },
-            })
           },
           () => {}
         )
