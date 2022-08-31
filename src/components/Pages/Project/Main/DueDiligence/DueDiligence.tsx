@@ -86,17 +86,17 @@ const DueDiligence = ({ project }: { project: Project }) => {
           <ReactMarkdown>{byKey['Highlights']}</ReactMarkdown>
           <Separator />
           <h3 id="Summary" ref={SummaryTitle}>
-            What is briq ?
+            What is {project.name} ?
           </h3>
           <ReactMarkdown>{byKey['Summary']}</ReactMarkdown>
           <Separator />
           <h3 id="Problem" ref={ProblemTitle}>
-            How does briq work ?
+            How does {project.name} work ?
           </h3>
           <ReactMarkdown>{byKey['Problem']}</ReactMarkdown>
           <Separator />
           <h3 id="Solution" ref={SolutionTitle}>
-            What’s the vision behind briq ?
+            What’s the vision behind {project.name} ?
           </h3>
           <ReactMarkdown>{byKey['Solution']}</ReactMarkdown>
           <Separator />
@@ -106,7 +106,7 @@ const DueDiligence = ({ project }: { project: Project }) => {
           <ReactMarkdown>{byKey['Roadmap']}</ReactMarkdown>
           <Separator />
           <h3 id="Team" ref={TeamTitle}>
-            Who is the team behind briq ?
+            Who is the team behind {project.name} ?
           </h3>
           <ReactMarkdown>{byKey['Team']}</ReactMarkdown>
           <Separator />
