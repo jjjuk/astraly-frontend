@@ -45,6 +45,7 @@ export const UserFragment = gql`
     bannerHash
     bio
     cover
+    autoBurn
     transactions {
       _id
       contractAddress

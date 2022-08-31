@@ -5,21 +5,25 @@ import ProjectLayout from '../ProjectLayout'
 import AllocationInfo from '../Main/AllocationInfo'
 import BaseButton from '../../../ui/buttons/BaseButton'
 import { useStarknetReact } from '@web3-starknet-react/core'
-import { useTokenContract, useLotteryTokenContract } from 'contracts'
+import { useTokenContract, useLotteryTokenContract, useIDOContract } from 'contracts'
+import { Result, uint256, hash } from 'starknet'
 import { ethers } from 'ethers'
-import { uint256 } from 'starknet'
 import { LockIcon, SendIcon } from '../../../ui/Icons/Icons'
 import Link from 'next/link'
 import { useTransactions } from 'context/TransactionsProvider'
 import { useQuery } from '@apollo/client'
 import { PROJECT } from '../../../../api/gql/querries'
 import Spinner from '../../../ui/Spinner/Spinner'
+import ToastActions from 'actions/toast.actions'
+import { ToastState } from 'components/ui/Toast/utils'
+import { useAppDispatch } from 'hooks/hooks'
 
 const ProjectClaimPage = () => {
   const router = useRouter()
   const { pid } = router.query
   const { account } = useStarknetReact()
   const [ticketsBalance, setTicketsBalance] = useState<string | null>(null)
+  const [userInfo, setUserInfo] = useState<Result>({} as Result)
   const [xzkpBalance, setXZkpBalance] = useState('0')
   const [project, setProject] = useState<Project | undefined>(undefined)
   const [claiming, setClaiming] = useState(false)
@@ -28,7 +32,7 @@ const ProjectClaimPage = () => {
 
   const { getXZKPBalance } = useTokenContract()
   const { claimLotteryTickets, getTicketsBalance } = useLotteryTokenContract()
-
+  const dispatch = useAppDispatch()
   const { addTransaction } = useTransactions()
 
   const { data } = useQuery(PROJECT, {
@@ -40,6 +44,8 @@ const ProjectClaimPage = () => {
   useEffect(() => {
     data && setProject(data.project)
   }, [data])
+
+
 
   const handleClaimTickets = async () => {
     if (!project) return
