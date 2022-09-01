@@ -40,7 +40,14 @@ export const verifyQuest = async (
 
     const events: OrganizedEvent[] = []
     // TODO: Fix events when from_address is a Proxy
+    // console.log(
+    //   await ContractCallOrganizer.getContractAbi(
+    //     '0x41c4e86a03480313547a04e13fc4d43d7fb7bcb5244fd0cb93f793f304f6124',
+    //     provider
+    //   )
+    // )
     for (const event of receipt.events) {
+      // console.log(event)
       // Hacky hack
       // const _event = event as any
       // if (events.length === 0)
@@ -56,9 +63,10 @@ export const verifyQuest = async (
           events.push(eventCalldata)
         }
       } catch (e) {
-        // console.error(e)
+        console.error(e)
       }
     }
+    // console.log(events)
 
     // Check if events match quest criteria
     const _events = events.find(
@@ -68,6 +76,7 @@ export const verifyQuest = async (
           validateAndParseAddress(accountEvent.transmitterContract) &&
         isValidEvent(e, accountEvent, account)
     )
+
     // console.log(_events)
     if (_events !== undefined) {
       // Validate quest
@@ -86,6 +95,7 @@ const isValidEvent = (event: any, accountEvent: OrganizedEvent, account: Account
   // Returns true if the event matches the quest criteria
   const _allQuestCalldata = accountEvent.callData
   const _allCalldata = event.calldata
+  console.log(_allQuestCalldata, _allCalldata)
 
   for (let index = 0; index < _allQuestCalldata.length; index++) {
     const _calldata = _allCalldata[index]
