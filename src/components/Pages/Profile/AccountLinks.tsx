@@ -12,7 +12,11 @@ import TelegramIcon from 'assets/icons/currentColor/Telegram.svg?inline'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { isSameAddress } from '../../../utils'
 
-const AccountLinks: FC<{ user: any }> = ({ user }) => {
+const AccountLinks: FC<{ user: any; hideTitle?: boolean; showOnly?: string[] }> = ({
+  user,
+  hideTitle,
+  showOnly,
+}) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
   const { account } = useStarknetReact()
@@ -29,7 +33,7 @@ const AccountLinks: FC<{ user: any }> = ({ user }) => {
   const linkTwitter = async () => {
     const { data } = await getTwitterAuthUrl()
 
-    router.push(data.getTwitterAuthUrl)
+    window.open(data.getTwitterAuthUrl, '_blank')
   }
 
   const SocialLinks = [
@@ -136,11 +140,11 @@ const AccountLinks: FC<{ user: any }> = ({ user }) => {
   )
 
   return (
-    <div className="AccountLinks block">
-      <div className="block__item">
-        <div className="title--small mb-4">Account links</div>
+    <div className={!hideTitle ? 'AccountLinks block' : ''}>
+      <div className={!hideTitle ? 'block__item' : ''}>
+        {!hideTitle && <div className="title--small mb-4">Account links</div>}
 
-        {SocialLinks.map((x) => (
+        {SocialLinks.filter((x) => (!showOnly ? true : showOnly.includes(x.name))).map((x) => (
           <div className="flex items-center w-full py-4" key={x.name}>
             <div
               className={`icon w-12 flex-shrink-0 ${

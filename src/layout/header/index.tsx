@@ -12,6 +12,7 @@ import ProfileButton from './ProfileButton'
 
 import Logo from 'assets/images/logo.svg'
 import LogoDark from 'assets/images/logo--dark.svg'
+import ThemeSwitcher from '../../components/ui/ThemeSwitcher'
 
 const Header: React.FC = () => {
   const { account, deactivate, chainId } = useStarknetReact()
@@ -76,7 +77,10 @@ const Header: React.FC = () => {
 
         <HeaderMenu />
 
-        <ProfileButton />
+        <div className="flex items-center">
+          <ThemeSwitcher />
+          <ProfileButton />
+        </div>
       </div>
     </div>
   )

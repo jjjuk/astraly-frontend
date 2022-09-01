@@ -61,3 +61,17 @@ export interface Quest {
   isClaimed?: boolean
   type: QuestType
 }
+
+export enum SocialLinkType {
+  DISCORD = 'DISCORD',
+  TWITTER = 'TWITTER',
+  TELEGRAM = 'TELEGRAM',
+  FACEBOOK = 'FACEBOOK',
+}
+
+export interface User {
+  socialLinks: {
+    id: string
+    type: SocialLinkType
+  }[]
+}

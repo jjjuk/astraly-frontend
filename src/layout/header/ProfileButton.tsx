@@ -11,7 +11,7 @@ const ProfileButton = () => {
   const { account } = useStarknetReact()
   return (
     <>
-      <div className="hidden lg:block profile-button relative">
+      <div className="hidden lg:block profile-button relative ml-8">
         <BaseButton className="px-6" medium={true} onClick={() => setShowTooltip(true)}>
           <WalletIcon className={'mr-3'} />
           {account ? truncateAddress(account.address) : 'Connect'}

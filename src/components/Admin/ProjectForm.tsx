@@ -55,7 +55,7 @@ const ProjectForm: FC<{ project: Project }> = ({ project }) => {
     })
   }
 
-  useEffect(() => {
+  const initDescriptions = () => {
     const clone = _.cloneDeep(project)
     if (!project.projectDescription) {
       clone.projectDescription = [
@@ -89,7 +89,10 @@ const ProjectForm: FC<{ project: Project }> = ({ project }) => {
         },
       ]
     }
-    setProjectForm(clone)
+    return clone
+  }
+  useEffect(() => {
+    setProjectForm(initDescriptions())
   }, [project])
 
   useEffect(() => {
@@ -97,9 +100,7 @@ const ProjectForm: FC<{ project: Project }> = ({ project }) => {
   }, [projectForm.name])
 
   const setField = (field: string, index?: number, subfield?: string) => (e: any) => {
-    const project = {
-      ...projectForm,
-    }
+    const project = _.clone(projectForm)
 
     if (index != null && subfield) {
       // @ts-ignore
@@ -118,6 +119,26 @@ const ProjectForm: FC<{ project: Project }> = ({ project }) => {
 
   const setDescription = (key: string) => (e: any) => {
     const index = projectForm.projectDescription?.findIndex((x) => x.key === key)
+    if (index == null || index < 0) {
+      if (!projectForm.projectDescription) {
+        const project = initDescriptions()
+        const index = project.projectDescription?.findIndex((x) => x.key === key)
+        // @ts-ignore
+        project.projectDescription[index] = e.target.value
+        setProjectForm(project)
+
+        return
+      } else {
+        const project = _.clone(projectForm)
+        project.projectDescription?.push({
+          key,
+          value: e.target.value,
+        })
+        setProjectForm(project)
+
+        return
+      }
+    }
     setField('projectDescription', index, 'value')(e)
   }
 

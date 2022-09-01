@@ -1,4 +1,4 @@
-import { Quest, QuestType } from '../../../../interfaces'
+import { Quest, QuestType, SocialLinkType, User } from '../../../../interfaces'
 import BaseModal from '../../../ui/Modal/BaseModal'
 import styles from './Modal.module.scss'
 import Lightning from '../../../../assets/icons/currentColor/Lightning-alt.svg?inline'
@@ -11,15 +11,15 @@ import SandWatch from 'assets/icons/solid/Sand-watch.svg'
 import ToastActions from '../../../../actions/toast.actions'
 import { useAppDispatch } from '../../../../hooks/hooks'
 import CloseIcon from 'assets/icons/CrossHex.svg'
-import Link from 'next/link'
 import { verifyQuest } from 'utils/decode'
 import { useStarknetReact } from '@web3-starknet-react/core'
-import { useSelector } from 'react-redux'
-import { RootState } from 'stores/reduxStore'
 import { useApi } from 'api'
 import { ToastState } from 'components/ui/Toast/utils'
 import AuthActions from 'actions/auth.actions'
 import Spinner from 'components/ui/Spinner/Spinner'
+import { useQuery } from '@apollo/client'
+import { USER } from '../../../../api/gql/querries'
+import AccountLinks from '../../Profile/AccountLinks'
 
 const QuestModal = ({
   quest,
@@ -36,6 +36,14 @@ const QuestModal = ({
   // const { authToken } = useSelector((state: RootState) => state.ConnectWallet)
   const { validateQuest, getAccountDetails } = useApi()
   const [approving, setApproving] = useState(false)
+
+  const { data, refetch } = useQuery(USER, {
+    variables: {
+      address: account?.address,
+    },
+    pollInterval: 1000,
+  })
+  const user: User = data?.getAccount
 
   const fetchAccountDetails = async () => {
     dispatch(AuthActions.fetchStart())
@@ -82,21 +90,39 @@ const QuestModal = ({
         setApproving(false)
       }
     } else {
-      dispatch(
-        ToastActions.addToast({
-          title: 'Successful quest',
-          action: (
-            <div className="font-heading text-12 text-primary">Your chances are now increased</div>
-          ),
-          state: ToastState.VALID,
-          autoClose: true,
-        })
-      )
-      await validateQuest(String(quest._id))
-      await fetchAccountDetails()
-      setApproving(false)
+      try {
+        await validateQuest(String(quest._id))
+        dispatch(
+          ToastActions.addToast({
+            title: 'Successful quest',
+            action: (
+              <div className="font-heading text-12 text-primary">
+                Your chances are now increased
+              </div>
+            ),
+            state: ToastState.VALID,
+            autoClose: true,
+          })
+        )
+        await fetchAccountDetails()
+        close()
+      } catch (error) {
+        console.error(error)
+        dispatch(
+          ToastActions.addToast({
+            title: 'Error',
+            action: (
+              <div className="font-heading text-12 text-primary">
+                We could not validate the quest
+              </div>
+            ),
+            state: ToastState.ERROR,
+            autoClose: true,
+          })
+        )
+      }
 
-      close()
+      setApproving(false)
     }
   }
 
@@ -107,6 +133,10 @@ const QuestModal = ({
   if (!quest) {
     return <></>
   }
+
+  const isTwitter = quest?.type === QuestType.SOCIAL && quest.icon === 'twitter'
+  const followsOnTwitter = user.socialLinks.find((x) => x.type === SocialLinkType.TWITTER)
+  const canSubmit = isTwitter ? followsOnTwitter : url
 
   return (
     <BaseModal isOpen={isOpen} onClose={close}>
@@ -176,19 +206,43 @@ const QuestModal = ({
               </ul>
             </div>
           )}
-          <UrlInput
-            questType={quest.type}
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            setValue={(value) => setUrl(value)}
-          />
+          {isTwitter && (
+            <div className={'flex items-center'}>
+              <div className="w-full">
+                <AccountLinks user={user} hideTitle={true} showOnly={['Twitter']} />
+              </div>
+
+              {!followsOnTwitter && (
+                <BaseButton
+                  className="px-4 ml-4 flex-shrink-0"
+                  xSmall={true}
+                  onClick={() => refetch()}>
+                  Refresh info <img src={SandWatch} alt={''} className={'mr-2'} />
+                </BaseButton>
+              )}
+            </div>
+          )}
+          {!isTwitter && (
+            <UrlInput
+              questType={quest.type}
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              setValue={(value) => setUrl(value)}
+            />
+          )}
+
           <div className="h-8"></div>
           {!approving ? (
             <BaseButton
-              className={`${!url && 'opacity-50 pointer-events-none'} `}
+              className={`${!canSubmit && 'opacity-50 pointer-events-none'} `}
               onClick={() => approve()}>
               {!url && <img src={SandWatch} alt={''} className={'mr-2'} />}
-              {!url && (quest.type === QuestType.PRODUCT ? 'Waiting Hash' : 'Waiting Url')}
+              {!url &&
+                (quest.type === QuestType.PRODUCT
+                  ? 'Waiting Hash'
+                  : isTwitter
+                  ? 'Link your account'
+                  : 'Waiting Url')}
 
               {url && <LikeIcon className={'mr-2'} />}
               {url && 'Approve Quest'}
