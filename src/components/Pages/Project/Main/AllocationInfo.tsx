@@ -4,14 +4,14 @@ import React from 'react'
 const AllocationBurnInfo = ({ projectType }: { projectType: ProjectType }) => {
   return (
     <div className="block--contrast">
-      <div className="title--medium mb-6">Burn tickets</div>
+      <div className="mb-6 title--medium">Burn tickets</div>
 
       <p className="text-primaryClear leading-138">
         We are excited to launch our {projectType} on Astraly. For a chance to win an allocation,
         please fill out the form below and perform all tasks accordingly.
       </p>
 
-      <p className="text-primaryClear mt-6 uppercase">Good Luck! 🚀</p>
+      <p className="mt-6 uppercase text-primaryClear">Good Luck! 🚀</p>
     </div>
   )
 }
@@ -19,14 +19,14 @@ const AllocationBurnInfo = ({ projectType }: { projectType: ProjectType }) => {
 const AllocationClaimInfo = ({ projectType }: { projectType: ProjectType }) => {
   return (
     <div className="block--contrast">
-      <div className="title--medium mb-6">Claim your tickets</div>
+      <div className="mb-6 title--medium">Claim your tickets</div>
 
       <p className="text-primaryClear leading-138">
         We are excited to launch our {projectType} on Astraly. For a chance to win an allocation,
         please fill out the form below and perform all tasks accordingly.
       </p>
 
-      <p className="text-primaryClear mt-6 uppercase">Good Luck! 🚀</p>
+      <p className="mt-6 uppercase text-primaryClear">Good Luck! 🚀</p>
     </div>
   )
 }
@@ -34,14 +34,14 @@ const AllocationClaimInfo = ({ projectType }: { projectType: ProjectType }) => {
 const AllocationPurchaseInfo = ({ projectType }: { projectType: ProjectType }) => {
   return (
     <div className="block--contrast">
-      <div className="title--medium mb-6">Participate in the {projectType}</div>
+      <div className="mb-6 title--medium">Participate in the {projectType}</div>
 
       <p className="text-primaryClear leading-138">
         We are excited to launch our {projectType} on Astraly. For a chance to win an allocation,
         please fill out the form below and perform all tasks accordingly.
       </p>
 
-      <p className="text-primaryClear mt-6 uppercase">Good Luck! 🚀</p>
+      <p className="mt-6 uppercase text-primaryClear">Good Luck! 🚀</p>
     </div>
   )
 }
@@ -51,17 +51,17 @@ const AllocationInfo: React.FC<{
   projectType: ProjectType
 }> = ({ type = 'claim', projectType = ProjectType.IDO }) => {
   return (
-    <div className="AllocationInfo block">
+    <div className="block AllocationInfo">
       {type === 'claim' && <AllocationClaimInfo projectType={projectType} />}
       {type === 'burn' && <AllocationBurnInfo projectType={projectType} />}
       {type === 'purchase' && <AllocationPurchaseInfo projectType={projectType} />}
 
       <div className="block__item">
-        <div className="title--small mb-4">Conditions of entry</div>
+        <div className="mb-4 title--small">Conditions of entry</div>
 
-        <ul className="list-disc text-primaryClear leading-138 ml-4">
+        <ul className="ml-4 list-disc text-primaryClear leading-138">
           <li className="mb-5">
-            On Astraly, every holder xASTR holder can claim or buy tickets. However, due to the
+            On Astraly, every xASTR holder can claim or buy tickets. However, due to the
             current jurisdiction, only users from countries where it is legally allowed to
             participate in {projectType}s will be able to receive an allocation and invest.
           </li>
