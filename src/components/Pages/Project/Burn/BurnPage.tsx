@@ -61,7 +61,7 @@ const BurnPage = () => {
       setBurning(true)
       // const tx = await burnTickets(account, pid.toString(), amountToBurn)
       let tx
-      if (nbQuestsCompleted || merkleProof.length === 0) {
+      if (nbQuestsCompleted === 0 || merkleProof.length === 0) {
         tx = await burnTickets(account, pid?.toString(), amountToBurn)
       } else {
         tx = await burnWithQuest(
