@@ -59,19 +59,19 @@ const BurnPage = () => {
     if (!pid) return
     try {
       setBurning(true)
-      const tx = await burnTickets(account, pid.toString(), amountToBurn)
-      // let tx
-      // if (nbQuestsCompleted || merkleProof.length === 0) {
-      //   tx = await burnTickets(account, pid?.toString(), amountToBurn)
-      // } else {
-      //   tx = await burnWithQuest(
-      //     account,
-      //     pid?.toString(),
-      //     amountToBurn,
-      //     nbQuestsCompleted,
-      //     merkleProof
-      //   )
-      // }
+      // const tx = await burnTickets(account, pid.toString(), amountToBurn)
+      let tx
+      if (nbQuestsCompleted || merkleProof.length === 0) {
+        tx = await burnTickets(account, pid?.toString(), amountToBurn)
+      } else {
+        tx = await burnWithQuest(
+          account,
+          pid?.toString(),
+          amountToBurn,
+          nbQuestsCompleted,
+          merkleProof
+        )
+      }
       if (!tx) throw Error('no tx')
       addTransaction(
         tx,
