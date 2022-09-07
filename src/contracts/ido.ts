@@ -6,7 +6,7 @@ import { toFelt } from 'starknet/dist/utils/number'
 import { parseInputAmountToUint256ExecuteCall } from 'utils'
 // import { parseInputAmountToUint256, parseInputAmountToUint256ExecuteCall } from 'utils'
 
-import { IDO_FACTORY_ABI, IDO_CONTRACT_ABI, INO_CONTRACT_ABI } from './abi'
+import { IDO_FACTORY_ABI, IDO_CONTRACT_ABI, INO_CONTRACT_ABI, DISTRIBUTOR_ABI } from './abi'
 // import {getHigherGWEI} from 'utils';
 
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET'
@@ -16,6 +16,11 @@ export const useIDOContract = () => {
   const { getContract } = useContract()
 
   const getIDOFactoryContract = async () => getContract(Contracts[CHAIN].factory, IDO_FACTORY_ABI)
+  const getDistributorContract = async () =>
+    getContract(
+      '0x029559c6808ebbd2763ee89bf8baacfd029d04d965336bf536fa9dbb3db44e3b',
+      DISTRIBUTOR_ABI
+    )
 
   const getIDOContract = async (id: number.BigNumberish) => {
     const factory = await getIDOFactoryContract()
@@ -79,6 +84,12 @@ export const useIDOContract = () => {
     return await contract.invoke('withdraw_tokens', [])
   }
 
+  const claimNFTs2 = async () => {
+    const contract = await getDistributorContract()
+
+    return await contract.invoke('claim', [])
+  }
+
   const getCurrentSale = async (id: number.BigNumberish, type: ProjectType) => {
     const contract = type === ProjectType.IDO ? await getIDOContract(id) : await getINOContract(id)
 
@@ -117,5 +128,6 @@ export const useIDOContract = () => {
     getVestingPercent,
     getVestingUnlockTime,
     claimNFTs,
+    claimNFTs2,
   }
 }

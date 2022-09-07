@@ -56,6 +56,7 @@ const ProjectPortfolioPage = () => {
     getUserInfo,
     getVestingUnlockTime,
     claimNFTs,
+    claimNFTs2,
   } = useIDOContract()
   const { addTransaction } = useTransactions()
 
@@ -208,7 +209,8 @@ const ProjectPortfolioPage = () => {
     if (!project) return
     try {
       setWithdrawing(true)
-      const tx = await claimNFTs(project?.idoId.toString())
+      // const tx = await claimNFTs(project?.idoId.toString())
+      const tx = await claimNFTs2()
       addTransaction(
         tx,
         'Claim NFTs',

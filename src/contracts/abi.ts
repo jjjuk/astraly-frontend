@@ -4438,6 +4438,47 @@ export const MULTICALL_ABI = [
   },
 ]
 
+export const DISTRIBUTOR_ABI = [
+  {
+    inputs: [
+      {
+        name: 'root',
+        type: 'felt',
+      },
+      {
+        name: 'token',
+        type: 'felt',
+      },
+    ],
+    name: 'constructor',
+    outputs: [],
+    type: 'constructor',
+  },
+  {
+    inputs: [
+      {
+        name: 'recipient',
+        type: 'felt',
+      },
+      {
+        name: 'amount',
+        type: 'felt',
+      },
+      {
+        name: 'proof_len',
+        type: 'felt',
+      },
+      {
+        name: 'proof',
+        type: 'felt*',
+      },
+    ],
+    name: 'claim',
+    outputs: [],
+    type: 'function',
+  },
+]
+
 export default {
   ZKP_TOKEN_ABI,
   XZKP_TOKEN_ABI,
@@ -4447,4 +4488,5 @@ export default {
   IDO_FACTORY_ABI,
   MULTICALL_ABI,
   INO_CONTRACT_ABI,
+  DISTRIBUTOR_ABI,
 }
