@@ -18,7 +18,7 @@ export const useIDOContract = () => {
   const getIDOFactoryContract = async () => getContract(Contracts[CHAIN].factory, IDO_FACTORY_ABI)
   const getDistributorContract = async () =>
     getContract(
-      '0x0461dc4e676fd1ade458870e487642adf121e19854cf46b9dfe60795ddd5f3d3',
+      '0x034d662c2244061e07f20145afb3718685f0bde6f164927e6029dcd918a5f036',
       DISTRIBUTOR_ABI
     )
 
