@@ -392,10 +392,10 @@ const ProjectPortfolioPage = () => {
         ) : (
           <>
             <div className="block mb-5">
-              {/* <div className="block--contrast">
+              <div className="block--contrast">
                 <div className="title--medium mb-6">Claim information</div>
                 <div className="flex items-center gap-[100px]">
-                  <div className="flex flex-col">
+                  {/* <div className="flex flex-col">
                     <div className="text-primaryClear">Total NFTs Minted</div>
                     <div className="font-heading text-primary">
                       {userInfo?.participation ? (
@@ -404,8 +404,12 @@ const ProjectPortfolioPage = () => {
                         <Spinner />
                       )}
                     </div>
-                  </div>
+                  </div> */}
                   <div className="flex flex-col">
+                    <div className="text-primaryClear">Number of quests completed</div>
+                    <div className="font-heading text-primary">{nbQuestsCompleted}</div>
+                  </div>
+                  {/* <div className="flex flex-col">
                     <div className="text-primaryClear">Total Invested</div>
                     <div className="font-heading text-primary">
                       {userInfo?.participation ? (
@@ -417,9 +421,9 @@ const ProjectPortfolioPage = () => {
                         <Spinner />
                       )}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
-              </div> */}
+              </div>
               <div className="block__item">
                 <BaseButton
                   onClick={handleClaimNFTs}
