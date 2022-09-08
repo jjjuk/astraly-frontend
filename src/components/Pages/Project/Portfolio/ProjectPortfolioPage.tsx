@@ -424,7 +424,7 @@ const ProjectPortfolioPage = () => {
                 <BaseButton
                   onClick={handleClaimNFTs}
                   disabled={
-                    userNFTs?.length > 0 || withdrawing
+                    userNFTs?.length > 0 || withdrawing || nbQuestsCompleted === 0
                     // (userInfo
                     //   ? !userInfo.has_participated ||
                     //     Number(uint256ToBN(userInfo.participation.amount_bought)) === 0
