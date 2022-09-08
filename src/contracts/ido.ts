@@ -84,10 +84,10 @@ export const useIDOContract = () => {
     return await contract.invoke('withdraw_tokens', [])
   }
 
-  const claimNFTs2 = async () => {
+  const claimNFTs2 = async (address: string | undefined, amount: number, proof: string[]) => {
     const contract = await getDistributorContract()
 
-    return await contract.invoke('claim', [])
+    return await contract.invoke('claim', [address, amount, proof])
   }
 
   const getCurrentSale = async (id: number.BigNumberish, type: ProjectType) => {

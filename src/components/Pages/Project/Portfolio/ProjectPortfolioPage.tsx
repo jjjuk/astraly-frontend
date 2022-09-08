@@ -19,6 +19,7 @@ import { Result } from 'starknet'
 import { formatUnits } from 'ethers/lib/utils'
 import axios from 'axios'
 import Spinner from '../../../ui/Spinner/Spinner'
+import { useApi } from 'api'
 
 const dateFormatter = (date: number) => {
   return format(new Date(date), 'dd/MMM')
@@ -73,6 +74,10 @@ const ProjectPortfolioPage = () => {
   const [userNFTs, setUserNFTs] = useState<any[]>([])
 
   const [roundTimer, setRoundTimer] = useState('...')
+
+  const [nbQuestsCompleted, setNbQuestsCompleted] = useState(0)
+  const [merkleProof, setMerkleProof] = useState<string[]>([])
+  const { fetchProof, getNumberQuestsCompleted } = useApi()
 
   const currentPortion = useMemo(
     () =>
@@ -210,7 +215,7 @@ const ProjectPortfolioPage = () => {
     try {
       setWithdrawing(true)
       // const tx = await claimNFTs(project?.idoId.toString())
-      const tx = await claimNFTs2()
+      const tx = await claimNFTs2(account?.address, nbQuestsCompleted, merkleProof)
       addTransaction(
         tx,
         'Claim NFTs',
@@ -235,6 +240,25 @@ const ProjectPortfolioPage = () => {
   useEffect(() => {
     data && setProject(data.project)
   }, [data])
+
+  const fetchQuestsInfo = async () => {
+    if (!project || !account?.address) return
+    try {
+      const nbQuestsCompleted = await getNumberQuestsCompleted(project.idoId.toString())
+      setNbQuestsCompleted(nbQuestsCompleted)
+      const proof = await fetchProof(project.idoId.toString())
+      console.log('proof', proof, nbQuestsCompleted)
+      setMerkleProof(proof)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (account?.address && project) {
+      fetchQuestsInfo()
+    }
+  }, [account, project])
 
   useEffect(() => {
     if (project) {
@@ -368,7 +392,7 @@ const ProjectPortfolioPage = () => {
         ) : (
           <>
             <div className="block mb-5">
-              <div className="block--contrast">
+              {/* <div className="block--contrast">
                 <div className="title--medium mb-6">Claim information</div>
                 <div className="flex items-center gap-[100px]">
                   <div className="flex flex-col">
@@ -395,17 +419,16 @@ const ProjectPortfolioPage = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="block__item">
                 <BaseButton
                   onClick={handleClaimNFTs}
                   disabled={
-                    userNFTs?.length > 0 ||
-                    withdrawing ||
-                    (userInfo
-                      ? !userInfo.has_participated ||
-                        Number(uint256ToBN(userInfo.participation.amount_bought)) === 0
-                      : true)
+                    userNFTs?.length > 0 || withdrawing
+                    // (userInfo
+                    //   ? !userInfo.has_participated ||
+                    //     Number(uint256ToBN(userInfo.participation.amount_bought)) === 0
+                    //   : true)
                   }>
                   <SendIcon className={'mr-2'} />
                   {withdrawing ? <Spinner /> : 'Claim NFTs'}
