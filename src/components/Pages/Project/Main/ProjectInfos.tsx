@@ -50,16 +50,11 @@ const ProjectInfos: React.FC<{ project: Project }> = ({ project }) => {
 
         <div className="block__item">
           <div className="flex-col 2xl:flex-row flex gap-3 w-full">
-            <Link
-              href={
-                project.currentRoundIndex === -1 || project.currentRoundIndex === 1
-                  ? '/'
-                  : `/project/${project.idoId}/quests`
-              }>
+            <Link href={project.currentRoundIndex !== 0 ? '/' : `/project/${project.idoId}/quests`}>
               <a className="cursor-pointer w-full">
                 <BaseButton
                   className="w-full px-4 whitespace-nowrap"
-                  disabled={project.currentRoundIndex === -1 || project.currentRoundIndex === 1}>
+                  disabled={project.currentRoundIndex !== 0}>
                   <BoltIcon className="mr-1" />
                   Booster quests
                 </BaseButton>
