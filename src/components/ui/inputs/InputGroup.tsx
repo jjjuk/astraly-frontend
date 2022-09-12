@@ -12,9 +12,9 @@ const InputGroup: React.FC<
     <div
       className={classnames(
         'InputGroup',
-        'bg-white',
+        'bg-white dark:bg-gray3',
         'border',
-        'border-whitePurple',
+        'border-whitePurple dark:border-primary',
         'flex',
         'items-center',
         'px-4',
@@ -25,7 +25,7 @@ const InputGroup: React.FC<
         'font-heading',
         'text-12',
         'rounded-md',
-        'text-primaryClear',
+        'text-primaryClear dark:text-white',
         'focus-within:text-primary',
         'focus-within:border-primary',
         'cursor-pointer'

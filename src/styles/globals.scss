@@ -65,6 +65,24 @@ body {
   }
 }
 
+.dark {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #2C2A30;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #8F00FF;
+    border-radius: 8px;
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: #8F00FF #2C2A30;
+}
+
 #__next {
   height: 100%;
 }

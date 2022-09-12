@@ -5,15 +5,15 @@ import { Project } from 'interfaces'
 import Link from 'next/link'
 import ProjectLogo from 'components/ui/ProjectLogo'
 import BaseButton from 'components/ui/buttons/BaseButton'
-import { BoltIcon, RocketIcon } from 'components/ui/Icons/Icons'
+import { BoltIcon } from 'components/ui/Icons/Icons'
 import Hint from 'components/ui/Hint/Hint'
 
 import Award from 'assets/icons/solid/Award.svg'
 import Shield from 'assets/icons/solid/Shield.svg'
-import Hexagon from '../../../ui/Hexagon'
 import TwitterIcon from 'assets/icons/currentColor/Twitter.svg?inline'
 import DiscordIcon from 'assets/icons/currentColor/Discord.svg?inline'
 import SiteIcon from 'assets/icons/currentColor/Explore.svg?inline'
+import { HexagonWrapped } from '../../../ui/Hexagon/HexagonWrapped'
 
 const ProjectInfos: React.FC<{ project: Project }> = ({ project }) => {
   const linksByKey = project.links?.reduce((acc, x) => {
@@ -71,9 +71,9 @@ const ProjectInfos: React.FC<{ project: Project }> = ({ project }) => {
             {linksByKey['site'] && (
               <Link href={linksByKey['site']}>
                 <a target="_blank" className="hover:scale-110 transition transform">
-                  <Hexagon>
+                  <HexagonWrapped>
                     <SiteIcon width="28" height="28" viewBox="0 0 24 24" />
-                  </Hexagon>
+                  </HexagonWrapped>
                 </a>
               </Link>
             )}
@@ -81,9 +81,9 @@ const ProjectInfos: React.FC<{ project: Project }> = ({ project }) => {
             {linksByKey.twitter && (
               <Link href={linksByKey.twitter}>
                 <a target="_blank" className="hover:scale-110 transition transform">
-                  <Hexagon>
+                  <HexagonWrapped>
                     <TwitterIcon />
-                  </Hexagon>
+                  </HexagonWrapped>
                 </a>
               </Link>
             )}
@@ -91,9 +91,9 @@ const ProjectInfos: React.FC<{ project: Project }> = ({ project }) => {
             {linksByKey.discord && (
               <Link href={linksByKey.discord}>
                 <a target="_blank" className="hover:scale-110 transition transform">
-                  <Hexagon>
+                  <HexagonWrapped>
                     <DiscordIcon />
-                  </Hexagon>
+                  </HexagonWrapped>
                 </a>
               </Link>
             )}

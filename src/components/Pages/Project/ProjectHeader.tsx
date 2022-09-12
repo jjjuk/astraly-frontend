@@ -5,6 +5,9 @@ import { useRouter } from 'next/router'
 import Back from 'assets/icons/Back.svg'
 import Link from 'next/link'
 import Lightning from 'assets/animations/lightning.svg?inline'
+import Hexagon from '../../ui/Hexagon'
+import ArrowIcon from 'assets/icons/ArrowDown.svg?inline'
+import classnames from 'classnames'
 
 const routes = {
   burn: 'Burn for allocation',
@@ -67,8 +70,15 @@ const ProjectHeader = ({ project }: { project?: Project }) => {
       <div className="title mb-12 flex items-start relative mt-2">
         <Link href={steps[steps.length - 2].href}>
           <a className="inline-flex  mr-6 transition-all hover:transform  hover:scale-110 hover:-translate-y-px rounded-full">
-            <div className="back hover:shadow-purpleLight rounded-full">
-              <img src={Back} alt={'go back to project'} className={'rounded-full'} />
+            <div className="hidden dark:inline-block">
+              <Hexagon fillColor={'#2C2A30'} strokeColor={'#9f24ff'}>
+                <ArrowIcon className={classnames('transform transition rotate-90')} />
+              </Hexagon>
+            </div>
+            <div className="dark:hidden">
+              <Hexagon>
+                <ArrowIcon className={classnames('transform transition rotate-90')} />
+              </Hexagon>
             </div>
           </a>
         </Link>

@@ -46,7 +46,7 @@ const Withdraw = ({
       dispatch(
         ToastActions.addToast({
           title: String(e),
-          action: <div className="font-heading text-12 text-primary">Try again</div>,
+          action: <div className="font-heading text-12 ui-t-primary">Try again</div>,
           state: ToastState.ERROR,
           autoClose: true,
         })
@@ -69,7 +69,7 @@ const Withdraw = ({
       dispatch(
         ToastActions.addToast({
           title: String(e),
-          action: <div className="font-heading text-12 text-primary">Try again</div>,
+          action: <div className="font-heading text-12 ui-t-primary">Try again</div>,
           state: ToastState.ERROR,
           autoClose: true,
         })
@@ -84,11 +84,11 @@ const Withdraw = ({
       <div className="block--contrast">
         <div className="title--medium mb-6">Withdraw Liquid Pool</div>
         <div className="flex items-center justify-between text-16 mb-2">
-          <div className="text-primaryClear">ASTR Staked</div>
+          <div className="ui-t-primaryClear">ASTR Staked</div>
           <div className="font-heading text-primary">
             {zkpStaked ? Number(zkpStaked).toFixed(3) : <Spinner />}
           </div>
-          <div className="text-primaryClear">ETH-ASTR LP Staked</div>
+          <div className="ui-t-primaryClear">ETH-ASTR LP Staked</div>
           <div className="font-heading text-primary">
             {lpStaked ? Number(lpStaked).toFixed(3) : <Spinner />}
           </div>
@@ -110,12 +110,15 @@ const Withdraw = ({
       </div>
 
       <div className="block__item">
-        <BaseButton
-          onClick={handleWithdraw}
-          disabled={withdrawing || unlockRemainingTime > 0 || Number(zkpStaked) === 0}>
-          <SendIcon className={'mr-2'} />
-          {withdrawing ? <Spinner /> : 'Withdraw'}
-        </BaseButton>
+        <div className="relative z-10">
+          <BaseButton
+            onClick={handleWithdraw}
+            disabled={withdrawing || unlockRemainingTime > 0 || Number(zkpStaked) === 0}>
+            <SendIcon className={'mr-2'} />
+            {withdrawing ? <Spinner /> : 'Withdraw'}
+          </BaseButton>
+        </div>
+
         {/* <BaseButton
           onClick={handleWithdrawLP}
           disabled={withdrawingLP || unlockRemainingTime > 0 || Number(lpStaked) === 0}

@@ -160,17 +160,19 @@ const LockForm = ({
           </div>
 
           <div className="button px-8 py-7 ">
-            <BaseButton
-              onClick={handleLock}
-              disabled={
-                locking ||
-                lockTime < unlockRemainingTime ||
-                Number(zkpAmount) > Number(zkpBalance) ||
-                Number(zkpLPAmount) > Number(lpBalance)
-              }>
-              <LockIcon className={'mr-2'} />
-              Lock
-            </BaseButton>
+            <div className="relative z-10">
+              <BaseButton
+                onClick={handleLock}
+                disabled={
+                  locking ||
+                  lockTime < unlockRemainingTime ||
+                  Number(zkpAmount) > Number(zkpBalance) ||
+                  Number(zkpLPAmount) > Number(lpBalance)
+                }>
+                <LockIcon className={'mr-2'} />
+                Lock
+              </BaseButton>
+            </div>
           </div>
         </div>
       </div>
@@ -180,7 +182,7 @@ const LockForm = ({
 
           <div className="flex items-center justify-between">
             <p className="text-primaryClear">Estimated number of lottery tickets earned per IDO</p>
-            <div className="ml-4 bg-white text-24 font-heading px-5 pt-2 pb-1.5 text-primaryClear rounded-xl flex items-center justify-center shadow-purpleLight">
+            <div className="ml-4 bg-white dark:bg-gray3 border-2 border-transparent dark:border-primary text-24 font-heading px-5 pt-2 pb-1.5 text-primaryClear dark:text-white rounded-xl flex items-center justify-center shadow-purpleLight">
               {updatingPreview || !xzkpBalance ? (
                 <Spinner />
               ) : (
@@ -193,7 +195,7 @@ const LockForm = ({
         <div className="block__item">
           <div className="flex justify-between items-center text-primaryClear pt-6">
             <p>Estimated APY</p>
-            <div className="ml-4 bg-white text-24 font-heading px-5 pt-2 pb-1.5 text-primaryClear rounded-xl flex items-center justify-center shadow-purpleLight">
+            <div className="ml-4 bg-white dark:bg-gray3 border-2 border-transparent dark:border-primary text-24 font-heading px-5 pt-2 pb-1.5 text-primaryClear dark:text-white rounded-xl flex items-center justify-center shadow-purpleLight">
               {currentAPY.toFixed(2)}%
             </div>
           </div>

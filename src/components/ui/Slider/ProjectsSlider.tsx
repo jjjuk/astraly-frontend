@@ -19,7 +19,7 @@ const ArrowButton: React.FC<{
 }> = ({ onClick, left, isActive }) => {
   return (
     <div
-      className={`h-14 w-14 bg-primaryClearBg border-2 border-white shadow-purpleDark text-primaryDark flex items-center justify-center rounded-2xl transition-all ${
+      className={`h-14 w-14 bg-primaryClearBg dark:bg-gray3 border-2 border-white dark:border-primary shadow-purpleDark text-primaryDark dark:text-white flex items-center justify-center rounded-2xl transition-all ${
         !isActive ? 'opacity-0' : 'cursor-pointer '
       }`}
       onClick={onClick}

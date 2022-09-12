@@ -97,24 +97,28 @@ const BuyPageContainer = () => {
             <div className="block--contrast">
               <h3 className={'small-title'}>Mint Amount: {mintAmount} ASTR</h3>
 
-              <BaseButton
-                onClick={handleTransfer}
-                disabled={!allowed}
-                className={'px-3 lg:px-12 group'}>
-                Mint
-              </BaseButton>
+              <div className="relative z-10">
+                <BaseButton
+                  onClick={handleTransfer}
+                  disabled={!allowed}
+                  className={'px-3 lg:px-12 group'}>
+                  Mint
+                </BaseButton>
+              </div>
+
               {!allowed && <p>You will be able to mint again in {roundTimer}</p>}
             </div>
             <div className="block__item">
-              <BaseButton
-                onClick={handleToWallet}
-                className={'px-3 lg:px-12 group'}
-                medium={true}
-                small>
-                <WalletIcon className={'mr-3'} />
-                Add ASTR to Wallet
-                <Chevron className={'ml-3 icon-right'} />
-              </BaseButton>
+              <div className="relative z-10">
+                <BaseButton
+                  onClick={handleToWallet}
+                  className={'px-3 lg:px-12 group'}
+                  medium={true}>
+                  <WalletIcon className={'mr-3'} />
+                  Add ASTR to Wallet
+                  <Chevron className={'ml-3 icon-right'} />
+                </BaseButton>
+              </div>
             </div>
           </div>
           <div className="block h-fit">
@@ -123,10 +127,12 @@ const BuyPageContainer = () => {
             </div>
             <div className="block__item">
               <a href="https://testnet.app.alpharoad.fi/" target="_blank" rel="noreferrer">
-                <BaseButton>
-                  <SwapIcon className={'mr-3'} />
-                  AlphaRoad
-                </BaseButton>
+                <div className="relative z-10">
+                  <BaseButton>
+                    <SwapIcon className={'mr-3'} />
+                    AlphaRoad
+                  </BaseButton>
+                </div>
               </a>
             </div>
           </div>
@@ -143,19 +149,23 @@ const BuyPageContainer = () => {
               href={`https://testnet.aspect.co/collection/${Contracts['SN_GOERLI'].lottery_token}`}
               target="_blank"
               rel="noreferrer">
-              <BaseButton>
-                <SwapIcon className={'mr-3'} />
-                Trade on Aspect
-              </BaseButton>
+              <div className="relative z-10">
+                <BaseButton>
+                  <SwapIcon className={'mr-3'} />
+                  Trade on Aspect
+                </BaseButton>
+              </div>
             </a>
             <a
               href={`https://mintsquare.io/collection/starknet-testnet/${Contracts['SN_GOERLI'].lottery_token}/nfts`}
               target="_blank"
               rel="noreferrer">
-              <BaseButton className="mt-5">
-                <SwapIcon className={'mr-3'} />
-                Trade on MintSquare
-              </BaseButton>
+              <div className="relative z-10">
+                <BaseButton className="mt-5">
+                  <SwapIcon className={'mr-3'} />
+                  Trade on MintSquare
+                </BaseButton>
+              </div>
             </a>
           </div>
         </div>

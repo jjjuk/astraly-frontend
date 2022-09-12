@@ -53,7 +53,7 @@ const Toast: React.FC<{ toast: ToastNotification }> = ({ toast }) => {
           <div className="flex mr-20 items-start">
             <div className="icon p-2 mr-2">{getStateIcon(toast.state)}</div>
             <div>
-              <div className="text-12 text-primary">{toast.title}</div>
+              <div className="text-12 ui-t-primary">{toast.title}</div>
               {toast.action}
             </div>
           </div>

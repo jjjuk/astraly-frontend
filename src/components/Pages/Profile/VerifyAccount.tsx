@@ -11,7 +11,9 @@ const VerifyAccount = () => {
       </div>
 
       <div className="block__item">
-        <BaseButton>Submit your KYC</BaseButton>
+        <div className="relative z-10">
+          <BaseButton>Submit your KYC</BaseButton>
+        </div>
       </div>
     </div>
   )

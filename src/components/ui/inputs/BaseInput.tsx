@@ -28,7 +28,7 @@ const BaseInput: React.FC<{
           min={0}
           onChange={onChange}
           step={step}
-          className="outline-0 w-full text-right invalid:border-red-500 focus:invalid:border-red-500"
+          className="outline-0 w-full text-right invalid:border-red-500 focus:invalid:border-red-500 dark:bg-gray3"
           type={type}
           placeholder={placeholder}
         />

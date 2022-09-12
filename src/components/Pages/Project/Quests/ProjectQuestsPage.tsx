@@ -48,8 +48,8 @@ const ProjectQuestsPage = () => {
         <QuestRequirements />
 
         <div className="block mb-4">
-          <div className="bg-primaryClearBg rounded-3xl px-8 py-5">
-            <div className="flex items-center text-primaryDark">
+          <div className="bg-primaryClearBg dark:bg-gray3 rounded-3xl px-8 py-5">
+            <div className="flex items-center text-primaryDark dark:text-white">
               <img src={Lightning} alt={''} />
               <ul className={'list-disc ml-8'}>
                 <li>

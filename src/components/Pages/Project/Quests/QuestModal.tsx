@@ -151,8 +151,8 @@ const QuestModal = ({
             {quest.type === QuestType.PRODUCT ? 'Product' : 'Social'} Quest
           </div>
 
-          <div className="flex items-center text-primaryDark">
-            <div className="text-primaryClear">
+          <div className="flex items-center ui-t-primaryDark">
+            <div className="ui-t-primaryClear">
               <Lightning />
             </div>
             <ul className={'list-disc ml-8'}>
@@ -169,14 +169,14 @@ const QuestModal = ({
           <div className="grid grid-cols-1 md:grid-cols-5 gap-2 mb-10 px-4 ">
             <div
               className={`flex items-center md:col-span-3 ${
-                quest.isClaimed ? 'text-whitePurple' : 'text-primary'
+                quest.isClaimed ? 'ui-t-whitePurple' : 'ui-t-primary'
               }`}>
               <div className="icon flex-shrink-0 mr-4">{getIcon(quest)}</div>
               <div>
                 <div className="">{quest.name}</div>
 
                 <div className="flex font-heading">
-                  <div className="mr-1 text-primary">
+                  <div className="mr-1 ui-t-primary">
                     <Lightning />
                   </div>
                   {quest.description}

@@ -29,3 +29,23 @@
     }
   }
 }
+
+:global(.dark) {
+  .baseToggle {
+    background: #2C2A30;
+    @apply border-2 border-primary;
+    &Item {
+      @apply bg-primaryClearBg;
+      opacity: 0.1;
+      top: 0;
+      left: 0;
+    }
+
+    &Active {
+      @apply bg-white;
+      .baseToggleItem {
+        @apply bg-primary;
+      }
+    }
+  }
+}

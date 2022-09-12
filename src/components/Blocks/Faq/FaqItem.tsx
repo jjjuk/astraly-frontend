@@ -17,11 +17,20 @@ const FaqItem: React.FC<PropsWithChildren<{ question: string }>> = ({ question, 
             isOpen ? 'ui-t-primary mb-2' : 'ui-t-primaryClear'
           )}>
           {question}
-          <Hexagon>
-            <ArrowIcon
-              className={classnames('transform transition', isOpen ? 'rotate-180' : 'rotate-0')}
-            />
-          </Hexagon>
+          <div className="hidden dark:inline-block">
+            <Hexagon fillColor={'#2C2A30'} strokeColor={'#9f24ff'}>
+              <ArrowIcon
+                className={classnames('transform transition', isOpen ? 'rotate-180' : 'rotate-0')}
+              />
+            </Hexagon>
+          </div>
+          <div className="dark:hidden">
+            <Hexagon>
+              <ArrowIcon
+                className={classnames('transform transition', isOpen ? 'rotate-180' : 'rotate-0')}
+              />
+            </Hexagon>
+          </div>
         </div>
         {isOpen && (
           <div className="response text-black dark:text-white font-bold leading-138">

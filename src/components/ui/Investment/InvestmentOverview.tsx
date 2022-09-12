@@ -65,8 +65,8 @@ const InvestmentOverview: React.FC = () => {
           <div className="grid grid-cols-2 xl:grid-cols-4 w-full gap-3">
             {stats.map(([label, value]) => (
               <div key={`${label}-${value}`}>
-                <div className="text-primaryClear">{label}</div>
-                <div className="font-heading text-primaryDark text-[18px] md:text-24">{value}</div>
+                <div className="ui-t-primaryClear">{label}</div>
+                <div className="font-heading ui-t-primaryDark text-[18px] md:text-24">{value}</div>
               </div>
             ))}
           </div>
@@ -84,11 +84,11 @@ const InvestmentOverview: React.FC = () => {
 
         {sortedTransactions?.map((transaction: any) => (
           <div
-            className="grid grid-cols-3 font-heading text-primaryClear bg-primaryClearBg rounded-3xl  px-4 md:px-8 py-6 text-[10px] md:text-12 mb-2"
+            className="grid grid-cols-3 font-heading ui-t-primaryClear bg-primaryClearBg dark:bg-gray3 dark:border dark:border-gray rounded-3xl px-4 md:px-8 py-6 text-[10px] md:text-12 mb-2"
             key={transaction?._id}>
             <div>{transaction?.name}</div>
             <div>{format(new Date(transaction?.timestamp), 'dd MMMM yyyy')}</div>
-            <div className="text-right text-primary">
+            <div className="text-right ui-t-primary">
               <a
                 className="cursor-pointer"
                 href={getVoyagerLink(transaction?.hash)}

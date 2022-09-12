@@ -52,10 +52,10 @@ const CoverImage: FC<{ user?: any }> = ({ user }) => {
   return (
     <label
       htmlFor={'picture'}
-      className="border border-2 border-white bg-primaryClearBg rounded-3xl h-50 flex items-center justify-center overflow-hidden cursor-pointer group">
+      className="border border-2 border-white bg-primaryClearBg dark:bg-gray3 dark:border-primary rounded-3xl h-50 flex items-center justify-center overflow-hidden cursor-pointer group">
       {isSelf && (
         <div
-          className={`border-2 border-primaryClear text-primaryClear font-heading text-12 px-4 rounded-xl py-1 bg-white absolute transition-all ${
+          className={`border-2 border-primaryClear text-primaryClear dark:text-white font-heading text-12 px-4 rounded-xl py-1 bg-white dark:bg-gray3 absolute transition-all ${
             user?.cover ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'
           }`}>
           {user?.cover ? 'Change cover' : 'Add cover image'}

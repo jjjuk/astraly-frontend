@@ -20,3 +20,9 @@
   z-index: 100000;
   overflow: hidden;
 }
+
+:global(.dark) {
+  .toastNotification {
+    @apply bg-gray3;
+  }
+}

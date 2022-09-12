@@ -7,7 +7,7 @@
     width: max-content;
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0;
     opacity: 0;
     pointer-events: none;
     z-index: 100;
@@ -18,5 +18,13 @@
       opacity: 1;
       transform: translateY(10px);
     }
+  }
+}
+
+:global(.dark) {
+  .hintContent {
+   @apply bg-gray3 text-white border-primary;
+
+
   }
 }

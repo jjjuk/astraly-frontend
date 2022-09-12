@@ -23,3 +23,10 @@
     justify-content: center;
   }
 }
+
+:global(.dark) {
+  .Hexagon {
+    color: white;
+  }
+}
+
