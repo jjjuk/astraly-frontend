@@ -38,6 +38,7 @@ const QuestForm = ({ quest }: { quest: Quest }) => {
           idoId: questForm.idoId != null ? Number(questForm.idoId) : null,
           link: questForm.link,
           type: questForm.type,
+          subType: questForm.subType,
           event: {
             name: questForm.event?.name || null,
             transmitterContract: questForm.event?.transmitterContract || null,
@@ -185,6 +186,23 @@ const QuestForm = ({ quest }: { quest: Quest }) => {
               value={questForm.type}
               onInput={(value) =>
                 setField('type')({
+                  target: {
+                    value,
+                  },
+                })
+              }
+            />
+          </AdminInputGroup>
+
+          <AdminInputGroup left={'SubType'} onClick={() => {}}>
+            <BaseButtonsGroup
+              options={[
+                { label: 'Follow', value: 'follow' },
+                { label: 'Retweet', value: 'retweet' },
+              ]}
+              value={questForm.subType || ''}
+              onInput={(value) =>
+                setField('subType')({
                   target: {
                     value,
                   },

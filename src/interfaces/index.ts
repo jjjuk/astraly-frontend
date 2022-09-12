@@ -60,6 +60,7 @@ export interface Quest {
   link: string
   isClaimed?: boolean
   type: QuestType
+  subType?: string
 }
 
 export enum SocialLinkType {

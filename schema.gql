@@ -7,6 +7,7 @@ type Account {
   _id: ID!
   address: String
   alias: String
+  autoBurn: Boolean
   avatar: String
   bannerHash: String
   bio: String
@@ -77,6 +78,7 @@ input OrganizedEventInput {
 
 type Project {
   _id: ID!
+  admission: String
   categories: [String!]
   cover: String
   coverVideo: String
@@ -85,8 +87,11 @@ type Project {
   description: String
   idoId: String
   isFinished: Boolean
+  links: [ProjectDescriptionItem!]
   logo: String
+  maxAllocation: Float
   name: String
+  projectDescription: [ProjectDescriptionItem!]
   quests: [Quest!]
   rounds: [Round!]
   ticker: String
@@ -98,17 +103,31 @@ type Project {
   type: ProjectType
 }
 
+type ProjectDescriptionItem {
+  key: String
+  value: String
+}
+
+input ProjectDescriptionItemInput {
+  key: String
+  value: String
+}
+
 input ProjectInput {
   _id: ID
+  admission: String
   categories: [String!]
   cover: String
+  coverVideo: String
   created: DateTime
   currentRoundId: ID
   description: String
   idoId: String!
+  links: [ProjectDescriptionItemInput]
   logo: String
   maxAllocation: Float
   name: String
+  projectDescription: [ProjectDescriptionItemInput]
   rounds: [RoundInput]
   ticker: String
   tokenAddress: String
@@ -127,11 +146,13 @@ enum ProjectType {
 }
 
 type Query {
-  getAccount(address: String!): Account!
+  getAccount(address: String!): Account
   getMerkleProof(idoId: String!): [String!]!
+  getNumberQuestsCompleted(idoId: String!): Float!
   getToken(address: String!): String!
   getTwitterAuthUrl: String!
   getUploadUrl(fileType: String!): JSON!
+  getUploadUrlAdmin(fileType: String!): JSON!
   hello: String!
   isAdmin: Boolean!
   me: Account!
@@ -152,6 +173,7 @@ type Quest {
   isClaimed: Boolean
   link: String
   name: String
+  subType: String
   type: QuestType
 }
 
@@ -164,6 +186,7 @@ input QuestInput {
   isClaimed: Boolean
   link: String
   name: String
+  subType: String
   type: QuestType
 }
 
@@ -215,6 +238,7 @@ type Uint256 {
 
 input UpdateAccountInputType {
   alias: String
+  autoBurn: Boolean
   avatar: String
   bio: String
   cover: String

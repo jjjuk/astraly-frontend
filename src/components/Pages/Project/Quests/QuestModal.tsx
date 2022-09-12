@@ -135,8 +135,8 @@ const QuestModal = ({
   }
 
   const isTwitter = quest?.type === QuestType.SOCIAL && quest.icon === 'twitter'
-  const followsOnTwitter = user.socialLinks.find((x) => x.type === SocialLinkType.TWITTER)
-  const canSubmit = isTwitter ? followsOnTwitter : url
+  const isTwitterLinked = user.socialLinks.find((x) => x.type === SocialLinkType.TWITTER)
+  const canSubmit = isTwitter ? isTwitterLinked : url
 
   return (
     <BaseModal isOpen={isOpen} onClose={close}>
@@ -212,7 +212,7 @@ const QuestModal = ({
                 <AccountLinks user={user} hideTitle={true} showOnly={['Twitter']} />
               </div>
 
-              {!followsOnTwitter && (
+              {!isTwitterLinked && (
                 <BaseButton
                   className="px-4 ml-4 flex-shrink-0"
                   xSmall={true}
@@ -236,16 +236,16 @@ const QuestModal = ({
             <BaseButton
               className={`${!canSubmit && 'opacity-50 pointer-events-none'} `}
               onClick={() => approve()}>
-              {!url && <img src={SandWatch} alt={''} className={'mr-2'} />}
-              {!url &&
+              {!canSubmit && <img src={SandWatch} alt={''} className={'mr-2'} />}
+              {!canSubmit &&
                 (quest.type === QuestType.PRODUCT
                   ? 'Waiting Hash'
                   : isTwitter
                   ? 'Link your account'
                   : 'Waiting Url')}
 
-              {url && <LikeIcon className={'mr-2'} />}
-              {url && 'Approve Quest'}
+              {canSubmit && <LikeIcon className={'mr-2'} />}
+              {canSubmit && 'Approve Quest'}
             </BaseButton>
           ) : (
             <BaseButton className={`${'opacity-50 pointer-events-none'} `}>
