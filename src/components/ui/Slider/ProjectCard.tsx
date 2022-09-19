@@ -57,11 +57,13 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
   return (
     <Link href={`/project/${project.idoId}`}>
       <div
-        className="ProjectCard bg-white dark:bg-gray3 rounded-3xl w-[744px] max-w-full shrink-0 relative hover:shadow-purpleDark transition-all cursor-pointer hover:border-primary"
+        className="ProjectCard bg-white dark:bg-gray3 rounded-3xl w-[344px] max-w-full shrink-0 relative hover:shadow-purpleDark transition-all cursor-pointer hover:border-primary"
         data-index={index}>
-        <div className="claim absolute top-3 right-3 bg-white border border-whitePurple font-heading text-12 py-0.5 px-3 rounded-md text-primaryClear">
-          {project.currentRoundIndex === -1 ? 'Upcoming' : `${currentRound?.title || ''} Open`}
-        </div>
+        {!project.isFinished && (
+          <div className="claim absolute top-3 right-3 bg-white border border-whitePurple font-heading text-12 py-0.5 px-3 rounded-md text-primaryClear">
+            {project.currentRoundIndex === -1 ? 'Upcoming' : `${currentRound?.title || ''} Open`}
+          </div>
+        )}
         <div className="cover w-full overflow-hidden h-82 rounded-t-3xl">
           <img src={project.cover} alt="" className="w-full h-full object-cover" />
         </div>
@@ -103,9 +105,11 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
           </div>
           <Item label="Total raise">ETH {project.totalRaise}</Item>
           <Item label="Token price">ETH {project.tokenPrice}</Item>
-          <Item label={project.currentRoundIndex === -1 ? 'Round starts in' : 'Round closes in'}>
-            {roundTimer}
-          </Item>
+          {!project.isFinished && (
+            <Item label={project.currentRoundIndex === -1 ? 'Round starts in' : 'Round closes in'}>
+              {roundTimer}
+            </Item>
+          )}
         </div>
       </div>
     </Link>

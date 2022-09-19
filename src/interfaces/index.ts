@@ -41,6 +41,7 @@ export interface Project {
   links?: ProjectItem[]
   projectDescription?: ProjectItem[]
   admission?: string
+  isFinished: boolean
 }
 
 export enum QuestType {

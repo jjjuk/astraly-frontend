@@ -20,7 +20,7 @@ const QuestRequirements = () => {
               <img src={Check} alt={''} className={'mr-2 transform -translate-y-0.5'} />
               Submit your KYC documents
             </div>
-            <BaseButton>
+            <BaseButton disabled>
               <CheckedIcon className={'mr-1'} />
               Submit your KYC
             </BaseButton>

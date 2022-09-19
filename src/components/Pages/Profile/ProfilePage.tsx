@@ -143,13 +143,13 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
-      <div className="g-container">
+      {/* <div className="g-container">
         <div className="font-heading uppercase mb-6 text-primaryClear text-24">
           INVESTED PROJECTS
         </div>
-      </div>
+      </div> */}
 
-      <ProjectsSlider />
+      {/* <ProjectsSlider /> */}
       <div className="h-20"></div>
     </>
   )

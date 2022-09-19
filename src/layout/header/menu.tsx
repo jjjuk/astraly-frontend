@@ -18,10 +18,7 @@ const MenuItem = ({
   const [isCurrentRoute, setIsCurrentRoute] = useState(false)
 
   useEffect(() => {
-    setIsCurrentRoute(
-      router.route === link.href ||
-        (router.route.startsWith('/project') && link.href === '/launchpad')
-    )
+    setIsCurrentRoute(router.route === link.href || router.route.startsWith('/project'))
   }, [router.route])
 
   return (
@@ -61,12 +58,6 @@ const Links = [
     href: '/',
   },
   {
-    text: 'Launchpad',
-    iconOutline: <Launchpad />,
-    iconSolid: <LaunchpadFull />,
-    href: '/launchpad',
-  },
-  {
     text: 'Lock',
     iconOutline: <Lock />,
     iconSolid: <LockFull />,
@@ -83,7 +74,7 @@ const Links = [
 const HeaderMenu = () => {
   const router = useRouter()
   const container = useRef<HTMLDivElement>(null)
-  const [underlineStyle, setUnderLineStyle] = useState({
+  const [underlineStyle, setUnderLineStyle] = useState<any>({
     transform: 'translateX(0)',
     width: '20px',
   })
@@ -92,13 +83,12 @@ const HeaderMenu = () => {
     if (!container.current) {
       return
     }
-    let activeIndex = Links.findIndex(
-      (x) =>
-        x.href === router.route || (router.route.startsWith('/project') && x.href === '/launchpad')
+    const activeIndex = Links.findIndex(
+      (x) => x.href === router.route || router.route.startsWith('/project')
     )
 
     if (activeIndex == -1) {
-      activeIndex = 0
+      setUnderLineStyle({ display: 'none' })
     }
 
     const element: any = container.current.querySelector(

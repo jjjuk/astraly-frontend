@@ -12,7 +12,7 @@ const VerifyAccount = () => {
 
       <div className="block__item">
         <div className="relative z-10">
-          <BaseButton>Submit your KYC</BaseButton>
+          <BaseButton disabled>Submit your KYC</BaseButton>
         </div>
       </div>
     </div>

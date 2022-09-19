@@ -33,7 +33,7 @@ const titles: { [key: string]: string | ReactNode } = {
 const ProjectHeader = ({ project }: { project?: Project }) => {
   const router = useRouter()
   const [steps, setSteps] = useState([
-    { href: '/launchpad', label: 'Launchpad' },
+    { href: '/', label: 'Launchpad' },
     { href: `/project/${project?.idoId}`, label: project?.name },
   ])
   const [title, setTitle] = useState<string | ReactNode>('')
@@ -41,7 +41,7 @@ const ProjectHeader = ({ project }: { project?: Project }) => {
 
   useEffect(() => {
     const steps = [
-      { href: '/launchpad', label: 'Launchpad' },
+      { href: '/', label: 'Launchpad' },
       { href: `/project/${project?.idoId}`, label: project?.name },
     ]
     let title: string | ReactNode = project?.name || ''

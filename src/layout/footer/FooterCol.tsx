@@ -6,7 +6,9 @@ export const FooterLink: FC<{
 }> = ({ href, children }) => {
   return (
     <Link href={href}>
-      <a className="font-bold leading-15">{children}</a>
+      <a className="font-bold leading-15" target="__blank">
+        {children}
+      </a>
     </Link>
   )
 }

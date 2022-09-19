@@ -3,6 +3,14 @@
 @tailwind utilities;
 @import 'ui-utils';
 
+@layer base {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
 .g-container {
   @apply mx-auto px-4 md:px-4 lg:px-10 xl:px-20 w-full;
   @screen md {
@@ -71,16 +79,16 @@ body {
   }
 
   &::-webkit-scrollbar-track {
-    background: #2C2A30;
+    background: #2c2a30;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #8F00FF;
+    background: #8f00ff;
     border-radius: 8px;
   }
 
   scrollbar-width: thin;
-  scrollbar-color: #8F00FF #2C2A30;
+  scrollbar-color: #8f00ff #2c2a30;
 }
 
 #__next {
@@ -141,7 +149,7 @@ body {
 
   html.dark & {
     &::after {
-      opacity: .3;
+      opacity: 0.3;
     }
   }
 

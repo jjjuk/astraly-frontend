@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect, useMemo, useState } from 'react'
 
 import { format } from 'date-fns'
@@ -13,6 +15,7 @@ const InvestmentOverview: React.FC = () => {
   const { deposits } = useWallet()
 
   const { user } = useSelector((state: RootState) => state.Auth)
+  const [seeMore, setSeeMore] = useState(false)
 
   const fetchInformation = async () => {
     try {
@@ -44,11 +47,12 @@ const InvestmentOverview: React.FC = () => {
 
   const sortedTransactions = useMemo(() => {
     if (user?.transactions) {
-      return [...user.transactions].sort(
+      const _txs = [...user.transactions].sort(
         (a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
       )
+      return seeMore ? _txs : _txs.splice(0, 10)
     }
-  }, [user])
+  }, [user, seeMore])
 
   return (
     <div className="block">
@@ -99,6 +103,11 @@ const InvestmentOverview: React.FC = () => {
             </div>
           </div>
         ))}
+        <div
+          className="title--small mt-5 ml-2 md:ml-o text-center hover:cursor-pointer"
+          onClick={() => setSeeMore(!seeMore)}>
+          Click to see {seeMore ? 'less' : 'more'}
+        </div>
       </div>
     </div>
   )

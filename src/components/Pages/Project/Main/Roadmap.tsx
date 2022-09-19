@@ -10,9 +10,9 @@ import FireIcon from 'assets/icons/solid/Fire.svg?inline'
 import ChartIcon from 'assets/icons/solid/Chart.svg?inline'
 
 const stepsText: { [key: Round['title']]: string | ReactNode[] } = {
-  'Ticket Claim': ['Ticket Claim open', 'Claimed', 'claim', <SendIcon key={'claim'} />],
-  Allocation: ['Burn lottery tickets', 'Tickets burned', 'burn', <FireIcon key={'burn'} />],
-  Purchase: ['Buy and invest', 'Invested', 'buy', <CartIcon key={'buy'} />],
+  'Ticket Claim': ['Ticket Claim open', 'Ticket Claim closed', 'claim', <SendIcon key={'claim'} />],
+  Allocation: ['Burn lottery tickets', 'Tickets Burn Closed', 'burn', <FireIcon key={'burn'} />],
+  Purchase: ['Buy and invest', 'Investing Closed', 'buy', <CartIcon key={'buy'} />],
   Distribution: ['Portfolio', 'Portfolio', 'portfolio', <ChartIcon key={'portfolio'} />],
 }
 

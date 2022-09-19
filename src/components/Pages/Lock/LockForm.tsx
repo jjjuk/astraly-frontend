@@ -36,7 +36,7 @@ const LockForm = ({
 
   const [locking, setLocking] = useState(false)
 
-  const [zkpAmount, setZKPAmount] = useState('10.0')
+  const [zkpAmount, setZKPAmount] = useState('0')
   const [zkpLPAmount, setZKPLPAmount] = useState('0')
 
   const [previewXZKP, setPreviewXZKP] = useState('0')

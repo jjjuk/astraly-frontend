@@ -45,7 +45,7 @@ const ProjectQuestsPage = () => {
   return (
     <>
       <ProjectLayout project={project}>
-        <QuestRequirements />
+        {/* <QuestRequirements /> */}
 
         <div className="block mb-4">
           <div className="bg-primaryClearBg dark:bg-gray3 rounded-3xl px-8 py-5">
