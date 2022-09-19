@@ -199,8 +199,8 @@ const QuestModal = ({
                 {/* <li>Swap</li> */}
                 <li>
                   Paste the hash of transaction on{' '}
-                  <a href={'https://voyager.online/'} className="font-bold text-primary">
-                    voyager
+                  <a href={'https://starkscan.co/'} className="font-bold text-primary">
+                    starkscan
                   </a>
                 </li>
               </ul>

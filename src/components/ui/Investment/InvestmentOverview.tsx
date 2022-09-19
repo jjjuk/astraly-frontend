@@ -98,7 +98,7 @@ const InvestmentOverview: React.FC = () => {
                 href={getVoyagerLink(transaction?.hash)}
                 target="_blank"
                 rel="noreferrer">
-                View on Voyager
+                View on StarkScan
               </a>
             </div>
           </div>
