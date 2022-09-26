@@ -2,12 +2,12 @@ import FooterCTA from './FooterCTA'
 import FooterCol, { FooterLink } from './FooterCol'
 import TwitterIcon from '../../assets/icons/currentColor/Twitter.svg?inline'
 import {
-  DiscordLink,
-  DocsLink,
+  // DiscordLink,
+  // DocsLink,
   GitHubLink,
   TelegramLink,
   TwitterLink,
-  WhitepaperLink,
+  // WhitepaperLink,
 } from '../../constants'
 import GithubIcon from '../../assets/icons/currentColor/Github.svg?inline'
 import TelegramIcon from '../../assets/icons/currentColor/Telegram.svg?inline'
@@ -26,6 +26,7 @@ import HeartOutline from 'assets/icons/currentColor/Heart--outline.svg?inline'
 import Horizontal from '../../components/ui/Separator/Horizontal'
 import StarkNetLogoDark from '../../assets/images/Starknet-logo-white.svg'
 import ThemeSwitcher from '../../components/ui/ThemeSwitcher'
+import { useRouter } from 'next/router'
 
 const Links = [
   [<TwitterIcon key="1" />, 'Twitter', TwitterLink],
@@ -49,9 +50,11 @@ const Item = ({ icon, label, href }: { icon: React.ReactNode; label: string; hre
 
 const FooterIndex = () => {
   const year = format(new Date(), 'yyyy')
+  const { pathname } = useRouter()
   return (
     <footer className="FooterIndex ui-page-block">
-      <FooterCTA />
+      {/* TODO: This is temporary solution */}
+      {!pathname.includes('auth') ? <FooterCTA /> : null}
 
       <div className="g-container pt-24">
         <div className="grid md:grid-cols-4 lg:grid-cols-5 justify-center gap-y-10 text-center md:text-left">

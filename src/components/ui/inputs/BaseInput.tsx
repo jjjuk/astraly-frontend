@@ -3,7 +3,7 @@ import React, { useRef, useCallback } from 'react'
 import InputGroup from './InputGroup'
 
 const BaseInput: React.FC<{
-  label?: string
+  label?: string | React.ReactNode
   value: string
   onChange: React.ChangeEventHandler<HTMLInputElement>
   max?: number
@@ -11,6 +11,7 @@ const BaseInput: React.FC<{
   step?: number
   type?: string
   placeholder?: string
+  placeholderColor?: 'primary'
 }> = ({ label, value, onChange, max, size = 'md', step, type = 'number', placeholder }) => {
   const input = useRef<HTMLInputElement>(null)
 
@@ -19,7 +20,7 @@ const BaseInput: React.FC<{
   }, [input.current])
 
   return (
-    <InputGroup left={<span>{label}</span>} onClick={handleClick} size={size}>
+    <InputGroup label={<span>{label}</span>} onClick={handleClick} size={size}>
       <div className="input">
         <input
           ref={input}

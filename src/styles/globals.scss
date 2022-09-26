@@ -215,6 +215,7 @@ body {
   }
 
   &.bg-whitePurple {
+    @apply dark:bg-primaryClearBgDark;
     background: #faf3ff;
   }
 
@@ -224,7 +225,6 @@ body {
       transform: translateY(-5px);
     }
   }
-  // filter: drop-shadow(0px 16px 24px rgba(55, 0, 99, 0.1));
 }
 
 .block {
@@ -251,9 +251,23 @@ body {
   }
 }
 
+@layer components {
+  .auth-text-shadow {
+    text-shadow: 0px -1px 0px #fff, 0px -14px 14px #fff, 0px 10px 14px rgba(126, 26, 255, 0.24);
+
+    &__dark {
+      text-shadow: 0px -1px 0px #000, 0px -14px 14px #000, 0px 10px 14px rgba(126, 26, 255, 0.24);
+    }
+  }
+}
+
 .page-title {
-  @apply text-[32px] lg:text-40 xl:text-[44px]  font-heading uppercase ui-t-dark text-shadow;
+  @apply text-[32px] lg:text-40 xl:text-[44px] font-heading uppercase ui-t-dark text-shadow;
   text-shadow: #8f00ff -2px 2px 0;
+
+  &__auth {
+    @apply text-[76px] auth-text-shadow dark:auth-text-shadow__dark dark:text-primaryClear;
+  }
 }
 
 .small-title {

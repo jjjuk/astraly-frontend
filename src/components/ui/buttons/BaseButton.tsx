@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { HTMLAttributeReferrerPolicy } from 'react'
 import classnames from 'classnames'
 import styles from './Buttons.module.scss'
 
@@ -13,6 +13,7 @@ const BaseButton: React.FC<
     white?: boolean
     onClick?: React.MouseEventHandler<HTMLDivElement>
     type?: 'primary' | 'secondary'
+    spanProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
   }>
 > = ({
   className,
@@ -25,6 +26,7 @@ const BaseButton: React.FC<
   onClick,
   white,
   type = 'primary',
+  spanProps,
 }) => {
   const classes = classnames(
     'BaseButton',
@@ -43,7 +45,7 @@ const BaseButton: React.FC<
 
   return (
     <div className={classes} onClick={onClick} role="button" tabIndex={0} onKeyUp={() => {}}>
-      <span>{children}</span>
+      <span {...spanProps}>{children}</span>
     </div>
   )
 }

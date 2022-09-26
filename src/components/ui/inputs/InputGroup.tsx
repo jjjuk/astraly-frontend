@@ -3,11 +3,12 @@ import classnames from 'classnames'
 
 const InputGroup: React.FC<
   React.PropsWithChildren<{
-    left: React.ReactNode
+    label: React.ReactNode
     onClick: React.MouseEventHandler<HTMLDivElement>
     size?: 'sm' | 'md' | 'xl'
+    alignLabel?: 'left' | 'right' | 'center'
   }>
-> = ({ children, left, onClick, size }) => {
+> = ({ children, label, onClick, size, alignLabel = 'left' }) => {
   return (
     <div
       className={classnames(
@@ -34,7 +35,7 @@ const InputGroup: React.FC<
       role="button"
       tabIndex={0}
       onKeyUp={() => {}}>
-      <div className="left whitespace-nowrap mr-2">{left}</div>
+      <div className={classnames(alignLabel, 'whitespace-nowrap', 'mr-2')}>{label}</div>
       <div className="input w-full">{children}</div>
     </div>
   )
