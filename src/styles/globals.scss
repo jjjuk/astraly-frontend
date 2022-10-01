@@ -285,5 +285,9 @@ body {
   }
 }
 
+.icon_invalid svg path {
+  fill: theme('colors.red.500') !important;
+}
+
 @import 'animations';
 @import 'ui';

@@ -149,7 +149,14 @@
 
 :global(.dark) {
   .baseButton {
-    background: #2C2A30;
+    background: #2c2a30;
+
+    &.baseButtonAuth {
+      background: linear-gradient(360deg, #9f24ff 0%, #7e1aff 50%);
+      &.baseButtonDisabled {
+        background: none;
+      }
+    }
 
     &.baseButtonDisabled {
       @apply text-white;

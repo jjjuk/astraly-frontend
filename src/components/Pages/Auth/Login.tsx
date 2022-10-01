@@ -1,48 +1,36 @@
 import React, { Fragment } from 'react'
 
 import Container from 'components/ui/Container'
-import TextInput from 'components/ui/inputs/TextInput'
+import { WalletIcon } from 'components/ui/Icons/Icons'
+
 import BaseButton from 'components/ui/buttons/BaseButton'
 import Horizontal from 'components/ui/Separator/Horizontal'
 
-import Email from 'assets/icons/Envelope.svg?inline'
-import Key from 'assets/icons/Key.svg?inline'
 import Logo from 'assets/images/logo.svg'
 import LogoDark from 'assets/images/logo--dark.svg'
 import Chevron from 'assets/icons/Chevron.svg?inline'
-import LoginIcon from 'assets/icons/Login.svg?inline'
 import Twitter from 'assets/icons/outline/Brands/Twitter.svg?inline'
+import Google from 'assets/icons/outline/Brands/Google.svg?inline'
 
-import Illustration from 'assets/images/illustration-auth.svg?inline'
+import AuthForm from './AuthForm'
+import AuthIllustration from './AuthIllustration'
 
-import Coin from 'assets/animations/auth-coin.gif'
-
-type Form = { email: string; password: string }
-
-const initialForm: Form = { email: '', password: '' }
+import { useRouter } from 'next/router'
 
 const Login = () => {
-  const [form, setForm] = React.useState<Form>(initialForm)
-
-  const setEmail: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setForm((form) => ({ ...form, email: e.target.value }))
+  const router = useRouter()
+  const onAlternativeClick = () => {
+    router.push('/auth/signup')
   }
-  const setPassword: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setForm((form) => ({ ...form, password: e.target.value }))
-  }
+  
   return (
     <Fragment>
-      <div className="ui-page-block auth">
-        <Illustration style={{ position: 'absolute', marginTop: '-60px', right: '0px' }} />
-        <img
-          src={Coin.src}
-          alt="Coin"
-          style={{ position: 'absolute', marginTop: '-42px', right: '382px', height: '472px' }}
-        />
-      </div>
+      <AuthIllustration />
       <Container>
-        <div className="page-title__auth ui-t-dark font-heading uppercase leading-131">Login</div>
-        <div className="flex row-auto h-14 items-center mb-5">
+        <div className="page-title__auth ui-t-dark font-heading uppercase leading-131 text-center lg:text-left">
+          Login
+        </div>
+        <div className="flex row-auto h-14 items-center mb-5 justify-center lg:justify-start">
           <p className="text-24">Welcome back to Astraly!</p>
           <img src={Logo} height="42" width="42" alt="Astraly logo" className="dark:hidden ml-3" />
           <img
@@ -54,46 +42,9 @@ const Login = () => {
           />
         </div>
 
-        <div className="block bg-whitePurple px-8 py-9 max-w-436">
-          <div className="mb-28px">
-            <TextInput
-              icon={<Email />}
-              label="Email"
-              placeholder="satoshi@astraly.xyz"
-              value={form.email}
-              type="email"
-              onChange={setEmail}
-            />
-          </div>
-          <div>
-            <TextInput
-              icon={<Key />}
-              label="Password"
-              placeholder="***************************"
-              value={form.password}
-              type="password"
-              onChange={setPassword}
-            />
-          </div>
-          <div className="flex h-10 items-center">
-            <a href="/" style={{ display: 'block' }} className="text-right font-medium w-full">
-              Forgot password?
-            </a>
-          </div>
-          <div className="mt-4">
-            <BaseButton
-              spanProps={{
-                className: 'w-full items-center',
-                style: { justifyContent: 'space-between' },
-              }}
-              className="px-7">
-              <span>
-                <LoginIcon className="mr-5" style={{ marginTop: '-4px' }} />
-                Login Now
-              </span>
-              <Chevron className={'icon-right ml-3'} />
-            </BaseButton>
-          </div>
+        <div className="block bg-whitePurple px-8 py-9 max-w-436 mx-auto lg:mx-0">
+          <AuthForm />
+
           <div className="flex h-5 items-center my-4">
             <Horizontal />
           </div>
@@ -104,9 +55,13 @@ const Login = () => {
                 className: 'w-full items-center',
                 style: { justifyContent: 'space-between' },
               }}
-              className="px-7">
-              <span className="text-xs text-primaryClear">
-                <Twitter height={24} className="mr-5" style={{ marginTop: '-4px' }} />
+              className="px-7 outlined_button">
+              <span className="text-xs text-primaryClear secondary_button_label">
+                <Twitter
+                  height={24}
+                  className="mr-5 secondary_button_icon"
+                  style={{ marginTop: '-4px' }}
+                />
                 Sign in with Twitter
               </span>
               <Chevron className={'icon-right ml-3'} />
@@ -119,9 +74,13 @@ const Login = () => {
                 className: 'w-full items-center',
                 style: { justifyContent: 'space-between' },
               }}
-              className="px-7">
-              <span className="text-xs text-primaryClear">
-                <Twitter height={24} className="mr-5" style={{ marginTop: '-4px' }} />
+              className="px-7 outlined_button">
+              <span className="text-xs text-primaryClear secondary_button_label">
+                <Google
+                  height={24}
+                  className="mr-5 secondary_button_icon"
+                  style={{ marginTop: '-4px' }}
+                />
                 Sign in with Google
               </span>
               <Chevron className={'icon-right ml-3'} />
@@ -129,6 +88,33 @@ const Login = () => {
           </div>
           <div className="flex h-5 items-center my-4">
             <Horizontal />
+          </div>
+          <div className="grid grid-cols-2">
+            <div className="flex justify-center py-2 text-right self-center">
+              <p>
+                Don’t have an
+                <br />
+                account?
+              </p>
+            </div>
+            <div className="flex justify-center py-2 px-2">
+              <BaseButton
+                type="secondary"
+                onClick={onAlternativeClick}
+                spanProps={{
+                  className: 'items-center',
+                  style: { justifyContent: 'space-between' },
+                }}
+                className="px-7 outlined_button">
+                <span
+                  style={{ whiteSpace: 'nowrap', marginTop: -4 }}
+                  className="text-xs text-primaryClear secondary_button_label">
+                  <WalletIcon className={'mr-3 secondary_button_icon'} />
+                  Sign Up
+                </span>
+                <Chevron className={'icon-right ml-3'} />
+              </BaseButton>
+            </div>
           </div>
         </div>
       </Container>

@@ -1,0 +1,12 @@
+.visibilityButton {
+  cursor: pointer;
+
+  & > svg {
+    & > path {
+      fill: #9D69DE;
+      html.dark & {
+        fill: #fff;
+      }
+    }
+  }
+}

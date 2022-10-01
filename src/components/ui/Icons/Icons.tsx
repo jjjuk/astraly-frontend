@@ -3,13 +3,15 @@ import classnames from 'classnames'
 
 import styles from './Icons.module.scss'
 
-const IconTemplate: React.FC<{
-  outline: React.ReactNode
-  solid: React.ReactNode
-  className?: string
-}> = ({ outline, solid, className }) => {
+const IconTemplate: React.FC<
+  {
+    outline: React.ReactNode
+    solid: React.ReactNode
+    className?: string
+  } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+> = ({ outline, solid, className, ...props }) => {
   return (
-    <div className={classnames(styles.icon, className, 'animatedIcon')}>
+    <div className={classnames(styles.icon, className, 'animatedIcon')} {...props}>
       <div className={classnames(styles.iconIcon, className, 'animatedIconOutline')}>{outline}</div>
       <div className={classnames(styles.iconIcon, className, 'animatedIconSolid')}>{solid}</div>
     </div>
@@ -19,7 +21,12 @@ const IconTemplate: React.FC<{
 import Wallet from 'assets/icons/outline/Wallet.svg?inline'
 import WalletSolid from 'assets/icons/solid/Wallet.svg?inline'
 
-export const WalletIcon: React.FC<{ className?: string }> = (props) => {
+export const WalletIcon: React.FC<
+  { className?: string } & React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  >
+> = (props) => {
   return <IconTemplate outline={<Wallet />} solid={<WalletSolid />} {...props} />
 }
 
@@ -87,6 +94,7 @@ export const FireIcon: React.FC<{ className?: string }> = (props) => {
 }
 
 import Swap from 'assets/icons/currentColor/Swap.svg?inline'
+import { ProfilePageJsonLd } from 'next-seo'
 // import SwapSolid from 'assets/icons/currentColor/Swap.svg?inline'
 
 export const SwapIcon: React.FC<{ className?: string }> = (props) => {

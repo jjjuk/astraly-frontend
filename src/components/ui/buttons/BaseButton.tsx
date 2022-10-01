@@ -1,6 +1,7 @@
 import React, { HTMLAttributeReferrerPolicy } from 'react'
 import classnames from 'classnames'
 import styles from './Buttons.module.scss'
+import { Auth } from 'reducers/auth.reducers'
 
 const BaseButton: React.FC<
   React.PropsWithChildren<{
@@ -8,6 +9,7 @@ const BaseButton: React.FC<
     small?: boolean
     xSmall?: boolean
     medium?: boolean
+    auth?: boolean
     disabled?: boolean
     inline?: boolean
     white?: boolean
@@ -21,6 +23,7 @@ const BaseButton: React.FC<
   small,
   xSmall,
   medium,
+  auth,
   disabled,
   inline,
   onClick,
@@ -35,6 +38,7 @@ const BaseButton: React.FC<
     {
       [styles.baseButtonSmall]: small,
       [styles.baseButtonXSmall]: xSmall,
+      [styles.baseButtonAuth]: auth,
       [styles.baseButtonDisabled]: disabled,
       [styles.baseButtonInline]: inline,
       [styles.baseButtonWhite]: white,
