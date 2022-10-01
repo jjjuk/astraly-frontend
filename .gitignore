@@ -40,3 +40,5 @@ yarn-error.log*
 public/assets
 
 /.vscode
+
+package-lock.json
