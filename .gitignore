@@ -37,7 +37,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-public/assets
+public/assets/*
+!public/assets/svgs
+
 
 /.vscode
 
