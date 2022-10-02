@@ -39,6 +39,7 @@ yarn-error.log*
 
 public/assets/*
 !public/assets/svgs
+!public/assets/imgs
 
 
 /.vscode
