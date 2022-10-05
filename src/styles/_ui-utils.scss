@@ -57,8 +57,15 @@
   }
 }
 
+.highlight_shadow {
+  box-shadow: 0px 21px 21px rgba(55, 0, 99, 0.06), 0px -7px 37px #fff !important;
+  html.dark & {
+    box-shadow: 0px 21px 21px rgba(55, 0, 99, 0.06), 0px -7px 37px #161616 !important;
+  }
+}
+
 .secondary_button_icon path {
-  fill: #9D69DE;
+  fill: #9d69de;
   transition: fill 0.2s ease;
 }
 

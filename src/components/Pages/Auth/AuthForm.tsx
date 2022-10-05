@@ -34,8 +34,8 @@ const initialForm: Form = {
 }
 
 const AuthForm: React.FC<{
-  signup?: boolean
-}> = ({ signup = false }) => {
+  signUp?: boolean
+}> = ({ signUp = false }) => {
   const [form, setForm] = React.useState<Form>(initialForm)
 
 
@@ -61,7 +61,7 @@ const AuthForm: React.FC<{
           draft.visible = false
         })
       )
-    signup &&
+    signUp &&
       setForm(
         produce(form, (draft) => {
           draft.errors.password = !!form.payload.password && !schema.validate(form.payload.password)
@@ -101,7 +101,7 @@ const AuthForm: React.FC<{
     !form.payload.password ||
     form.errors.password ||
     form.errors.email ||
-    (signup && !form.agree)
+    (signUp && !form.agree)
 
   return (
     <React.Fragment>
@@ -122,7 +122,7 @@ const AuthForm: React.FC<{
           icon={<Key />}
           spellCheck={false}
           label="Password"
-          placeholder="••••••••••••••••••"
+          placeholder="*******************"
           value={form.payload.password}
           type={form.visible ? 'text' : 'password'}
           onChange={setPassword}
@@ -139,10 +139,10 @@ const AuthForm: React.FC<{
       </div>
       <div
         className={classNames('flex', 'h-10', 'items-center', 'justify-end', {
-          ['my-3']: signup,
+          ['my-3']: signUp,
           ['text-red-500']: form.errors.password,
         })}>
-        {!signup ? (
+        {!signUp ? (
           <a href="/" style={{ display: 'block' }} className="text-right font-medium">
             Forgot password?
           </a>
@@ -152,7 +152,7 @@ const AuthForm: React.FC<{
           </p>
         )}
       </div>
-      {!!signup && (
+      {!!signUp && (
         <div className="my-6 flex items-center">
           <CheckBox id="terms-and-conditions-checkbox" value={form.agree} onClick={onAgreeClick} />
           <p className="mx-6">
@@ -176,7 +176,7 @@ const AuthForm: React.FC<{
           onClick={submit}>
           <span>
             <LoginIcon className="mr-5" />
-            {signup ? 'Create Account' : 'Login Now'}
+            {signUp ? 'Create Account' : 'Login Now'}
           </span>
           <Chevron className={'icon-right ml-3'} />
         </BaseButton>

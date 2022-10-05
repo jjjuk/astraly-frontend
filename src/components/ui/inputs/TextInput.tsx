@@ -43,9 +43,9 @@ const TextInput: React.FC<{
       {!!label && (
         <div className={classNames('flex', 'mb-1')}>
           <div
-            className={classNames('ml-3', 'font-bold', 'text-16', {
+            className={classNames('ml-3', 'font-medium', 'text-16', {
               ['text-red-500']: error,
-              ['text-primaryDark']: !error,
+              ['text-midPurple']: !error,
               ['dark:text-whitePurple']: !error,
             })}>
             {label}
@@ -66,18 +66,24 @@ const TextInput: React.FC<{
             spellCheck={spellCheck}
             onChange={onChange}
             onBlur={onBlur}
+            style={{ marginBottom: -4 }}
             className={classNames(
               'dark:placeholder-white',
               'placeholder-primaryClear',
               'text-base',
               'font-sans',
+              'font-bold',
               'outline-0',
               'w-full',
               'text-left',
               'invalid:border-red-500',
               'focus:invalid:border-red-500',
               'dark:bg-gray3',
-              { ['invalid_input']: error, ['dark:text-white']: !error }
+              {
+                ['invalid_input']: error,
+                ['dark:text-white']: !error,
+                ['text-primaryDark']: !error,
+              }
             )}
             type={type}
             placeholder={placeholder}

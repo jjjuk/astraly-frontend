@@ -9,20 +9,19 @@ import Horizontal from 'components/ui/Separator/Horizontal'
 import Logo from 'assets/images/logo.svg'
 import LogoDark from 'assets/images/logo--dark.svg'
 import Chevron from 'assets/icons/Chevron.svg?inline'
-import Twitter from 'assets/icons/outline/Brands/Twitter.svg?inline'
-import Google from 'assets/icons/outline/Brands/Google.svg?inline'
 
 import AuthForm from './AuthForm'
 import AuthIllustration from './AuthIllustration'
 
 import { useRouter } from 'next/router'
+import SocialsAuth from './SocialsAuth'
 
 const Login = () => {
   const router = useRouter()
   const onAlternativeClick = () => {
     router.push('/auth/signup')
   }
-  
+
   return (
     <Fragment>
       <AuthIllustration />
@@ -48,71 +47,33 @@ const Login = () => {
           <div className="flex h-5 items-center my-4">
             <Horizontal />
           </div>
-          <div className="mt-4">
-            <BaseButton
-              type="secondary"
-              spanProps={{
-                className: 'w-full items-center',
-                style: { justifyContent: 'space-between' },
-              }}
-              className="px-7 outlined_button">
-              <span className="text-xs text-primaryClear secondary_button_label">
-                <Twitter
-                  height={24}
-                  className="mr-5 secondary_button_icon"
-                  style={{ marginTop: '-4px' }}
-                />
-                Sign in with Twitter
-              </span>
-              <Chevron className={'icon-right ml-3'} />
-            </BaseButton>
-          </div>
-          <div className="mt-2">
-            <BaseButton
-              type="secondary"
-              spanProps={{
-                className: 'w-full items-center',
-                style: { justifyContent: 'space-between' },
-              }}
-              className="px-7 outlined_button">
-              <span className="text-xs text-primaryClear secondary_button_label">
-                <Google
-                  height={24}
-                  className="mr-5 secondary_button_icon"
-                  style={{ marginTop: '-4px' }}
-                />
-                Sign in with Google
-              </span>
-              <Chevron className={'icon-right ml-3'} />
-            </BaseButton>
-          </div>
+          <SocialsAuth />
           <div className="flex h-5 items-center my-4">
             <Horizontal />
           </div>
+
           <div className="grid grid-cols-2">
-            <div className="flex justify-center py-2 text-right self-center">
+            <div className="flex py-2 text-left self-center">
               <p>
                 Don’t have an
                 <br />
                 account?
               </p>
             </div>
-            <div className="flex justify-center py-2 px-2">
+            <div className="flex items-center justify-end">
               <BaseButton
                 type="secondary"
                 onClick={onAlternativeClick}
                 spanProps={{
-                  className: 'items-center',
-                  style: { justifyContent: 'space-between' },
+                  className: 'flex items-center justify-center',
                 }}
-                className="px-7 outlined_button">
+                className="px-6 outlined_button">
                 <span
                   style={{ whiteSpace: 'nowrap', marginTop: -4 }}
                   className="text-xs text-primaryClear secondary_button_label">
                   <WalletIcon className={'mr-3 secondary_button_icon'} />
                   Sign Up
                 </span>
-                <Chevron className={'icon-right ml-3'} />
               </BaseButton>
             </div>
           </div>

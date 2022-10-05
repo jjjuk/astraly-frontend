@@ -35,6 +35,7 @@ module.exports = {
         primary: '#8F00FF',
         primaryClearBg: '#FAF3FF',
         whitePurple: '#C89CFF',
+        midPurple: '#8A6AB1',
         gray: '#898989',
         bgPurple: 'rgba(143, 0, 255, 0.05)',
         primaryClearBgDark: '#161616',

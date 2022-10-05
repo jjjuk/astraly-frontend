@@ -33,7 +33,6 @@ const BaseButton: React.FC<
 }) => {
   const classes = classnames(
     'BaseButton',
-    className,
     styles.baseButton,
     {
       [styles.baseButtonSmall]: small,
@@ -44,7 +43,8 @@ const BaseButton: React.FC<
       [styles.baseButtonWhite]: white,
       [styles.baseButtonMedium]: medium,
     },
-    styles[`baseButtonType__${type}`]
+    styles[`baseButtonType__${type}`],
+    className
   )
 
   return (

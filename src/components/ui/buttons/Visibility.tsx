@@ -1,6 +1,6 @@
 import React from 'react'
-import VisabilityIcon from 'assets/icons/Visibility.svg?inline'
-import VisabilityOffIcon from 'assets/icons/VisibilityOff.svg?inline'
+import VisibilityIcon from 'assets/icons/solid/Eye.svg?inline'
+import VisibilityOffIcon from 'assets/icons/solid/Eye-closed.svg?inline'
 import styles from './Visibility.module.scss'
 import classNames from 'classnames'
 
@@ -11,7 +11,7 @@ const Visibility: React.FC<{
 }> = ({ visible, onClick, className = '' }) => {
   return (
     <div className={classNames(className, styles.visibilityButton)} onClick={onClick}>
-      {!visible ? <VisabilityIcon /> : <VisabilityOffIcon />}
+      {!visible ? <VisibilityIcon /> : <VisibilityOffIcon />}
     </div>
   )
 }
