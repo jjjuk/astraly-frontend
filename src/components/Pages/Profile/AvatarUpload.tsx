@@ -8,13 +8,17 @@ import { useAppDispatch } from '../../../hooks/hooks'
 import HexagonImage from '../../ui/HexagonImage'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { isSameAddress } from '../../../utils'
+import { useStore } from 'react-redux'
 
 const AvatarUpload: FC<{ user?: any }> = ({ user }) => {
   const { fileName, fileContents, fileType, fileDispatch, handleFileChange } = useFileChange()
   const { account } = useStarknetReact()
-  const isSelf = isSameAddress(account?.address, user?.address)
   const [mutateFunction] = useMutation(UPDATE_PROFILE)
   const dispatch = useAppDispatch()
+  const store = useStore()
+  
+  // @ts-ignore
+  const isSelf = user?._id === store.getState().Auth.user._id
 
   const handleUpload = async () => {
     if (!fileName) {

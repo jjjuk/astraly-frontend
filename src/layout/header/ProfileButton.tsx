@@ -5,9 +5,10 @@ import ProfileTooltip from './ProfileTooltip'
 import { useState } from 'react'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { truncateAddress } from 'utils'
+import { useTooltip } from 'context/TooltipProvider'
 
 const ProfileButton = () => {
-  const [showTooltip, setShowTooltip] = useState(false)
+  const { showTooltip, setShowTooltip } = useTooltip()
   const { account } = useStarknetReact()
   return (
     <>

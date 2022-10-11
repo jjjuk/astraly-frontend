@@ -2,10 +2,10 @@ import { UserFragment } from './gql/fragments'
 
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET'
 
-// const corsHeader = {
-//   'Access-Control-Allow-Origin': '*',
-//   'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-// }
+const corsHeader = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+}
 
 import { ApolloClient, InMemoryCache, gql, ApolloLink, concat, HttpLink } from '@apollo/client'
 import getConfig from 'next/config'
@@ -23,6 +23,7 @@ export const useApi = () => {
     operation.setContext({
       headers: {
         authorization: token ? `Bearer ${token}` : '',
+        ...corsHeader,
       },
     })
     return forward(operation)
@@ -60,6 +61,55 @@ export const useApi = () => {
       })
   }
 
+  const login = async (variables: { email: string; password: string }) => {
+    const { data } = await client.mutate({
+      variables,
+      mutation: gql`
+        mutation login($email: String!, $password: String!) {
+          login(email: $email, password: $password)
+        }
+      `,
+    })
+    if (data.login) {
+      const token = data.login
+      localStorage.setItem('token', token)
+      return token
+    }
+    return null
+  }
+
+  const signup = async (variables: { email: string; password: string }) => {
+    const { data } = await client.mutate({
+      variables,
+      mutation: gql`
+        mutation signup($email: String!, $password: String!) {
+          signup(email: $email, password: $password)
+        }
+      `,
+    })
+    if (data.signup) {
+      const token = data.signup
+      localStorage.setItem('token', token)
+      return token
+    }
+    return null
+  }
+
+  const linkWallet = async (address?: string | null) => {
+    const { data } = await client.mutate({
+      variables: { address },
+      mutation: gql`
+        ${UserFragment}
+        mutation linkWallet($address: String!) {
+          linkWallet(address: $address) {
+            ...User
+          }
+        }
+      `,
+    })
+    return data.linkWallet
+  }
+
   const getAccountDetails = async () => {
     return client
       .query({
@@ -74,6 +124,7 @@ export const useApi = () => {
         fetchPolicy: 'network-only',
       })
       .then(({ data }) => data.me)
+      .catch(console.error)
   }
 
   const validateQuest = async (questId: string) => {
@@ -148,6 +199,9 @@ export const useApi = () => {
 
   return {
     getAuthToken,
+    login,
+    signup,
+    linkWallet,
     getAccountDetails,
     validateQuest,
     fetchProof,

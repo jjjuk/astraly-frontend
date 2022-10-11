@@ -10,10 +10,13 @@ import Marquee from 'react-fast-marquee'
 import Warning from 'assets/icons/currentColor/warning.svg?inline'
 import FooterIndex from './footer/FooterIndex'
 import Noise from 'assets/images/Noise.png'
+import { useApi } from 'api'
+import AuthActions from 'actions/auth.actions'
 
 export default function Layout({ children }: PropsWithChildren<any>) {
   const router = useRouter()
   const dispatch = useAppDispatch()
+  const { getAccountDetails } = useApi()
   useEffect(() => {
     if (router.route === '/') {
       dispatch(UiActions.setPage(PAGES.HOME))
@@ -22,6 +25,12 @@ export default function Layout({ children }: PropsWithChildren<any>) {
     } else {
       dispatch(UiActions.setPage())
     }
+
+    getAccountDetails().then((user) => {
+      if (user) {
+        dispatch(AuthActions.fetchSuccess(user))
+      }
+    })
   }, [router.route])
   return (
     <>

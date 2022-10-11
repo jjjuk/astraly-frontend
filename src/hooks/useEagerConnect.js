@@ -13,8 +13,11 @@ export default function useEagerConnect() {
     const _connector = Object.keys(SUPPORTED_WALLETS).find(
       (key) => _walletName === SUPPORTED_WALLETS[key].name
     )
+
+    if (!_connector) return // 🫶
+
     const __connector = _connector ? SUPPORTED_WALLETS[_connector].connector : argentXConnector
-    if (!_connector) localStorage.setItem('astraly__wallet', 'Argent X')
+    // if (!_connector) localStorage.setItem('astraly__wallet', 'Argent X')
     __connector?.isAuthorized().then((isAuthorized) => {
       if (isAuthorized) {
         activate(__connector, undefined, true).catch(() => {

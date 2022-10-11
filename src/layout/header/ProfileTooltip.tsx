@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-undef */
 import styles from './Profile.module.scss'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Book from 'assets/icons/outline/Book-open.svg'
 import Check from 'assets/icons/currentColor/Check.svg?inline'
 import User from 'assets/icons/currentColor/User.svg?inline'
@@ -14,9 +14,19 @@ import { SUPPORTED_WALLETS } from '../../constants/wallet'
 import Link from 'next/link'
 import { UnsupportedChainIdError, useStarknetReact } from '@web3-starknet-react/core'
 import BaseButton from '../../components/ui/buttons/BaseButton'
+import { useApi } from 'api'
+import { useStore } from 'react-redux'
+import { useAppDispatch } from 'hooks/hooks'
+import AuthActions from 'actions/auth.actions'
+import WalletConnectActions from 'actions/walletconnect.actions'
 
 const ProfileTooltip = ({ close }: { close: () => void }) => {
-  const { account, deactivate, activate, connector, error } = useStarknetReact()
+  const { account, deactivate, activate, connector, error, active } = useStarknetReact()
+  const { linkWallet, getAuthToken } = useApi()
+
+  const store = useStore()
+  const dispatch = useAppDispatch()
+
   const getTitle = () => {
     if (account) {
       return (
@@ -28,6 +38,29 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
       return <>Choose Wallet</>
     }
   }
+
+  useEffect(() => {
+    if (typeof account?.address === 'string' && active) {
+      console.log(
+        'ACCOUNT ACTIVE', // @ts-ignore
+        store.getState().Auth.user._id
+      )
+      if (
+        // @ts-ignore
+        store.getState().Auth.user._id
+      ) {
+        // @ts-ignore
+        account?.address !== store.getState().Auth.user.address &&
+          linkWallet(account.address).then((user) => dispatch(AuthActions.fetchSuccess(user)))
+      } else {
+        console.log('CREATING ACCOUNT WITH WALLET')
+        getAuthToken(account.address).then((token) => {
+          dispatch(WalletConnectActions.connectWallet(token, false))
+          dispatch(AuthActions.fetchStart())
+        })
+      }
+    }
+  }, [active, account])
 
   const updateWalletCache = (wallet: any) => {
     const _walletKey = Object.keys(SUPPORTED_WALLETS).find(
@@ -53,7 +86,7 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
         .catch((error) => {
           console.log(error)
           if (error instanceof UnsupportedChainIdError) {
-            activate(conn) // a little janky...can't use setError because the connector isn't set
+            activate(conn) // a little junky...can't use setError because the connector isn't set
           }
         })
   }

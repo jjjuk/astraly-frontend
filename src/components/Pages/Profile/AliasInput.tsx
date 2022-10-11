@@ -6,13 +6,18 @@ import AuthActions from '../../../actions/auth.actions'
 import BaseInput from '../../ui/inputs/BaseInput'
 import BaseButton from '../../ui/buttons/BaseButton'
 import { isSameAddress } from '../../../utils'
+import { useStore } from 'react-redux'
 
 const AliasInput: FC<{ user?: any }> = ({ user }) => {
   const { account } = useStarknetReact()
-  const isSelf = isSameAddress(account?.address, user?.address)
   const [alias, setAlias] = useState('')
   const [mutateFunction] = useMutation(UPDATE_PROFILE)
   const [isEditing, setIsEditing] = useState(false)
+
+  const store = useStore()
+  
+  // @ts-ignore
+  const isSelf = user?._id === store.getState().Auth.user._id
 
   useEffect(() => {
     setAlias(user?.alias ?? '')

@@ -3,9 +3,9 @@
 // http://localhost:4004/api/graphql
 const nextConfig = {
   reactStrictMode: false,
-  publicRuntimeConfig: {
-    NEXT_PUBLIC_API_URL: 'https://zkpad-api.herokuapp.com/api/graphql',
-  },
+  // publicRuntimeConfig: {
+  //   NEXT_PUBLIC_API_URL: 'https://zkpad-api.herokuapp.com/api/graphql',
+  // },
   eslint: {
     ignoreDuringBuilds: true,
   },

@@ -15,6 +15,7 @@ import { isSameAddress } from '../../../utils'
 import { useLotteryTokenContract } from 'contracts'
 import ToggleAutoBurn from 'components/ui/inputs/ToggleAutoBurn'
 import { UPDATE_PROFILE } from 'api/gql/mutations'
+import { useSelector, useStore } from 'react-redux'
 
 const ProfilePage = () => {
   const router = useRouter()
@@ -24,15 +25,19 @@ const ProfilePage = () => {
   const [autoBurn, setautoBurn] = useState(false)
   const [loading, setLoading] = useState(true)
   const { data } = useQuery(USER, {
-    variables: {
-      address: uid ?? account?.address,
-    },
+    variables: { address: uid },
   })
+  // @ts-ignore
+  const me = useSelector((state) => state.Auth.user)
 
   const { setApprovalForAll, isApprovedForAll } = useLotteryTokenContract()
 
-  const user = data?.getAccount
-  const isSelf = isSameAddress(account?.address, user?.address)
+
+  const user = data?.getAccount || me
+
+  const isSelf = user?._id === me._id
+
+  console.log(isSelf, user, me)
 
   const moderator = '0x02356b628D108863BAf8644c945d97bAD70190AF5957031f4852d00D0F690a77'
 
@@ -104,54 +109,56 @@ const ProfilePage = () => {
   }, [account, autoBurn])
 
   return (
-    <>
-      <div className="ProfilePage g-container mb-10">
-        <div className="page-title mb-14">Profile</div>
-        <Planets className={'lightning_svg absolute right-40 top-20 -z-10'} />
-        <div className="lg:flex gap-6 mb-10">
-          <div className="w-full">
-            <ProfileCover user={user} />
-            {isSelf && <InvestmentOverview />}
-          </div>
-
-          <div className="hidden lg:block">
-            <div className="sticky top-6 left-0">
-              <Vertical />
+    !!user && (
+      <>
+        <div className="ProfilePage g-container mb-10">
+          <div className="page-title mb-14">Profile</div>
+          <Planets className={'lightning_svg absolute right-40 top-20 -z-10'} />
+          <div className="lg:flex gap-6 mb-10">
+            <div className="w-full">
+              <ProfileCover user={user} self={isSelf} />
+              {isSelf && <InvestmentOverview />}
             </div>
-          </div>
 
-          <div className={'mt-4 lg:mt-0 lg:w-1/3 flex-shrink-0'}>
-            {isSelf && <VerifyAccount />}
-            <div className="VerifyAccount block mb-6">
-              <div className="block--contrast">
-                <div className="title--medium">Automatic Burning</div>
-                <p className={'text-primaryClear font-bold'}>
-                  Let us burn your lottery tickets for you and get more sleep
-                </p>
+            <div className="hidden lg:block">
+              <div className="sticky top-6 left-0">
+                <Vertical />
               </div>
-              <div className="block__item">
-                <div className="flex justify-center flex-row gap-4">
-                  <div className="title--medium ">Auto-Burn</div>
-                  <ToggleAutoBurn
-                    value={autoBurn}
-                    onClick={() => autoBurnTickets()}></ToggleAutoBurn>
+            </div>
+
+            <div className={'mt-4 lg:mt-0 lg:w-1/3 flex-shrink-0'}>
+              {isSelf && <VerifyAccount />}
+              <div className="VerifyAccount block mb-6">
+                <div className="block--contrast">
+                  <div className="title--medium">Automatic Burning</div>
+                  <p className={'text-primaryClear font-bold'}>
+                    Let us burn your lottery tickets for you and get more sleep
+                  </p>
+                </div>
+                <div className="block__item">
+                  <div className="flex justify-center flex-row gap-4">
+                    <div className="title--medium ">Auto-Burn</div>
+                    <ToggleAutoBurn
+                      value={autoBurn}
+                      onClick={() => autoBurnTickets()}></ToggleAutoBurn>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <AccountLinks user={user} />
+              <AccountLinks user={user} />
+            </div>
           </div>
         </div>
-      </div>
-      {/* <div className="g-container">
+        {/* <div className="g-container">
         <div className="font-heading uppercase mb-6 text-primaryClear text-24">
           INVESTED PROJECTS
         </div>
       </div> */}
 
-      {/* <ProjectsSlider /> */}
-      <div className="h-20"></div>
-    </>
+        {/* <ProjectsSlider /> */}
+        <div className="h-20"></div>
+      </>
+    )
   )
 }
 

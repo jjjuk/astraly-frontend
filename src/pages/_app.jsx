@@ -18,6 +18,7 @@ import { TransactionsProvider } from 'context/TransactionsProvider'
 import { ApolloProvider } from '@apollo/client'
 import { useApollo } from '../utils/apollo'
 import { WalletProvider } from 'context/WalletProvider'
+import { TooltipProvider } from 'context/TooltipProvider'
 
 function getLibrary(provider, connector) {
   return new Provider(provider)
@@ -61,10 +62,12 @@ function MyApp({ Component, pageProps }) {
               <BlockHashProvider>
                 <TransactionsProvider>
                   <WalletProvider>
-                    <NextSeo {...defaultSEOConfig} />
-                    <Layout>
-                      <Component {...pageProps} />
-                    </Layout>
+                    <TooltipProvider>
+                      <NextSeo {...defaultSEOConfig} />
+                      <Layout>
+                        <Component {...pageProps} />
+                      </Layout>
+                    </TooltipProvider>
                   </WalletProvider>
                 </TransactionsProvider>
               </BlockHashProvider>

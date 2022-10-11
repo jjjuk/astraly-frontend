@@ -13,11 +13,14 @@ import styles from './Profile.module.scss'
 import CoverImage from './CoverImage'
 import AvatarUpload from './AvatarUpload'
 import AliasInput from './AliasInput'
+import BaseButton from 'components/ui/buttons/BaseButton'
+import { useTooltip } from 'context/TooltipProvider'
 
 let timeoutEvent: number | undefined
 
-const ProfileCover: FC<{ user?: any }> = ({ user }) => {
+const ProfileCover: FC<{ user?: any; self?: boolean }> = ({ user, self = false }) => {
   const [showPin, setShowPin] = useState(false)
+  const { setShowTooltip } = useTooltip()
 
   const handleCopyToClipboard = useCallback(() => {
     if (user?.address) {
@@ -47,32 +50,46 @@ const ProfileCover: FC<{ user?: any }> = ({ user }) => {
               <div className="-mt-20"></div>
               <AvatarUpload user={user} />
               <div className="mb-4"></div>
+
               <div>
                 <div>Address</div>
 
                 <div className="flex items-center">
-                  <div
-                    className="flex items-center"
-                    role="button"
-                    tabIndex={0}
-                    onClick={handleCopyToClipboard}
-                    onKeyDown={handleCopyToClipboard}>
-                    <div className={classnames(styles.copyAction__address, 'font-heading')}>
-                      {truncateAddress(user.address)}
+                  {user.address ? (
+                    <div
+                      className="flex items-center"
+                      role="button"
+                      tabIndex={0}
+                      onClick={handleCopyToClipboard}
+                      onKeyDown={handleCopyToClipboard}>
+                      <div className={classnames(styles.copyAction__address, 'font-heading')}>
+                        {truncateAddress(user.address)}
+                      </div>
+                      <div className={`${styles.copyAction__icon} ml-4`}>
+                        <img
+                          src={IconCopy}
+                          alt="Copy"
+                          className={styles.copyAction__icon__outline}
+                        />
+                        <img
+                          src={IconCopyFull}
+                          alt="Copy"
+                          className={styles.copyAction__icon__filled}
+                        />
+                      </div>
                     </div>
-                    <div className={`${styles.copyAction__icon} ml-4`}>
-                      <img src={IconCopy} alt="Copy" className={styles.copyAction__icon__outline} />
-                      <img
-                        src={IconCopyFull}
-                        alt="Copy"
-                        className={styles.copyAction__icon__filled}
-                      />
-                    </div>
-                  </div>
+                  ) : self ? (
+                    <BaseButton xSmall={true} onClick={() => setShowTooltip(true)}>
+                      Connect Wallet
+                    </BaseButton>
+                  ) : (
+                    <div className="font-heading">N/A</div>
+                  )}
 
                   <AliasInput user={user} />
                 </div>
               </div>
+
               <Pin
                 isVisible={showPin}
                 style={{ left: '50%', top: '80px', transform: 'translateX(-50%)' }}>

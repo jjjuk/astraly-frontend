@@ -64,7 +64,7 @@ export const TOTAL_ACCOUNTS = gql`
 
 export const USER = gql`
   ${PublicUserFragment}
-  query Account($address: String!) {
+  query Account($address: String) {
     getAccount(address: $address) {
       ...PublicUser
     }

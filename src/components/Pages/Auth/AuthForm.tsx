@@ -16,6 +16,10 @@ import produce from 'immer'
 import classNames from 'classnames'
 import CheckBox from 'components/ui/inputs/CheckBox'
 
+import { useApi } from 'api'
+import { useAppDispatch } from 'hooks/hooks'
+import AuthActions from 'actions/auth.actions'
+import WalletConnectActions from 'actions/walletconnect.actions'
 
 const schema = new PasswordValidator().min(8).max(24).uppercase().symbols()
 
@@ -37,7 +41,9 @@ const AuthForm: React.FC<{
   signUp?: boolean
 }> = ({ signUp = false }) => {
   const [form, setForm] = React.useState<Form>(initialForm)
-
+  const [loading, setLoading] = React.useState(false)
+  const { getAccountDetails, login, signup } = useApi()
+  const dispatch = useAppDispatch()
 
   const setEmail: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setForm(
@@ -92,9 +98,27 @@ const AuthForm: React.FC<{
     )
   }
 
- 
+  const submit = async () => {
+    try {
+      setLoading(true)
+      const token = await (signUp ? signup(form.payload) : login(form.payload))
+      // console.warn({ token })
+      // const isModerator = await getIsModerator(account);
 
-  const submit = () => {}
+      dispatch(WalletConnectActions.connectWallet(token, false))
+      dispatch(AuthActions.fetchStart())
+      try {
+        const data = await getAccountDetails()
+        // console.log('data', data)
+        dispatch(AuthActions.fetchSuccess(data))
+      } catch {
+        dispatch(AuthActions.fetchFailed())
+      }
+      setLoading(false)
+    } catch {
+      setLoading(false)
+    }
+  }
 
   const disabled =
     !form.payload.email ||

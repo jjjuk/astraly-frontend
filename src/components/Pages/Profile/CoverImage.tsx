@@ -7,13 +7,17 @@ import { UPDATE_PROFILE } from '../../../api/gql/mutations'
 import { useAppDispatch } from '../../../hooks/hooks'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { isSameAddress } from '../../../utils'
+import { useStore } from 'react-redux'
 
 const CoverImage: FC<{ user?: any }> = ({ user }) => {
   const { account } = useStarknetReact()
-  const isSelf = isSameAddress(account?.address, user?.address)
   const { fileName, fileContents, fileType, fileDispatch, handleFileChange } = useFileChange()
   const [mutateFunction] = useMutation(UPDATE_PROFILE)
   const dispatch = useAppDispatch()
+  const store = useStore()
+
+  // @ts-ignore
+  const isSelf = user?._id === store.getState().Auth.user._id
 
   const handleUpload = async () => {
     if (!fileName) {
