@@ -15,17 +15,19 @@ import Link from 'next/link'
 import { UnsupportedChainIdError, useStarknetReact } from '@web3-starknet-react/core'
 import BaseButton from '../../components/ui/buttons/BaseButton'
 import { useApi } from 'api'
-import { useStore } from 'react-redux'
+import { useSelector, useStore } from 'react-redux'
 import { useAppDispatch } from 'hooks/hooks'
 import AuthActions from 'actions/auth.actions'
 import WalletConnectActions from 'actions/walletconnect.actions'
 
 const ProfileTooltip = ({ close }: { close: () => void }) => {
   const { account, deactivate, activate, connector, error, active } = useStarknetReact()
-  const { linkWallet, getAuthToken } = useApi()
+  const { linkWallet, getAuthToken, getAccountDetails } = useApi()
 
-  const store = useStore()
   const dispatch = useAppDispatch()
+
+  // @ts-ignore
+  const me = useSelector((state) => state.Auth.user)
 
   const getTitle = () => {
     if (account) {
@@ -41,22 +43,17 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
 
   useEffect(() => {
     if (typeof account?.address === 'string' && active) {
-      console.log(
-        'ACCOUNT ACTIVE', // @ts-ignore
-        store.getState().Auth.user._id
-      )
-      if (
-        // @ts-ignore
-        store.getState().Auth.user._id
-      ) {
-        // @ts-ignore
-        account?.address !== store.getState().Auth.user.address &&
+      if (me._id) {
+        account?.address !== me.address &&
           linkWallet(account.address).then((user) => dispatch(AuthActions.fetchSuccess(user)))
       } else {
-        console.log('CREATING ACCOUNT WITH WALLET')
         getAuthToken(account.address).then((token) => {
           dispatch(WalletConnectActions.connectWallet(token, false))
           dispatch(AuthActions.fetchStart())
+
+          getAccountDetails()
+            .then((user) => dispatch(AuthActions.fetchSuccess(user)))
+            .catch((_) => dispatch(AuthActions.fetchFailed()))
         })
       }
     }

@@ -16,6 +16,7 @@ import { useLotteryTokenContract } from 'contracts'
 import ToggleAutoBurn from 'components/ui/inputs/ToggleAutoBurn'
 import { UPDATE_PROFILE } from 'api/gql/mutations'
 import { useSelector, useStore } from 'react-redux'
+import Complete from '../Auth/Complete'
 
 const ProfilePage = () => {
   const router = useRouter()
@@ -27,17 +28,19 @@ const ProfilePage = () => {
   const { data } = useQuery(USER, {
     variables: { address: uid },
   })
+
   // @ts-ignore
   const me = useSelector((state) => state.Auth.user)
 
-  const { setApprovalForAll, isApprovedForAll } = useLotteryTokenContract()
+  useEffect(() => {
+    console.log(`[${Date.now()}] component update:`, me)
+  })
 
+  const { setApprovalForAll, isApprovedForAll } = useLotteryTokenContract()
 
   const user = data?.getAccount || me
 
   const isSelf = user?._id === me._id
-
-  console.log(isSelf, user, me)
 
   const moderator = '0x02356b628D108863BAf8644c945d97bAD70190AF5957031f4852d00D0F690a77'
 
@@ -108,15 +111,17 @@ const ProfilePage = () => {
     }
   }, [account, autoBurn])
 
+  if (isSelf && me.address && !me.email) return <Complete address={me.address} />
+
   return (
-    !!user && (
+    !!user._id && (
       <>
         <div className="ProfilePage g-container mb-10">
           <div className="page-title mb-14">Profile</div>
           <Planets className={'lightning_svg absolute right-40 top-20 -z-10'} />
           <div className="lg:flex gap-6 mb-10">
             <div className="w-full">
-              <ProfileCover user={user} self={isSelf} />
+              <ProfileCover user={user} isSelf={isSelf} />
               {isSelf && <InvestmentOverview />}
             </div>
 
@@ -145,7 +150,7 @@ const ProfilePage = () => {
                 </div>
               </div>
 
-              <AccountLinks user={user} />
+              <AccountLinks user={user} isSelf={isSelf} />
             </div>
           </div>
         </div>

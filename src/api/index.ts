@@ -78,12 +78,12 @@ export const useApi = () => {
     return null
   }
 
-  const signup = async (variables: { email: string; password: string }) => {
+  const signup = async (variables: { email: string; password: string; address?: string }) => {
     const { data } = await client.mutate({
       variables,
       mutation: gql`
-        mutation signup($email: String!, $password: String!) {
-          signup(email: $email, password: $password)
+        mutation signup($email: String!, $password: String!, $address: String) {
+          signup(email: $email, password: $password, address: $address)
         }
       `,
     })

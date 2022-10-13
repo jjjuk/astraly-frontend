@@ -13,7 +13,7 @@ import ProfileButton from './ProfileButton'
 import Logo from 'assets/images/logo.svg'
 import LogoDark from 'assets/images/logo--dark.svg'
 import ThemeSwitcher from '../../components/ui/ThemeSwitcher'
-import { useSelector, useStore } from 'react-redux'
+import { useSelector } from 'react-redux'
 import BaseButton from 'components/ui/buttons/BaseButton'
 import { useRouter } from 'next/router'
 
@@ -22,7 +22,6 @@ const Header: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const { getAuthToken, getAccountDetails } = useApi()
   const dispatch = useAppDispatch()
-  const store = useStore()
 
   // @ts-ignore
   const me = useSelector((state) => state.Auth.user)
@@ -55,6 +54,8 @@ const Header: React.FC = () => {
     deactivate()
     dispatch(WalletConnectActions.disconnectWallet())
     dispatch(AuthActions.signOut())
+    localStorage.removeItem('token')
+    router.push('/')
   }
 
   // useEffect(() => {
@@ -99,19 +100,26 @@ const Header: React.FC = () => {
               </BaseButton>
               <BaseButton
                 onClick={() => router.push('/auth/signup')}
-                className="outlined_button mx-6"
                 spanProps={{ className: 'px-4' }}
                 type="secondary">
-                Sign Up
+                Create Account
               </BaseButton>
             </Fragment>
-          ) : (
+          ) : router.pathname !== '/profile' ? (
             <BaseButton
               onClick={() => router.push('/profile')}
-              className="outlined_button mx-6"
+              className="mx-6"
               spanProps={{ className: 'px-4' }}
               type="secondary">
-              Profile
+              Account
+            </BaseButton>
+          ) : (
+            <BaseButton
+              onClick={handleSignOut}
+              className="mx-6"
+              spanProps={{ className: 'px-4' }}
+              type="secondary">
+              Log Out
             </BaseButton>
           )}
         </div>

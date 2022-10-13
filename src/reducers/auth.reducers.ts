@@ -18,7 +18,7 @@ export function Auth(
       return {
         ...state,
         fetching: false,
-        user: action.payload,
+        user: { ...state.user, ...action.payload },
       }
     }
     case AuthConstants.PROFILE_GET_FAILED: {

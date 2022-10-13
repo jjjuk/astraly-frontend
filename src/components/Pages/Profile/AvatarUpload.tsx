@@ -6,19 +6,11 @@ import { useMutation } from '@apollo/client'
 import { UPDATE_PROFILE } from '../../../api/gql/mutations'
 import { useAppDispatch } from '../../../hooks/hooks'
 import HexagonImage from '../../ui/HexagonImage'
-import { useStarknetReact } from '@web3-starknet-react/core'
-import { isSameAddress } from '../../../utils'
-import { useStore } from 'react-redux'
 
-const AvatarUpload: FC<{ user?: any }> = ({ user }) => {
+const AvatarUpload: FC<{ user?: any; isSelf?: boolean }> = ({ user, isSelf = false }) => {
   const { fileName, fileContents, fileType, fileDispatch, handleFileChange } = useFileChange()
-  const { account } = useStarknetReact()
   const [mutateFunction] = useMutation(UPDATE_PROFILE)
   const dispatch = useAppDispatch()
-  const store = useStore()
-  
-  // @ts-ignore
-  const isSelf = user?._id === store.getState().Auth.user._id
 
   const handleUpload = async () => {
     if (!fileName) {

@@ -12,15 +12,13 @@ import TelegramIcon from 'assets/icons/currentColor/Telegram.svg?inline'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { isSameAddress } from '../../../utils'
 
-const AccountLinks: FC<{ user: any; hideTitle?: boolean; showOnly?: string[] }> = ({
-  user,
-  hideTitle,
-  showOnly,
-}) => {
+const AccountLinks: FC<{
+  user: any
+  hideTitle?: boolean
+  showOnly?: string[]
+  isSelf?: boolean
+}> = ({ user, hideTitle, showOnly, isSelf = false }) => {
   const dispatch = useAppDispatch()
-  const router = useRouter()
-  const { account } = useStarknetReact()
-  const isSelf = isSameAddress(account?.address, user?.address)
 
   const [getTwitterAuthUrl] = useLazyQuery(gql`
     query getTwitterAuthUrl {

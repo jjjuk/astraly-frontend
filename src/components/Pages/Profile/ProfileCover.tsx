@@ -18,7 +18,7 @@ import { useTooltip } from 'context/TooltipProvider'
 
 let timeoutEvent: number | undefined
 
-const ProfileCover: FC<{ user?: any; self?: boolean }> = ({ user, self = false }) => {
+const ProfileCover: FC<{ user?: any; isSelf?: boolean }> = ({ user, isSelf = false }) => {
   const [showPin, setShowPin] = useState(false)
   const { setShowTooltip } = useTooltip()
 
@@ -45,10 +45,10 @@ const ProfileCover: FC<{ user?: any; self?: boolean }> = ({ user, self = false }
       {user && (
         <div className="ProfileCover mb-6">
           <div className="block">
-            <CoverImage user={user} />
+            <CoverImage user={user} isSelf={isSelf} />
             <div className={classnames(styles.copyAction__container, 'block__item')}>
               <div className="-mt-20"></div>
-              <AvatarUpload user={user} />
+              <AvatarUpload user={user} isSelf={isSelf} />
               <div className="mb-4"></div>
 
               <div>
@@ -78,7 +78,7 @@ const ProfileCover: FC<{ user?: any; self?: boolean }> = ({ user, self = false }
                         />
                       </div>
                     </div>
-                  ) : self ? (
+                  ) : isSelf ? (
                     <BaseButton xSmall={true} onClick={() => setShowTooltip(true)}>
                       Connect Wallet
                     </BaseButton>
@@ -86,7 +86,7 @@ const ProfileCover: FC<{ user?: any; self?: boolean }> = ({ user, self = false }
                     <div className="font-heading">N/A</div>
                   )}
 
-                  <AliasInput user={user} />
+                  <AliasInput user={user} isSelf={isSelf} />
                 </div>
               </div>
 

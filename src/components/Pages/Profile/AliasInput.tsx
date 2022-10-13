@@ -6,18 +6,16 @@ import AuthActions from '../../../actions/auth.actions'
 import BaseInput from '../../ui/inputs/BaseInput'
 import BaseButton from '../../ui/buttons/BaseButton'
 import { isSameAddress } from '../../../utils'
-import { useStore } from 'react-redux'
+import { useSelector, useStore } from 'react-redux'
+import { useAppDispatch } from 'hooks/hooks'
 
-const AliasInput: FC<{ user?: any }> = ({ user }) => {
+const AliasInput: FC<{ user?: any; isSelf?: boolean }> = ({ user, isSelf = false }) => {
   const { account } = useStarknetReact()
   const [alias, setAlias] = useState('')
   const [mutateFunction] = useMutation(UPDATE_PROFILE)
   const [isEditing, setIsEditing] = useState(false)
 
-  const store = useStore()
-  
-  // @ts-ignore
-  const isSelf = user?._id === store.getState().Auth.user._id
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     setAlias(user?.alias ?? '')
@@ -33,7 +31,7 @@ const AliasInput: FC<{ user?: any }> = ({ user }) => {
       },
     })
 
-    AuthActions.fetchSuccess(data.updateAccount)
+    data.updateAccount && dispatch(AuthActions.fetchSuccess(data.updateAccount))
   }, [alias])
 
   if (!isSelf) {

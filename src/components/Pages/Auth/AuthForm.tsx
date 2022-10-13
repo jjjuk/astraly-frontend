@@ -20,6 +20,7 @@ import { useApi } from 'api'
 import { useAppDispatch } from 'hooks/hooks'
 import AuthActions from 'actions/auth.actions'
 import WalletConnectActions from 'actions/walletconnect.actions'
+import { useRouter } from 'next/router'
 
 const schema = new PasswordValidator().min(8).max(24).uppercase().symbols()
 
@@ -39,11 +40,16 @@ const initialForm: Form = {
 
 const AuthForm: React.FC<{
   signUp?: boolean
-}> = ({ signUp = false }) => {
+  address?: string
+}> = ({ signUp = false, address }) => {
+  if (address) signUp = true
+
   const [form, setForm] = React.useState<Form>(initialForm)
   const [loading, setLoading] = React.useState(false)
   const { getAccountDetails, login, signup } = useApi()
   const dispatch = useAppDispatch()
+
+  const router = useRouter()
 
   const setEmail: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setForm(
@@ -101,7 +107,7 @@ const AuthForm: React.FC<{
   const submit = async () => {
     try {
       setLoading(true)
-      const token = await (signUp ? signup(form.payload) : login(form.payload))
+      const token = await (signUp ? signup({ ...form.payload, address }) : login(form.payload))
       // console.warn({ token })
       // const isModerator = await getIsModerator(account);
 
@@ -111,6 +117,7 @@ const AuthForm: React.FC<{
         const data = await getAccountDetails()
         // console.log('data', data)
         dispatch(AuthActions.fetchSuccess(data))
+        router.push('/profile')
       } catch {
         dispatch(AuthActions.fetchFailed())
       }
