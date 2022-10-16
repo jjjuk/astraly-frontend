@@ -26,11 +26,16 @@ export default function Layout({ children }: PropsWithChildren<any>) {
       dispatch(UiActions.setPage())
     }
 
-    getAccountDetails().then((user) => {
-      if (user) {
-        dispatch(AuthActions.fetchSuccess(user))
-      }
-    })
+    getAccountDetails()
+      .then((user) => {
+        if (user) {
+          dispatch(AuthActions.fetchSuccess(user))
+          // TODO: server to client wallet connection logic
+        }
+      })
+      .catch(() => {
+        dispatch(AuthActions.fetchFailed())
+      })
   }, [router.route])
   return (
     <>

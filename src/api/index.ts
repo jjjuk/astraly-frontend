@@ -124,7 +124,6 @@ export const useApi = () => {
         fetchPolicy: 'network-only',
       })
       .then(({ data }) => data.me)
-      .catch(console.error)
   }
 
   const validateQuest = async (questId: string) => {
