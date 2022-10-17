@@ -18,7 +18,7 @@ import LoginIcon from 'assets/icons/Login.svg?inline'
 import Key from 'assets/icons/Key.svg?inline'
 
 import { useMutation } from '@apollo/client'
-import { REQUEST_PASSWORD_RESET } from 'api/gql/mutations'
+import { REQUEST_PASSWORD_RESET, RESET_PASSWORD } from 'api/gql/mutations'
 import PasswordValidator from 'password-validator'
 import classNames from 'classnames'
 
@@ -169,8 +169,17 @@ const resetInitialForm: ResetForm = {
 
 const schema = new PasswordValidator().min(8).max(24).uppercase().symbols()
 
-const Reset: React.FC<{ token: string }> = () => {
+const Reset: React.FC<{ token: string }> = ({ token }) => {
   const [form, setForm] = React.useState<ResetForm>(resetInitialForm)
+
+  const router = useRouter()
+
+  const [mutate, { error }] = useMutation(RESET_PASSWORD, {
+    variables: { ...form.payload, token },
+    onCompleted() {
+      router.push('/login')
+    },
+  })
 
   const setPassword: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setForm(
@@ -203,7 +212,7 @@ const Reset: React.FC<{ token: string }> = () => {
     )
   }
 
-  const submit = () => {}
+  const submit = () => mutate()
 
   return (
     <React.Fragment>
@@ -217,43 +226,67 @@ const Reset: React.FC<{ token: string }> = () => {
         </div>
 
         <div className="block bg-whitePurple px-8 py-9 max-w-436 mx-auto lg:mx-0">
-          <div>
-            <TextInput
-              icon={<Key />}
-              spellCheck={false}
-              label="New Password"
-              placeholder="*******************"
-              value={form.payload.password}
-              type={form.visible ? 'text' : 'password'}
-              onChange={setPassword}
-              onBlur={onPasswordFocusOut}
-              error={form.errors.password}
-              adornment={
-                <Visibility
-                  className={classNames({ icon_invalid: form.errors.password })}
-                  visible={form.visible}
-                  onClick={onVisibilityClick}
+          {!error ? (
+            <React.Fragment>
+              <div>
+                <TextInput
+                  icon={<Key />}
+                  spellCheck={false}
+                  label="New Password"
+                  placeholder="*******************"
+                  value={form.payload.password}
+                  type={form.visible ? 'text' : 'password'}
+                  onChange={setPassword}
+                  onBlur={onPasswordFocusOut}
+                  error={form.errors.password}
+                  adornment={
+                    <Visibility
+                      className={classNames({ icon_invalid: form.errors.password })}
+                      visible={form.visible}
+                      onClick={onVisibilityClick}
+                    />
+                  }
                 />
-              }
-            />
-          </div>
-          <div className="mt-4">
-            <BaseButton
-              spanProps={{
-                className: 'w-full items-center',
-                style: { justifyContent: 'space-between' },
-              }}
-              className="px-7"
-              auth
-              disabled={!form.payload.password || form.errors.password}
-              onClick={submit}>
-              <span style={{ whiteSpace: 'nowrap', marginTop: '-4px' }} className="text-14">
-                <LoginIcon className="mr-5" />
-                {'Set New Password'}
-              </span>
-              <Chevron className={'icon-right ml-3'} />
-            </BaseButton>
-          </div>
+              </div>
+              <div className="mt-4">
+                <BaseButton
+                  spanProps={{
+                    className: 'w-full items-center',
+                    style: { justifyContent: 'space-between' },
+                  }}
+                  className="px-7"
+                  auth
+                  disabled={!form.payload.password || form.errors.password}
+                  onClick={submit}>
+                  <span style={{ whiteSpace: 'nowrap', marginTop: '-4px' }} className="text-14">
+                    <LoginIcon className="mr-5" />
+                    {'Set New Password'}
+                  </span>
+                  <Chevron className={'icon-right ml-3'} />
+                </BaseButton>
+              </div>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <p className="text-red-500">Invalid token. </p>
+              <div className="mt-4">
+                <BaseButton
+                  spanProps={{
+                    className: 'w-full items-center',
+                    style: { justifyContent: 'space-between' },
+                  }}
+                  className="px-7"
+                  auth
+                  onClick={() => router.push('/reset-password')}>
+                  <span style={{ whiteSpace: 'nowrap', marginTop: '-4px' }} className="text-14">
+                    <LoginIcon className="mr-5" />
+                    {'Try Again'}
+                  </span>
+                  <Chevron className={'icon-right ml-3'} />
+                </BaseButton>
+              </div>
+            </React.Fragment>
+          )}
         </div>
       </Container>
     </React.Fragment>
