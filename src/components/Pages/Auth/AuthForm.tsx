@@ -21,6 +21,7 @@ import { useAppDispatch } from 'hooks/hooks'
 import AuthActions from 'actions/auth.actions'
 import WalletConnectActions from 'actions/walletconnect.actions'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const schema = new PasswordValidator().min(8).max(24).uppercase().symbols()
 
@@ -174,7 +175,10 @@ const AuthForm: React.FC<{
           ['text-red-500']: form.errors.password,
         })}>
         {!signUp ? (
-          <a href="/" style={{ display: 'block' }} className="text-right font-medium">
+          <a
+            onClick={() => router.push('/password-reset')}
+            style={{ display: 'block' }}
+            className="text-right font-medium">
             Forgot password?
           </a>
         ) : (
