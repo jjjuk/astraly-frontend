@@ -6,7 +6,7 @@ const nextConfig = {
   publicRuntimeConfig: {
     //   NEXT_PUBLIC_API_URL: 'https://zkpad-api.herokuapp.com/api/graphql',
     NEXT_PUBLIC_REST_API_URL:
-      'http://localhost:4004/api' /* 'https://zkpad-api.herokuapp.com/api' */,
+      'https://8ce1-146-255-233-146.eu.ngrok.io/api' /* 'https://zkpad-api.herokuapp.com/api' */,
   },
   eslint: {
     ignoreDuringBuilds: true,

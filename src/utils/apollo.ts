@@ -1,21 +1,31 @@
 import { useMemo } from 'react'
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
+import { ApolloClient, createHttpLink, HttpLink, InMemoryCache } from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
 import getConfig from 'next/config'
 
 let apolloClient: ApolloClient<any> | undefined
 
 function createApolloClient({ getToken }: CreateApolloOptions) {
-  const token = getToken()
   const { publicRuntimeConfig } = getConfig()
+
+  // recommended way to do it according to official sources
+  // previous version wasn't updating token after 3rd party oauth
+  const httpLink = createHttpLink({
+    uri: publicRuntimeConfig?.NEXT_PUBLIC_API_URL ?? 'http://localhost:4004/api/graphql',
+  })
+  const authLink = setContext((_, { headers }) => {
+    const token = getToken()
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    }
+  })
 
   return new ApolloClient({
     ssrMode: typeof window === 'undefined', // set to true for SSR
-    link: new HttpLink({
-      uri: publicRuntimeConfig?.NEXT_PUBLIC_API_URL ?? 'http://localhost:4004/api/graphql',
-      headers: {
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-    }),
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   })
 }

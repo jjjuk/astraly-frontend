@@ -178,7 +178,7 @@ const AuthForm: React.FC<{
           <a
             onClick={() => router.push('/password-reset')}
             style={{ display: 'block' }}
-            className="text-right font-medium">
+            className="text-right font-medium cursor-pointer">
             Forgot password?
           </a>
         ) : (

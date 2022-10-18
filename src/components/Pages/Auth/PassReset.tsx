@@ -177,7 +177,7 @@ const Reset: React.FC<{ token: string }> = ({ token }) => {
   const [mutate, { error }] = useMutation(RESET_PASSWORD, {
     variables: { ...form.payload, token },
     onCompleted() {
-      router.push('/login')
+      router.push('/auth/login')
     },
   })
 
