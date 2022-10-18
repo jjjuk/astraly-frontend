@@ -21,9 +21,15 @@ import { useAppDispatch } from 'hooks/hooks'
 import AuthActions from 'actions/auth.actions'
 import WalletConnectActions from 'actions/walletconnect.actions'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
+
+import { GraphQLError } from 'graphql'
+import ToastActions from 'actions/toast.actions'
+import { ToastPositions, ToastState } from 'components/ui/Toast/utils'
+import { ApolloErrors } from 'constants/errors.graphql'
 
 const schema = new PasswordValidator().min(8).max(24).uppercase().symbols()
+
+type FormFields = 'email' | 'password'
 
 export interface Form {
   payload: { email: string; password: string }
@@ -63,6 +69,9 @@ const AuthForm: React.FC<{
     setForm(
       produce(form, (draft) => {
         draft.payload.password = e.target.value.replace(' ', '')
+        if (!signUp && form.errors.password) {
+          draft.errors.password = false
+        }
       })
     )
   }
@@ -108,7 +117,30 @@ const AuthForm: React.FC<{
   const submit = async () => {
     try {
       setLoading(true)
-      const token = await (signUp ? signup({ ...form.payload, address }) : login(form.payload))
+      const token = await (signUp
+        ? signup({ ...form.payload, address })
+        : login(form.payload)
+      ).catch((err) => {
+        const error = (err.graphQLErrors as GraphQLError[]).find(
+          (_err) => _err.extensions.code === ApolloErrors.FORBIDDEN
+        )
+        if (error) {
+          dispatch(
+            ToastActions.addToast({
+              title: error.message,
+              state: ToastState.ERROR,
+              position: ToastPositions.CENTER_LEFT,
+              autoClose: true,
+            })
+          )
+          error.extensions.field &&
+            setForm(
+              produce(form, (draft) => {
+                draft.errors[error.extensions.field as FormFields] = true
+              })
+            )
+        }
+      })
       // console.warn({ token })
       // const isModerator = await getIsModerator(account);
 

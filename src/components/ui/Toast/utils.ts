@@ -11,7 +11,7 @@ export type ToastNotification = {
   delay: number
   title: string
   action: any
-  postion: ToastPositions
+  position: ToastPositions
   state: ToastState
   autoClose: boolean
 }
@@ -20,4 +20,5 @@ export type ToastNotificationMessage = Partial<ToastNotification>
 
 export enum ToastPositions {
   CENTER_LEFT = 'CENTER_LEFT',
+  CENTER_BOTTOM = 'CENTER_BOTTOM',
 }

@@ -40,6 +40,7 @@ module.exports = {
         bgPurple: 'rgba(143, 0, 255, 0.05)',
         primaryClearBgDark: '#161616',
         gray3: '#2C2A30',
+        warning: '#FF6581',
       },
       maxWidth: {
         '558px': '558px',

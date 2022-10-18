@@ -7,26 +7,25 @@ import ToastActions from '../../../actions/toast.actions'
 import BaseButton from '../buttons/BaseButton'
 
 import CheckIcon from 'assets/icons/solid/Check.svg'
-import CrossIcon from 'assets/icons/solid/Cross_purple.svg'
+import WarningIcon from 'assets/icons/outline/status/Warning.svg'
 
 import styles from './Toast.module.scss'
 import Spinner from '../Spinner/Spinner'
+import classNames from 'classnames'
 
 const getStateIcon = (state: ToastState) => {
   switch (state) {
     case ToastState.LOADING:
       return <Spinner />
-      break
+
     case ToastState.ERROR:
-      return <img src={CrossIcon} alt="check-icon" />
-      break
+      return <img width={32} src={WarningIcon} alt="warning-icon" />
+
     case ToastState.VALID:
       return <img src={CheckIcon} alt="check-icon" />
-      break
 
     default:
       return <img src={CheckIcon} alt="check-icon" />
-      break
   }
 }
 
@@ -49,11 +48,19 @@ const Toast: React.FC<{ toast: ToastNotification }> = ({ toast }) => {
   return (
     <div className={styles.toastNotificationContainer}>
       <div className={styles.toastNotification}>
-        <div className="flex items-start">
-          <div className="flex mr-20 items-start">
+        <div className="flex items-center">
+          <div className="flex mr-20 items-center">
             <div className="icon p-2 mr-2">{getStateIcon(toast.state)}</div>
             <div>
-              <div className="text-12 ui-t-primary">{toast.title}</div>
+              <div
+                className={classNames('ui-t-primary', {
+                  'text-12': toast.state !== ToastState.ERROR,
+                  'text-16': toast.state === ToastState.ERROR,
+                  'font-bold': toast.state === ToastState.ERROR,
+                  'text-warning': toast.state === ToastState.ERROR,
+                })}>
+                {toast.title}
+              </div>
               {toast.action}
             </div>
           </div>
