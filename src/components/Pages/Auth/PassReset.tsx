@@ -17,10 +17,14 @@ import Chevron from 'assets/icons/Chevron.svg?inline'
 import LoginIcon from 'assets/icons/Login.svg?inline'
 import Key from 'assets/icons/Key.svg?inline'
 
+import CheckedIcon from 'assets/icons/outline/Checked-box.svg?inline'
+
 import { useMutation } from '@apollo/client'
 import { REQUEST_PASSWORD_RESET, RESET_PASSWORD } from 'api/gql/mutations'
 import PasswordValidator from 'password-validator'
 import classNames from 'classnames'
+import { useAppDispatch } from 'hooks/hooks'
+import Spinner from 'components/ui/Spinner/Spinner'
 
 export interface RequestForm {
   payload: { email: string }
@@ -34,6 +38,7 @@ const requestInitialForm: RequestForm = {
 
 const RequestReset: React.FC = () => {
   const [form, setForm] = React.useState<RequestForm>(requestInitialForm)
+  const dispatch = useAppDispatch()
 
   const [mutate, { loading, called }] = useMutation(REQUEST_PASSWORD_RESET, {
     variables: form.payload,
@@ -99,14 +104,24 @@ const RequestReset: React.FC = () => {
                   </span>
                   <Chevron className={'icon-right ml-3'} />
                 </BaseButton>
-              </div>{' '}
+              </div>
             </React.Fragment>
           ) : loading ? (
-            <>Sending...</>
+            <div className="flex items-center">
+              <Spinner color="#8F00FF" size="lg" /> <p className="mx-4">Sending...</p>
+            </div>
           ) : (
-            <p>
-              Recovery email sent to <b>{form.payload.email}</b>
-            </p>
+            <div className="flex items-center">
+              <CheckedIcon
+                width={36}
+                height={36}
+                style={{ transform: 'scale(1.5)', paddingTop: 6 }}
+                className="purple__icon"
+              />
+              <p className="mx-8">
+                Recovery email sent to <b>{form.payload.email}</b>
+              </p>
+            </div>
           )}
 
           <div className="flex h-5 items-center my-4">

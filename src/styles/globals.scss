@@ -289,5 +289,9 @@ body {
   fill: theme('colors.red.500') !important;
 }
 
+.purple__icon path{
+ fill: theme('colors.primary')
+}
+
 @import 'animations';
 @import 'ui';

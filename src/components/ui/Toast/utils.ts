@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 export const DEFAULT_DELAY = 5 * 1000
 
 export enum ToastState {
@@ -9,7 +11,7 @@ export enum ToastState {
 export type ToastNotification = {
   id: string
   delay: number
-  title: string
+  title: string | ReactNode
   action: any
   position: ToastPositions
   state: ToastState

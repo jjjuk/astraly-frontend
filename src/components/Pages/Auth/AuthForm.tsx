@@ -77,23 +77,21 @@ const AuthForm: React.FC<{
   }
 
   const onPasswordFocusOut: React.FocusEventHandler<HTMLInputElement> = () => {
-    form.visible &&
-      setForm(
-        produce(form, (draft) => {
-          draft.visible = false
-        })
-      )
-    signUp &&
-      setForm(
-        produce(form, (draft) => {
-          draft.errors.password = !!form.payload.password && !schema.validate(form.payload.password)
-        })
-      )
+    setForm(
+      produce(form, (draft) => {
+        if (draft.visible) draft.visible = false
+
+        if (signUp) {
+          draft.errors.password =
+            !!draft.payload.password && !schema.validate(draft.payload.password)
+        } else if (draft.errors.password) draft.errors.password = false
+      })
+    )
   }
   const onEmailFocusOut: React.FocusEventHandler<HTMLInputElement> = () => {
     setForm(
       produce(form, (draft) => {
-        draft.errors.email = !!form.payload.email && !validateEmail(draft.payload.email)
+        draft.errors.email = !!draft.payload.email && !validateEmail(draft.payload.email)
       })
     )
   }
@@ -168,7 +166,7 @@ const AuthForm: React.FC<{
     (signUp && !form.agree)
 
   return (
-    <React.Fragment>
+    <form id={`${signUp ? 'sign-up' : 'login'}-auth-form${address ? '-address' : ''}`}>
       <div className="mb-28px">
         <TextInput
           icon={<Email />}
@@ -248,7 +246,7 @@ const AuthForm: React.FC<{
           <Chevron className={'icon-right ml-3'} />
         </BaseButton>
       </div>
-    </React.Fragment>
+    </form>
   )
 }
 
