@@ -20,6 +20,7 @@ import { PROJECT } from '../../../../api/gql/querries'
 import { useWallet } from 'context/WalletProvider'
 import { Contracts } from 'constants/networks'
 import Spinner from 'components/ui/Spinner/Spinner'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const ProjectBuyPage = () => {
   const router = useRouter()
@@ -274,7 +275,7 @@ const ProjectBuyPage = () => {
                       uint256.uint256ToBN(userInfo.tickets).toNumber() * allocation === 0
                     : false)
                 }>
-                {purchasing ? <Spinner /> : 'Participate'}
+                {purchasing ? <Spinner /> : <ButtonTitle title="Participate" />}
               </BaseButton>
             </div>
           </div>

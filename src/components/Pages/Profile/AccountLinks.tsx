@@ -11,6 +11,7 @@ import DiscordIcon from 'assets/icons/currentColor/Discord.svg?inline'
 import TelegramIcon from 'assets/icons/currentColor/Telegram.svg?inline'
 import { useStarknetReact } from '@web3-starknet-react/core'
 import { isSameAddress } from '../../../utils'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const AccountLinks: FC<{
   user: any
@@ -110,7 +111,7 @@ const AccountLinks: FC<{
     if (!showInput) {
       return (
         <BaseButton onClick={onClick} xSmall={true} className={'w-[158px]'}>
-          Link Account
+          <ButtonTitle title="Link Account" />
         </BaseButton>
       )
     }
@@ -119,7 +120,7 @@ const AccountLinks: FC<{
       <div className="pl-2 flex items-center">
         <BaseInput type="text" label={''} value={id} onChange={(e) => setId(e.target.value)} />
         <BaseButton className={'ml-2 px-2'} small={true} onClick={() => linkFn(id)}>
-          Save
+          <ButtonTitle title="Save" />
         </BaseButton>
       </div>
     )

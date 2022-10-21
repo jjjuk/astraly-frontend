@@ -8,15 +8,13 @@ import Horizontal from 'components/ui/Separator/Horizontal'
 
 import Logo from 'assets/images/logo.svg'
 import LogoDark from 'assets/images/logo--dark.svg'
-import Chevron from 'assets/icons/Chevron.svg?inline'
-import Twitter from 'assets/icons/outline/Brands/Twitter.svg?inline'
-import Google from 'assets/icons/outline/Brands/Google.svg?inline'
 
 import AuthForm from './AuthForm'
 import AuthIllustration from './AuthIllustration'
 
 import { useRouter } from 'next/router'
 import SocialsAuth from './SocialsAuth'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const SignUp = () => {
   const router = useRouter()
@@ -43,7 +41,7 @@ const SignUp = () => {
           />
         </div>
 
-        <div className="block bg-whitePurple px-8 py-9 max-w-436 mx-auto lg:mx-0">
+        <div className="block px-8 py-9 max-w-436 mx-auto lg:mx-0">
           <AuthForm signUp />
 
           <div className="flex h-5 items-center my-4">
@@ -69,12 +67,10 @@ const SignUp = () => {
                   className: 'items-center',
                   style: { justifyContent: 'space-between' },
                 }}
-                className="px-6 outlined_button">
-                <span
-                  style={{ whiteSpace: 'nowrap', marginTop: -4 }}
-                  className="text-xs text-primaryClear secondary_button_label">
+                className="px-6 w-full">
+                <span style={{ whiteSpace: 'nowrap' /* marginTop: -4 */ }}>
                   <WalletIcon className={'mr-3 secondary_button_icon'} />
-                  Login
+                  <ButtonTitle title="Login" />
                 </span>
               </BaseButton>
             </div>

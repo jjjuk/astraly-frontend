@@ -10,17 +10,9 @@ import Hint from 'components/ui/Hint/Hint'
 
 import Award from 'assets/icons/solid/Award.svg'
 import Shield from 'assets/icons/solid/Shield.svg'
-import TwitterIcon from 'assets/icons/currentColor/Twitter.svg?inline'
-import DiscordIcon from 'assets/icons/currentColor/Discord.svg?inline'
-import SiteIcon from 'assets/icons/currentColor/Explore.svg?inline'
-import { HexagonWrapped } from '../../../ui/Hexagon/HexagonWrapped'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const ProjectInfos: React.FC<{ project: Project }> = ({ project }) => {
-  const linksByKey = project.links?.reduce((acc, x) => {
-    // @ts-ignore
-    acc[x.key] = x.value
-    return acc
-  }, {} as any)
   return (
     <div className="ProjectInfos sticky top-6 left-0">
       <div className="block mb-4">
@@ -56,7 +48,7 @@ const ProjectInfos: React.FC<{ project: Project }> = ({ project }) => {
                   className="w-full px-4 whitespace-nowrap"
                   disabled={project.currentRoundIndex !== 0}>
                   <BoltIcon className="mr-1" />
-                  Booster quests
+                  <ButtonTitle title="Booster quests" />
                 </BaseButton>
               </a>
             </Link>
@@ -67,37 +59,6 @@ const ProjectInfos: React.FC<{ project: Project }> = ({ project }) => {
       <div className="block">
         <div className="block__item">
           <div className="title--small">Links</div>
-          <div className="flex gap-2">
-            {linksByKey['site'] && (
-              <Link href={linksByKey['site']}>
-                <a target="_blank" className="hover:scale-110 transition transform">
-                  <HexagonWrapped>
-                    <SiteIcon width="28" height="28" viewBox="0 0 24 24" />
-                  </HexagonWrapped>
-                </a>
-              </Link>
-            )}
-
-            {linksByKey.twitter && (
-              <Link href={linksByKey.twitter}>
-                <a target="_blank" className="hover:scale-110 transition transform">
-                  <HexagonWrapped>
-                    <TwitterIcon />
-                  </HexagonWrapped>
-                </a>
-              </Link>
-            )}
-
-            {linksByKey.discord && (
-              <Link href={linksByKey.discord}>
-                <a target="_blank" className="hover:scale-110 transition transform">
-                  <HexagonWrapped>
-                    <DiscordIcon />
-                  </HexagonWrapped>
-                </a>
-              </Link>
-            )}
-          </div>
         </div>
 
         <div className="block--contrast">

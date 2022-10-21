@@ -21,7 +21,7 @@ const RoadmapItem: React.FC<PropsWithChildren<{ date: string; title: string }>> 
           alt={''}
           className="-mt-8 transition hover:scale-110 hover:translate-y-1"
         />
-        <div className="w-0.5 h-[97px] bg-whitePurple dark:bg-gray3 rounded-full"></div>
+        <div className="w-0.5 h-[97px] bg-primaryClearBg dark:bg-gray3 rounded-full"></div>
       </div>
       <div className="content">{children}</div>
     </div>

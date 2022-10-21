@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Avenir Next', ...defaultTheme.fontFamily.sans],
+        sans: ['Aeonic', ...defaultTheme.fontFamily.sans],
         heading: ['Druk Wide Web', ...defaultTheme.fontFamily.sans],
       },
       lineHeight: {
@@ -19,6 +19,8 @@ module.exports = {
       spacing: {
         22: '48px',
         '28px': '28px',
+        '26px': '26px',
+        '50px': '50px',
       },
       fontSize: {
         12: '12px',
@@ -33,14 +35,16 @@ module.exports = {
         primaryDark: '#370063',
         primaryClear: '#9D69DE',
         primary: '#8F00FF',
-        primaryClearBg: '#FAF3FF',
+        primaryClearBg: '#FFFFFF',
         whitePurple: '#C89CFF',
         midPurple: '#8A6AB1',
+        stillPurple: '#FAF3FF',
         gray: '#898989',
         bgPurple: 'rgba(143, 0, 255, 0.05)',
         primaryClearBgDark: '#161616',
         gray3: '#2C2A30',
         warning: '#FF6581',
+        grayClear: '#ECECEC',
       },
       maxWidth: {
         '558px': '558px',

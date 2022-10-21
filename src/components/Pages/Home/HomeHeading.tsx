@@ -12,6 +12,8 @@ import Planets from 'assets/animations/planet.svg?inline'
 import PlanetsDark from 'assets/animations/planet-dark.svg?inline'
 // import Line from 'assets/images/bg-line.svg'
 import ShoppingCart from 'assets/icons/currentColor/Shopping-cart.svg?inline'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
+import AuthIllustration from '../Auth/AuthIllustration'
 
 const HomeHeading = () => {
   const TitleSpans = ['Curated', 'Excellent', 'Audited']
@@ -31,7 +33,8 @@ const HomeHeading = () => {
 
   return (
     <div className="HomeHeading">
-      <div className="hidden lg:block bg-line"></div>
+      {/* <div className="bg-line"></div> */}
+      <AuthIllustration nocoin />
       <div className="g-container">
         <div className="flex items-end">
           <div>
@@ -56,7 +59,7 @@ const HomeHeading = () => {
               <Link href={'/buy'}>
                 <BaseButton className={'px-3 lg:px-12 group'} medium={true}>
                   <ShoppingCart className={'mr-3'} />
-                  Buy $ASTR
+                  <ButtonTitle title="Buy $ASTR" />
                   <Chevron className={'ml-3 icon-right'} />
                 </BaseButton>
               </Link>

@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { useRef, useCallback, Fragment, useEffect } from 'react'
+import React, { useRef, useCallback, useEffect } from 'react'
 
 import InputGroup from './InputGroup'
 
@@ -39,7 +39,7 @@ const TextInput: React.FC<{
   }, [input.current, error])
 
   return (
-    <Fragment>
+    <div className="relative z-10">
       {!!label && (
         <div className={classNames('flex', 'mb-1')}>
           <div
@@ -56,6 +56,7 @@ const TextInput: React.FC<{
         alignLabel="right"
         label={<span className={classNames({ icon_invalid: error })}>{icon}</span>}
         adornment={adornment}
+        className="highlight_shadow white"
         onClick={handleClick}
         error={error}
         size={size}>
@@ -90,7 +91,7 @@ const TextInput: React.FC<{
           />
         </div>
       </InputGroup>
-    </Fragment>
+    </div>
   )
 }
 

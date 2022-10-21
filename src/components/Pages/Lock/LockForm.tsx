@@ -16,6 +16,7 @@ import ToastActions from 'actions/toast.actions'
 import { ToastState } from 'components/ui/Toast/utils'
 import { differenceInDays } from 'date-fns'
 import Spinner from 'components/ui/Spinner/Spinner'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const LockForm = ({
   zkpBalance,
@@ -170,7 +171,7 @@ const LockForm = ({
                   Number(zkpLPAmount) > Number(lpBalance)
                 }>
                 <LockIcon className={'mr-2'} />
-                Lock
+                <ButtonTitle title="Lock" />
               </BaseButton>
             </div>
           </div>

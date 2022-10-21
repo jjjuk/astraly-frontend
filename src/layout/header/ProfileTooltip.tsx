@@ -19,6 +19,7 @@ import { useSelector, useStore } from 'react-redux'
 import { useAppDispatch } from 'hooks/hooks'
 import AuthActions from 'actions/auth.actions'
 import WalletConnectActions from 'actions/walletconnect.actions'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const ProfileTooltip = ({ close }: { close: () => void }) => {
   const { account, deactivate, activate, connector, error, active } = useStarknetReact()
@@ -96,7 +97,7 @@ const ProfileTooltip = ({ close }: { close: () => void }) => {
             <div>
               <BaseButton onClick={() => close()} white={true} className={'mb-2'}>
                 <User className={'mr-1'} />
-                Your Profile
+                <ButtonTitle title="Your Profile" />
                 <Chevron className={'ml-1 icon-right'} />
               </BaseButton>
             </div>

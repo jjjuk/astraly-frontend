@@ -75,7 +75,7 @@
   }
   &:hover {
     .icon-right {
-      transform: translateX(4px) translateY(-1px);
+      transform: translateX(4px);
     }
   }
 
@@ -129,9 +129,11 @@
     }
 
     .planets,
-    .bg-line {
+    .bg-line,
+    .auth {
       transition: all 0.3s ease-in-out;
       transform: translateY(400px);
+      opacity: 0;
     }
   }
 }

@@ -27,6 +27,7 @@ import Horizontal from '../../components/ui/Separator/Horizontal'
 import StarkNetLogoDark from '../../assets/images/Starknet-logo-white.svg'
 import ThemeSwitcher from '../../components/ui/ThemeSwitcher'
 import { useRouter } from 'next/router'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const Links = [
   [<TwitterIcon key="1" />, 'Twitter', TwitterLink],
@@ -102,12 +103,12 @@ const FooterIndex = () => {
             </div>
 
             <Link href={'/buy'}>
-              <div>
+              <div className='relative z-10'>
                 <BaseButton
                   className={'px-3 lg:px-12 group whitespace-nowrap w-auto'}
                   medium={true}>
                   <ShoppingCart className={'mr-3'} />
-                  Buy $ASTR
+                  <ButtonTitle title="Buy $ASTR" />
                   <Chevron className={'ml-3 icon-right'} />
                 </BaseButton>
               </div>

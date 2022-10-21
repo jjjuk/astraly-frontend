@@ -20,6 +20,7 @@ import { formatUnits } from 'ethers/lib/utils'
 import axios from 'axios'
 import Spinner from '../../../ui/Spinner/Spinner'
 import { useApi } from 'api'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const dateFormatter = (date: number) => {
   return format(new Date(date), 'dd/MMM')
@@ -385,7 +386,7 @@ const ProjectPortfolioPage = () => {
                     : true)
                 }>
                 <SendIcon className={'mr-2'} />
-                {withdrawing ? <Spinner /> : 'Withdraw'}
+                {withdrawing ? <Spinner /> : <ButtonTitle title="Withdraw" />}
               </BaseButton>
             </div>
           </div>
@@ -435,7 +436,7 @@ const ProjectPortfolioPage = () => {
                     //   : true)
                   }>
                   <SendIcon className={'mr-2'} />
-                  {withdrawing ? <Spinner /> : 'Claim NFTs'}
+                  {withdrawing ? <Spinner /> : <ButtonTitle title="Claim NFTs" />}
                 </BaseButton>
               </div>
             </div>

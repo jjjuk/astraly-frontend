@@ -12,6 +12,7 @@ import WarningIcon from 'assets/icons/outline/status/Warning.svg'
 import styles from './Toast.module.scss'
 import Spinner from '../Spinner/Spinner'
 import classNames from 'classnames'
+import ButtonTitle from '../buttons/ButtonTitle'
 
 const getStateIcon = (state: ToastState) => {
   switch (state) {
@@ -66,7 +67,7 @@ const Toast: React.FC<{ toast: ToastNotification }> = ({ toast }) => {
           </div>
           <div className="uppercase">
             <BaseButton onClick={() => remove()} xSmall={true} className="px-2">
-              Close
+              <ButtonTitle title="Close" />
             </BaseButton>
           </div>
         </div>

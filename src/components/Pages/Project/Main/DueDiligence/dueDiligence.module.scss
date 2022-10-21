@@ -1,15 +1,18 @@
 .dueDiligence {
   @apply leading-128 text-primaryClear;
   h3 {
-    @apply text-16 font-heading text-primary mb-4;
+    @apply text-16 font-sans text-primaryDark mb-4;
+
+    font-weight: 700;
+    line-height: 19px;
   }
 
   h4 {
-    @apply text-14 font-heading text-primary mb-4;
+    @apply text-14 font-sans text-primaryDark mb-4;
   }
 
   p {
-     @apply mb-4 max-w-[700px];
+    @apply mb-4 max-w-[700px];
   }
 
   ul {
@@ -25,7 +28,8 @@
 
 :global(.dark) {
   .dueDiligence {
-    h3, h4 {
+    h3,
+    h4 {
       @apply text-white;
     }
   }

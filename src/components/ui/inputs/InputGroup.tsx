@@ -9,8 +9,18 @@ const InputGroup: React.FC<
     size?: 'sm' | 'md' | 'xl'
     alignLabel?: 'left' | 'right' | 'center'
     error?: boolean
+    className?: string
   }>
-> = ({ children, label, adornment, onClick, size, alignLabel = 'left', error = false }) => {
+> = ({
+  children,
+  className,
+  label,
+  adornment,
+  onClick,
+  size,
+  alignLabel = 'left',
+  error = false,
+}) => {
   return (
     <div
       className={classnames(
@@ -34,11 +44,12 @@ const InputGroup: React.FC<
           ['dark:text-white']: !error,
           ['focus-within:text-primary']: !error,
           ['focus-within:border-primary']: !error,
-          ['border-whitePurple']: !error,
+          ['border-grayClear']: !error,
           ['dark:border-primary']: !error,
           ['border-red-500']: error,
           ['text-red-500']: error,
-        }
+        },
+        className
       )}
       onClick={onClick}
       role="button"

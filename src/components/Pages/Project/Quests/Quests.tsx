@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'stores/reduxStore'
 import { useQuery } from '@apollo/client'
 import { QUESTS } from 'api/gql/querries'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const QuestBlocks = ({
   quests,
@@ -55,11 +56,11 @@ const QuestBlocks = ({
               className={`${isClaimed(quest) && 'opacity-50 pointer-events-none'} `}
               onClick={() => showQuest(quest)}>
               {isClaimed(quest) ? (
-                'Claimed'
+                <ButtonTitle title="Claimed" />
               ) : (
                 <>
                   <ForwardIcon className={'mr-1'} />
-                  Go to Quest
+                  <ButtonTitle title="Go to Quest" />
                 </>
               )}
             </BaseButton>

@@ -35,6 +35,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
       return
     }
 
+    // import { ... } from 'date-fns' ? :D
     const remainingTime = new Date(_date).getTime() - new Date().getTime()
     const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24))
     const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
@@ -43,6 +44,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
     setRoundTimer(`${days}d ${hours}h ${minutes}m ${seconds}s`)
   }
 
+  // TODO: ws or ssr round subscription
   useEffect(() => {
     const roundId = project.currentRoundIndex
     const roundInfo = project.rounds[roundId]

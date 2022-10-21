@@ -11,6 +11,7 @@ import DatePicker from '../ui/inputs/DatePicker'
 import VideoUpload from '../ui/inputs/VideoUpload'
 import { useMutation } from '@apollo/client'
 import { UPDATE_PROJECT, UPDATE_QUEST } from '../../api/gql/mutations'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const ProjectForm: FC<{ project: Project }> = ({ project }) => {
   const [projectForm, setProjectForm] = useState({} as Project)
@@ -211,7 +212,7 @@ const ProjectForm: FC<{ project: Project }> = ({ project }) => {
         <div className="text-24 font-heading mb-4 flex sticky top-0 left-0 bg-white p-6 z-10">
           {title}
           <BaseButton small={true} className="px-4 ml-8" onClick={saveProject}>
-            Save
+            <ButtonTitle title="Save" />
           </BaseButton>
         </div>
         <BaseAdminInput
@@ -299,9 +300,9 @@ const ProjectForm: FC<{ project: Project }> = ({ project }) => {
           />
         </AdminInputGroup>
         <h3 className="flex uppercase font-bold text-24">
-          Links{' '}
+          Links
           <BaseButton xSmall={true} onClick={addLink} className="ml-4">
-            add{' '}
+            <ButtonTitle title="add " />
           </BaseButton>
         </h3>
         {projectForm.links?.map((x, index) => (
@@ -353,7 +354,7 @@ const ProjectForm: FC<{ project: Project }> = ({ project }) => {
         <h3 className="flex items-center">
           Categories
           <BaseButton xSmall={true} onClick={addCategory} className="ml-4">
-            add{' '}
+            <ButtonTitle title="add " />
           </BaseButton>
         </h3>
         {projectForm.categories?.map((x, index) => (
@@ -367,7 +368,7 @@ const ProjectForm: FC<{ project: Project }> = ({ project }) => {
         <h3 className="flex items-center">
           Rounds
           <BaseButton xSmall={true} onClick={addRound} className="ml-4">
-            add{' '}
+            <ButtonTitle title="add " />
           </BaseButton>
         </h3>
         {projectForm.rounds?.map((x, index) => (

@@ -21,10 +21,10 @@ const SocialsAuth: React.FC<{ signUp?: boolean }> = ({ signUp = false }) => {
           <BaseButton
             type="secondary"
             spanProps={{
-              className: 'items-center secondary_button_label',
+              className: 'items-center',
             }}
             className="px-6 w-min highlight_shadow">
-            <Twitter height={24} className="secondary_button_icon" style={{ marginTop: '-4px' }} />
+            <Twitter height={24} className="secondary_button_icon twitter_fill" />
           </BaseButton>
         </a>
         <a
@@ -33,10 +33,10 @@ const SocialsAuth: React.FC<{ signUp?: boolean }> = ({ signUp = false }) => {
           <BaseButton
             type="secondary"
             spanProps={{
-              className: 'items-center secondary_button_label',
+              className: 'items-center',
             }}
             className="px-6 w-min highlight_shadow">
-            <Google height={24} className="secondary_button_icon" style={{ marginTop: '-4px' }} />
+            <Google height={24} className="secondary_button_icon google_fill" />
           </BaseButton>
         </a>
       </div>

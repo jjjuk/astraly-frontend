@@ -8,6 +8,7 @@ import { SendIcon } from 'components/ui/Icons/Icons'
 import CartIcon from 'assets/icons/solid/Cart.svg?inline'
 import FireIcon from 'assets/icons/solid/Fire.svg?inline'
 import ChartIcon from 'assets/icons/solid/Chart.svg?inline'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const stepsText: { [key: Round['title']]: string | ReactNode[] } = {
   'Ticket Claim': ['Ticket Claim open', 'Ticket Claim closed', 'claim', <SendIcon key={'claim'} />],
@@ -42,7 +43,7 @@ const RoadmapItem = ({
     <div
       className={`${
         isActive
-          ? 'bg-white dark:bg-primaryClearBgDark rounded-3xl ui-t-primary shadow-sm'
+          ? 'bg-white dark:bg-primaryClearBgDark rounded-3xl ui-t-primary shadow-sm relative z-10 highlight_shadow'
           : 'ui-t-primaryClear'
       } p-3 xl:py-8 xl:px-4 2xl:px-6 flex flex-col`}>
       <div className="flex justify-between">
@@ -60,16 +61,18 @@ const RoadmapItem = ({
         {format(new Date(step.startDate), 'yyyy-MM-dd')}
       </div>
       {isActive ? (
-        <Link href={href}>
-          <a>
-            <BaseButton xSmall disabled={!isActive} className={'text-center px-1'}>
-              {ButtonText}
-            </BaseButton>
-          </a>
-        </Link>
+        <div className='relative z-10'>
+          <Link href={href}>
+            <a>
+              <BaseButton xSmall disabled={!isActive} className={'text-center px-1'}>
+                {typeof ButtonText === 'string' ? <ButtonTitle title={ButtonText} /> : ButtonText}
+              </BaseButton>
+            </a>
+          </Link>
+        </div>
       ) : (
         <BaseButton xSmall disabled={!isActive} className={'text-center px-1'}>
-          {ButtonText}
+          {typeof ButtonText === 'string' ? <ButtonTitle title={ButtonText} /> : ButtonText}
         </BaseButton>
       )}
     </div>
@@ -79,7 +82,7 @@ const RoadmapItem = ({
 const Roadmap = ({ project }: { project: Project }) => {
   return (
     <div className="Roadmap mb-4 md:mb-0">
-      <div className="block bg-whitePurple md:grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4 ">
+      <div className="block bg-primaryClearBg md:grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-4 ">
         {project.rounds.map((round, index) => (
           <RoadmapItem step={round} project={project} key={index} index={index} />
         ))}

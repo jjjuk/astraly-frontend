@@ -21,7 +21,7 @@ const Complete: React.FC<{ address: string }> = ({ address }) => {
           className="hidden dark:inline-block ml-3"
         />
       </div>
-      <div className="block bg-whitePurple px-8 py-9 max-w-436 mx-auto">
+      <div className="block bg-primaryClearBg px-8 py-9 max-w-436 mx-auto">
         <AuthForm address={address} />
       </div>
     </Container>

@@ -4,6 +4,7 @@ import { Project } from '../../interfaces'
 import Link from 'next/link'
 import Router from 'next/router'
 import BaseButton from '../../components/ui/buttons/BaseButton'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const index = () => {
   const { data, error } = useQuery(PROJECTS)
@@ -20,7 +21,9 @@ const index = () => {
           {project.name}
           <Link href={`/admin/project/${project.idoId}`}>
             <a className="inline-block ml-10">
-              <BaseButton xSmall={true}>Edit project</BaseButton>
+              <BaseButton xSmall={true}>
+                <ButtonTitle title="Edit project" />{' '}
+              </BaseButton>
             </a>
           </Link>
         </div>
@@ -40,7 +43,9 @@ const index = () => {
   return (
     <div className="g-container">
       <div className="w-80">
-        <BaseButton className="mb-10">New project</BaseButton>
+        <BaseButton className="mb-10">
+          <ButtonTitle title="New project" />
+        </BaseButton>
       </div>
 
       <div className="index grid grid-cols-3">

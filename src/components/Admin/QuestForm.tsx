@@ -11,6 +11,7 @@ import { useAppDispatch } from '../../hooks/hooks'
 import BaseButtonsGroup from '../ui/inputs/BaseButtonsGroup'
 import AdminInputGroup from '../ui/inputs/AdminInputGroup'
 import _ from 'lodash'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const QuestForm = ({ quest }: { quest: Quest }) => {
   const [questForm, setQuestForm] = useState({} as Quest)
@@ -146,7 +147,7 @@ const QuestForm = ({ quest }: { quest: Quest }) => {
           <div className="text-24 font-heading mb-4 flex">
             {title}
             <BaseButton small={true} className="px-4 ml-8" onClick={saveQuest}>
-              Save
+              <ButtonTitle title="Save" />
             </BaseButton>
           </div>
 

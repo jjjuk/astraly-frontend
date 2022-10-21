@@ -9,10 +9,10 @@ const BaseButton: React.FC<
     small?: boolean
     xSmall?: boolean
     medium?: boolean
-    auth?: boolean
     disabled?: boolean
     inline?: boolean
     white?: boolean
+    borderless?: boolean
     onClick?: React.MouseEventHandler<HTMLDivElement>
     type?: 'primary' | 'secondary'
     spanProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
@@ -23,32 +23,34 @@ const BaseButton: React.FC<
   small,
   xSmall,
   medium,
-  auth,
   disabled,
   inline,
   onClick,
   white,
   type = 'primary',
   spanProps,
+  borderless,
 }) => {
   const classes = classnames(
     'BaseButton',
     styles.baseButton,
+    className,
     {
       [styles.baseButtonSmall]: small,
       [styles.baseButtonXSmall]: xSmall,
-      [styles.baseButtonAuth]: auth,
+      // [styles.baseButtonAuth]: auth,
       [styles.baseButtonDisabled]: disabled,
       [styles.baseButtonInline]: inline,
       [styles.baseButtonWhite]: white,
       [styles.baseButtonMedium]: medium,
+      [styles.borderless]: borderless,
     },
-    styles[`baseButtonType__${type}`],
-    className
+    styles[`baseButtonType__${type}`]
   )
 
   return (
     <div className={classes} onClick={onClick} role="button" tabIndex={0} onKeyUp={() => {}}>
+      <div className={styles.frame} />
       <span {...spanProps}>{children}</span>
     </div>
   )

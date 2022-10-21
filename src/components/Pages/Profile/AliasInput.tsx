@@ -8,6 +8,7 @@ import BaseButton from '../../ui/buttons/BaseButton'
 import { isSameAddress } from '../../../utils'
 import { useSelector, useStore } from 'react-redux'
 import { useAppDispatch } from 'hooks/hooks'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const AliasInput: FC<{ user?: any; isSelf?: boolean }> = ({ user, isSelf = false }) => {
   const { account } = useStarknetReact()
@@ -43,7 +44,7 @@ const AliasInput: FC<{ user?: any; isSelf?: boolean }> = ({ user, isSelf = false
       {!isEditing && user?.alias && <div>{user.alias}</div>}
       {!isEditing && (
         <BaseButton xSmall={true} onClick={() => setIsEditing(true)}>
-          {!user?.alias ? 'Add Username' : 'change'}
+          <ButtonTitle title={!user?.alias ? 'Add Username' : 'change'} />
         </BaseButton>
       )}
       {isEditing && (
@@ -57,7 +58,7 @@ const AliasInput: FC<{ user?: any; isSelf?: boolean }> = ({ user, isSelf = false
             }}
           />
           <BaseButton xSmall={true} onClick={saveAlias}>
-            Save
+            <ButtonTitle title="Save" />
           </BaseButton>
         </>
       )}

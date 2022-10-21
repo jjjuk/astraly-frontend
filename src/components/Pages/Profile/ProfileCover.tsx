@@ -15,6 +15,7 @@ import AvatarUpload from './AvatarUpload'
 import AliasInput from './AliasInput'
 import BaseButton from 'components/ui/buttons/BaseButton'
 import { useTooltip } from 'context/TooltipProvider'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 let timeoutEvent: number | undefined
 
@@ -80,7 +81,7 @@ const ProfileCover: FC<{ user?: any; isSelf?: boolean }> = ({ user, isSelf = fal
                     </div>
                   ) : isSelf ? (
                     <BaseButton xSmall={true} onClick={() => setShowTooltip(true)}>
-                      Connect Wallet
+                      <ButtonTitle title="Connect Wallet" />
                     </BaseButton>
                   ) : (
                     <div className="font-heading">N/A</div>

@@ -17,6 +17,7 @@ import Spinner from '../../../ui/Spinner/Spinner'
 import ToastActions from 'actions/toast.actions'
 import { ToastState } from 'components/ui/Toast/utils'
 import { useAppDispatch } from 'hooks/hooks'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const ProjectClaimPage = () => {
   const router = useRouter()
@@ -44,8 +45,6 @@ const ProjectClaimPage = () => {
   useEffect(() => {
     data && setProject(data.project)
   }, [data])
-
-
 
   const handleClaimTickets = async () => {
     if (!project) return
@@ -136,7 +135,7 @@ const ProjectClaimPage = () => {
               <Link href="/stake">
                 <BaseButton className="xl:col-span-1 whitespace-nowrap px-5">
                   <LockIcon className={'mr-2'} />
-                  Lock more $ASTR
+                  <ButtonTitle title="Lock more $ASTR" />
                 </BaseButton>
               </Link>
             </div>

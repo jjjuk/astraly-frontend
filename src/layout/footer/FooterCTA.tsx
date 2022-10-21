@@ -5,6 +5,7 @@ import ForwardSolid from 'assets/icons/currentColor/Forward.svg?inline'
 import { useEffect, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { NEWSLETTER } from '../../api/gql/mutations'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const FooterCTA = () => {
   const [email, setEmail] = useState('')
@@ -55,11 +56,12 @@ const FooterCTA = () => {
                 placeholder={'satoshi@astraly.xyz'}
               />
             </div>
-
-            <BaseButton onClick={onSubmit} className="px-16 transform -translate-y-1">
-              <ForwardIcon className={'mr-1'} />
-              Subscribe
-            </BaseButton>
+            <div className="relative z-10">
+              <BaseButton onClick={onSubmit} className="px-16 transform -translate-y-1">
+                <ForwardIcon className={'mr-1'} />
+                <ButtonTitle title="Subscribe" />
+              </BaseButton>
+            </div>
           </form>
         )}
         {hasSubmitted && (

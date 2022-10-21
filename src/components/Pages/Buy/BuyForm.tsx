@@ -5,6 +5,7 @@ import BaseButton from '../../ui/buttons/BaseButton'
 import ArrowDown from 'assets/icons/ArrowDown.svg?inline'
 import Toggle from 'components/ui/inputs/Toggle'
 import { CartIcon } from '../../ui/Icons/Icons'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const BuyForm = () => {
   const [ethValue, setEthValue] = useState('0')
@@ -62,7 +63,7 @@ const BuyForm = () => {
         <div className="block__item">
           <BaseButton>
             <CartIcon className={'mr-3'} />
-            {buttonText}
+            <ButtonTitle title={buttonText} />
           </BaseButton>
         </div>
       </div>

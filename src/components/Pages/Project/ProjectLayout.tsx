@@ -15,7 +15,7 @@ const ProjectLayout = ({ children, project }: PropsWithChildren<{ project: Proje
         <div className="col-end-3 col-start-1 w-full">{children}</div>
 
         <div className="hidden lg:block">
-          <div className="sticky top-6 left-0">
+          <div className="sticky top-36 left-0">
             <Vertical />
           </div>
         </div>

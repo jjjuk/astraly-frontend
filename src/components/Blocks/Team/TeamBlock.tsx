@@ -60,7 +60,7 @@ const TeamBlock = () => {
             ))}
           </div>
 
-          <div className="block px-8 pt-6 pb-4 mb-20 bg-whitePurple max-w-[988px]">
+          <div className="block px-8 pt-6 pb-4 mb-20 bg-primaryClearBg max-w-[988px]">
             <div className="flex">
               <div className="icon mr-4 -mt-2">
                 <Shield />

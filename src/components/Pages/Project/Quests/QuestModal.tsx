@@ -20,6 +20,7 @@ import Spinner from 'components/ui/Spinner/Spinner'
 import { useQuery } from '@apollo/client'
 import { USER } from '../../../../api/gql/querries'
 import AccountLinks from '../../Profile/AccountLinks'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const QuestModal = ({
   quest,
@@ -186,7 +187,7 @@ const QuestModal = ({
             <a href={quest.link} target="__blank" className={'col-span-2'}>
               <BaseButton>
                 <ForwardIcon className={'mr-1'} />
-                Open Link
+                <ButtonTitle title="Open Link" />
               </BaseButton>
             </a>
           </div>
@@ -217,7 +218,8 @@ const QuestModal = ({
                   className="px-4 ml-4 flex-shrink-0"
                   xSmall={true}
                   onClick={() => refetch()}>
-                  Refresh info <img src={SandWatch} alt={''} className={'mr-2'} />
+                  <ButtonTitle title="Refresh info" />
+                  <img src={SandWatch} alt={''} className={'mr-2'} />
                 </BaseButton>
               )}
             </div>
@@ -237,19 +239,24 @@ const QuestModal = ({
               className={`${!canSubmit && 'opacity-50 pointer-events-none'} `}
               onClick={() => approve()}>
               {!canSubmit && <img src={SandWatch} alt={''} className={'mr-2'} />}
-              {!canSubmit &&
-                (quest.type === QuestType.PRODUCT
-                  ? 'Waiting Hash'
-                  : isTwitter
-                  ? 'Link your account'
-                  : 'Waiting Url')}
+              {!canSubmit && (
+                <ButtonTitle
+                  title={
+                    quest.type === QuestType.PRODUCT
+                      ? 'Waiting Hash'
+                      : isTwitter
+                      ? 'Link your account'
+                      : 'Waiting Url'
+                  }
+                />
+              )}
 
               {canSubmit && <LikeIcon className={'mr-2'} />}
-              {canSubmit && 'Approve Quest'}
+              {canSubmit && <ButtonTitle title="Approve Quest" />}
             </BaseButton>
           ) : (
             <BaseButton className={`${'opacity-50 pointer-events-none'} `}>
-              <Spinner /> Approving...
+              <Spinner /> <ButtonTitle title="Approving..." />
             </BaseButton>
           )}
         </div>

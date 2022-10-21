@@ -14,6 +14,7 @@ import FaqBlock from '../../components/Blocks/Faq/FaqBlock'
 import TeamBlock from '../../components/Blocks/Team/TeamBlock'
 import FloatingMenu from '../../components/ui/FloatingMenu/FloatingMenu'
 import { BoltIcon } from 'components/ui/Icons/Icons'
+import ProgressBar from 'components/ui/ProgressBar/ProgressBar'
 
 const Home = () => {
   const [search, setSearch] = useState('')
@@ -43,6 +44,17 @@ const Home = () => {
       <FloatingMenu />
 
       <Container className="mt-16 mb-[50px]">
+        <div className=" block p-6 flex-col w-96 gap-3">
+          <h3 className="font-bold text-20">WORK PREVIEW</h3> <br /> Normal <ProgressBar className="m-3" value={50} />
+          Glowing <ProgressBar className="m-3" glowing value={50} />
+          Small Glowing <ProgressBar className="m-3" size="sm" glowing value={50} />
+          Gradient <ProgressBar className="m-3" gradient value={25} />
+          <ProgressBar className="m-3" gradient value={50} />
+          <ProgressBar className="m-3" gradient value={75} />
+          Disabled  <ProgressBar className="m-3" gradient disabled value={75} />
+        </div>
+        <div className="h-14" />
+
         <div className="flex flex-col md:flex-row md:items-center mb-9 gap-4">
           <h2 className="ui-t-dark capitalize font-heading text-24 mr-6">Ongoing Projects</h2>
           {/*<Filter />*/}

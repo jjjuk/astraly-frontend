@@ -2,9 +2,10 @@ import Illustration from 'assets/images/illustration-auth.svg?inline'
 import IllustrationDark from 'assets/images/illustration-auth--dark.svg?inline'
 
 import Coin from 'assets/animations/auth-coin.gif'
+import { FC } from 'react'
 
-const AuthIllustration = () => (
-  <div className="ui-page-block auth">
+const AuthIllustration: FC<{ nocoin?: boolean }> = ({ nocoin }) => (
+  <div className="ui-page-block relative -z-50 auth">
     <div
       style={{
         position: 'relative',
@@ -28,18 +29,20 @@ const AuthIllustration = () => (
         }}
       />
     </div>
-    <img
-      className="hidden lg:block"
-      src={Coin.src}
-      alt="Coin"
-      style={{
-        zIndex: 1,
-        position: 'absolute',
-        top: '250px',
-        right: 'calc((100vw / 4.98) - ((1728px - 100vw) / 4.98))',
-        height: '472px',
-      }}
-    />
+    {!nocoin && (
+      <img
+        className="hidden lg:block"
+        src={Coin.src}
+        alt="Coin"
+        style={{
+          zIndex: 1,
+          position: 'absolute',
+          top: '57px',
+          right: 'calc((100vw / 4.98) - ((1728px - 100vw) / 4.98))',
+          height: '472px',
+        }}
+      />
+    )}
   </div>
 )
 

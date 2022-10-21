@@ -9,7 +9,7 @@ const CheckBox: React.FC<{
   onClick: React.MouseEventHandler<HTMLInputElement>
 }> = ({ id, value, onClick, label }) => {
   return (
-    <div>
+    <div className="relative z-10">
       <input
         type="checkbox"
         className={styles.checkbox}

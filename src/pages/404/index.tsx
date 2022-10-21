@@ -7,6 +7,7 @@ import IconReply from 'assets/icons/outline/Reply.svg?inline'
 import Planets from 'assets/animations/planet.svg?inline'
 
 import styles from './404.module.scss'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 export default function Custom404() {
   const handleBack = useCallback(() => {
@@ -22,7 +23,7 @@ export default function Custom404() {
           className={classnames(styles.notFound__return, 'px-5')}
           inline
           onClick={handleBack}>
-          <IconReply /> Return where I was
+          <IconReply /> <ButtonTitle title="Return where I was" />
         </BaseButton>
       </div>
       <svg

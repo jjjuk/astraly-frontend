@@ -17,10 +17,14 @@ import { useSelector } from 'react-redux'
 import BaseButton from 'components/ui/buttons/BaseButton'
 import { useRouter } from 'next/router'
 
+import styles from './AppHeader.module.scss'
+import classNames from 'classnames'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
+
 const Header: React.FC = () => {
-  const { account, deactivate, chainId } = useStarknetReact()
-  const [loading, setLoading] = useState(false)
-  const { getAuthToken, getAccountDetails } = useApi()
+  const { /* account, chainId, */ deactivate } = useStarknetReact()
+  // const [loading, setLoading] = useState(false)
+  // const { getAuthToken, getAccountDetails } = useApi()
   const dispatch = useAppDispatch()
 
   // @ts-ignore
@@ -67,15 +71,15 @@ const Header: React.FC = () => {
   // }, [account, chainId])
 
   return (
-    <div className="header">
-      <div className="g-container flex justify-between w-full py-22 items-center">
+    <div className={classNames(styles.appHeader)}>
+      <div className={classNames(styles.appHeader__container, 'g-container')}>
         <Link href="/">
-          <div className="logo flex items-center cursor-pointer">
-            <img src={Logo} height="80" width="80" alt="Astraly logo" className="dark:hidden" />
+          <div className={classNames(styles.appHeader__logo)}>
+            <img src={Logo} height="52" width="52" alt="Astraly logo" className="dark:hidden" />
             <img
               src={LogoDark}
-              height="80"
-              width="80"
+              height="52"
+              width="52"
               alt="Astraly logo"
               className="hidden dark:inline-block"
             />
@@ -93,33 +97,38 @@ const Header: React.FC = () => {
           {!me?._id ? (
             <Fragment>
               <BaseButton
+                medium
                 onClick={() => router.push('/auth/login')}
                 className="mx-6"
+                type="secondary"
                 spanProps={{ className: 'px-4' }}>
-                Login
+                <ButtonTitle title="Login" />
               </BaseButton>
               <BaseButton
+                medium
                 onClick={() => router.push('/auth/signup')}
                 spanProps={{ className: 'px-4' }}
-                type="secondary">
-                Create Account
+                type="primary">
+                <ButtonTitle title="Create Account" />
               </BaseButton>
             </Fragment>
           ) : router.pathname !== '/profile' ? (
             <BaseButton
+              medium
               onClick={() => router.push('/profile')}
               className="mx-6"
               spanProps={{ className: 'px-4' }}
               type="secondary">
-              Account
+              <ButtonTitle title="Account" />
             </BaseButton>
           ) : (
             <BaseButton
+              medium
               onClick={handleSignOut}
               className="mx-6"
               spanProps={{ className: 'px-4' }}
               type="secondary">
-              Log Out
+              <ButtonTitle title="Log Out" />
             </BaseButton>
           )}
         </div>

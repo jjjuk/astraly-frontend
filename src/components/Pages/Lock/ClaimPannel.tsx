@@ -12,6 +12,7 @@ import { ethers } from 'ethers'
 import { useTransactions } from 'context/TransactionsProvider'
 import { useStakingContract } from 'contracts'
 import { ToastState } from 'components/ui/Toast/utils'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
   const { account } = useStarknetReact()
@@ -131,7 +132,7 @@ const ClaimPannel = ({ hideHarvest }: { hideHarvest?: boolean }) => {
               disabled={harvesting || Number(pendingRewards) === 0}
               small>
               <SendIcon className={'mr-2'} />
-              Claim {Number(pendingRewards).toFixed(3)} ASTR
+              <ButtonTitle title={`Claim ${Number(pendingRewards).toFixed(3)} ASTR`} />
             </BaseButton>
           </div>
         </div>

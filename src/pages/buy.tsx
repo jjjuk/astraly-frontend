@@ -11,6 +11,7 @@ import { WalletIcon, SwapIcon } from 'components/ui/Icons/Icons'
 import Chevron from 'assets/icons/Chevron.svg?inline'
 import { useTransactions } from 'context/TransactionsProvider'
 import LotteryTicket from 'assets/animations/lottery-ticket.gif'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET'
 const CHAIN = isMainnet ? 'SN_MAIN' : 'SN_GOERLI'
@@ -102,7 +103,7 @@ const BuyPageContainer = () => {
                   onClick={handleTransfer}
                   disabled={!allowed}
                   className={'px-3 lg:px-12 group'}>
-                  Mint
+                  <ButtonTitle title="Mint" />
                 </BaseButton>
               </div>
 
@@ -115,7 +116,7 @@ const BuyPageContainer = () => {
                   className={'px-3 lg:px-12 group'}
                   medium={true}>
                   <WalletIcon className={'mr-3'} />
-                  Add ASTR to Wallet
+                  <ButtonTitle title="Add ASTR to Wallet" />
                   <Chevron className={'ml-3 icon-right'} />
                 </BaseButton>
               </div>
@@ -130,7 +131,7 @@ const BuyPageContainer = () => {
                 <div className="relative z-10">
                   <BaseButton>
                     <SwapIcon className={'mr-3'} />
-                    AlphaRoad
+                    <ButtonTitle title="AlphaRoad" />
                   </BaseButton>
                 </div>
               </a>
@@ -152,7 +153,7 @@ const BuyPageContainer = () => {
               <div className="relative z-10">
                 <BaseButton>
                   <SwapIcon className={'mr-3'} />
-                  Trade on Aspect
+                  <ButtonTitle title="Trade on Aspect" />
                 </BaseButton>
               </div>
             </a>
@@ -163,7 +164,7 @@ const BuyPageContainer = () => {
               <div className="relative z-10">
                 <BaseButton className="mt-5">
                   <SwapIcon className={'mr-3'} />
-                  Trade on MintSquare
+                  <ButtonTitle title="Trade on MintSquare" />
                 </BaseButton>
               </div>
             </a>

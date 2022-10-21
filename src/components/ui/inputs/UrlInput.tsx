@@ -11,6 +11,7 @@ import Hint from '../Hint/Hint'
 import BaseButton from '../buttons/BaseButton'
 
 import styles from './UrlInput.module.scss'
+import ButtonTitle from '../buttons/ButtonTitle'
 
 const defaultOptions = {
   icon: <Explore className="mr-2" />,
@@ -67,7 +68,7 @@ const UrlInput: React.FC<{
 
       {!value && (
         <BaseButton xSmall className="uppercase" onClick={handlePaste}>
-          Paste
+          <ButtonTitle title="Paste" />
         </BaseButton>
       )}
 

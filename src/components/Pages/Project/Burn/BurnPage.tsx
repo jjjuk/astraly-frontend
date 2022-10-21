@@ -19,6 +19,7 @@ import { ToastState } from 'components/ui/Toast/utils'
 import { useQuery } from '@apollo/client'
 import { PROJECT } from '../../../../api/gql/querries'
 import Spinner from '../../../ui/Spinner/Spinner'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const BurnPage = () => {
   const router = useRouter()
@@ -171,7 +172,7 @@ const BurnPage = () => {
 
                 <BaseButton onClick={handleBurnTickets} disabled={burning}>
                   <FireIcon />
-                  {burning ? <Spinner /> : 'Burn Tickets'}
+                  {burning ? <Spinner /> : <ButtonTitle title="Burn Tickets" />}
                 </BaseButton>
               </div>
             </div>

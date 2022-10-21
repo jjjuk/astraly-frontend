@@ -1,3 +1,4 @@
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 import BaseButton from '../../ui/buttons/BaseButton'
 
 const VerifyAccount = () => {
@@ -12,7 +13,9 @@ const VerifyAccount = () => {
 
       <div className="block__item">
         <div className="relative z-10">
-          <BaseButton disabled>Submit your KYC</BaseButton>
+          <BaseButton disabled>
+            <ButtonTitle title="Submit your KYC" />
+          </BaseButton>
         </div>
       </div>
     </div>

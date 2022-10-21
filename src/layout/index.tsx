@@ -41,20 +41,26 @@ export default function Layout({ children }: PropsWithChildren<any>) {
     <>
       <div className="default-layout flex flex-col min-h-full relative">
         <div
-          className="noise absolute h-full w-full z-50 pointer-events-none"
+          className="noise absolute h-full w-full z-0 pointer-events-none"
           style={{
             backgroundImage: `url(${Noise.src})`,
           }}></div>
+
+        <div className="h-36" />
         <div className="w-full overflow-hidden">
           <Marquee
             style={{
-              background: 'black',
+              // background: 'rgba(20,20,20, 0.5)',
               width: '100vw',
               height: '28px',
+              position: 'fixed',
+              zIndex: 1001,
+              top: 0,
+              left: 0,
             }}
             speed={50}
             gradient={false}>
-            <div className="text-white flex items-center text-14 transform translate-y-px">
+            <div className="text-primaryDark dark:text-white flex items-center text-14 transform translate-y-px">
               This application runs on <span className="underline px-1">Starknet</span> testnet,
               which is still in
               <span className="font-bold pl-1"> alpha</span>. Transactions can take longer than
@@ -65,7 +71,11 @@ export default function Layout({ children }: PropsWithChildren<any>) {
         </div>
         <ToastContainer />
 
-        <div className="main-background"></div>
+        <div className="main-background">
+          <div id="bg-shadow-1" className="bg_shadow" />
+          <div id="bg-shadow-2" className="bg_shadow" />
+          <div id="bg-shadow-3" className="bg_shadow" />
+        </div>
 
         <Header />
 

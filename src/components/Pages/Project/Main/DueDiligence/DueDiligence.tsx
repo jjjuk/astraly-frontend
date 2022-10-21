@@ -6,6 +6,8 @@ import Star from 'assets/images/star--current.svg?inline'
 import Team from './images/team.png'
 import ReactMarkdown from 'react-markdown'
 
+const headerHeight = 124
+
 const Separator = () => {
   return (
     <>
@@ -37,11 +39,16 @@ const DueDiligence = ({ project }: { project: Project }) => {
 
   useEffect(() => {
     const watchScroll = () => {
-      const HighlightsTitleCurrent = HighlightsTitle.current?.getBoundingClientRect().top ?? 0
-      const SummaryTitleCurrent = SummaryTitle.current?.getBoundingClientRect().top ?? 0
-      const ProblemTitleCurrent = ProblemTitle.current?.getBoundingClientRect().top ?? 0
-      const SolutionTitleCurrent = SolutionTitle.current?.getBoundingClientRect().top ?? 0
-      const RoadmapTitleCurrent = RoadmapTitle.current?.getBoundingClientRect().top ?? 0
+      const HighlightsTitleCurrent =
+        (HighlightsTitle.current?.getBoundingClientRect().top ?? 0) - headerHeight
+      const SummaryTitleCurrent =
+        (SummaryTitle.current?.getBoundingClientRect().top ?? 0) - headerHeight
+      const ProblemTitleCurrent =
+        (ProblemTitle.current?.getBoundingClientRect().top ?? 0) - headerHeight
+      const SolutionTitleCurrent =
+        (SolutionTitle.current?.getBoundingClientRect().top ?? 0) - headerHeight
+      const RoadmapTitleCurrent =
+        (RoadmapTitle.current?.getBoundingClientRect().top ?? 0) - headerHeight
       let current = 'Highlights'
 
       if (RoadmapTitleCurrent < 0) {
@@ -76,7 +83,7 @@ const DueDiligence = ({ project }: { project: Project }) => {
     <div className="DueDiligence block p-8 mb-10">
       <div className="lg:flex gap-16">
         <div className="hidden lg:block">
-          <DueDiligenceMenu current={current} />
+          <DueDiligenceMenu project={project} current={current} />
         </div>
 
         <div className={`${styles.dueDiligence} lg:pr-40`}>

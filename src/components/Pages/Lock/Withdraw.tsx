@@ -10,6 +10,7 @@ import { useAppDispatch } from 'hooks/hooks'
 import ToastActions from 'actions/toast.actions'
 import { ToastState } from 'components/ui/Toast/utils'
 import Spinner from '../../ui/Spinner/Spinner'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const Withdraw = ({
   xzkpBalance,
@@ -115,7 +116,7 @@ const Withdraw = ({
             onClick={handleWithdraw}
             disabled={withdrawing || unlockRemainingTime > 0 || Number(zkpStaked) === 0}>
             <SendIcon className={'mr-2'} />
-            {withdrawing ? <Spinner /> : 'Withdraw'}
+            {withdrawing ? <Spinner /> : <ButtonTitle title="Withdraw" />}
           </BaseButton>
         </div>
 

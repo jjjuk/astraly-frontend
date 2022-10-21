@@ -15,6 +15,7 @@ import AuthIllustration from './AuthIllustration'
 
 import { useRouter } from 'next/router'
 import SocialsAuth from './SocialsAuth'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const Login = () => {
   const router = useRouter()
@@ -41,7 +42,7 @@ const Login = () => {
           />
         </div>
 
-        <div className="block bg-whitePurple px-8 py-9 max-w-436 mx-auto lg:mx-0">
+        <div className="block px-8 py-9 max-w-436 mx-auto lg:mx-0">
           <AuthForm />
 
           <div className="flex h-5 items-center my-4">
@@ -67,12 +68,10 @@ const Login = () => {
                 spanProps={{
                   className: 'flex items-center justify-center',
                 }}
-                className="px-6 outlined_button">
-                <span
-                  style={{ whiteSpace: 'nowrap', marginTop: -4 }}
-                  className="text-xs text-primaryClear secondary_button_label">
+                className="px-6 w-full">
+                <span style={{ whiteSpace: 'nowrap' /* marginTop: -4  */ }}>
                   <WalletIcon className={'mr-3 secondary_button_icon'} />
-                  Sign Up
+                  <ButtonTitle title="Sign Up" />
                 </span>
               </BaseButton>
             </div>

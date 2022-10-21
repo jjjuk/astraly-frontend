@@ -25,6 +25,7 @@ import PasswordValidator from 'password-validator'
 import classNames from 'classnames'
 import { useAppDispatch } from 'hooks/hooks'
 import Spinner from 'components/ui/Spinner/Spinner'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 export interface RequestForm {
   payload: { email: string }
@@ -73,7 +74,7 @@ const RequestReset: React.FC = () => {
           <p className="text-24">Recover Your password with security.</p>
         </div>
 
-        <div className="block bg-whitePurple px-8 py-9 max-w-436 mx-auto lg:mx-0">
+        <div className="block bg-primaryClearBg px-8 py-9 max-w-436 mx-auto lg:mx-0">
           {!called ? (
             <React.Fragment>
               <div className="mb-28px">
@@ -88,19 +89,20 @@ const RequestReset: React.FC = () => {
                   error={form.errors.email}
                 />
               </div>
-              <div className="mt-4">
+              <div className="relative z-10 mt-4">
                 <BaseButton
                   spanProps={{
                     className: 'w-full items-center',
                     style: { justifyContent: 'space-between' },
                   }}
                   className="px-7"
-                  auth
                   disabled={!form.payload.email || form.errors.email}
                   onClick={submit}>
-                  <span style={{ whiteSpace: 'nowrap', marginTop: '-4px' }} className="text-14">
+                  <span
+                    style={{ whiteSpace: 'nowrap' /* marginTop: '-4px' */ }}
+                    className="text-14">
                     <LoginIcon className="mr-5" />
-                    {'Send recovery to E-mail'}
+                    <ButtonTitle title="Send recovery to E-mail" />
                   </span>
                   <Chevron className={'icon-right ml-3'} />
                 </BaseButton>
@@ -136,12 +138,10 @@ const RequestReset: React.FC = () => {
                   spanProps={{
                     className: 'flex items-center justify-center',
                   }}
-                  className="px-6 outlined_button w-full mr-2">
-                  <span
-                    style={{ whiteSpace: 'nowrap', marginTop: -4 }}
-                    className="text-xs text-primaryClear secondary_button_label">
+                  className="px-6 w-full mr-2">
+                  <span style={{ whiteSpace: 'nowrap' /* marginTop: -4 */ }}>
                     <WalletIcon className={'mr-3 secondary_button_icon'} />
-                    Sign Up
+                    <ButtonTitle title="Sign Up" />
                   </span>
                 </BaseButton>
               </Link>
@@ -153,12 +153,10 @@ const RequestReset: React.FC = () => {
                   spanProps={{
                     className: 'flex items-center justify-center',
                   }}
-                  className="px-6 outlined_button w-full ml-2">
-                  <span
-                    style={{ whiteSpace: 'nowrap', marginTop: -4 }}
-                    className="text-xs text-primaryClear secondary_button_label">
+                  className="px-6 w-full ml-2">
+                  <span style={{ whiteSpace: 'nowrap' /* marginTop: -4 */ }}>
                     <WalletIcon className={'mr-3 secondary_button_icon'} />
-                    Login Now
+                    <ButtonTitle title="Login Now" />
                   </span>
                 </BaseButton>
               </Link>
@@ -263,19 +261,20 @@ const Reset: React.FC<{ token: string }> = ({ token }) => {
                   }
                 />
               </div>
-              <div className="mt-4">
+              <div className="mt-4 relative z-10">
                 <BaseButton
                   spanProps={{
                     className: 'w-full items-center',
                     style: { justifyContent: 'space-between' },
                   }}
                   className="px-7"
-                  auth
                   disabled={!form.payload.password || form.errors.password}
                   onClick={submit}>
-                  <span style={{ whiteSpace: 'nowrap', marginTop: '-4px' }} className="text-14">
+                  <span
+                    style={{ whiteSpace: 'nowrap' /* marginTop: '-4px' */ }}
+                    className="text-14">
                     <LoginIcon className="mr-5" />
-                    {'Set New Password'}
+                    <ButtonTitle title="Set New Password" />
                   </span>
                   <Chevron className={'icon-right ml-3'} />
                 </BaseButton>
@@ -284,18 +283,19 @@ const Reset: React.FC<{ token: string }> = ({ token }) => {
           ) : (
             <React.Fragment>
               <p className="text-red-500">Invalid token. </p>
-              <div className="mt-4">
+              <div className="mt-4 relative z-10">
                 <BaseButton
                   spanProps={{
                     className: 'w-full items-center',
                     style: { justifyContent: 'space-between' },
                   }}
                   className="px-7"
-                  auth
                   onClick={() => router.push('/reset-password')}>
-                  <span style={{ whiteSpace: 'nowrap', marginTop: '-4px' }} className="text-14">
+                  <span
+                    style={{ whiteSpace: 'nowrap' /* marginTop: '-4px' */ }}
+                    className="text-14">
                     <LoginIcon className="mr-5" />
-                    {'Try Again'}
+                    <ButtonTitle title="Try Again" />
                   </span>
                   <Chevron className={'icon-right ml-3'} />
                 </BaseButton>

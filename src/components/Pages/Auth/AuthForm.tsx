@@ -26,6 +26,7 @@ import { GraphQLError } from 'graphql'
 import ToastActions from 'actions/toast.actions'
 import { ToastPositions, ToastState } from 'components/ui/Toast/utils'
 import { ApolloErrors } from 'constants/errors.graphql'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const schema = new PasswordValidator().min(8).max(24).uppercase().symbols()
 
@@ -229,19 +230,19 @@ const AuthForm: React.FC<{
           </p>
         </div>
       )}
-      <div className="mt-4">
+
+      <div className="relative mt-4 z-10">
         <BaseButton
           spanProps={{
-            className: 'w-full items-center',
-            style: { justifyContent: 'space-between', marginTop: '-4px' },
+            className: 'w-full items-center mx-7',
+            style: { justifyContent: 'space-between' /* marginTop: '-4px' */ },
           }}
-          className="px-7"
-          auth
+          className=""
           disabled={disabled}
           onClick={submit}>
           <span>
             <LoginIcon className="mr-5" />
-            {signUp ? 'Create Account' : 'Login Now'}
+            <ButtonTitle title={signUp ? 'Create Account' : 'Login Now'} />
           </span>
           <Chevron className={'icon-right ml-3'} />
         </BaseButton>

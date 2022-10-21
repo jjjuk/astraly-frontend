@@ -8,18 +8,18 @@ const Heading = () => {
 
   return (
     <>
-      <TransitionGroup className="">
-        {heading.isHome && (
-          <CSSTransition key={'home'} timeout={300} classNames="home-heading__animation">
-            <HomeHeading />
-          </CSSTransition>
-        )}
-        {/*{!heading.isHome && !heading.isProject && (*/}
-        {/*  <CSSTransition key={heading.page} timeout={300}>*/}
-        {/*    <h1>{heading.title} x</h1>*/}
-        {/*  </CSSTransition>*/}
-        {/*)}*/}
-      </TransitionGroup>
+      {/* <TransitionGroup className=""> */}
+      {heading.isHome && (
+        // <CSSTransition key={'home'} timeout={300} classNames="home-heading__animation">
+        <HomeHeading />
+        // </CSSTransition>
+      )}
+      {/*{!heading.isHome && !heading.isProject && (*/}
+      {/*  <CSSTransition key={heading.page} timeout={300}>*/}
+      {/*    <h1>{heading.title} x</h1>*/}
+      {/*  </CSSTransition>*/}
+      {/*)}*/}
+      {/* </TransitionGroup> */}
     </>
   )
 }

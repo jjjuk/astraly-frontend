@@ -2,6 +2,7 @@ import BaseButton from '../../../ui/buttons/BaseButton'
 import Check from 'assets/icons/solid/Check.svg'
 import { LockIcon, CheckedIcon } from '../../../ui/Icons/Icons'
 import Link from 'next/link'
+import ButtonTitle from 'components/ui/buttons/ButtonTitle'
 
 const QuestRequirements = () => {
   return (
@@ -22,19 +23,19 @@ const QuestRequirements = () => {
             </div>
             <BaseButton disabled>
               <CheckedIcon className={'mr-1'} />
-              Submit your KYC
+              <ButtonTitle title="Submit your KYC" />
             </BaseButton>
           </div>
 
           <div>
             <div className="font-bold text-center text-primary mb-3 flex items-center justify-center">
               <img src={Check} alt={''} className={'mr-2 transform -translate-y-0.5'} />
-              Lock 200 ASTR on our vault
+              <ButtonTitle title="Lock 200 ASTR on our vault" />
             </div>
             <Link href="/stake">
               <BaseButton>
                 <LockIcon className={'mr-1'} />
-                Lock more $ASTR
+                <ButtonTitle title="Lock more $ASTR" />
               </BaseButton>
             </Link>
           </div>

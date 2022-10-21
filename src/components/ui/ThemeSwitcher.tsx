@@ -16,7 +16,7 @@ const ThemeSwitcher = () => {
   }
   return (
     <div className="ThemeSwitcher">
-      <div className="dark:bg-gray3 p-2 bg-white rounded-xl cursor-pointer" onClick={toggleTheme}>
+      <div className="dark:bg-gray3 p-2 bg-white rounded-xl cursor-pointer highlight_shadow" onClick={toggleTheme}>
         <img src={Moon} alt={''} className="dark:hidden" />
         <img src={Sun} alt={''} className="hidden dark:inline-block" />
       </div>
